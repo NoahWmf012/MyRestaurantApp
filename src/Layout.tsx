@@ -1,19 +1,14 @@
-import { createBrowserRouter, Route } from 'react-router-dom'
-import HomePage from './pages/home/HomePage'
 
-export const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
-            <Route path="" element={<HomePage />} />
-        </Route>
-    )
-)
+import { Outlet } from 'react-router-dom'
+import Footer from './pages/Footer'
+import Header from './pages/Header'
 
-
-function Layout() {
+export const Layout = () => {
     return (
-        <div>Layout</div>
+        <>
+            <Header />
+            <Outlet />
+            <Footer />
+        </>
     )
 }
-
-export default Layout
