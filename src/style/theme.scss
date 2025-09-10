@@ -1,0 +1,22 @@
+@use './variables' as *;
+
+.header-container {
+    background-color: $primary-color;
+    color: $text-color;
+}
+
+.btn.util-btn {
+    background-color: $secondary-color;
+    color: $text-color;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    border: 1px solid $border-color;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
