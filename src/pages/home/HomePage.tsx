@@ -5,7 +5,7 @@ import WhatsHot from "../../components/section/WhatsHot"
 
 function HomePage() {
     return (
-        <div>
+        <div className="home-page-container">
             {/* 'What's Hot' section */}
             <WhatsHot />
 

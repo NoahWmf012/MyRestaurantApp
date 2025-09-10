@@ -1,5 +1,9 @@
 @use './variables' as *;
 
+.home-page-container {
+    margin: 10px;
+}
+
 .header-container {
     background-color: $primary-color;
     color: $text-color;
@@ -14,9 +18,27 @@
     cursor: pointer;
 }
 
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    min-width: 1000px;
+}
+
 input[type="text"] {
     border: 1px solid $border-color;
     padding: 0.5rem;
     border-radius: 0.5rem;
     box-sizing: border-box;
+}
+
+.card.whats-hot-item {
+    width: 160px;
+
+    .card-img-top {
+        width: 158px;
+        height: 150px;
+        object-fit: cover;
+        border-top: 1px;
+    }
 }

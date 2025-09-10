@@ -5,4 +5,5 @@ export interface RestaurantInfoInterface {
     rating: number;
     location: string;
     phoneNum: string;
+    desc: string;
 }
