@@ -3,6 +3,8 @@ import OrderIcon from "../../assets/icons/order.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
+import { useAppDispatch } from "../../redux/store";
+import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
 
 type OrderAgainItemProps = {
     imageSrc: string;
@@ -21,28 +23,39 @@ function OrderAgainItem(props: OrderAgainItemProps) {
 }
 
 function OrderAgain() {
+    const dispatch = useAppDispatch()
     return (
-        <div className="section-wrapper">
+        <div className="order-again-wrapper">
             <div className="section-title">
                 <img src={OrderIcon} alt="Order Icon" className="title-icon order-icon" />
                 Order Again
             </div>
-            {/* History of Orders */}
-            <Carousel
-                responsive={RESPONSIVE_SETTINGS}
-                draggable
-            >
-                {RESTAURANT_LIST.map((restaurant) => (
-                    <OrderAgainItem
-                        key={restaurant.id}
-                        imageSrc={getRestaurantImage2(restaurant.id)}
-                        title={restaurant.name}
-                        desc={restaurant.desc}
-                    />
-                ))}
-            </Carousel>
 
-            {/* Drawer */}
+            <div className="d-flex flex-row align-items-center">
+                {/* History of Orders */}
+                <div className="carousel-container">
+                    <Carousel
+                        responsive={RESPONSIVE_SETTINGS}
+                        draggable
+                    >
+                        {RESTAURANT_LIST.map((restaurant) => (
+                            <OrderAgainItem
+                                key={restaurant.id}
+                                imageSrc={getRestaurantImage2(restaurant.id)}
+                                title={restaurant.name}
+                                desc={restaurant.desc}
+                            />
+                        ))}
+                    </Carousel>
+                </div>
+
+
+                {/* Roulette */}
+                <div id="order-again-roulette">
+                    <button onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
+                </div>
+            </div>
+
         </div>
     )
 }

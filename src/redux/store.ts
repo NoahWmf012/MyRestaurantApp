@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
 import { combineReducers } from "redux";
+import { showErrModalState, showRouletteModalState } from "./reducers/modalVisibleSlice";
 
 const reducer = combineReducers({
     //frontend states
+    showErrModal: showErrModalState.reducer,
+    showRouletteModal: showRouletteModalState.reducer,
 
     //API reducers
 })

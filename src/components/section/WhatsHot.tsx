@@ -24,26 +24,29 @@ function WhatsHotItem(props: WhatsHotItemProps) {
 
 function WhatsHot() {
     return (
-        <div className="section-wrapper">
+        <div className="whats-hot-wrapper">
             {/* add a icon from assets/icon/fire.png before title */}
             <div className="section-title">
                 <img src={FireIcon} alt="Fire Icon" className="title-icon fire-icon" />
                 What's Hot
             </div>
-            <Carousel
-                responsive={RESPONSIVE_SETTINGS}
-                draggable
-            >
-                {RESTAURANT_LIST.map((restaurant) => (
-                    <WhatsHotItem
-                        key={restaurant.id}
-                        imageSrc={getRestaurantImage1(restaurant.id)}
-                        title={restaurant.name}
-                        text={restaurant.name}
-                        buttonLink="#"
-                    />
-                ))}
-            </Carousel>
+            <div className="carousel-container">
+                <Carousel
+                    responsive={RESPONSIVE_SETTINGS}
+                    draggable
+                >
+                    {RESTAURANT_LIST.map((restaurant) => (
+                        <WhatsHotItem
+                            key={restaurant.id}
+                            imageSrc={getRestaurantImage1(restaurant.id)}
+                            title={restaurant.name}
+                            text={restaurant.name}
+                            buttonLink="#"
+                        />
+                    ))}
+                </Carousel>
+            </div>
+
         </div>
     )
 }

@@ -48,9 +48,12 @@ input[type="text"] {
     }
 }
 
-/* Carousel */
-.section-wrapper {
+.whats-hot-wrapper {
     width: 520px;
+}
+
+.order-again-wrapper {
+    width: 800px;
 }
 
 .section-title {
@@ -64,7 +67,10 @@ input[type="text"] {
     height: 24px;
 }
 
-
+.carousel-container {
+    flex: 1 1 0;
+    min-width: 0; // prevents overflow issues
+}
 
 .horizontal-card {
     display: flex;
