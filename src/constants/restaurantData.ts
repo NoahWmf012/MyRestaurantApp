@@ -12,7 +12,7 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
     },
     {
         id: 2,
-        name: "Gyubee Japanese Grill (Markham)",
+        name: "Gyubee Japanese Grill",
         cuisine: "Japanese",
         rating: 4.6,
         location: "7100 Woodbine Ave #100, Markham, ON L3R 5J2",

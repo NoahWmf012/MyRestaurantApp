@@ -1,20 +1,25 @@
 @use './variables' as *;
 
 .home-page-container {
-    margin: 10px;
+    margin: 20px 40px 0;
 }
 
 .header-container {
     background-color: $primary-color;
     color: $text-color;
+    // height: 74px;
+    // padding: 10px 0;
 }
 
-.btn.util-btn {
-    background-color: $secondary-color;
-    color: $text-color;
+.title-btn {
+    display: flex;
+    align-items: center;
+    background-color: $button-bg-color;
+    border-radius: 100px;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 35px;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -28,7 +33,7 @@
 input[type="text"] {
     border: 1px solid $border-color;
     padding: 0.5rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
     box-sizing: border-box;
 }
 
@@ -57,4 +62,54 @@ input[type="text"] {
 .title-icon {
     width: 24px;
     height: 24px;
+}
+
+
+
+.horizontal-card {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 100px; // adjust as needed
+        height: 100px;
+        margin-right: 0.2rem;
+        object-fit: cover;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    .card-desc {
+        font-size: 12px;
+        max-height: 100px;
+
+        p {
+            display: -webkit-box;
+            -webkit-line-clamp: 5; // number of lines before ellipsis
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-word;
+        }
+    }
+}
+
+#home-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 74px;
+}
+
+#footer {
+    background-color: $background-color-secondary;
+    // color: $text-color;
+    // height: 60px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // flex-shrink: 0;
+    width: 100%;
+    height: 300px;
 }

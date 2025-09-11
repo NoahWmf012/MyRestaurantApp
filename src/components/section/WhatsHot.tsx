@@ -1,7 +1,8 @@
-import { RESTAURANT_LIST } from "../../constants/restaurantList"
+import { RESTAURANT_LIST } from "../../constants/restaurantData"
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import Carousel from "react-multi-carousel";
 import FireIcon from "../../assets/icons/whatshot.png"
+import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 
 //card items
 type WhatsHotItemProps = {
@@ -15,29 +16,11 @@ function WhatsHotItem(props: WhatsHotItemProps) {
         <div className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}>
             <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
             <div className="card-body">
-                <p className="card-text">{props.text}</p>
+                <p className="card-text"><strong>{props.text}</strong></p>
             </div>
         </div>
     )
 }
-
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 3,
-        slidesToSlide: 1
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 3,
-        slidesToSlide: 1
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
-        slidesToSlide: 1
-    }
-};
 
 function WhatsHot() {
     return (
@@ -48,7 +31,7 @@ function WhatsHot() {
                 What's Hot
             </div>
             <Carousel
-                responsive={responsive}
+                responsive={RESPONSIVE_SETTINGS}
                 draggable
             >
                 {RESTAURANT_LIST.map((restaurant) => (
@@ -56,7 +39,7 @@ function WhatsHot() {
                         key={restaurant.id}
                         imageSrc={getRestaurantImage1(restaurant.id)}
                         title={restaurant.name}
-                        text={restaurant.desc}
+                        text={restaurant.name}
                         buttonLink="#"
                     />
                 ))}
