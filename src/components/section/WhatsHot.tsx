@@ -1,6 +1,7 @@
 import { RESTAURANT_LIST } from "../../constants/restaurantList"
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import Carousel from "react-multi-carousel";
+import FireIcon from "../../assets/icons/whatshot.png"
 
 //card items
 type WhatsHotItemProps = {
@@ -11,7 +12,7 @@ type WhatsHotItemProps = {
 }
 function WhatsHotItem(props: WhatsHotItemProps) {
     return (
-        <div className={`card whats-hot-item border-0 shadow-sm shadow mb-2 bg-white rounded`}>
+        <div className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}>
             <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
             <div className="card-body">
                 <p className="card-text">{props.text}</p>
@@ -41,7 +42,11 @@ const responsive = {
 function WhatsHot() {
     return (
         <div className="section-wrapper">
-            {/* <div className=""> */}
+            {/* add a icon from assets/icon/fire.png before title */}
+            <div className="section-title">
+                <img src={FireIcon} alt="Fire Icon" className="title-icon fire-icon" />
+                What's Hot
+            </div>
             <Carousel
                 responsive={responsive}
                 draggable
