@@ -1,5 +1,6 @@
 import { RESTAURANT_LIST } from "../../constants/restaurantList"
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
+import Carousel from "react-multi-carousel";
 
 //card items
 type WhatsHotItemProps = {
@@ -10,7 +11,7 @@ type WhatsHotItemProps = {
 }
 function WhatsHotItem(props: WhatsHotItemProps) {
     return (
-        <div className="card whats-hot-item">
+        <div className={`card whats-hot-item border-0 shadow-sm shadow mb-2 bg-white rounded`}>
             <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
             <div className="card-body">
                 <p className="card-text">{props.text}</p>
@@ -19,18 +20,42 @@ function WhatsHotItem(props: WhatsHotItemProps) {
     )
 }
 
+const responsive = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3,
+        slidesToSlide: 1
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 3,
+        slidesToSlide: 1
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+        slidesToSlide: 1
+    }
+};
+
 function WhatsHot() {
     return (
-        <div className="column section-wrapper flex d-flex gap-1">
-            {RESTAURANT_LIST.map((restaurant) => (
-                <WhatsHotItem
-                    key={restaurant.id}
-                    imageSrc={getRestaurantImage1(restaurant.id)}
-                    title={restaurant.name}
-                    text={restaurant.desc}
-                    buttonLink="#"
-                />
-            ))}
+        <div className="section-wrapper">
+            {/* <div className=""> */}
+            <Carousel
+                responsive={responsive}
+                draggable
+            >
+                {RESTAURANT_LIST.map((restaurant) => (
+                    <WhatsHotItem
+                        key={restaurant.id}
+                        imageSrc={getRestaurantImage1(restaurant.id)}
+                        title={restaurant.name}
+                        text={restaurant.desc}
+                        buttonLink="#"
+                    />
+                ))}
+            </Carousel>
         </div>
     )
 }
