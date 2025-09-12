@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import WheelCanvas from './WheelCanvas';
 import ResultModal from './ResultModal';
-import type { SpinWheelProps } from '../../interfaces/spinWheelInterface';
 import '../../style/SpinWheel.styles.css';
+
+interface SpinWheelProps {
+    items: string[];
+    onClose: () => void;
+    onItemsChange: (newItems: string[]) => void;
+}
 
 export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelProps) {
     const [rotation, setRotation] = useState(0);
@@ -34,6 +39,7 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
     };
 
     const handleRemoveWinner = () => {
+        if (items.length <= 2) return;
         if (prizeIndex !== null) {
             const updated = items.filter((_, i) => i !== prizeIndex);
             onItemsChange(updated);
@@ -78,6 +84,7 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
                         setTimeout(() => startSpin(), 250);
                     }}
                     onRemove={handleRemoveWinner}
+                    remainingItems={items.length}
                 />
             )}
         </div>

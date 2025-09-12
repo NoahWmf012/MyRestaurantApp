@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../redux/store';
-import SpinWheel from '../spinWheel/SpinWheel';
+import SpinWheel from './SpinWheel';
+import RestaurantInput from './RestaurantInput';
 
 type RoulettePopupProps = {
     onClose: () => void;
 }
-
 
 function RoulettePopup(props: RoulettePopupProps) {
     const show = useAppSelector((state) => state.showRouletteModalState.visible);
@@ -13,11 +13,15 @@ function RoulettePopup(props: RoulettePopupProps) {
     if (!show) return null;
 
     return (
-        <SpinWheel
-            items={restaurants}
-            onClose={() => props.onClose()}
-            onItemsChange={setRestaurants}
-        />
+        <>
+            <RestaurantInput />
+            <SpinWheel
+                items={restaurants}
+                onClose={() => props.onClose()}
+                onItemsChange={setRestaurants}
+            />
+        </>
+
     )
 }
 

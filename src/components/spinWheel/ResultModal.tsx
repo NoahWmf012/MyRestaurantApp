@@ -3,9 +3,10 @@ interface ResultModalProps {
     onClose: () => void;
     onSpinAgain: () => void;
     onRemove: () => void;
+    remainingItems: number;
 }
 
-export default function ResultModal({ winner, onClose, onSpinAgain, onRemove }: ResultModalProps) {
+export default function ResultModal({ winner, onClose, onSpinAgain, onRemove, remainingItems }: ResultModalProps) {
     return (
         <div
             className="spinwheel-overlay"
@@ -29,7 +30,11 @@ export default function ResultModal({ winner, onClose, onSpinAgain, onRemove }: 
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
                     <button className="spinwheel-button spinwheel-button-primary" onClick={onClose}>OK</button>
                     <button className="spinwheel-button spinwheel-button-secondary" onClick={onSpinAgain}>Spin Again</button>
-                    <button className="spinwheel-button spinwheel-button-danger" onClick={onRemove}>Remove</button>
+
+                    {/* no show remove button if remainingItems <= 2 */}
+                    {remainingItems > 2 &&
+                        <button className="spinwheel-button spinwheel-button-danger" onClick={onRemove}>Remove</button>
+                    }
                 </div>
             </div>
         </div>

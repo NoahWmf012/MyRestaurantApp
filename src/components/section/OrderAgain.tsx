@@ -5,7 +5,7 @@ import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useAppDispatch } from "../../redux/store";
 import { hideRouletteModal, showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
-import RoulettePopup from "../modals/RoulettePopup";
+import RoulettePopup from "../spinWheel/RoulettePopup";
 
 type OrderAgainItemProps = {
     imageSrc: string;
@@ -53,7 +53,7 @@ function OrderAgain() {
 
                 {/* Roulette */}
                 <div id="order-again-roulette">
-                    <button onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
+                    <button className="spinwheel-button spinwheel-button-primary" onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
                 </div>
 
                 <RoulettePopup onClose={() => dispatch(hideRouletteModal())} />
