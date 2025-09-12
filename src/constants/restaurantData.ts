@@ -39,7 +39,7 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
     },
     {
         id: 5,
-        name: "Congee Queen - Thornhill(Steeles/Hwy404)",
+        name: "Congee Queen - Thornhill",
         cuisine: "Chinese",
         rating: 4.2,
         location: "2930 Steeles Ave E, Thornhill, ON L3T 7X1",
