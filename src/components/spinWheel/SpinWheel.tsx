@@ -18,11 +18,10 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
 
         const anglePer = 360 / count;
         const centerAngle = -90 + index * anglePer + anglePer / 2;
+        const normalize = (deg: number) => ((deg % 360) + 360) % 360;
+        const needed = normalize(-90 - centerAngle - normalize(rotation));
 
-        const needed = ((-90 - centerAngle) % 360 + 360) % 360;
-        const jitter = (Math.random() - 0.5) * (anglePer * 0.5);
-
-        const totalRotation = rotation + spins * 360 + needed + jitter;
+        const totalRotation = rotation + spins * 360 + needed;
 
         setIsSpinning(true);
         setPrizeIndex(index);
@@ -44,7 +43,7 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
     };
 
     return (
-        <div className="spinwheel-overlay" onClick={onClose}>
+        <div className="spinwheel-overlay">
             <div className="spinwheel-popup" onClick={(e) => e.stopPropagation()}>
                 <WheelCanvas
                     items={items}
@@ -53,6 +52,13 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
                     onTransitionEnd={onTransitionEnd}
                 />
                 <div style={{ display: 'flex', gap: '10px' }}>
+                    <button className="spinwheel-button spinwheel-button-secondary"
+                        onClick={onClose}
+                        disabled={isSpinning}
+                    >
+                        Close
+                    </button>
+
                     <button
                         className={`spinwheel-button spinwheel-button-primary ${isSpinning ? 'spinwheel-disabled' : ''}`}
                         onClick={startSpin}

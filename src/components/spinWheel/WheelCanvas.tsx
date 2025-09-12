@@ -44,45 +44,43 @@ export default function WheelCanvas({ items, rotation, isSpinning, onTransitionE
     };
 
     return (
-        <div
-            className="spinwheel-wheel-wrapper"
-            style={{
-                transition: `transform ${isSpinning ? 5.2 : 0}s cubic-bezier(.12,.8,.32,1)`,
-                transform: `rotate(${rotation}deg)`,
-            }}
-            onTransitionEnd={onTransitionEnd}
-        >
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-                {items.map((label, i) => {
-                    const { start, end, center } = getAngles(i, items.length);
-                    const path = describeArc(start, end);
-                    const color = PALETTE[i % PALETTE.length];
+        <div className="spinwheel-wheel-wrapper">
+            <div
+                className="spinwheel-rotor"
+                style={{
+                    transition: `transform ${isSpinning ? 5.2 : 0}s cubic-bezier(.12,.8,.32,1)`,
+                    transform: `rotate(${rotation}deg)`,
+                }}
+                onTransitionEnd={onTransitionEnd}
+            >
+                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+                    {items.map((label, i) => {
+                        const { start, end, center } = getAngles(i, items.length);
+                        const path = describeArc(start, end);
+                        const color = PALETTE[i % PALETTE.length];
 
-                    const textPos = polarToCartesian(radius * 0.62, center);
-                    let textRotation = center + 90;
-                    if (textRotation > 180) textRotation -= 180;
+                        const textPos = polarToCartesian(radius * 0.62, center);
+                        let textRotation = center + 90;
+                        if (textRotation > 180) textRotation -= 180;
 
-                    return (
-                        <g key={i}>
-                            <path d={path} fill={color} stroke="#fff" strokeWidth={2} />
-                            <text
-                                x={textPos.x}
-                                y={textPos.y}
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                transform={`rotate(${textRotation} ${textPos.x} ${textPos.y})`}
-                                style={{ fontSize: 12, fontWeight: 600, fill: '#1f2937', userSelect: 'none' }}
-                            >
-                                {label}
-                            </text>
-                        </g>
-                    );
-                })}
-                <circle cx={cx} cy={cy} r={radius * 0.22} fill="#ffffff" stroke="#e5e7eb" strokeWidth={2} />
-                <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle" style={{ fontSize: 14, fontWeight: 700 }}>
-                    SPIN
-                </text>
-            </svg>
+                        return (
+                            <g key={i}>
+                                <path d={path} fill={color} stroke="#fff" strokeWidth={2} />
+                                <text
+                                    x={textPos.x}
+                                    y={textPos.y}
+                                    textAnchor="middle"
+                                    dominantBaseline="middle"
+                                    transform={`rotate(${textRotation} ${textPos.x} ${textPos.y})`}
+                                    style={{ fontSize: 12, fontWeight: 600, fill: '#1f2937', userSelect: 'none' }}
+                                >
+                                    {label}
+                                </text>
+                            </g>
+                        );
+                    })}
+                </svg>
+            </div>
 
             {/* Pointer */}
             <div className="spinwheel-pointer" />

@@ -28,10 +28,17 @@
     margin-bottom: 20px;
 }
 
+/* The rotating element (keeps pointer fixed) */
+.spinwheel-rotor {
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 50%;
+}
+
 /* Pointer */
 .spinwheel-pointer {
     position: absolute;
-    left: 50%;
+    left: 47%;
     top: -18px;
     transform: translateX(-50%);
     width: 0;
@@ -40,6 +47,7 @@
     border-right: 14px solid transparent;
     border-bottom: 22px solid #ff4b2b;
     z-index: 10;
+    transform: rotate(180deg);
 }
 
 /* Buttons */
