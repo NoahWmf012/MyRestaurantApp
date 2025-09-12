@@ -1,0 +1,72 @@
+/* Overlay for popup */
+.spinwheel-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    /* dimmed transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Main popup container */
+.spinwheel-popup {
+    position: relative;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: none;
+}
+
+/* Wheel wrapper */
+.spinwheel-wheel-wrapper {
+    position: relative;
+    width: 440px;
+    height: 440px;
+    margin-bottom: 20px;
+}
+
+/* Pointer */
+.spinwheel-pointer {
+    position: absolute;
+    left: 50%;
+    top: -18px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 22px solid #ff4b2b;
+    z-index: 10;
+}
+
+/* Buttons */
+.spinwheel-button {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.spinwheel-button-primary {
+    background: #ff6b6b;
+    color: white;
+}
+
+.spinwheel-button-secondary {
+    background: #f3f4f6;
+    color: #333;
+}
+
+.spinwheel-button-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.spinwheel-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}

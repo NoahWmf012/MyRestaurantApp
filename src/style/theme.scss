@@ -70,6 +70,7 @@ input[type="text"] {
 .carousel-container {
     flex: 1 1 0;
     min-width: 0; // prevents overflow issues
+    max-width: 600px;
 }
 
 .horizontal-card {

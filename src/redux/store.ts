@@ -5,8 +5,8 @@ import { showErrModalState, showRouletteModalState } from "./reducers/modalVisib
 
 const reducer = combineReducers({
     //frontend states
-    showErrModal: showErrModalState.reducer,
-    showRouletteModal: showRouletteModalState.reducer,
+    showErrModalState: showErrModalState.reducer,
+    showRouletteModalState: showRouletteModalState.reducer,
 
     //API reducers
 })

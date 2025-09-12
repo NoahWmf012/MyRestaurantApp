@@ -13,7 +13,6 @@
     "@reduxjs/toolkit": "^2.9.0",
     "bootstrap": "^5.3.8",
     "react": "^19.1.1",
-    "react-custom-roulette": "^1.4.1",
     "react-dom": "^19.1.1",
     "react-multi-carousel": "^2.8.6",
     "react-redux": "^9.2.0",

@@ -4,7 +4,8 @@ import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useAppDispatch } from "../../redux/store";
-import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
+import { hideRouletteModal, showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
+import RoulettePopup from "../modals/RoulettePopup";
 
 type OrderAgainItemProps = {
     imageSrc: string;
@@ -31,7 +32,7 @@ function OrderAgain() {
                 Order Again
             </div>
 
-            <div className="d-flex flex-row align-items-center">
+            <div className="d-flex flex-row align-items-center justify-content-between">
                 {/* History of Orders */}
                 <div className="carousel-container">
                     <Carousel
@@ -54,6 +55,8 @@ function OrderAgain() {
                 <div id="order-again-roulette">
                     <button onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
                 </div>
+
+                <RoulettePopup onClose={() => dispatch(hideRouletteModal())} />
             </div>
 
         </div>

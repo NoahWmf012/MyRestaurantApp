@@ -30,7 +30,7 @@ const createGenericModalVisible = ({
 
 //#region Error Modal
 export const showErrModalState = createGenericModalVisible({
-    name: 'showErrModal',
+    name: 'showErrModalState',
 })
 
 export const {
@@ -41,7 +41,7 @@ export const {
 
 //#region Roulette Modal
 export const showRouletteModalState = createGenericModalVisible({
-    name: 'showRouletteModal',
+    name: 'showRouletteModalState',
 })
 
 export const {
