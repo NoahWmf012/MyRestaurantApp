@@ -49,11 +49,11 @@ input[type="text"] {
 }
 
 .whats-hot-wrapper {
-    width: 520px;
+    width: $carousel-width;
 }
 
 .order-again-wrapper {
-    width: 800px;
+    width: 1000px;
 }
 
 .section-title {
@@ -70,7 +70,7 @@ input[type="text"] {
 .carousel-container {
     flex: 1 1 0;
     min-width: 0; // prevents overflow issues
-    max-width: 600px;
+    max-width: $carousel-width;
 }
 
 .horizontal-card {
