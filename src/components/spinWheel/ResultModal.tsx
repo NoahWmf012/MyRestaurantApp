@@ -14,16 +14,8 @@ export default function ResultModal({ winner, onClose, onSpinAgain, onRemove, re
             role="dialog"
             aria-modal
         >
-            <div
+            <div className="spinwheel-result-modal"
                 onClick={(e) => e.stopPropagation()}
-                style={{
-                    width: 360,
-                    padding: 20,
-                    borderRadius: 12,
-                    background: 'white',
-                    textAlign: 'center',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
-                }}
             >
                 <h3 style={{ marginBottom: 8 }}>🍜 Time to eat!</h3>
                 <p style={{ fontWeight: 700, fontSize: 18, marginBottom: 12 }}>{winner}</p>

@@ -4,7 +4,7 @@ import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useAppDispatch } from "../../redux/store";
-import { hideRouletteModal, showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
+import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
 import RoulettePopup from "../spinWheel/RoulettePopup";
 
 type OrderAgainItemProps = {
@@ -56,7 +56,7 @@ function OrderAgain() {
                     <button className="spinwheel-button spinwheel-button-primary" onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
                 </div>
 
-                <RoulettePopup onClose={() => dispatch(hideRouletteModal())} />
+                <RoulettePopup />
             </div>
 
         </div>

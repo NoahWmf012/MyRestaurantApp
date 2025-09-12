@@ -1,25 +1,30 @@
 import { useState } from 'react';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import SpinWheel from './SpinWheel';
 import RestaurantInput from './RestaurantInput';
+import { hideRouletteModal } from '../../redux/reducers/modalVisibleSlice';
 
-type RoulettePopupProps = {
-    onClose: () => void;
-}
-
-function RoulettePopup(props: RoulettePopupProps) {
+function RoulettePopup() {
     const show = useAppSelector((state) => state.showRouletteModalState.visible);
+    const dispatch = useAppDispatch();
+    const [showInput, setShowInput] = useState(true);
     const [restaurants, setRestaurants] = useState(['Sushi Place', 'Noodle House', 'Burger Bar']);
+
+    const onClose = () => {
+        dispatch(hideRouletteModal());
+        setShowInput(true);
+    }
+
     if (!show) return null;
 
     return (
         <>
-            <RestaurantInput />
-            <SpinWheel
-                items={restaurants}
-                onClose={() => props.onClose()}
-                onItemsChange={setRestaurants}
-            />
+            {showInput ? <RestaurantInput items={restaurants} onChange={setRestaurants} onClose={() => setShowInput(false)} />
+                : <SpinWheel
+                    items={restaurants}
+                    onClose={() => onClose()}
+                    onItemsChange={setRestaurants}
+                />}
         </>
 
     )
