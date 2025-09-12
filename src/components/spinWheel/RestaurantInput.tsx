@@ -36,10 +36,16 @@ function RestaurantInput({ items, onChange, onClose }: RestaurantInputProps) {
         dispatch(hideRouletteModal());
     };
 
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) {
+            onCancelHandler();
+        }
+    };
+
     const canAdd = newName.trim().length > 0 && !items.some((i) => i.toLowerCase() === newName.trim().toLowerCase());
 
     return (
-        <div className="restaurant-modal-overlay" role="dialog" aria-modal onClick={onCancelHandler}>
+        <div className="restaurant-modal-overlay" role="dialog" aria-modal onClick={handleOverlayClick}>
             <div className="restaurant-modal-box">
                 <div className="restaurant-modal-header">
                     <span className="restaurant-modal-title">Edit Restaurants</span>
