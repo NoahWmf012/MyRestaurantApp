@@ -32,12 +32,12 @@ function OrderAgain() {
                 Order Again
             </div>
 
-            <div className="d-flex flex-row align-items-center justify-content-between">
+            <div className="d-flex flex-row align-items-center">
                 {/* History of Orders */}
                 <div className="carousel-container">
                     <Carousel
                         responsive={RESPONSIVE_SETTINGS}
-                        draggable
+                        draggable={false}
                     >
                         {RESTAURANT_LIST.map((restaurant) => (
                             <OrderAgainItem
@@ -52,7 +52,7 @@ function OrderAgain() {
 
 
                 {/* Roulette */}
-                <div id="order-again-roulette">
+                <div id="order-again-roulette" className="mx-auto">
                     <button className="spinwheel-button spinwheel-button-primary" onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
                 </div>
 

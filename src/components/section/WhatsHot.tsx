@@ -3,17 +3,28 @@ import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import Carousel from "react-multi-carousel";
 import FireIcon from "../../assets/icons/whatshot.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
+import { useNavigate } from "react-router-dom";
 
 //card items
 type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
-    buttonLink: string;
+    restaurantId: number;
 }
 function WhatsHotItem(props: WhatsHotItemProps) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/restaurant/${props.restaurantId}`);
+    };
+
     return (
-        <div className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}>
+        <div
+            className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}
+            onClick={handleClick}
+            style={{ cursor: 'pointer' }}
+        >
             <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
             <div className="card-body">
                 <p className="card-text"><strong>{props.text}</strong></p>
@@ -33,7 +44,7 @@ function WhatsHot() {
             <div className="carousel-container">
                 <Carousel
                     responsive={RESPONSIVE_SETTINGS}
-                    draggable
+                    draggable={false}
                 >
                     {RESTAURANT_LIST.map((restaurant) => (
                         <WhatsHotItem
@@ -41,7 +52,7 @@ function WhatsHot() {
                             imageSrc={getRestaurantImage1(restaurant.id)}
                             title={restaurant.name}
                             text={restaurant.name}
-                            buttonLink="#"
+                            restaurantId={restaurant.id}
                         />
                     ))}
                 </Carousel>
