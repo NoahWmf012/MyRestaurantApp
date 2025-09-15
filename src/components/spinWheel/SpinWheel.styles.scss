@@ -66,6 +66,11 @@
     border: none;
     cursor: pointer;
     font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
 }
 
 .spinwheel-button-primary {
@@ -73,14 +78,26 @@
     color: white;
 }
 
+.spinwheel-button-primary:hover {
+    background: #ff5252;
+}
+
 .spinwheel-button-secondary {
     background: #f3f4f6;
     color: #333;
 }
 
+.spinwheel-button-secondary:hover {
+    background: #e5e7eb;
+}
+
 .spinwheel-button-danger {
     background: #dc2626;
     color: white;
+}
+
+.spinwheel-button-danger:hover {
+    background: #b91c1c;
 }
 
 .spinwheel-disabled {
