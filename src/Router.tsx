@@ -9,7 +9,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Layout />}>
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="restaurant/:id" element={<RestaurantPage />} />
+            <Route path="restaurant/:name" element={<RestaurantPage />} />
         </Route>
     )
 )

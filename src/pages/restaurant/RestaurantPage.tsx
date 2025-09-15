@@ -1,57 +1,86 @@
 import { useParams } from 'react-router-dom';
 import { RESTAURANT_LIST } from '../../constants/restaurantData';
 import { getRestaurantImage1, getRestaurantImage2 } from '../../hooks/getImageSrcHook';
+import './RestaurantPage.scss';
 
 const RestaurantPage = () => {
-    const { id } = useParams<{ id: string }>();
-    const restaurantId = parseInt(id || '0');
+    const { name } = useParams<{ name: string }>();
+    const restaurantName = decodeURIComponent(name || '');
 
-    const restaurant = RESTAURANT_LIST.find(r => r.id === restaurantId);
+    const restaurant = RESTAURANT_LIST.find(r => r.name === restaurantName);
+
+    const handleAddressClick = (address: string) => {
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+        window.open(googleMapsUrl, '_blank');
+    };
 
     if (!restaurant) {
         return (
-            <div className="container mt-4">
-                <h1>Restaurant not found</h1>
-                <p>The restaurant you're looking for doesn't exist.</p>
+            <div className="container mt-4 restaurant-page">
+                <div className="not-found">
+                    <h1>Restaurant not found</h1>
+                    <p>The restaurant you're looking for doesn't exist.</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mt-4">
+        <div className="container mt-4 restaurant-page">
             <div className="row">
                 <div className="col-md-8">
-                    <h1>{restaurant.name}</h1>
-                    <div className="mb-3">
-                        <span className="badge bg-primary me-2">{restaurant.cuisine}</span>
-                        <span className="text-warning">
+                    <div className="restaurant-header">
+                        <h1>{restaurant.name}</h1>
+                    </div>
+
+                    <div className="restaurant-meta">
+                        <span className="badge bg-primary cuisine-badge">{restaurant.cuisine}</span>
+                        <span className="rating">
                             {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
                         </span>
                     </div>
 
-                    <div className="row mb-4">
-                        <div className="col-md-6">
-                            <img
-                                src={getRestaurantImage1(restaurant.id)}
-                                alt={restaurant.name}
-                                className="img-fluid rounded"
-                            />
-                        </div>
-                        <div className="col-md-6">
-                            <img
-                                src={getRestaurantImage2(restaurant.id)}
-                                alt={restaurant.name}
-                                className="img-fluid rounded"
-                            />
+                    <div className="restaurant-images">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <img
+                                    src={getRestaurantImage1(restaurant.id)}
+                                    alt={restaurant.name}
+                                    className="restaurant-image"
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <img
+                                    src={getRestaurantImage2(restaurant.id)}
+                                    alt={restaurant.name}
+                                    className="restaurant-image"
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    <h3>About</h3>
-                    <p>{restaurant.desc}</p>
+                    <div className="restaurant-section">
+                        <h3>About</h3>
+                        <p>{restaurant.desc}</p>
+                    </div>
 
-                    <h3>Contact Information</h3>
-                    <p><strong>Address:</strong> {restaurant.location}</p>
-                    <p><strong>Phone:</strong> {restaurant.phoneNum}</p>
+                    <div className="restaurant-section contact-info">
+                        <h3>Contact Information</h3>
+                        <p>
+                            <strong>Address:</strong>{' '}
+                            <span
+                                onClick={() => handleAddressClick(restaurant.location)}
+                                className="address-link"
+                                title="Click to open in Google Maps"
+                            >
+                                {restaurant.location}
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Phone:</strong>{' '}
+                            <span className="phone-number">{restaurant.phoneNum}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

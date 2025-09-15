@@ -1,0 +1,81 @@
+@use 'sass:color';
+@use '../../style/variables.scss' as *;
+
+.restaurant-page {
+    .restaurant-header {
+        h1 {
+            margin-bottom: 1rem;
+            color: $text-color;
+        }
+    }
+
+    .restaurant-meta {
+        margin-bottom: 1rem;
+
+        .cuisine-badge {
+            margin-right: 0.5rem;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+    }
+
+    .restaurant-images {
+        margin-bottom: 2rem;
+
+        .restaurant-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    }
+
+    .restaurant-section {
+        margin-bottom: 2rem;
+
+        h3 {
+            color: $text-color;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.6;
+            color: $text-color;
+        }
+    }
+
+    .contact-info {
+        .address-link {
+            color: $link-color;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: color.adjust($link-color, $lightness: -10%);
+            }
+        }
+
+        .phone-number {
+            color: $text-color;
+        }
+    }
+
+    .not-found {
+        text-align: center;
+        padding: 3rem 0;
+
+        h1 {
+            color: $text-color;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: color.adjust($text-color, $lightness: 20%);
+        }
+    }
+}

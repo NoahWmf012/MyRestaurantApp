@@ -13,14 +13,14 @@ type OrderAgainItemProps = {
     imageSrc: string;
     title: string;
     desc: string;
-    restaurantId: number;
+    restaurantName: string;
 }
 
 function OrderAgainItem(props: OrderAgainItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${props.restaurantId}`);
+        navigate(`/restaurant/${props.restaurantName}`);
     };
     return (
         <div
@@ -57,7 +57,7 @@ function OrderAgain() {
                                 imageSrc={getRestaurantImage2(restaurant.id)}
                                 title={restaurant.name}
                                 desc={restaurant.desc}
-                                restaurantId={restaurant.id}
+                                restaurantName={restaurant.name}
                             />
                         ))}
                     </Carousel>

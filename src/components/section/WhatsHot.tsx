@@ -10,14 +10,14 @@ type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
-    restaurantId: number;
+    restaurantName: string;
 }
 
 function WhatsHotItem(props: WhatsHotItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${props.restaurantId}`);
+        navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
     };
 
     return (
@@ -54,7 +54,7 @@ function WhatsHot() {
                             imageSrc={getRestaurantImage1(restaurant.id)}
                             title={restaurant.name}
                             text={restaurant.name}
-                            restaurantId={restaurant.id}
+                            restaurantName={restaurant.name}
                         />
                     ))}
                 </Carousel>
