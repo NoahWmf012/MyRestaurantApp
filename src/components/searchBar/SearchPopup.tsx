@@ -8,15 +8,25 @@ interface SearchPopupProps {
     suggestions: SuggestedItem[];
     history: string[];
     onSelect: (keyword: string) => void;
+    onClearHistory: () => void;
 }
 
-const SearchPopup = ({ suggestions, history, onSelect }: SearchPopupProps) => {
+const SearchPopup = ({ suggestions, history, onSelect, onClearHistory }: SearchPopupProps) => {
     return (
         <div className="search-popup">
             {/* Search History */}
             {history.length > 0 && (
                 <div className="search-section">
-                    <h4>Recent Searches</h4>
+                    <div className="search-history-header">
+                        <h4>Recent Searches</h4>
+                        <button
+                            className="clear-history-btn"
+                            onClick={onClearHistory}
+                            title="Clear search history"
+                        >
+                            Clear
+                        </button>
+                    </div>
                     <div className="search-history">
                         {history.map((item, idx) => (
                             <button key={idx} className="history-item" onClick={() => onSelect(item)}>

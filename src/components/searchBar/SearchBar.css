@@ -36,6 +36,33 @@
     color: #555;
 }
 
+.search-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.search-history-header h4 {
+    margin: 0;
+}
+
+.clear-history-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.clear-history-btn:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
 .search-history {
     display: flex;
     flex-wrap: wrap;

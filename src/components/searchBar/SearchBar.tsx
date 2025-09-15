@@ -44,6 +44,11 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
         }
     };
 
+    const clearHistory = () => {
+        setHistory([]);
+        localStorage.removeItem('searchHistory');
+    };
+
     // Close popup when clicking outside
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -75,6 +80,7 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
                     suggestions={suggestions}
                     history={history}
                     onSelect={handleSearch}
+                    onClearHistory={clearHistory}
                 />
             )}
         </div>
