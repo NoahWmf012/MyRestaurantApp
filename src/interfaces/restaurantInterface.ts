@@ -6,4 +6,5 @@ export interface RestaurantInfoInterface {
     location: string;
     phoneNum: string;
     desc: string;
+    tags?: string[];
 }
