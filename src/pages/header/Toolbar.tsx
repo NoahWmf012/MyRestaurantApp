@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import MainIcon from "../../assets/icons/main.png"
 import LoginIcon from "../../assets/icons/user-interface.png"
 import SettingIcon from "../../assets/icons/setting-lines.png"
+import SearchBar from "../../components/searchBar/SearchBar"
 
 function Toolbar() {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ function Toolbar() {
             </div>
 
             {/* Search field */}
-            <input type="text" placeholder="Search..." />
+            <SearchBar suggestions={[]} />
 
 
             <div className="d-flex mx-3">
