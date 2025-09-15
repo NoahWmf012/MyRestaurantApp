@@ -5,13 +5,14 @@ import FireIcon from "../../assets/icons/whatshot.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { useNavigate } from "react-router-dom";
 
-//card items
+//#region card items
 type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
     restaurantId: number;
 }
+
 function WhatsHotItem(props: WhatsHotItemProps) {
     const navigate = useNavigate();
 
@@ -22,8 +23,8 @@ function WhatsHotItem(props: WhatsHotItemProps) {
     return (
         <div
             className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}
+            role="button"
             onClick={handleClick}
-            style={{ cursor: 'pointer' }}
         >
             <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
             <div className="card-body">
@@ -32,6 +33,7 @@ function WhatsHotItem(props: WhatsHotItemProps) {
         </div>
     )
 }
+//#endregion
 
 function WhatsHot() {
     return (

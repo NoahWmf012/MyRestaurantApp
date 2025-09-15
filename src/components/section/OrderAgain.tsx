@@ -6,22 +6,34 @@ import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useAppDispatch } from "../../redux/store";
 import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
 import RoulettePopup from "../spinWheel/RoulettePopup";
+import { useNavigate } from "react-router-dom";
 
+//#region horizontal card item
 type OrderAgainItemProps = {
     imageSrc: string;
     title: string;
     desc: string;
+    restaurantId: number;
 }
 
-{/* horizontal card item */ }
 function OrderAgainItem(props: OrderAgainItemProps) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/restaurant/${props.restaurantId}`);
+    };
     return (
-        <div className="horizontal-card order-again-item border-0 shadow-sm shadow mb-2 mx-1 rounded" >
+        <div
+            className="horizontal-card order-again-item border-0 shadow-sm shadow mb-2 mx-1 rounded"
+            role="button"
+            onClick={handleClick}
+        >
             <img src={props.imageSrc} className="" alt="Card image cap" />
             <div className="card-desc"><p>{props.desc}</p></div>
         </div>
     )
 }
+//#endregion
 
 function OrderAgain() {
     const dispatch = useAppDispatch()
@@ -45,6 +57,7 @@ function OrderAgain() {
                                 imageSrc={getRestaurantImage2(restaurant.id)}
                                 title={restaurant.name}
                                 desc={restaurant.desc}
+                                restaurantId={restaurant.id}
                             />
                         ))}
                     </Carousel>
