@@ -22,7 +22,7 @@ function WhatsHotItem(props: WhatsHotItemProps) {
 
     return (
         <div
-            className={`card whats-hot-item border-0 shadow-sm shadow mb-2 mx-1 bg-white rounded`}
+            className={`card whats-hot-item border-0 mb-2 mx-1 bg-white rounded`}
             role="button"
             onClick={handleClick}
         >
@@ -39,8 +39,8 @@ function WhatsHot() {
     return (
         <div className="whats-hot-wrapper">
             {/* add a icon from assets/icon/fire.png before title */}
-            <div className="section-title">
-                <img src={FireIcon} alt="Fire Icon" className="title-icon fire-icon" />
+            <div className="section-title d-flex align-items-center">
+                <img src={FireIcon} alt="Fire Icon" className="title-icon fire-icon mx-1" />
                 What's Hot
             </div>
             <div className="carousel-container">

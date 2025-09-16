@@ -64,7 +64,7 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
         <div className="searchbar-wrapper" ref={wrapperRef}>
             <input
                 type="text"
-                className="searchbar-input"
+                className="searchbar-input bg-amber-50"
                 placeholder="Search restaurants, cuisines..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
