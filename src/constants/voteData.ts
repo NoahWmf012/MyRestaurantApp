@@ -4,6 +4,11 @@ export interface Vote {
     restaurantId: number;
 }
 
+export interface CurrentUserInterface {
+    userId: string;
+    userName: string;
+}
+
 export interface PollOption {
     restaurantId: number;
     restaurantName: string;
