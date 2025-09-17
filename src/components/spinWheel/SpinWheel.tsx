@@ -49,15 +49,18 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
     };
 
     return (
-        <div className="spinwheel-overlay">
+        <div className="spinwheel-overlay" onClick={onClose}>
             <div className="spinwheel-popup" onClick={(e) => e.stopPropagation()}>
-                <WheelCanvas
-                    items={items}
-                    rotation={rotation}
-                    isSpinning={isSpinning}
-                    onTransitionEnd={onTransitionEnd}
-                />
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <h2 className="spinwheel-title">Restaurant Roulette</h2>
+                <div className="spinwheel-wheel-wrapper">
+                    <WheelCanvas
+                        items={items}
+                        rotation={rotation}
+                        isSpinning={isSpinning}
+                        onTransitionEnd={onTransitionEnd}
+                    />
+                </div>
+                <div className="spinwheel-button-container">
                     <button className="spinwheel-button spinwheel-button-secondary"
                         onClick={onClose}
                         disabled={isSpinning}
@@ -70,7 +73,7 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
                         onClick={startSpin}
                         disabled={isSpinning || items.length === 0}
                     >
-                        {isSpinning ? 'Spinning...' : 'Start'}
+                        {isSpinning ? 'Spinning...' : 'Start Spin'}
                     </button>
                 </div>
             </div>

@@ -1,40 +1,127 @@
-/* Overlay for popup */
+@use '../../style/variables' as *;
+
+/* Modern SpinWheel Overlay */
 .spinwheel-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    /* dimmed transparent background */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
+    z-index: 1001;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn $transition-normal ease-out forwards;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modern Result Modal */
 .spinwheel-result-modal {
     background: white;
-    width: 360px;
-    padding: 20px;
-    border-radius: 12px;
+    width: 400px;
+    max-width: 90vw;
+    padding: 32px;
+    border-radius: $radius-2xl;
     text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: $shadow-xl, $shadow-yellow;
+    border: 1px solid rgba(253, 225, 48, 0.2);
+    position: relative;
+    overflow: hidden;
+    transform: scale(1);
+    opacity: 1;
+    z-index: 1002;
+    animation: modalIn $transition-normal ease-out forwards;
+}
+
+.spinwheel-result-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $gradient-primary;
+}
+
+@keyframes modalIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Main popup container */
 .spinwheel-popup {
     position: relative;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: $radius-2xl;
     display: flex;
     flex-direction: column;
     align-items: center;
     outline: none;
+    padding: 32px;
+    box-shadow: $shadow-xl, $shadow-yellow;
+    border: 1px solid rgba(253, 225, 48, 0.2);
+    max-width: 90vw;
+    max-height: 90vh;
+    transform: scale(1);
+    opacity: 1;
+    animation: modalIn $transition-normal ease-out forwards;
+}
+
+/* Wheel Header */
+.spinwheel-header {
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.spinwheel-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.spinwheel-subtitle {
+    color: $text-color-secondary;
+    font-size: 1rem;
+    margin: 0;
 }
 
 /* Wheel wrapper */
 .spinwheel-wheel-wrapper {
     position: relative;
-    width: 440px;
-    height: 440px;
-    margin-bottom: 20px;
+    width: 400px;
+    height: 400px;
+    margin-bottom: 32px;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
 }
 
 /* The rotating element (keeps pointer fixed) */
@@ -42,53 +129,191 @@
     width: 100%;
     height: 100%;
     transform-origin: 50% 50%;
+    transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Pointer */
 .spinwheel-pointer {
     position: absolute;
-    left: 47%;
-    top: -18px;
+    left: 50%;
+    top: -10px;
     transform: translateX(-50%);
     width: 0;
     height: 0;
-    border-left: 14px solid transparent;
-    border-right: 14px solid transparent;
-    border-bottom: 22px solid #ff4b2b;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 24px solid $primary-color;
     z-index: 10;
-    transform: rotate(180deg);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Buttons */
+/* Modern Button Styles */
+.spinwheel-button-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
 .spinwheel-button {
-    padding: 8px 14px;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: $radius-xl;
     border: none;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+    transition: all $transition-fast;
+    position: relative;
+    overflow: hidden;
+    min-width: 120px;
+    justify-content: center;
 
-    &:hover {
-        transform: translateY(-1px);
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left $transition-normal;
+    }
+
+    &:hover::before {
+        left: 100%;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none !important;
     }
 }
 
 .spinwheel-button-primary {
-    background: #ff6b6b;
-    color: white;
-}
+    background: $gradient-primary;
+    color: $text-color;
+    box-shadow: $shadow-md;
 
-.spinwheel-button-primary:hover {
-    background: #ff5252;
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg, $shadow-yellow;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
 
 .spinwheel-button-secondary {
-    background: #f3f4f6;
-    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    color: $text-color;
+    border: 1px solid $border-color;
+    box-shadow: $shadow-sm;
+
+    &:hover:not(:disabled) {
+        background: white;
+        transform: translateY(-1px);
+        box-shadow: $shadow-md;
+        border-color: $primary-color;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
 
-.spinwheel-button-secondary:hover {
-    background: #e5e7eb;
+.spinwheel-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Button Icons */
+.spinwheel-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Result Modal Content */
+.result-modal-content {
+    position: relative;
+    z-index: 1;
+}
+
+.result-winner {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.result-subtitle {
+    color: $text-color-secondary;
+    font-size: 1.125rem;
+    margin: 0 0 32px 0;
+    line-height: 1.5;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.result-actions .spinwheel-button {
+    width: 100%;
+    max-width: 200px;
+}
+
+/* Spinning Animation */
+.spinwheel-rotor.spinning {
+    transition: transform 4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spinwheel-popup {
+        padding: 24px 20px;
+        margin: 16px;
+    }
+
+    .spinwheel-wheel-wrapper {
+        width: 320px;
+        height: 320px;
+    }
+
+    .spinwheel-title {
+        font-size: 1.5rem;
+    }
+
+    .spinwheel-button-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .spinwheel-button {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .spinwheel-result-modal {
+        width: 320px;
+        padding: 24px 20px;
+        margin: 16px;
+    }
+
+    .result-winner {
+        font-size: 1.5rem;
+    }
 }
 
 .spinwheel-button-danger {
@@ -105,39 +330,54 @@
     pointer-events: none;
 }
 
+/* Restaurant Input Modal Styles */
 .restaurant-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: modalFadeIn $transition-fast ease-out;
 }
 
 .restaurant-modal-box {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    min-width: 320px;
-    max-width: 90vw;
-    padding: 24px 20px 16px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(253, 225, 48, 0.2);
+    border-radius: $radius-2xl;
+    box-shadow: $shadow-2xl, 0 0 0 1px rgba(253, 225, 48, 0.1);
+    min-width: 400px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
     position: relative;
+    animation: modalSlideIn $transition-normal ease-out;
 }
 
 .restaurant-modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    padding: 24px 24px 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .restaurant-modal-title {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0;
 }
 
 .restaurant-modal-close {
@@ -146,71 +386,260 @@
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
+    color: $text-color-secondary;
+    transition: color $transition-fast;
+
+    &:hover {
+        color: $text-color;
+    }
 }
 
 .restaurant-modal-body {
-    margin-bottom: 16px;
+    padding: 20px 24px;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .restaurant-modal-add-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .restaurant-modal-input {
     flex: 1;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    padding: 12px 16px;
+    border-radius: $radius-lg;
+    border: 1px solid $border-color;
+    font-size: 1rem;
+    transition: all $transition-fast;
+    background: rgba(255, 255, 255, 0.8);
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(253, 225, 48, 0.1);
+        background: white;
+    }
+
+    &::placeholder {
+        color: $text-color-muted;
+    }
 }
 
 .restaurant-modal-add-btn,
 .restaurant-modal-remove-btn,
 .restaurant-modal-cancel-btn,
 .restaurant-modal-ok-btn {
-    padding: 6px 14px;
-    border-radius: 8px;
+    padding: 12px 20px;
+    border-radius: $radius-lg;
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    font-weight: 600;
+    transition: all $transition-fast;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left $transition-normal;
+    }
+
+    &:hover:not(:disabled)::before {
+        left: 100%;
+    }
 }
 
 .restaurant-modal-add-btn {
-    background: #2563eb;
-    color: #fff;
+    background: $gradient-primary;
+    color: $text-color;
+    box-shadow: $shadow-sm;
+
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: $shadow-md;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
 
 .restaurant-modal-disabled {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: not-allowed !important;
+    transform: none !important;
 }
 
 .restaurant-modal-remove-btn {
-    background: #ef4444;
-    color: #fff;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    box-shadow: $shadow-sm;
+
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: $shadow-md, 0 4px 20px rgba(255, 107, 107, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
 
 .restaurant-modal-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    max-height: 180px;
+    gap: 12px;
+    max-height: 300px;
     overflow-y: auto;
+    padding-right: 4px;
+
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(253, 225, 48, 0.3);
+        border-radius: 3px;
+
+        &:hover {
+            background: rgba(253, 225, 48, 0.5);
+        }
+    }
 }
 
 .restaurant-modal-list-row {
     display: flex;
-    gap: 8px;
+    gap: 12px;
+    align-items: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: $radius-lg;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all $transition-fast;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.8);
+        border-color: rgba(253, 225, 48, 0.2);
+        transform: translateY(-1px);
+        box-shadow: $shadow-sm;
+    }
 }
 
 .restaurant-modal-empty {
-    color: #6b7280;
-    font-size: 14px;
+    color: $text-color-muted;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: $radius-lg;
+    border: 2px dashed rgba(0, 0, 0, 0.1);
 }
 
 .restaurant-modal-footer {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 12px;
+    padding: 16px 24px 24px 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.restaurant-modal-cancel-btn {
+    background: rgba(255, 255, 255, 0.8);
+    color: $text-color-secondary;
+    border: 1px solid $border-color;
+
+    &:hover {
+        background: white;
+        color: $text-color;
+        border-color: rgba(253, 225, 48, 0.3);
+        transform: translateY(-1px);
+        box-shadow: $shadow-sm;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.restaurant-modal-ok-btn {
+    background: $gradient-primary;
+    color: $text-color;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: $shadow-md, $shadow-yellow;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+/* Modal Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive Design for Restaurant Modal */
+@media (max-width: 768px) {
+    .restaurant-modal-box {
+        min-width: 320px;
+        max-width: 95vw;
+        margin: 10px;
+    }
+
+    .restaurant-modal-header,
+    .restaurant-modal-body,
+    .restaurant-modal-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .restaurant-modal-add-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .restaurant-modal-footer {
+        flex-direction: column;
+    }
+
+    .restaurant-modal-add-btn,
+    .restaurant-modal-cancel-btn,
+    .restaurant-modal-ok-btn {
+        width: 100%;
+    }
 }

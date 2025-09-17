@@ -22,13 +22,27 @@ function WhatsHotItem(props: WhatsHotItemProps) {
 
     return (
         <div
-            className={`card whats-hot-item border-0 mb-2 mx-1 bg-white rounded`}
+            className="card whats-hot-item border-0 mb-2 mx-1 bg-white rounded"
             role="button"
             onClick={handleClick}
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    handleClick();
+                }
+            }}
         >
-            <img className="card-img-top" src={props.imageSrc} alt="Card image cap" />
+            <div className="card-img-container">
+                <img className="card-img-top" src={props.imageSrc} alt={`${props.title} at ${props.restaurantName}`} />
+                <div className="card-overlay">
+                    <svg className="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
             <div className="card-body">
-                <p className="card-text"><strong>{props.text}</strong></p>
+                <h5 className="card-title">{props.title}</h5>
+                <p className="card-text">{props.text}</p>
             </div>
         </div>
     )
@@ -38,10 +52,9 @@ function WhatsHotItem(props: WhatsHotItemProps) {
 function WhatsHot() {
     return (
         <div className="whats-hot-wrapper">
-            {/* add a icon from assets/icon/fire.png before title */}
-            <div className="section-title d-flex align-items-center">
-                <img src={FireIcon} alt="Fire Icon" className="title-icon fire-icon mx-1" />
-                What's Hot
+            <div className="section-header">
+                <img src={FireIcon} alt="" className="section-icon" />
+                <h2 className="section-title">What's Hot</h2>
             </div>
             <div className="carousel-container">
                 <Carousel

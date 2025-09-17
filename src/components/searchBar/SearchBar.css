@@ -1,3 +1,108 @@
+/* Modern SearchBar Styles */
+.modern-searchbar-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.modern-searchbar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    padding: 0 16px;
+    height: 48px;
+    transition: all 150ms ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modern-searchbar-container:focus-within {
+    border-color: rgba(253, 225, 48, 0.6);
+    box-shadow: 0 0 0 3px rgba(253, 225, 48, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    color: #6b7280;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.modern-searchbar-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+    height: 100%;
+    padding: 0;
+}
+
+.modern-searchbar-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.modern-searchbar-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.search-loading {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    color: #fde130;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    transition: all 150ms ease-in-out;
+}
+
+.clear-search-btn:hover {
+    background: rgba(156, 163, 175, 0.1);
+    color: #6b7280;
+}
+
+.clear-search-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Legacy SearchBar Styles (for backward compatibility) */
 .searchbar-wrapper {
     position: relative;
     width: 300px;

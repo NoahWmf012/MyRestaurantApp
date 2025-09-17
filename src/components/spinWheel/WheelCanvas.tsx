@@ -11,7 +11,7 @@ const PALETTE = [
 ];
 
 export default function WheelCanvas({ items, rotation, isSpinning, onTransitionEnd }: WheelCanvasProps) {
-    const size = 440;
+    const size = 400;
     const cx = size / 2;
     const cy = size / 2;
     const radius = size * 0.45;
