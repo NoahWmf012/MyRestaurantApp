@@ -3,9 +3,6 @@ import OrderIcon from "../../assets/icons/order.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
-import { useAppDispatch } from "../../redux/store";
-import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice";
-import RoulettePopup from "../spinWheel/RoulettePopup";
 import { useNavigate } from "react-router-dom";
 
 //#region horizontal card item
@@ -36,7 +33,6 @@ function OrderAgainItem(props: OrderAgainItemProps) {
 //#endregion
 
 function OrderAgain() {
-    const dispatch = useAppDispatch()
     return (
         <div className="order-again-wrapper">
             <div className="section-title d-flex align-items-center">
@@ -62,14 +58,6 @@ function OrderAgain() {
                         ))}
                     </Carousel>
                 </div>
-
-
-                {/* Roulette */}
-                <div id="order-again-roulette" className="mx-auto">
-                    <button className="spinwheel-button spinwheel-button-primary" onClick={() => dispatch(showRouletteModal())}>Spin a wheel</button>
-                </div>
-
-                <RoulettePopup />
             </div>
 
         </div>

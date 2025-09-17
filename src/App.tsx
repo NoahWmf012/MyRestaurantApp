@@ -6,6 +6,9 @@ import './App.css';
 import './style/theme.scss';
 import 'react-multi-carousel/lib/styles.css'
 
+// Bootstrap JavaScript
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 function App() {
   return (
     <RouterProvider router={router} />

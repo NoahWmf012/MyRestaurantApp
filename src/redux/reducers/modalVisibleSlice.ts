@@ -49,3 +49,14 @@ export const {
     hide: hideRouletteModal
 } = showRouletteModalState.actions
 //#endregion
+
+//#region Vote Modal
+export const showVoteModalState = createGenericModalVisible({
+    name: 'showVoteModalState',
+})
+
+export const {
+    show: showVoteModal,
+    hide: hideVoteModal
+} = showVoteModalState.actions
+//#endregion
