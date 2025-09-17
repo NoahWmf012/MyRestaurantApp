@@ -7,7 +7,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
     backdrop-filter: blur(8px);
@@ -331,25 +331,6 @@
 }
 
 /* Restaurant Input Modal Styles */
-.restaurant-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-    animation: modalFadeIn $transition-fast ease-out;
-}
-
 .restaurant-modal-box {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
@@ -365,21 +346,6 @@
     animation: modalSlideIn $transition-normal ease-out;
 }
 
-.restaurant-modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 24px 16px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.restaurant-modal-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $text-color;
-    margin: 0;
-}
-
 .restaurant-modal-close {
     background: none;
     border: none;
@@ -392,12 +358,6 @@
     &:hover {
         color: $text-color;
     }
-}
-
-.restaurant-modal-body {
-    padding: 20px 24px;
-    max-height: 60vh;
-    overflow-y: auto;
 }
 
 .restaurant-modal-add-row {
@@ -615,14 +575,7 @@
 
 /* Responsive Design for Restaurant Modal */
 @media (max-width: 768px) {
-    .restaurant-modal-box {
-        min-width: 320px;
-        max-width: 95vw;
-        margin: 10px;
-    }
 
-    .restaurant-modal-header,
-    .restaurant-modal-body,
     .restaurant-modal-footer {
         padding-left: 16px;
         padding-right: 16px;
