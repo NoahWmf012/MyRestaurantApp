@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
 import { DUMMY_POLLS, CURRENT_USER, type Poll } from '../../constants/voteData';
 import PollDetail from './PollDetail';
-import './VoteModal.css';
+import './VoteModal.scss';
 import { PollList } from './PollList';
 
 function VoteModal() {

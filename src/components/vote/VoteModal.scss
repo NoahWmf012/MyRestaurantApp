@@ -1,0 +1,949 @@
+@use '../../style/variables' as *;
+@use 'sass:color';
+
+/* ========================================
+   VOTE MODAL STYLES
+   ======================================== */
+
+/* Overlay & Container */
+.vote-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 1;
+    animation: fadeIn $transition-normal ease-out forwards;
+
+    &--animate {
+        opacity: 1;
+    }
+}
+
+.vote-modal-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: $radius-2xl;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadow-2xl, $shadow-yellow;
+    position: relative;
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    animation: modalSlideIn $transition-normal ease-out forwards;
+    border: 1px solid rgba($primary-color, 0.2);
+
+    &--animate {
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ========================================
+   HEADER STYLES
+   ======================================== */
+
+.vote-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+    border-bottom: 1px solid $border-color-light;
+    background: $gradient-primary;
+    color: $text-color;
+    border-radius: $radius-2xl $radius-2xl 0 0;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+    }
+}
+
+.vote-modal-title {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.vote-modal-header-back {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.vote-back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: $text-color;
+    padding: 8px 16px;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: all $transition-fast;
+    font-size: 0.875rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    align-self: flex-start;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-2px);
+    }
+}
+
+.vote-back-icon {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
+}
+
+.vote-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: $text-color;
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-full;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2.5;
+    }
+}
+
+/* ========================================
+   BODY & CONTENT STYLES
+   ======================================== */
+
+.vote-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 24px 32px 32px;
+
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($primary-color, 0.3);
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba($primary-color, 0.5);
+        }
+    }
+}
+
+.vote-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    min-height: 0;
+
+    &--list {
+        padding: 0;
+    }
+
+    &--detail {
+        padding: 0;
+    }
+}
+
+/* ========================================
+   POLLS LIST STYLES
+   ======================================== */
+
+.polls-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+}
+
+.no-polls {
+    text-align: center;
+    padding: 64px 32px;
+    color: $text-color-secondary;
+
+    &-icon {
+        font-size: 4rem;
+        margin-bottom: 16px;
+        opacity: 0.6;
+    }
+
+    h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $text-color;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
+
+/* ========================================
+   POLL CARD STYLES
+   ======================================== */
+
+.poll-card {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 24px;
+    cursor: pointer;
+    transition: all $transition-fast;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: $gradient-primary;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform $transition-normal;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-lg, 0 0 0 1px rgba($primary-color, 0.1);
+        transform: translateY(-2px);
+
+        &::before {
+            transform: scaleX(1);
+        }
+
+        .poll-card__arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: $primary-color;
+        }
+    }
+
+    &--expired {
+        opacity: 0.7;
+        background: $neutral-50;
+
+        &:hover {
+            transform: none;
+            box-shadow: $shadow-md;
+        }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    &__title-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $text-color;
+        line-height: 1.4;
+    }
+
+    &__arrow {
+        color: $text-color-light;
+        transition: all $transition-fast;
+        margin-left: 16px;
+        opacity: 0;
+        transform: translateX(-8px);
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &__description {
+        margin: 0 0 20px 0;
+        color: $text-color-secondary;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    &__stats {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 20px;
+        padding-top: 16px;
+        border-top: 1px solid $border-color-light;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: $text-color-secondary;
+    }
+
+    &__creator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        strong {
+            color: $text-color;
+            font-weight: 600;
+        }
+    }
+
+    &__date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+    }
+}
+
+.poll-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: $radius-full;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    &--active {
+        background: rgba($success-color, 0.1);
+        color: $success-color;
+        border: 1px solid rgba($success-color, 0.2);
+    }
+
+    &--expired {
+        background: rgba($neutral-400, 0.1);
+        color: $error-color;
+        border: 1px solid rgba($neutral-400, 0.2);
+    }
+
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+}
+
+.poll-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text-color-secondary;
+    font-size: 0.875rem;
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+        color: $primary-color;
+    }
+
+    &__value {
+        font-weight: 600;
+        color: $text-color;
+    }
+
+    &__label {
+        color: $text-color-secondary;
+    }
+}
+
+.poll-creator__icon {
+    width: 14px;
+    height: 14px;
+    color: $text-color-light;
+}
+
+.poll-date__label {
+    font-size: 0.75rem;
+    color: $text-color-light;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.poll-date__value {
+    font-weight: 600;
+    color: $text-color;
+}
+
+/* ========================================
+   MODERN POLL DETAIL STYLES
+   ======================================== */
+
+.modern-poll-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.modern-poll-info {
+    background: linear-gradient(135deg, $primary-light 0%, #ffffff 100%);
+    border: 1px solid rgba($primary-color, 0.3);
+    border-radius: $radius-xl;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: $gradient-primary;
+    }
+}
+
+.poll-info-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.poll-info-icon {
+    background: $primary-color;
+    color: $text-color;
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: $shadow-md;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.poll-info-title {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+}
+
+.poll-description {
+    margin: 0;
+    color: $text-color-secondary;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.poll-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.poll-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: $radius-lg;
+    border: 1px solid rgba($primary-color, 0.2);
+
+    >div {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+.poll-meta-icon {
+    width: 20px;
+    height: 20px;
+    color: $primary-dark;
+    flex-shrink: 0;
+}
+
+.poll-meta-label {
+    font-size: 0.75rem;
+    color: $text-color-light;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.poll-meta-value {
+    font-size: 0.875rem;
+    color: $text-color;
+    font-weight: 600;
+}
+
+.modern-poll-expired-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+    padding: 12px 16px;
+    border-radius: $radius-lg;
+    border: 1px solid rgba($error-color, 0.2);
+    margin-top: 16px;
+}
+
+.expired-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   POLL OPTIONS STYLES
+   ======================================== */
+
+.modern-poll-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.poll-options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+    }
+}
+
+.total-votes-badge {
+    background: $primary-color;
+    color: $text-color;
+    padding: 6px 12px;
+    border-radius: $radius-full;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.modern-poll-option {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 20px;
+    transition: all $transition-fast;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: transparent;
+        transition: background $transition-fast;
+    }
+
+    &--voted {
+        border-color: $primary-color;
+        background: linear-gradient(135deg, $primary-light 0%, #ffffff 100%);
+
+        &::before {
+            background: $gradient-primary;
+        }
+    }
+
+    &--winner {
+        border-color: $success-color;
+        background: linear-gradient(135deg, rgba($success-color, 0.1) 0%, #ffffff 100%);
+
+        &::before {
+            background: linear-gradient(135deg, $success-color 0%, color.adjust($success-color, $lightness: -10%) 100%);
+        }
+    }
+
+    &--expired {
+        opacity: 0.7;
+        background: $neutral-50;
+    }
+}
+
+.poll-option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.restaurant-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.ranking-badge {
+    background: $neutral-500;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+
+    &--winner {
+        background: $gradient-primary;
+        color: $text-color;
+        font-size: 1rem;
+    }
+}
+
+.restaurant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.restaurant-name {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-color;
+    line-height: 1.4;
+}
+
+.your-vote-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: $success-color;
+    color: white;
+    padding: 4px 8px;
+    border-radius: $radius-full;
+    font-size: 0.75rem;
+    font-weight: 600;
+    align-self: flex-start;
+
+    svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.vote-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.vote-count {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-color;
+}
+
+.vote-percentage {
+    color: $primary-color;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* ========================================
+   VOTING INTERACTION STYLES
+   ======================================== */
+
+.modern-vote-progress {
+    margin-bottom: 16px;
+}
+
+.vote-progress-track {
+    width: 100%;
+    height: 8px;
+    background: $border-color-light;
+    border-radius: $radius-full;
+    overflow: hidden;
+}
+
+.vote-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $neutral-500 0%, $neutral-600 100%);
+    transition: width $transition-normal;
+    border-radius: $radius-full;
+
+    &--user {
+        background: $gradient-primary;
+    }
+
+    &--winner {
+        background: linear-gradient(90deg, $success-color 0%, color.adjust($success-color, $lightness: -10%) 100%);
+    }
+}
+
+.modern-vote-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: $primary-color;
+    color: $text-color;
+    border: none;
+    padding: 10px 20px;
+    border-radius: $radius-lg;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    margin-bottom: 16px;
+    align-self: flex-start;
+
+    &:hover {
+        background: $primary-dark;
+        transform: translateY(-1px);
+        box-shadow: $shadow-md;
+    }
+
+    &--voted {
+        background: $success-color;
+        color: white;
+
+        &:hover {
+            background: color.adjust($success-color, $lightness: -10%);
+        }
+    }
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.modern-voters-list {
+    border-top: 1px solid $border-color-light;
+    padding-top: 16px;
+}
+
+.voters-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: $text-color-secondary;
+    font-weight: 500;
+    margin-bottom: 12px;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.voters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.modern-voter {
+    background: $border-color-light;
+    color: $text-color-secondary;
+    padding: 6px 12px;
+    border-radius: $radius-full;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid $border-color;
+
+    &--current {
+        background: rgba($info-color, 0.1);
+        color: $info-color;
+        border-color: $info-color;
+    }
+}
+
+.modern-vote-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: $radius-xl;
+    border: 1px solid;
+
+    &--success {
+        background: rgba($success-color, 0.1);
+        border-color: rgba($success-color, 0.2);
+        color: color.adjust($success-color, $lightness: -20%);
+    }
+
+    &--info {
+        background: rgba($info-color, 0.1);
+        border-color: rgba($info-color, 0.2);
+        color: color.adjust($info-color, $lightness: -20%);
+    }
+
+    p {
+        margin: 0;
+        line-height: 1.5;
+
+        &:first-child {
+            margin-bottom: 4px;
+        }
+    }
+}
+
+.status-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.status-help-text {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .vote-modal-overlay {
+        padding: 16px;
+    }
+
+    .vote-modal-container {
+        max-height: 95vh;
+    }
+
+    .vote-modal-header {
+        padding: 24px;
+    }
+
+    .vote-modal-title {
+        font-size: 1.5rem;
+    }
+
+    .vote-modal-body {
+        padding: 20px 24px 24px;
+    }
+
+    .poll-card {
+        padding: 20px;
+
+        &__stats {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        &__footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        &__date {
+            align-items: flex-start;
+        }
+    }
+}
