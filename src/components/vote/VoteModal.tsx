@@ -5,6 +5,7 @@ import { DUMMY_POLLS, CURRENT_USER, type Poll } from '../../constants/voteData';
 import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
+import BaseModal from '../common/BaseModal';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
@@ -19,10 +20,6 @@ function VoteModal() {
 
     const handlePollClick = (poll: Poll) => {
         setSelectedPoll(poll);
-    };
-
-    const handleBackToPollList = () => {
-        setSelectedPoll(null);
     };
 
     const handleVote = (pollId: number, restaurantId: number) => {
@@ -69,38 +66,19 @@ function VoteModal() {
     if (!show) return null;
 
     return (
-        <div className="vote-modal-overlay" onClick={onClose}>
-            <div className="vote-modal-container" onClick={(e) => e.stopPropagation()}>
-                <div className="vote-modal-header">
-                    {selectedPoll ? (
-                        <div className="vote-modal-header-back">
-                            <button
-                                className="vote-back-button"
-                                onClick={handleBackToPollList}
-                            >
-                                ← Back to Polls
-                            </button>
-                            <h2>{selectedPoll.title}</h2>
-                        </div>
-                    ) : (
-                        <h2>Vote for Your Favorite Restaurant</h2>
-                    )}
-                    <button className="vote-modal-close" onClick={onClose}>×</button>
-                </div>
-
-                <div className="vote-modal-body">
-                    {selectedPoll ?
-                        <PollDetail
-                            poll={selectedPoll}
-                            onVote={handleVote}
-                            currentUser={CURRENT_USER}
-                        /> : <PollList
-                            polls={polls}
-                            handlePollClick={handlePollClick}
-                        />}
-                </div>
-            </div>
-        </div>
+        <BaseModal
+            title={selectedPoll ? selectedPoll.title : "Vote for Your Favorite Restaurant"}
+            onClose={onClose}
+        >{selectedPoll ?
+            <PollDetail
+                poll={selectedPoll}
+                onVote={handleVote}
+                currentUser={CURRENT_USER}
+            /> : <PollList
+                polls={polls}
+                handlePollClick={handlePollClick}
+            />}
+        </BaseModal>
     );
 }
 

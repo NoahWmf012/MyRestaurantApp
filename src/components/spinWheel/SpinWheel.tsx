@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import WheelCanvas from './WheelCanvas';
 import ResultModal from './ResultModal';
-import './SpinWheel.styles.scss';
+import './SpinWheel.scss';
 
 interface SpinWheelProps {
     items: string[];

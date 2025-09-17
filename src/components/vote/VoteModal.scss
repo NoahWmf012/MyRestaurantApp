@@ -5,52 +5,6 @@
    VOTE MODAL STYLES
    ======================================== */
 
-/* Overlay & Container */
-.vote-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-    opacity: 1;
-    animation: fadeIn $transition-normal ease-out forwards;
-
-    &--animate {
-        opacity: 1;
-    }
-}
-
-.vote-modal-container {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: $radius-2xl;
-    width: 100%;
-    max-width: 900px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: $shadow-2xl, $shadow-yellow;
-    position: relative;
-    transform: scale(1) translateY(0);
-    opacity: 1;
-    animation: modalSlideIn $transition-normal ease-out forwards;
-    border: 1px solid rgba($primary-color, 0.2);
-
-    &--animate {
-        transform: scale(1) translateY(0);
-    }
-}
-
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -77,39 +31,6 @@
 /* ========================================
    HEADER STYLES
    ======================================== */
-
-.vote-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 32px;
-    border-bottom: 1px solid $border-color-light;
-    background: $gradient-primary;
-    color: $text-color;
-    border-radius: $radius-2xl $radius-2xl 0 0;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-        pointer-events: none;
-    }
-}
-
-.vote-modal-title {
-    margin: 0;
-    font-size: 1.875rem;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 1;
-}
 
 .vote-modal-header-back {
     display: flex;
@@ -148,65 +69,9 @@
     stroke-width: 2.5;
 }
 
-.vote-modal-close {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: $text-color;
-    width: 44px;
-    height: 44px;
-    border-radius: $radius-full;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all $transition-fast;
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 1;
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: rotate(90deg);
-    }
-
-    svg {
-        width: 20px;
-        height: 20px;
-        stroke-width: 2.5;
-    }
-}
-
 /* ========================================
    BODY & CONTENT STYLES
    ======================================== */
-
-.vote-modal-body {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    padding: 24px 32px 32px;
-
-    /* Custom scrollbar */
-    &::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.05);
-        border-radius: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgba($primary-color, 0.3);
-        border-radius: 4px;
-
-        &:hover {
-            background: rgba($primary-color, 0.5);
-        }
-    }
-}
 
 .vote-modal-content {
     flex: 1;
@@ -908,24 +773,8 @@
    ======================================== */
 
 @media (max-width: 768px) {
-    .vote-modal-overlay {
-        padding: 16px;
-    }
-
-    .vote-modal-container {
-        max-height: 95vh;
-    }
-
-    .vote-modal-header {
-        padding: 24px;
-    }
-
     .vote-modal-title {
         font-size: 1.5rem;
-    }
-
-    .vote-modal-body {
-        padding: 20px 24px 24px;
     }
 
     .poll-card {
