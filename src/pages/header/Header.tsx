@@ -1,4 +1,5 @@
 import RoulettePopup from '../../components/spinWheel/RoulettePopup'
+import VoteModal from '../../components/vote/VoteModal'
 import Toolbar from './Toolbar'
 
 function Header() {
@@ -8,6 +9,7 @@ function Header() {
 
             {/* Popup Modals */}
             <RoulettePopup />
+            <VoteModal />
         </div>
     )
 }

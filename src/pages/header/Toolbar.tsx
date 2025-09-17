@@ -6,7 +6,7 @@ import SettingIcon from "../../assets/icons/setting-lines.png"
 import MoreIcon from "../../assets/icons/more.png"
 import SearchBar from "../../components/searchBar/SearchBar"
 import { useAppDispatch } from "../../redux/store"
-import { showRouletteModal } from "../../redux/reducers/modalVisibleSlice"
+import { showRouletteModal, showVoteModal } from "../../redux/reducers/modalVisibleSlice"
 
 function Toolbar() {
     const navigate = useNavigate()
@@ -63,9 +63,8 @@ function Toolbar() {
                         </li>
                         <li>
                             {/* Vote Button */}
-
+                            <button className="spinwheel-button spinwheel-button-primary" onClick={() => dispatch(showVoteModal())}>Vote</button>
                         </li>
-                        <li><a className="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
             </div>
