@@ -52,9 +52,9 @@ function WhatsHotItem(props: WhatsHotItemProps) {
 function WhatsHot() {
     return (
         <div className="whats-hot-wrapper">
-            <div className="section-header">
-                <img src={FireIcon} alt="" className="section-icon" />
-                <h2 className="section-title">What's Hot</h2>
+            <div className="section-title d-flex align-items-center">
+                <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
+                What's Hot
             </div>
             <div className="carousel-container">
                 <Carousel

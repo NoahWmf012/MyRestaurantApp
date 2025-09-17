@@ -213,6 +213,7 @@ input[type="text"] {
 
 .card.whats-hot-item {
     width: 160px;
+    height: 95%;
 
     .card-img-top {
         width: 158px;
@@ -234,7 +235,7 @@ input[type="text"] {
     font-size: 28px;
     color: $text-color;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-top: 18px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -336,22 +337,6 @@ input[type="text"] {
 }
 
 /* Section Headers with Icons */
-.section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-
-    .section-icon {
-        width: 32px;
-        height: 32px;
-        padding: 6px;
-        background: $gradient-primary;
-        border-radius: $radius-lg;
-        box-shadow: $shadow-md;
-    }
-}
-
 .title-icon {
     width: 24px;
     height: 24px;

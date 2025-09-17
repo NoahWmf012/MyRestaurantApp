@@ -36,7 +36,7 @@ function OrderAgain() {
     return (
         <div className="order-again-wrapper">
             <div className="section-title d-flex align-items-center">
-                <img src={OrderIcon} alt="Order Icon" className="title-icon order-icon mx-1" />
+                <img src={OrderIcon} alt="Order Icon" className="title-icon mx-1" />
                 Order Again
             </div>
 
