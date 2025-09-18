@@ -16,7 +16,7 @@
 }
 
 .toolbar-container {
-    padding: 16px 24px;
+    padding: 4px 16px;
     min-height: 64px;
     max-width: 1200px;
     margin: 0 auto;
@@ -205,9 +205,7 @@
 }
 
 input[type="text"] {
-    border: 1px solid $border-color;
     padding: 0.5rem;
-    border-radius: 2rem;
     box-sizing: border-box;
 }
 
