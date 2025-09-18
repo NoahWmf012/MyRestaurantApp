@@ -1,0 +1,249 @@
+/* Container / column */
+.gradient-scroll-view-content.poi-list-filter-container-view {
+    width: 300px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-size: 13px;
+    color: #222;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Make column sticky if layout expects desktop sticky */
+.filter-column-desktop {
+    position: sticky;
+    top: 80px;
+}
+
+/* Map block */
+.fcd-map {
+    margin-bottom: 8px;
+}
+
+.filter-map-block {
+    display: block;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    background: linear-gradient(180deg, #fff, #fafafa);
+    padding: 10px;
+}
+
+.filter-map-block-content {
+    text-align: center;
+    font-weight: 600;
+    color: #e54e26;
+    /* OpenRice orange */
+}
+
+/* Collapsable section */
+.collapsable-section.fcd-section {
+    margin-bottom: 8px;
+}
+
+/* Title row */
+.collapsable-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 4px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Arrow visual */
+.collapsable-section-arrow {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-left: 2px solid #999;
+    border-bottom: 2px solid #999;
+    transform: rotate(-45deg);
+    transition: transform 0.18s ease;
+    margin-left: 8px;
+}
+
+.collapsable-section-arrow.collapsable-section-arrow-expanded {
+    transform: rotate(135deg);
+}
+
+/* Collapsable content hidden state */
+.collapsable.collapsable-collapsed .collapsable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.18s ease;
+    padding: 0;
+}
+
+.collapsable .collapsable-content {
+    padding: 8px 4px;
+}
+
+/* Booking block */
+.fcd-booking {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.fcd-booking-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.fcd-booking-column {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fcd-booking-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: #f3f3f3;
+}
+
+.fcd-booking-text {
+    font-size: 13px;
+    color: #444;
+}
+
+/* Filter items (checkbox / radio) */
+.filter-item-checkbox.fcd-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.filter-item-checkbox.fcd-item:hover {
+    background: #fbfbfb;
+    border-radius: 4px;
+}
+
+.fic-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.fic-checkbox.fic-checkbox-checked {
+    background: #e54e26;
+    border-color: #e54e26;
+    position: relative;
+}
+
+.fic-checkbox.fic-checkbox-checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Text next to checkbox */
+.fic-text {
+    font-size: 13px;
+    color: #333;
+}
+
+/* "More" button */
+.filter-more-button.fcd-more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 4px;
+    color: #0066cc;
+    cursor: pointer;
+}
+
+/* Price range / slider approximations */
+.fcd-price-range .filter-price-range-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Simplified slider visuals more like OpenRice */
+.input-slider {
+    padding: 0 6px;
+}
+
+.slider-track {
+    height: 8px;
+    background: linear-gradient(90deg, #f1f1f1, #f6f6f6);
+    border-radius: 6px;
+    position: relative;
+    margin: 6px 0;
+}
+
+.slider-track-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: #e54e26;
+    border-radius: 6px;
+    opacity: 0.07;
+}
+
+.slider-thumb,
+.slider-thumb-right {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #facf00;
+    border: 1px solid #e5e5e5;
+    margin-top: -5px;
+    /* visually centered on track */
+}
+
+/* Footer buttons */
+.btn-reset,
+.btn-apply {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.btn-reset {
+    background: #f6f6f6;
+    color: #333;
+    border: 1px solid #eee;
+}
+
+.btn-apply {
+    background: #e54e26;
+    color: white;
+    border: none;
+}
+
+/* Scrollbar tweaks */
+.gradient-scroll-view-content.poi-list-filter-container-view::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gradient-scroll-view-content.poi-list-filter-container-view::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+}

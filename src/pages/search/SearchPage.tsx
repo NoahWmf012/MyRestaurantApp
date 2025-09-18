@@ -1,10 +1,13 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
-import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
+import "./SearchPage.scss";
+import { useState } from "react";
+import SearchFilter from "./SearchFilter";
+import { FILTER_CONFIG } from "../../constants/searchFilterConstant";
+import SearchDetail from "./SearchDetail";
 
 function SearchPage() {
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
     const query = searchParams.get('query') || '';
 
     // Filter restaurants based on search query
@@ -15,47 +18,16 @@ function SearchPage() {
         restaurant.tags?.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
     );
 
-    const handleRestaurantClick = (restaurantName: string) => {
-        navigate(`/restaurant/${encodeURIComponent(restaurantName)}`);
-    };
+    // Search filter sidebar
+    const [appliedFilters, setAppliedFilters] = useState({});
 
     return (
-        <div className="container mt-4 restaurant-list-page">
-            {filteredRestaurants.length === 0 ? (
-                <div className="no-results">
-                    <h3>No restaurants found</h3>
-                    <p>Try searching with different keywords like cuisine type or location.</p>
-                </div>
-            ) : (
-                <div className="restaurant-grid">
-                    {filteredRestaurants.map((restaurant) => (
-                        <div
-                            key={restaurant.id}
-                            className="restaurant-card"
-                            onClick={() => handleRestaurantClick(restaurant.name)}
-                        >
-                            <div className="restaurant-image-wrapper">
-                                <img
-                                    src={getRestaurantImage1(restaurant.id)}
-                                    alt={restaurant.name}
-                                    className="restaurant-image"
-                                />
-                            </div>
-                            <div className="restaurant-info">
-                                <h3 className="restaurant-name">{restaurant.name}</h3>
-                                <div className="restaurant-meta">
-                                    <span className="cuisine-badge">{restaurant.cuisine}</span>
-                                    <span className="rating">
-                                        {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
-                                    </span>
-                                </div>
-                                <p className="restaurant-location">{restaurant.location}</p>
-                                <p className="restaurant-description">{restaurant.desc}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+        <div className="container mt-4 restaurant-list-page d-flex">
+            <SearchFilter
+                sections={FILTER_CONFIG}
+                onChange={(filters) => setAppliedFilters(filters)}
+            />
+            <SearchDetail list={filteredRestaurants} />
         </div>
     );
 }
