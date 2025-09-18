@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import "./SearchPage.scss";
 import { useState } from "react";
-import SearchFilter from "./SearchFilter";
+import SearchFilter, { type FilterValues } from "./SearchFilter";
 import { FILTER_CONFIG } from "../../constants/searchFilterConstant";
 import SearchDetail from "./SearchDetail";
 
@@ -19,7 +19,7 @@ function SearchPage() {
     );
 
     // Search filter sidebar
-    const [appliedFilters, setAppliedFilters] = useState({});
+    const [appliedFilters, setAppliedFilters] = useState<FilterValues>({});
 
     return (
         <div className="container mt-4 restaurant-list-page d-flex">
