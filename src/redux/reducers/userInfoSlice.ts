@@ -1,36 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 export interface UserInfoInterface {
-  userId: string
-  userName: string
-  avatarUrl: string
+    userId: string
+    userName: string
 }
 
 const initialState = {
-  userId: '',
-  userName: '',
-  avatarUrl: ''
+    userId: '',
+    userName: '',
 } as UserInfoInterface
 
 export const userInfoSlice = createSlice({
-  name: 'userInfo',
-  initialState,
-  reducers: {
-    setUserInfo(state, action) {
-      state.userId = action.payload.userId
-      state.userName = action.payload.userName
-      state.avatarUrl = action.payload.avatarUrl
-    },
-    clearUserInfo(state) {
-      state.userId = ''
-      state.userName = ''
-      state.avatarUrl = ''
+    name: 'userInfoState',
+    initialState,
+    reducers: {
+        setUserInfo(state, action) {
+            state.userId = action.payload.userId
+            state.userName = action.payload.userName
+        },
+        clearUserInfo(state) {
+            state.userId = ''
+            state.userName = ''
+        }
     }
-  }
 })
 
 export const {
-  setUserInfo,
-  clearUserInfo
+    setUserInfo,
+    clearUserInfo
 } = userInfoSlice.actions
 //#endregion
