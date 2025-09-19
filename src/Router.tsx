@@ -15,6 +15,6 @@ export const router = createBrowserRouter(
         </Route>
     ),
     {
-        basename: '/MyRestaurantApp'
+        basename: '/my-restaurant-fe'
     }
 )

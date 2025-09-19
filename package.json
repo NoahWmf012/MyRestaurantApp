@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://noahwmf012.github.io/MyRestaurantApp/",
+  "homepage": "https://noahwmf012.github.io/my-restaurant-fe/",
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist",

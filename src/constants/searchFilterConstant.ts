@@ -32,8 +32,8 @@ export const FILTER_CONFIG: Section[] = [
             { label: "Kowloon", value: "kowloon" },
         ],
     },
-    // {
-    //     title: "Spending",
-    //     type: "slider",
-    // },
+    {
+        title: "Spending",
+        type: "slider",
+    },
 ];
