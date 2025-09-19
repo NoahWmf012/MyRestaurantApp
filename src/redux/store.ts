@@ -21,23 +21,11 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
     }).concat(
-        // API middlewares go here
+        [userAPI.middleware]
     ),
     devTools: import.meta.PROD === false,
     // devTools: true,
 })
-
-// export const setupStore = (preloadedState?: Partial<RootState>) => {
-//     return configureStore({
-//         reducer,
-//         middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-//             serializableCheck: false
-//         }).concat(
-//             // API middlewares go here
-//         ),
-//         preloadedState
-//     })
-// }
 
 export type RootState = ReturnType<typeof store.getState>
 
@@ -47,4 +35,3 @@ export type StoreType = typeof store
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-// export type AppStore = ReturnType<typeof setupStore>
