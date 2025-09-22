@@ -4,6 +4,8 @@ import { combineReducers } from "redux";
 import { showErrModalState, showRouletteModalState, showVoteModalState } from "./reducers/modalVisibleSlice";
 import { userInfoSlice } from "./reducers/userInfoSlice";
 import { userAPI } from "./services/api/userAPI";
+import { restaurantAPI } from "./services/api/restaurantAPI";
+import { voteAPI } from "./services/api/voteAPI";
 
 const reducer = combineReducers({
     //frontend states
@@ -14,6 +16,8 @@ const reducer = combineReducers({
 
     //API reducers
     [userAPI.reducerPath]: userAPI.reducer,
+    [restaurantAPI.reducerPath]: restaurantAPI.reducer,
+    [voteAPI.reducerPath]: voteAPI.reducer,
 })
 
 export const store = configureStore({
@@ -21,7 +25,9 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
     }).concat(
-        [userAPI.middleware]
+        userAPI.middleware,
+        restaurantAPI.middleware,
+        voteAPI.middleware,
     ),
     devTools: import.meta.PROD === false,
     // devTools: true,
