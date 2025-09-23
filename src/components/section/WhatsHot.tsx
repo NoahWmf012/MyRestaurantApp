@@ -34,11 +34,6 @@ function WhatsHotItem(props: WhatsHotItemProps) {
         >
             <div className="card-img-container">
                 <img className="card-img-top" src={props.imageSrc} alt={`${props.title} at ${props.restaurantName}`} />
-                <div className="card-overlay">
-                    <svg className="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                </div>
             </div>
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>

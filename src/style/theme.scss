@@ -75,6 +75,10 @@
 
 #home-button {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 74px;
     padding: 8px;
     border-radius: $radius-lg;
     transition: all $transition-fast;
@@ -100,19 +104,7 @@
     }
 }
 
-.home-button {
-    background: none;
-    border: none;
-    padding: 8px;
-    border-radius: $radius-lg;
-    transition: all $transition-fast;
-    cursor: pointer;
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: scale(1.05);
-    }
-}
 
 /* Modern Dropdown Styles */
 .dropdown {
@@ -277,40 +269,9 @@ input[type="text"] {
         width: 100%;
     }
 
-    .card-overlay {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: linear-gradient(135deg, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
-        padding: 12px;
-        opacity: 0;
-        transition: opacity $transition-fast;
-    }
-
-    .card-arrow {
-        width: 20px;
-        height: 20px;
-        color: white;
-        transform: translateX(10px);
-        transition: transform $transition-fast;
-    }
-
     &:hover {
         .card-img-top {
             transform: scale(1.05);
-        }
-
-        .card-overlay {
-            opacity: 1;
-        }
-
-        .card-arrow {
-            transform: translateX(0);
         }
     }
 
@@ -372,14 +333,6 @@ input[type="text"] {
             word-break: break-word;
         }
     }
-}
-
-#home-button {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    width: auto;
-    height: 74px;
 }
 
 #footer {
