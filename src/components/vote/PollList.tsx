@@ -1,6 +1,6 @@
-import type { Poll } from "../../constants/voteData";
+import type { PollResponse } from "../../interfaces/queryInterface/pollAPIInterface";
 
-export function PollList({ polls, handlePollClick }: { polls: Poll[]; handlePollClick: (poll: Poll) => void }) {
+export function PollList({ polls, handlePollClick }: { polls: PollResponse[]; handlePollClick: (poll: PollResponse) => void }) {
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {
             month: 'short',
@@ -10,7 +10,7 @@ export function PollList({ polls, handlePollClick }: { polls: Poll[]; handlePoll
         });
     };
 
-    const getTotalVotes = (poll: Poll) => {
+    const getTotalVotes = (poll: PollResponse) => {
         return poll.options.reduce((total, option) => total + option.votes.length, 0);
     };
 

@@ -1,24 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
-import { DUMMY_POLLS, CURRENT_USER, type Poll } from '../../constants/voteData';
+import { CURRENT_USER } from '../../constants/voteData';
 import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
+import { useGetVotesQuery } from '../../redux/services/api/voteAPI';
+import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
     const dispatch = useAppDispatch();
-    const [selectedPoll, setSelectedPoll] = useState<Poll | null>(null);
-    const [polls, setPolls] = useState<Poll[]>(DUMMY_POLLS);
+    const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
+    const [polls, setPolls] = useState([] as PollResponse[]);
+
+    const { data: votesData } = useGetVotesQuery()
+
+    useEffect(() => {
+        if (votesData) {
+            setPolls(votesData);
+        }
+    }, [votesData]);
 
     const onClose = () => {
         dispatch(hideVoteModal());
         setSelectedPoll(null);
     };
 
-    const handlePollClick = (poll: Poll) => {
+    const handlePollClick = (poll: PollResponse) => {
         setSelectedPoll(poll);
     };
 

@@ -1,8 +1,9 @@
-import { type CurrentUserInterface, type Poll } from '../../constants/voteData';
+import { type CurrentUserInterface } from '../../constants/voteData';
+import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 import { PollOptions } from './PollOptions';
 
 interface PollDetailProps {
-    poll: Poll;
+    poll: PollResponse;
     onVote: (pollId: number, restaurantId: number) => void;
     currentUser: CurrentUserInterface;
 };

@@ -1,7 +1,8 @@
-import type { CurrentUserInterface, Poll, Vote } from "../../constants/voteData";
+import type { CurrentUserInterface, Vote } from "../../constants/voteData";
+import type { PollResponse } from "../../interfaces/queryInterface/pollAPIInterface";
 
 type PollOptionsProps = {
-    poll: Poll;
+    poll: PollResponse;
     currentUserVote: number | null;
     isExpired: boolean;
     handleVoteClick: (restaurantId: number) => void;
@@ -14,7 +15,7 @@ export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick,
         return Math.round((votes.length / totalVotes) * 100);
     };
 
-    return poll.options
+    return [...poll.options]
         .sort((a, b) => b.votes.length - a.votes.length) // Sort by vote count (highest first)
         .map((option, index) => {
             const percentage = getVotePercentage(option.votes);

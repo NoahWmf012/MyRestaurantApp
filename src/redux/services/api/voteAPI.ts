@@ -29,4 +29,4 @@ export const voteAPI = createApi({
     }),
 })
 
-export const { useCreateVoteMutation, useLazyGetVotesQuery, useUpdateVoteQuery } = voteAPI
+export const { useCreateVoteMutation, useGetVotesQuery, useLazyGetVotesQuery, useUpdateVoteQuery } = voteAPI
