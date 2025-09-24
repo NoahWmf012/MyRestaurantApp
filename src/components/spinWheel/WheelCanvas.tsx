@@ -61,18 +61,21 @@ export default function WheelCanvas({ items, rotation, isSpinning, onTransitionE
 
                         const textPos = polarToCartesian(radius * 0.62, center);
                         let textRotation = center + 90;
-                        if (textRotation > 180) textRotation -= 180;
+
+                        if (items.length >= 7) {
+                            textRotation = center;
+                        }
 
                         return (
                             <g key={i}>
                                 <path d={path} fill={color} stroke="#fff" strokeWidth={2} />
                                 <text
+                                    className="spinwheel-segment-text"
                                     x={textPos.x}
                                     y={textPos.y}
                                     textAnchor="middle"
                                     dominantBaseline="middle"
                                     transform={`rotate(${textRotation} ${textPos.x} ${textPos.y})`}
-                                    style={{ fontSize: 12, fontWeight: 600, fill: '#1f2937', userSelect: 'none' }}
                                 >
                                     {label}
                                 </text>

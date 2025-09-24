@@ -232,6 +232,13 @@
     transform: none !important;
 }
 
+.spinwheel-segment-text {
+    font-size: 12px;
+    font-weight: 600;
+    fill: $text-color;
+    user-select: none;
+}
+
 /* Button Icons */
 .spinwheel-button svg {
     width: 16px;
