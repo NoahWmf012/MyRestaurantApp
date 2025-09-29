@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import './auth.scss'
+import { useNavigate } from 'react-router-dom';
+import ShowIcon from '../../assets/icons/show.png'
+import HideIcon from '../../assets/icons/hide.png'
 
 interface FormData {
     email: string;
@@ -24,6 +27,8 @@ function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
+
+    const navigate = useNavigate();
 
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
@@ -236,7 +241,7 @@ function LoginForm() {
                                 onClick={() => setShowPassword(!showPassword)}
                                 tabIndex={-1}
                             >
-                                {showPassword ? '👁️' : '🔒'}
+                                {showPassword ? <img className='password-icon' src={ShowIcon} alt="Show" /> : <img className='password-icon' src={HideIcon} alt="Hide" />}
                             </button>
                         </div>
                         {errors.password && (
@@ -306,7 +311,7 @@ function LoginForm() {
 
                 <div className="auth-footer">
                     <p className="auth-link">
-                        Don't have an account? <a href="/signup">Sign up</a>
+                        Don't have an account? <a onClick={() => navigate('/signup')}>Sign up</a>
                     </p>
                 </div>
             </div>
