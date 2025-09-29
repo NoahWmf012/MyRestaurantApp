@@ -6,7 +6,7 @@ import HideIcon from '../../assets/icons/hide.png'
 import { useLazyLoginQuery } from '../../redux/services/api/userAPI';
 import type { LoginRequest } from '../../interfaces/queryInterface/userAPIInterface';
 import { QueryStatus } from '@reduxjs/toolkit/query';
-import type { ErrorInterface } from '../../interfaces/errorInterface';
+// import type { ErrorInterface } from '../../interfaces/errorInterface';
 
 interface FormErrors {
     email?: string;
@@ -266,7 +266,7 @@ function LoginForm() {
                         )}
                     </div>
 
-                    <div className="checkbox-group">
+                    {/* <div className="checkbox-group">
                         <input
                             type="checkbox"
                             id="rememberMe"
@@ -278,7 +278,7 @@ function LoginForm() {
                         <label htmlFor="rememberMe" className="checkbox-label">
                             Remember me for 30 days
                         </label>
-                    </div>
+                    </div> */}
 
                     {errors.general && (
                         <div className="form-error">
@@ -311,11 +311,11 @@ function LoginForm() {
                             <span>or sign in with</span>
                         </div>
                         <div className="social-buttons">
-                            <button type="button" className="social-button google">
+                            <button type="button" className="social-button google" disabled={true}>
                                 <span className="social-icon">G</span>
                                 Google
                             </button>
-                            <button type="button" className="social-button facebook">
+                            <button type="button" className="social-button facebook" disabled={true}>
                                 <span className="social-icon">f</span>
                                 Facebook
                             </button>

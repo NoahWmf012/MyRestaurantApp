@@ -447,6 +447,18 @@
                 }
             }
 
+            // Disabled state for social buttons
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                pointer-events: none;
+                background-color: $neutral-100;
+                color: $text-color-light;
+                border-color: $border-color;
+                transform: none;
+                box-shadow: none;
+            }
+
             .social-icon {
                 font-size: 1.125rem;
             }

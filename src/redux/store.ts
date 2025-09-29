@@ -6,6 +6,7 @@ import { userInfoSlice } from "./reducers/userInfoSlice";
 import { userAPI } from "./services/api/userAPI";
 import { restaurantAPI } from "./services/api/restaurantAPI";
 import { voteAPI } from "./services/api/voteAPI";
+import { authSlice } from "./reducers/authSlice";
 
 const reducer = combineReducers({
     //frontend states
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     showErrModalState: showErrModalState.reducer,
     showRouletteModalState: showRouletteModalState.reducer,
     showVoteModalState: showVoteModalState.reducer,
+    authState: authSlice.reducer,
 
     //API reducers
     [userAPI.reducerPath]: userAPI.reducer,
