@@ -4,6 +4,9 @@ import { Layout } from './Layout'
 import RestaurantPage from './pages/restaurant/RestaurantPage'
 import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
 import SearchPage from './pages/search/SearchPage'
+import LoginPage from './pages/auth/LoginPage'
+import SignupPage from './pages/auth/SignupPage'
+import SettingsPage from './pages/settings/SettingsPage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -11,6 +14,9 @@ export const router = createBrowserRouter(
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="restaurant/:name" element={<RestaurantPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
+            <Route path="settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFoundPage />} />
         </Route>
     ),

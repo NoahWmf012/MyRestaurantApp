@@ -68,6 +68,7 @@ function Toolbar() {
                 <button
                     className="title-btn login-button mx-1"
                     aria-label="Log in to your account"
+                    onClick={() => navigate("/login")}
                 >
                     <img src={LoginIcon} alt="" className="title-icon" />
                     <span>Log In</span>
