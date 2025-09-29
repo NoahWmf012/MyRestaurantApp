@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import ShowIcon from '../../assets/icons/show.png'
+import HideIcon from '../../assets/icons/hide.png'
 import './auth.scss'
 
 interface FormData {
@@ -33,6 +36,8 @@ function SignupForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
@@ -226,7 +231,7 @@ function SignupForm() {
                                 onClick={() => setShowPassword(!showPassword)}
                                 tabIndex={-1}
                             >
-                                {showPassword ? '👁️' : '🔒'}
+                                {showPassword ? <img className='password-icon' src={ShowIcon} alt="Show" /> : <img className='password-icon' src={HideIcon} alt="Hide" />}
                             </button>
                         </div>
                         {errors.password && (
@@ -259,7 +264,7 @@ function SignupForm() {
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 tabIndex={-1}
                             >
-                                {showConfirmPassword ? '👁️' : '🔒'}
+                                {showConfirmPassword ? <img className='password-icon' src={ShowIcon} alt="Show" /> : <img className='password-icon' src={HideIcon} alt="Hide" />}
                             </button>
                         </div>
                         {errors.confirmPassword && (
@@ -280,7 +285,7 @@ function SignupForm() {
                             className="checkbox-input"
                         />
                         <label htmlFor="agreedToTerms" className="checkbox-label">
-                            I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+                            I agree to the <span onClick={() => navigate('/terms')} className="link">Terms of Service</span> and <span onClick={() => navigate('/privacy')} className="link">Privacy Policy</span>
                         </label>
                     </div>
                     {errors.agreedToTerms && (
@@ -306,11 +311,11 @@ function SignupForm() {
                             <span>or sign up with</span>
                         </div>
                         <div className="social-buttons">
-                            <button type="button" className="social-button google">
+                            <button type="button" className="social-button google" disabled={true}>
                                 <span className="social-icon">G</span>
                                 Google
                             </button>
-                            <button type="button" className="social-button facebook">
+                            <button type="button" className="social-button facebook" disabled={true}>
                                 <span className="social-icon">f</span>
                                 Facebook
                             </button>
@@ -320,7 +325,7 @@ function SignupForm() {
 
                 <div className="auth-footer">
                     <p className="auth-link">
-                        Already have an account? <a href="/login">Sign in</a>
+                        Already have an account? <div onClick={() => navigate('/login')}>Log in</div>
                     </p>
                 </div>
             </div>

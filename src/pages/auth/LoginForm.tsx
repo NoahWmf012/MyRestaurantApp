@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './auth.scss'
 import { useNavigate } from 'react-router-dom';
 import ShowIcon from '../../assets/icons/show.png'
 import HideIcon from '../../assets/icons/hide.png'
-
-interface FormData {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-}
+import { useLazyLoginQuery } from '../../redux/services/api/userAPI';
+import type { LoginRequest } from '../../interfaces/queryInterface/userAPIInterface';
+import { QueryStatus } from '@reduxjs/toolkit/query';
+import type { ErrorInterface } from '../../interfaces/errorInterface';
 
 interface FormErrors {
     email?: string;
@@ -17,16 +15,18 @@ interface FormErrors {
 }
 
 function LoginForm() {
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<LoginRequest>({
         email: '',
-        password: '',
-        rememberMe: false
+        password: ''
+        // rememberMe: false
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
+
+    const [triggerLogin, loginResult] = useLazyLoginQuery();
 
     const navigate = useNavigate();
 
@@ -78,8 +78,7 @@ function LoginForm() {
         setErrors({});
 
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            triggerLogin(formData);
 
             // Simulate login validation
             if (formData.email === 'test@example.com' && formData.password === 'password123') {
@@ -95,6 +94,21 @@ function LoginForm() {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (loginResult.isFetching) {
+            return
+        }
+        if (loginResult.isSuccess && loginResult.status === QueryStatus.fulfilled) {
+            if (loginResult.data) {
+                // update user state from loginResult.data
+            }
+            // dispatch(finishLoading())
+        } else if (loginResult.isError) {
+            console.error(loginResult.error)
+            // show error modal with message
+        }
+    }, [loginResult])
 
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -311,7 +325,7 @@ function LoginForm() {
 
                 <div className="auth-footer">
                     <p className="auth-link">
-                        Don't have an account? <a onClick={() => navigate('/signup')}>Sign up</a>
+                        Don't have an account? <div onClick={() => navigate('/signup')}>Sign up</div>
                     </p>
                 </div>
             </div>

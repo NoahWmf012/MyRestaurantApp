@@ -1,11 +1,11 @@
-export interface SignInResponse {
+export interface LoginResponse {
     token: string;
     userId: string;
     userName: string;
 }
 
-export interface SignInRequest {
-    username: string;
+export interface LoginRequest {
+    email: string;
     password: string;
 }
 
