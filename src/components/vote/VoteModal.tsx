@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
-import { CURRENT_USER } from '../../constants/voteData';
+import { CURRENT_USER, DUMMY_POLLS } from '../../constants/voteData';
 import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
-import { useGetVotesQuery } from '../../redux/services/api/voteAPI';
+import { useGetPollsQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 
 function VoteModal() {
@@ -15,11 +15,13 @@ function VoteModal() {
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
     const [polls, setPolls] = useState([] as PollResponse[]);
 
-    const { data: votesData } = useGetVotesQuery()
+    const { data: votesData } = useGetPollsQuery()
 
     useEffect(() => {
         if (votesData) {
             setPolls(votesData);
+        } else {
+            setPolls(DUMMY_POLLS);
         }
     }, [votesData]);
 

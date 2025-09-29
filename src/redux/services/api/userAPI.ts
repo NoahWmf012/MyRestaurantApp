@@ -8,14 +8,14 @@ export const userAPI = createApi({
     endpoints: (builder) => ({
         signIn: builder.query<SignInResponse, SignInRequest>({
             query: (credentials) => ({
-                url: '/auth/signin',
+                url: '/auth/login',
                 method: 'POST',
                 body: credentials,
             }),
         }),
         signUp: builder.query<SignUpResponse, SignUpRequest>({
             query: (newUser) => ({
-                url: '/auth/signup',
+                url: '/auth/register',
                 method: 'POST',
                 body: newUser,
             }),

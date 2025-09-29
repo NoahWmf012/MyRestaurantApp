@@ -13,7 +13,7 @@ export const voteAPI = createApi({
                 body: newVote,
             }),
         }),
-        getVotes: builder.query<PollResponse[], void>({
+        getPolls: builder.query<PollResponse[], void>({
             query: () => ({
                 url: '/polls',
                 method: 'GET',
@@ -29,4 +29,4 @@ export const voteAPI = createApi({
     }),
 })
 
-export const { useCreateVoteMutation, useGetVotesQuery, useLazyGetVotesQuery, useUpdateVoteQuery } = voteAPI
+export const { useCreateVoteMutation, useGetPollsQuery, useLazyGetPollsQuery, useUpdateVoteQuery } = voteAPI

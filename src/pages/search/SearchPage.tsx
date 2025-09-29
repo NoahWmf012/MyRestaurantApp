@@ -20,6 +20,7 @@ function SearchPage() {
 
     // Search filter sidebar
     const [appliedFilters, setAppliedFilters] = useState<FilterValues>({});
+    console.log('Applied Filters:', appliedFilters);
 
     return (
         <div className="container mt-4 restaurant-list-page d-flex">
