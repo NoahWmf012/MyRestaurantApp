@@ -6,6 +6,9 @@ import HideIcon from '../../assets/icons/hide.png'
 import { useLazyLoginQuery } from '../../redux/services/api/userAPI';
 import type { LoginRequest } from '../../interfaces/queryInterface/userAPIInterface';
 import { QueryStatus } from '@reduxjs/toolkit/query';
+import { setAuthInfo } from '../../redux/reducers/authSlice';
+import { setUserInfo } from '../../redux/reducers/userInfoSlice';
+import { useAppDispatch } from '../../redux/store';
 // import type { ErrorInterface } from '../../interfaces/errorInterface';
 
 interface FormErrors {
@@ -29,6 +32,7 @@ function LoginForm() {
     const [triggerLogin, loginResult] = useLazyLoginQuery();
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
@@ -101,14 +105,24 @@ function LoginForm() {
         }
         if (loginResult.isSuccess && loginResult.status === QueryStatus.fulfilled) {
             if (loginResult.data) {
-                // update user state from loginResult.data
+                //set authSlice
+                dispatch(setAuthInfo({
+                    apiToken: loginResult.data.apiToken,
+                    refreshToken: loginResult.data.refreshToken,
+                    expiredIn: loginResult.data.expiredIn
+                }))
+                //set userInfoSlice
+                dispatch(setUserInfo({
+                    userId: loginResult.data.userId,
+                    userName: loginResult.data.userName
+                }))
             }
-            // dispatch(finishLoading())
+            // todo: dispatch(finishLoading())
         } else if (loginResult.isError) {
             console.error(loginResult.error)
-            // show error modal with message
+            // todo: show error modal with message
         }
-    }, [loginResult])
+    }, [loginResult, dispatch])
 
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -30,7 +30,16 @@ export const authSlice = createSlice({
         clearAuthInfo() {
             return initialState
         }
-    }
+    },
+    //set extra reducers for local storage persistence
+    extraReducers(builder) {
+        builder.addCase(setRefreshToken, (state) => {
+            localStorage.setItem('refreshToken', state.refreshToken)
+        })
+        builder.addCase(clearAuthInfo, () => {
+            localStorage.removeItem('refreshToken')
+        })
+    },
 })
 
 export const {

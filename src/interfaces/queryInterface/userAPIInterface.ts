@@ -1,5 +1,7 @@
 export interface LoginResponse {
-    token: string;
+    apiToken: string;
+    refreshToken: string;
+    expiredIn?: number;
     userId: string;
     userName: string;
 }

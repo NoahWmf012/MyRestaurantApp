@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 export interface UserInfoInterface {
     userId: string
@@ -14,14 +14,21 @@ export const userInfoSlice = createSlice({
     name: 'userInfoState',
     initialState,
     reducers: {
-        setUserInfo(state, action) {
-            state.userId = action.payload.userId
-            state.userName = action.payload.userName
+        setUserInfo(state, { payload }: PayloadAction<UserInfoInterface>) {
+            state.userId = payload.userId
+            state.userName = payload.userName
         },
-        clearUserInfo(state) {
-            state.userId = ''
-            state.userName = ''
+        clearUserInfo() {
+            return initialState
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(setUserInfo, (state) => {
+            localStorage.setItem('userInfo', JSON.stringify(state))
+        })
+        builder.addCase(clearUserInfo, () => {
+            localStorage.removeItem('userInfo')
+        })
     }
 })
 
