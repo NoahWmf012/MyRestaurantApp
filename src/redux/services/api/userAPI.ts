@@ -1,6 +1,6 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse, UserProfileResponse } from '../../../interfaces/queryInterface/userAPIInterface'
+import type { ForgetPasswordRequest, ForgetPasswordResponse, LoginRequest, LoginResponse, SignUpRequest, SignUpResponse, UserProfileResponse } from '../../../interfaces/queryInterface/userAPIInterface'
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',
@@ -20,6 +20,13 @@ export const userAPI = createApi({
                 body: newUser,
             }),
         }),
+        forgetPassword: builder.query<ForgetPasswordResponse, ForgetPasswordRequest>({
+            query: ({ email }) => ({
+                url: '/auth/forgot-password',
+                method: 'POST',
+                body: { email },
+            }),
+        }),
         getUserProfile: builder.query<UserProfileResponse, void>({
             query: () => ({
                 url: '/user/profile',
@@ -29,4 +36,4 @@ export const userAPI = createApi({
     }),
 })
 
-export const { useLazyLoginQuery, useLazySignUpQuery, useGetUserProfileQuery } = userAPI
+export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useGetUserProfileQuery } = userAPI

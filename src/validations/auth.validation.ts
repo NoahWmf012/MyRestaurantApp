@@ -26,13 +26,17 @@ export const signupValidation = yup.object({
         .min(8, 'Password must be at least 8 characters')
         .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
         .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-        .matches(/\d/, 'Password must contain at least one number')
-        .matches(/[@$!%*?&]/, 'Password must contain at least one special character')
+        .matches(/[0-9]/, 'Password must contain at least one number')
+        .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special character')
         .required('Password is required'),
     confirmPassword: yup
         .string()
         .oneOf([yup.ref('password')], 'Passwords do not match')
-        .required('Please confirm your password')
+        .required('Please confirm your password'),
+    agreedToTerms: yup
+        .boolean()
+        .oneOf([true], 'You must agree to the terms and conditions')
+        .required('You must agree to the terms and conditions')
 });
 
 export const resetPasswordValidation = yup.object({

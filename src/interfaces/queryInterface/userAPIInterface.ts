@@ -21,6 +21,14 @@ export interface SignUpRequest {
     email: string;
 }
 
+export interface ForgetPasswordRequest {
+    email: string;
+}
+
+export interface ForgetPasswordResponse {
+    message: string;
+}
+
 export interface UserProfileResponse {
     userId: string;
     userName: string;

@@ -6,3 +6,19 @@ export interface ErrorInterface {
         traceId?: string
     }
 }
+
+export interface FormErrorsInterface {
+    email?: string;
+    password?: string;
+    general?: string;
+}
+
+export interface ErrMsgInterface {
+    path: string;
+    message: string;
+}
+
+export interface ValidationInterface {
+    validated: boolean;
+    errMsg?: ErrMsgInterface[];
+}
