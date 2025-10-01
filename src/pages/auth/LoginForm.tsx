@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../redux/store';
 import { loginValidation, forgotPasswordValidation } from '../../validations/auth.validation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAuthRedirect } from '../../hooks/useAuthRedirect';
 
 const finishLoading = () => ({ type: 'loading/finishLoading' as const });
 
@@ -24,6 +25,7 @@ function LoginForm() {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { redirectAfterLogin } = useAuthRedirect();
 
     // Main login form
     const {
@@ -71,7 +73,7 @@ function LoginForm() {
             if (loginResult.data) {
                 //set authSlice
                 dispatch(setAuthInfo({
-                    apiToken: loginResult.data.apiToken,
+                    accessToken: loginResult.data.accessToken,
                     refreshToken: loginResult.data.refreshToken,
                     expiredIn: loginResult.data.expiredIn
                 }))
@@ -80,13 +82,16 @@ function LoginForm() {
                     userId: loginResult.data.userId,
                     userName: loginResult.data.userName
                 }))
+
+                // Redirect to intended page after successful login
+                redirectAfterLogin();
             }
             dispatch(finishLoading());
         } else if (loginResult.isError) {
             console.error(loginResult.error)
             // todo: show error modal with message
         }
-    }, [loginResult, dispatch])
+    }, [loginResult, dispatch, redirectAfterLogin])
 
     const onForgotPasswordSubmit = async () => {
         try {

@@ -6,7 +6,8 @@ import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
 import SearchPage from './pages/search/SearchPage'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
-import SettingsPage from './pages/settings/SettingsPage'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import ProfilePage from './pages/profile/ProfilePage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -16,7 +17,11 @@ export const router = createBrowserRouter(
             <Route path="restaurant/:name" element={<RestaurantPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
-            <Route path="settings" element={<SettingsPage />} />
+            <Route path="settings" element={
+                <ProtectedRoute>
+                    <ProfilePage />
+                </ProtectedRoute>
+            } />
             <Route path="*" element={<NotFoundPage />} />
         </Route>
     ),

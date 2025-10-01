@@ -1,5 +1,5 @@
 export interface LoginResponse {
-    apiToken: string;
+    accessToken: string;
     refreshToken: string;
     expiredIn?: number;
     userId: string;
@@ -27,10 +27,4 @@ export interface ForgetPasswordRequest {
 
 export interface ForgetPasswordResponse {
     message: string;
-}
-
-export interface UserProfileResponse {
-    userId: string;
-    userName: string;
-    email: string;
 }

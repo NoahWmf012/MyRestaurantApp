@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 export interface AuthInterface {
-    apiToken: string;
+    accessToken: string;
     refreshToken: string;
     expiredIn?: number;
 }
 
 const initialState = {
-    apiToken: '',
+    accessToken: '',
     refreshToken: '',
     expiredIn: undefined
 } as AuthInterface
@@ -17,12 +17,12 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthInfo(state, { payload }: PayloadAction<AuthInterface>) {
-            state.apiToken = payload.apiToken
+            state.accessToken = payload.accessToken
             state.refreshToken = payload.refreshToken
             state.expiredIn = payload.expiredIn
         },
         setApiToken(state, { payload }: PayloadAction<string>) {
-            state.apiToken = payload
+            state.accessToken = payload
         },
         setRefreshToken(state, { payload }: PayloadAction<string>) {
             state.refreshToken = payload
@@ -33,11 +33,11 @@ export const authSlice = createSlice({
     },
     //set extra reducers for local storage persistence
     extraReducers(builder) {
-        builder.addCase(setRefreshToken, (state) => {
-            localStorage.setItem('refreshToken', state.refreshToken)
+        builder.addCase(setAuthInfo, (state) => {
+            localStorage.setItem('authInfo', JSON.stringify(state))
         })
         builder.addCase(clearAuthInfo, () => {
-            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('authInfo')
         })
     },
 })

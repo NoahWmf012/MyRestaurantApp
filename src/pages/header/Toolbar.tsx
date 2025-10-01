@@ -5,13 +5,20 @@ import LoginIcon from "../../assets/icons/user-interface.png"
 import SettingIcon from "../../assets/icons/setting-lines.png"
 import MoreIcon from "../../assets/icons/more.png"
 import SearchBar from "../../components/searchBar/SearchBar"
-import { useAppDispatch } from "../../redux/store"
+import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { showRouletteModal, showVoteModal } from "../../redux/reducers/modalVisibleSlice"
+import { useLogout } from "../../hooks/useLogout"
 
 function Toolbar() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+    // Authentication state
+    const { accessToken } = useAppSelector(state => state.authState)
+    const { userName } = useAppSelector(state => state.userInfoState)
+    const { logout } = useLogout()
+    const isAuthenticated = !!accessToken
 
     const handleHomeClick = useCallback(() => {
         navigate("/")
@@ -30,6 +37,16 @@ function Toolbar() {
     const toggleDropdown = useCallback(() => {
         setIsDropdownOpen(prev => !prev)
     }, [])
+
+    const handleLogout = useCallback(() => {
+        logout()
+        setIsDropdownOpen(false)
+    }, [logout])
+
+    const handleSettingsClick = useCallback(() => {
+        navigate("/settings")
+        setIsDropdownOpen(false)
+    }, [navigate])
 
     return (
         <div className="toolbar-container d-flex justify-content-between align-items-center">
@@ -55,24 +72,35 @@ function Toolbar() {
             </div>
 
             <div className="toolbar-section d-flex">
-                {/* Settings button */}
-                <button
-                    className="title-btn settings-button mx-1"
-                    aria-label="Open settings"
-                >
-                    <img src={SettingIcon} alt="" className="title-icon" />
-                    <span>Settings</span>
-                </button>
+                {isAuthenticated ? (
+                    <>
+                        {/* Settings button (only shown when logged in) */}
+                        <button
+                            className="title-btn settings-button mx-1"
+                            aria-label="Open settings"
+                            onClick={handleSettingsClick}
+                        >
+                            <img src={SettingIcon} alt="" className="title-icon" />
+                            <span>Settings</span>
+                        </button>
 
-                {/* Log in button */}
-                <button
-                    className="title-btn login-button mx-1"
-                    aria-label="Log in to your account"
-                    onClick={() => navigate("/login")}
-                >
-                    <img src={LoginIcon} alt="" className="title-icon" />
-                    <span>Log In</span>
-                </button>
+                        {/* User welcome message */}
+                        <div className="title-btn user-welcome mx-1">
+                            <img src={LoginIcon} alt="" className="title-icon" />
+                            <span>Hi, {userName || 'User'}!</span>
+                        </div>
+                    </>
+                ) : (
+                    /* Log in button (only shown when not logged in) */
+                    <button
+                        className="title-btn login-button mx-1"
+                        aria-label="Log in to your account"
+                        onClick={() => navigate("/login")}
+                    >
+                        <img src={LoginIcon} alt="" className="title-icon" />
+                        <span>Log In</span>
+                    </button>
+                )}
 
                 {/* More dropdown */}
                 <div className="dropdown">
@@ -124,6 +152,25 @@ function Toolbar() {
                                     <div className="dropdown-item-desc">Vote for your favorite restaurant</div>
                                 </div>
                             </button>
+
+                            {/* Logout button (only shown when authenticated) */}
+                            {isAuthenticated && (
+                                <>
+                                    <div className="dropdown-divider"></div>
+                                    <button
+                                        className="dropdown-item modern-dropdown-item"
+                                        onClick={handleLogout}
+                                    >
+                                        <svg className="dropdown-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        </svg>
+                                        <div>
+                                            <div className="dropdown-item-title">Logout</div>
+                                            <div className="dropdown-item-desc">Sign out of your account</div>
+                                        </div>
+                                    </button>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>
