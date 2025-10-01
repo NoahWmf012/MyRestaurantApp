@@ -6,9 +6,7 @@ import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
 import SearchPage from './pages/search/SearchPage'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
-import { ProtectedRoute } from './components/ProtectedRoute'
 import ProfilePage from './pages/profile/ProfilePage'
-import { UnauthorizedRoute } from './components/UnauthorizedRoute'
 import SettingsPage from './pages/settings/SettingsPage'
 
 export const router = createBrowserRouter(
@@ -18,29 +16,11 @@ export const router = createBrowserRouter(
             <Route path="search" element={<SearchPage />} />
             <Route path="restaurant/:name" element={<RestaurantPage />} />
 
-            {/* Unauthenticated Routes - redirect to home if already logged in */}
-            <Route path="login" element={
-                <UnauthorizedRoute>
-                    <LoginPage />
-                </UnauthorizedRoute>
-            } />
-            <Route path="signup" element={
-                <UnauthorizedRoute>
-                    <SignupPage />
-                </UnauthorizedRoute>
-            } />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
 
-            {/* Protected Routes - redirect to login if not authenticated */}
-            <Route path="profile" element={
-                <ProtectedRoute>
-                    <ProfilePage />
-                </ProtectedRoute>
-            } />
-            <Route path="settings" element={
-                <ProtectedRoute>
-                    <SettingsPage />
-                </ProtectedRoute>
-            } />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="settings" element={<SettingsPage />} />
 
             <Route path="*" element={<NotFoundPage />} />
         </Route>

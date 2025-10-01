@@ -1,7 +1,10 @@
+import { ProtectedRoute } from "../../components/ProtectedRoute"
 
 function ProfilePage() {
     return (
-        <div>ProfilePage</div>
+        <ProtectedRoute>
+            <div>ProfilePage</div>
+        </ProtectedRoute>
     )
 }
 

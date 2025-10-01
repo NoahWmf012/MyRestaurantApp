@@ -15,7 +15,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     const { redirectToLogin } = useAuthRedirect();
 
     const isAuthenticated = !!accessToken && accessToken.trim() !== '';
-    console.log('ProtectedRoute - isAuthenticated:', isAuthenticated, accessToken);
 
     useEffect(() => {
         if (requireAuth && !isAuthenticated) {

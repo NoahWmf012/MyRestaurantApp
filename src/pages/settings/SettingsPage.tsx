@@ -1,7 +1,10 @@
+import { ProtectedRoute } from "../../components/ProtectedRoute";
 
 function SettingsPage() {
     return (
-        <div>SettingsPage</div>
+        <ProtectedRoute>
+            <div>SettingsPage</div>
+        </ProtectedRoute>
     )
 }
 
