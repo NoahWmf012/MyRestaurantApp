@@ -9,6 +9,7 @@ import SignupPage from './pages/auth/SignupPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import ProfilePage from './pages/profile/ProfilePage'
 import { UnauthorizedRoute } from './components/UnauthorizedRoute'
+import SettingsPage from './pages/settings/SettingsPage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +34,11 @@ export const router = createBrowserRouter(
             <Route path="profile" element={
                 <ProtectedRoute>
                     <ProfilePage />
+                </ProtectedRoute>
+            } />
+            <Route path="settings" element={
+                <ProtectedRoute>
+                    <SettingsPage />
                 </ProtectedRoute>
             } />
 

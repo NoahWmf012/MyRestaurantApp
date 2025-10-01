@@ -5,10 +5,29 @@ export interface UserInfoInterface {
     userName: string
 }
 
-const initialState = {
-    userId: '',
-    userName: '',
-} as UserInfoInterface
+// Function to load auth state from localStorage
+const loadUserInfoFromStorage = (): UserInfoInterface => {
+    try {
+        const stored = localStorage.getItem('userInfo')
+        if (stored) {
+            const parsed = JSON.parse(stored) as UserInfoInterface
+            return {
+                userId: parsed.userId || '',
+                userName: parsed.userName || '',
+            }
+        }
+    } catch (error) {
+        console.error('Error loading user info from localStorage:', error)
+        localStorage.removeItem('userInfo') // Clear corrupted data
+    }
+
+    return {
+        userId: '',
+        userName: ''
+    }
+}
+
+const initialState = loadUserInfoFromStorage()
 
 export const userInfoSlice = createSlice({
     name: 'userInfoState',
@@ -17,18 +36,17 @@ export const userInfoSlice = createSlice({
         setUserInfo(state, { payload }: PayloadAction<UserInfoInterface>) {
             state.userId = payload.userId
             state.userName = payload.userName
+
+            // Handle localStorage persistence directly in the reducer
+            localStorage.setItem('userInfo', JSON.stringify({
+                userId: state.userId,
+                userName: state.userName,
+            }))
         },
         clearUserInfo() {
+            localStorage.removeItem('userInfo')
             return initialState
         }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(setUserInfo, (state) => {
-            localStorage.setItem('userInfo', JSON.stringify(state))
-        })
-        builder.addCase(clearUserInfo, () => {
-            localStorage.removeItem('userInfo')
-        })
     }
 })
 

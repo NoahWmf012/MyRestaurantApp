@@ -37,7 +37,6 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthInfo(state, { payload }: PayloadAction<AuthInterface>) {
-            console.log("Setting auth info:", payload)
             state.accessToken = payload.accessToken
             state.refreshToken = payload.refreshToken
             state.expiredIn = payload.expiredIn
