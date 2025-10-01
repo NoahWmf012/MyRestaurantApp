@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuthRedirect } from '../../hooks/useAuthRedirect';
 
-const finishLoading = () => ({ type: 'loading/finishLoading' as const });
+// const finishLoading = () => ({ type: 'loading/finishLoading' as const });
 
 function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -86,7 +86,7 @@ function LoginForm() {
                 // Redirect to intended page after successful login
                 redirectAfterLogin();
             }
-            dispatch(finishLoading());
+            // dispatch(finishLoading());
         } else if (loginResult.isError) {
             console.error(loginResult.error)
             // todo: show error modal with message
@@ -111,7 +111,7 @@ function LoginForm() {
         }
         if (forgotPasswordResult.isSuccess && forgotPasswordResult.status === QueryStatus.fulfilled) {
             // todo: show a success message
-            dispatch(finishLoading());
+            // dispatch(finishLoading());
         } else if (forgotPasswordResult.isError) {
             console.error(forgotPasswordResult.error);
             // todo: show error modal with message
@@ -290,7 +290,7 @@ function LoginForm() {
 
                 <div className="auth-footer">
                     <p className="auth-link">
-                        Don't have an account? <div onClick={() => navigate('/signup')}>Sign up</div>
+                        Don't have an account? <span className="link" onClick={() => navigate('/signup')}>Sign up</span>
                     </p>
                 </div>
             </div>

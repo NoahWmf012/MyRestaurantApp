@@ -232,7 +232,7 @@ function SignupForm() {
 
                 <div className="auth-footer">
                     <p className="auth-link">
-                        Already have an account? <div onClick={() => navigate('/login')}>Log in</div>
+                        Already have an account? <span onClick={() => navigate('/login')}>Log in</span>
                     </p>
                 </div>
             </div>
