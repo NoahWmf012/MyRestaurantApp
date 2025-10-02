@@ -28,3 +28,17 @@ export interface ForgetPasswordRequest {
 export interface ForgetPasswordResponse {
     message: string;
 }
+
+export interface FreshTokenRequest {
+    refreshToken: string;
+}
+
+export interface RefreshTokenRequest {
+    refreshToken: string;
+}
+
+export interface RefreshTokenResponse {
+    accessToken?: string;
+    refreshToken?: string;
+    expiredIn?: number;
+}

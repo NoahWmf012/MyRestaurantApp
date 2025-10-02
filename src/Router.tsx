@@ -16,9 +16,11 @@ export const router = createBrowserRouter(
             <Route path="search" element={<SearchPage />} />
             <Route path="restaurant/:name" element={<RestaurantPage />} />
 
+            {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
 
+            {/* Auth Routes */}
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
 

@@ -1,6 +1,6 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { ForgetPasswordRequest, ForgetPasswordResponse, LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/userAPIInterface'
+import type { ForgetPasswordRequest, ForgetPasswordResponse, LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/userAPIInterface'
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',
@@ -25,6 +25,13 @@ export const userAPI = createApi({
                 url: '/auth/forgot-password',
                 method: 'POST',
                 body: { email },
+            }),
+        }),
+        freshToken: builder.query<RefreshTokenResponse, RefreshTokenRequest>({
+            query: ({ refreshToken }) => ({
+                url: '/auth/refresh-token',
+                method: 'POST',
+                body: { refreshToken },
             }),
         }),
         logout: builder.mutation<void, void>({

@@ -48,6 +48,11 @@ function Toolbar() {
         setIsDropdownOpen(false)
     }, [navigate])
 
+    const handleProfileClick = useCallback(() => {
+        navigate("/profile")
+        setIsDropdownOpen(false)
+    }, [navigate])
+
     return (
         <div className="toolbar-container d-flex justify-content-between align-items-center">
             {/* Home button */}
@@ -85,10 +90,13 @@ function Toolbar() {
                         </button>
 
                         {/* User welcome message */}
-                        <div className="title-btn user-welcome mx-1">
+                        <button
+                            className="title-btn user-welcome mx-1"
+                            onClick={handleProfileClick}
+                        >
                             <img src={LoginIcon} alt="" className="title-icon" />
                             <span>Hi, {userName || 'User'}!</span>
-                        </div>
+                        </button>
                     </>
                 ) : (
                     /* Log in button (only shown when not logged in) */
