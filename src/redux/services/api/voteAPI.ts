@@ -1,32 +1,32 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { PollResponse } from '../../../interfaces/queryInterface/pollAPIInterface'
+import type { CreatePollRequest, PollResponse } from '../../../interfaces/queryInterface/pollAPIInterface'
 
 export const voteAPI = createApi({
     reducerPath: 'voteAPI',
     baseQuery: fetchBaseQueryAuth(import.meta.env.VITE_SERVER_URL),
     endpoints: (builder) => ({
-        createVote: builder.mutation({
-            query: (newVote) => ({
-                url: '/votes',
-                method: 'POST',
-                body: newVote,
-            }),
-        }),
         getPolls: builder.query<PollResponse[], void>({
             query: () => ({
                 url: '/polls',
                 method: 'GET',
             }),
         }),
-        updateVote: builder.query({
-            query: ({ voteId, updatedVote }) => ({
-                url: `/votes/${voteId}`,
-                method: 'PUT',
-                body: updatedVote,
+        createPoll: builder.mutation<void, CreatePollRequest>({
+            query: (newPoll) => ({
+                url: 'polls/create-poll',
+                method: 'POST',
+                body: newPoll,
             }),
         }),
+        // updateVote: builder.mutation<void, { voteId: string }>({
+        //     query: ({ voteId }) => ({
+        //         url: `/polls/${voteId}`,
+        //         method: 'PUT',
+        //         body: '',
+        //     }),
+        // }),
     }),
 })
 
-export const { useCreateVoteMutation, useGetPollsQuery, useLazyGetPollsQuery, useUpdateVoteQuery } = voteAPI
+export const { useCreatePollMutation, useGetPollsQuery } = voteAPI

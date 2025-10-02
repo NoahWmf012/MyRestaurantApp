@@ -6,7 +6,7 @@ import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
-import { useGetPollsQuery } from '../../redux/services/api/voteAPI';
+import { useCreatePollMutation, useGetPollsQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 
 function VoteModal() {
@@ -16,6 +16,27 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
 
     const { data: votesData } = useGetPollsQuery()
+    const [createPoll] = useCreatePollMutation()
+
+    useEffect(() => {
+        // Example of creating a new poll on component mount
+        const newPoll = {
+            title: "Lunch Options",
+            description: "Vote for your preferred lunch spot",
+            createdBy: CURRENT_USER.userId,
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
+            userIds: ["user1", "user2", "user3"],
+            options: [
+                { restaurantName: "Pizza Place" },
+                { restaurantName: "Sushi Spot" },
+                { restaurantName: "Burger Joint" }
+            ]
+        };
+
+        createPoll(newPoll).unwrap()
+            .then(() => console.log('Poll created successfully'))
+            .catch((error) => console.error('Error creating poll:', error));
+    }, []);
 
     useEffect(() => {
         if (votesData) {

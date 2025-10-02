@@ -20,3 +20,12 @@ export interface Vote {
     userName: string;
     restaurantId: number;
 }
+
+export interface CreatePollRequest {
+    title: string;
+    description?: string;
+    createdBy: string;
+    expiresAt: Date;
+    userIds: string[];
+    options: { restaurantName: string; restaurantId?: number }[];
+}
