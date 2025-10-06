@@ -6,7 +6,8 @@ import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
-import { useCreatePollMutation, useGetPollsQuery } from '../../redux/services/api/voteAPI';
+import CreatePollModal from './CreatePollModal';
+import { useGetPollsQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 
 function VoteModal() {
@@ -14,29 +15,9 @@ function VoteModal() {
     const dispatch = useAppDispatch();
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
     const [polls, setPolls] = useState([] as PollResponse[]);
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
-    const { data: votesData } = useGetPollsQuery()
-    const [createPoll] = useCreatePollMutation()
-
-    useEffect(() => {
-        // Example of creating a new poll on component mount
-        const newPoll = {
-            title: "Lunch Options",
-            description: "Vote for your preferred lunch spot",
-            createdBy: CURRENT_USER.userId,
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
-            userIds: ["user1", "user2", "user3"],
-            options: [
-                { restaurantName: "Pizza Place" },
-                { restaurantName: "Sushi Spot" },
-                { restaurantName: "Burger Joint" }
-            ]
-        };
-
-        createPoll(newPoll).unwrap()
-            .then(() => console.log('Poll created successfully'))
-            .catch((error) => console.error('Error creating poll:', error));
-    }, []);
+    const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
 
     useEffect(() => {
         if (votesData) {
@@ -53,6 +34,15 @@ function VoteModal() {
 
     const handlePollClick = (poll: PollResponse) => {
         setSelectedPoll(poll);
+    };
+
+    const handleCreateSuccess = async () => {
+        // Refetch polls to update the list
+        await refetchPolls();
+    };
+
+    const handleBackToList = () => {
+        setSelectedPoll(null);
     };
 
     const handleVote = (pollId: number, restaurantId: number) => {
@@ -98,20 +88,59 @@ function VoteModal() {
 
     if (!show) return null;
 
+    const renderContent = () => {
+        if (selectedPoll) {
+            return (
+                <div>
+                    <button
+                        className="btn btn-secondary mb-3"
+                        onClick={handleBackToList}
+                    >
+                        ← Back to Polls
+                    </button>
+                    <PollDetail
+                        poll={selectedPoll}
+                        onVote={handleVote}
+                        currentUser={CURRENT_USER}
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <div>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Active Polls</h5>
+                    <button
+                        className="btn btn-success"
+                        onClick={() => setShowCreateModal(true)}
+                    >
+                        + Create New Poll
+                    </button>
+                </div>
+                <PollList
+                    polls={polls}
+                    handlePollClick={handlePollClick}
+                />
+            </div>
+        );
+    };
+
     return (
-        <BaseModal
-            title={selectedPoll ? selectedPoll.title : "Vote for Your Favorite Restaurant"}
-            onClose={onClose}
-        >{selectedPoll ?
-            <PollDetail
-                poll={selectedPoll}
-                onVote={handleVote}
-                currentUser={CURRENT_USER}
-            /> : <PollList
-                polls={polls}
-                handlePollClick={handlePollClick}
+        <>
+            <BaseModal
+                title="Restaurant Voting"
+                onClose={onClose}
+            >
+                {renderContent()}
+            </BaseModal>
+
+            {showCreateModal && <CreatePollModal
+                onClose={() => setShowCreateModal(false)}
+                onSuccess={handleCreateSuccess}
             />}
-        </BaseModal>
+
+        </>
     );
 }
 

@@ -54,4 +54,3 @@ export const {
     setUserInfo,
     clearUserInfo
 } = userInfoSlice.actions
-//#endregion

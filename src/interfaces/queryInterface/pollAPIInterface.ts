@@ -24,8 +24,13 @@ export interface Vote {
 export interface CreatePollRequest {
     title: string;
     description?: string;
-    createdBy: string;
+    createdBy: string; // User ID
     expiresAt: Date;
     userIds: string[];
-    options: { restaurantName: string; restaurantId?: number }[];
+    options: CreatePollOptions[];
+}
+
+export interface CreatePollOptions {
+    restaurantName: string;
+    restaurantId?: number;
 }
