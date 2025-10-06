@@ -7,7 +7,7 @@ export interface AuthInterface {
 }
 
 // Function to load auth state from localStorage
-const loadAuthFromStorage = (): AuthInterface => {
+export const loadAuthFromStorage = (): AuthInterface => {
     try {
         const stored = localStorage.getItem('authInfo')
         if (stored) {
@@ -77,6 +77,8 @@ export const authSlice = createSlice({
 
             // Clear localStorage
             localStorage.removeItem('authInfo')
+            //redirect to login page
+            window.location.href = import.meta.env.VITE_BASE_URL || '/'
         },
         initializeAuthFromStorage(state) {
             const authData = loadAuthFromStorage()
@@ -95,3 +97,17 @@ export const {
     initializeAuthFromStorage
 } = authSlice.actions
 
+//check if user is logged in
+export const isLoggedIn = (): boolean => {
+    const stored = localStorage.getItem('authInfo')
+    if (stored) {
+        try {
+            const auth = JSON.parse(stored) as AuthInterface
+            return !!auth.accessToken
+        } catch (error) {
+            console.error('Error parsing auth info from localStorage:', error)
+            return false
+        }
+    }
+    return false
+}

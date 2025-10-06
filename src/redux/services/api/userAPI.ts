@@ -43,4 +43,4 @@ export const userAPI = createApi({
     }),
 })
 
-export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLogoutMutation } = userAPI
+export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLazyFreshTokenQuery, useLogoutMutation } = userAPI
