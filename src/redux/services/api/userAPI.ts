@@ -1,37 +1,44 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
-import { fetchBaseQueryAuth } from '../keycloak'
-import type { ForgetPasswordRequest, ForgetPasswordResponse, LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/userAPIInterface'
+import { fetchBaseQueryNoAuth } from '../keycloak'
+import type { ForgetPasswordRequest, ForgetPasswordResponse, GuestLoginRequest, GuestLoginResponse, LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/userAPIInterface'
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',
-    baseQuery: fetchBaseQueryAuth(import.meta.env.VITE_SERVER_URL),
+    baseQuery: fetchBaseQueryNoAuth(import.meta.env.VITE_SERVER_URL),
     endpoints: (builder) => ({
         login: builder.query<LoginResponse, LoginRequest>({
-            query: (credentials) => ({
+            query: (body) => ({
                 url: '/auth/login',
                 method: 'POST',
-                body: credentials,
+                body,
             }),
         }),
         signUp: builder.query<SignUpResponse, SignUpRequest>({
-            query: (newUser) => ({
+            query: (body) => ({
                 url: '/auth/register',
                 method: 'POST',
-                body: newUser,
+                body,
             }),
         }),
         forgetPassword: builder.query<ForgetPasswordResponse, ForgetPasswordRequest>({
-            query: ({ email }) => ({
+            query: (body) => ({
                 url: '/auth/forgot-password',
                 method: 'POST',
-                body: { email },
+                body,
             }),
         }),
         freshToken: builder.query<RefreshTokenResponse, RefreshTokenRequest>({
-            query: ({ refreshToken }) => ({
+            query: (body) => ({
                 url: '/auth/refresh-token',
                 method: 'POST',
-                body: { refreshToken },
+                body,
+            }),
+        }),
+        guestLogin: builder.query<GuestLoginResponse, GuestLoginRequest>({
+            query: (body) => ({
+                url: '/auth/guest-login',
+                method: 'POST',
+                body,
             }),
         }),
         logout: builder.mutation<void, void>({
@@ -43,4 +50,4 @@ export const userAPI = createApi({
     }),
 })
 
-export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLazyFreshTokenQuery, useLogoutMutation } = userAPI
+export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLazyFreshTokenQuery, useLazyGuestLoginQuery, useLogoutMutation } = userAPI

@@ -8,6 +8,7 @@ import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import SettingsPage from './pages/settings/SettingsPage'
+import GuestLoginPage from './pages/auth/GuestLoginPage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
             {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="guest-login" element={<GuestLoginPage />} />
 
             {/* Auth Routes */}
             <Route path="profile" element={<ProfilePage />} />

@@ -132,3 +132,7 @@ export const fetchBaseQueryAuth = (baseUrl: string) => {
         return result
     };
 };
+
+export const fetchBaseQueryNoAuth = (baseUrl: string) => {
+    return fetchBaseQuery({ baseUrl });
+};

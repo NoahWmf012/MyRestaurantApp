@@ -42,3 +42,26 @@ export interface RefreshTokenResponse {
     refreshToken?: string;
     expiredIn?: number;
 }
+
+export interface GuestLoginResponse {
+    user: User | null;
+    session: Session | null;
+}
+
+export interface GuestLoginRequest {
+    userName: string
+}
+
+export interface User {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+}
+
+export interface Session {
+    id: string;
+    userId: string;
+    createdAt: string;
+    expiresAt: string;
+}
