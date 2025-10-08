@@ -61,3 +61,11 @@ export const forgotPasswordValidation = yup.object({
         .email('Please enter a valid email address')
         .required('Email is required')
 });
+
+export const guestLoginValidation = yup.object({
+    username: yup
+        .string()
+        .min(2, 'Username must be at least 2 characters')
+        .max(30, 'Username must not exceed 30 characters')
+        .required('Username is required'),
+});

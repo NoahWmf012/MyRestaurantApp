@@ -24,8 +24,13 @@ function LoginForm() {
     const [triggerForgotPassword, forgotPasswordResult] = useLazyForgetPasswordQuery();
 
     const navigate = useNavigate();
+
     const dispatch = useAppDispatch();
     const { redirectAfterLogin } = useAuthRedirect();
+
+    const guestLoginHandler = async () => {
+        navigate('/guest-login');
+    };
 
     // Main login form
     const {
@@ -269,6 +274,14 @@ function LoginForm() {
                         onClick={() => setShowForgotPassword(true)}
                     >
                         Forgot Password?
+                    </button>
+
+                    <button
+                        type="button"
+                        className="auth-button"
+                        onClick={() => guestLoginHandler()}
+                    >
+                        Guest Login
                     </button>
 
                     <div className="social-auth">

@@ -5,17 +5,23 @@ import { QueryStatus } from "@reduxjs/toolkit/query"
 import { setAuthInfo } from "../../redux/reducers/authSlice"
 import { setUserInfo } from "../../redux/reducers/userInfoSlice"
 import { useAuthRedirect } from "../../hooks/useAuthRedirect"
+import { useForm } from "react-hook-form"
+import { guestLoginValidation } from "../../validations/auth.validation"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 function GuestLoginForm() {
     const dispatch = useAppDispatch()
     const [triggerGuestLogin, guestLoginResult] = useLazyGuestLoginQuery()
     const { redirectAfterLogin } = useAuthRedirect();
 
-    const handleLogin = () => {
+    const handleGuestLogin = async (data: { username: string }) => {
         try {
-            triggerGuestLogin({ userName: "guest" })
+            await triggerGuestLogin({ userName: data.username }).unwrap()
         } catch (error) {
             console.error("Failed to login:", error)
+            setGuestLoginError('root', {
+                message: 'Guest login failed. Please try again later.'
+            });
         }
     }
 
@@ -48,12 +54,47 @@ function GuestLoginForm() {
         }
     }, [guestLoginResult, dispatch, redirectAfterLogin])
 
+    const {
+        register: registerGuestUsername,
+        handleSubmit: handleGuestSubmit,
+        formState: { errors: guestErrors },
+        setError: setGuestLoginError
+    } = useForm<{ username: string }>({
+        resolver: yupResolver(guestLoginValidation),
+        defaultValues: {
+            username: ''
+        }
+    });
+
     return (
-        <div>
-            <h2>Guest Login</h2>
-            <button type="button" className="btn" onClick={handleLogin} disabled={guestLoginResult.isFetching}>
-                {guestLoginResult.isFetching ? "Logging in..." : "Login as Guest"}
-            </button>
+        <div className="auth-container">
+            <div className="auth-card">
+                <form className="auth-form" onSubmit={handleGuestSubmit(handleGuestLogin)}>
+                    <div className="form-group">
+                        <label htmlFor="user-name" className="form-label">
+                            User Name
+                        </label>
+                        <div className="user-name-wrapper">
+                            <input
+                                id="guest-user-name"
+                                {...registerGuestUsername('username')}
+                                placeholder="What's your name?"
+                                className={"form-input has-icon"}
+                                autoComplete="username"
+                            />
+                        </div>
+                        {guestErrors.username && (
+                            <div className="form-error">
+                                <span className="error-icon">⚠</span>
+                                {guestErrors.username.message}
+                            </div>
+                        )}
+                        <button type="submit" className="auth-button" disabled={guestLoginResult.isFetching}>
+                            {guestLoginResult.isFetching ? "Logging in..." : "Login as Guest"}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
