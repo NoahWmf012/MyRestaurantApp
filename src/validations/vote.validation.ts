@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-
 export const createVoteValidation = yup.object({
     title: yup
         .string()
@@ -29,6 +28,6 @@ export const createVoteValidation = yup.object({
             })
         )
         .min(2, 'At least two restaurant options are required')
-        .max(20, 'No more than 20 restaurant options are allowed')
+        .max(10, 'No more than 10 restaurant options are allowed')
         .required('Restaurant options are required')
 });

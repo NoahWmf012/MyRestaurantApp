@@ -54,6 +54,7 @@ function GuestLoginForm() {
         }
     }, [guestLoginResult, dispatch, redirectAfterLogin])
 
+    // React Hook Form
     const {
         register: registerGuestUsername,
         handleSubmit: handleGuestSubmit,

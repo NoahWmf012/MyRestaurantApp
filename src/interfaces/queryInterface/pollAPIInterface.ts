@@ -23,14 +23,12 @@ export interface Vote {
 
 export interface CreatePollRequest {
     title: string;
-    description?: string;
-    createdBy: string; // User ID
+    description?: string | undefined
     expiresAt: Date;
-    userIds: string[];
     options: CreatePollOptions[];
 }
 
 export interface CreatePollOptions {
+    restaurantId?: number | undefined;
     restaurantName: string;
-    restaurantId?: number;
 }

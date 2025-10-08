@@ -18,7 +18,6 @@ export const UnauthorizedRoute: React.FC<UnauthorizedRouteProps> = ({ children }
         }
     }, [isAuthenticated, navigate]);
 
-    // If user is authenticated, don't render the login/signup page
     if (isAuthenticated) {
         return null;
     }

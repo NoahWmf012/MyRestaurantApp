@@ -19,6 +19,8 @@ function VoteModal() {
 
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
 
+    const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
+
     useEffect(() => {
         if (votesData) {
             setPolls(votesData);
@@ -114,6 +116,7 @@ function VoteModal() {
                     <button
                         className="btn btn-success"
                         onClick={() => setShowCreateModal(true)}
+                        disabled={isGuest}
                     >
                         + Create New Poll
                     </button>
