@@ -44,8 +44,12 @@ export interface RefreshTokenResponse {
 }
 
 export interface GuestLoginResponse {
-    user: User | null;
-    session: Session | null;
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    expires_at: number;
+    refresh_token: string;
+    user: User;
 }
 
 export interface GuestLoginRequest {
@@ -55,13 +59,9 @@ export interface GuestLoginRequest {
 export interface User {
     id: string;
     email: string;
-    name: string;
+    userName: string;
     role: string;
-}
-
-export interface Session {
-    id: string;
-    userId: string;
-    createdAt: string;
-    expiresAt: string;
+    is_anonymous: boolean;
+    // "created_at": "2025-10-08T14:48:47.892896Z",
+    // "updated_at": "2025-10-08T14:48:47.928814Z",
 }

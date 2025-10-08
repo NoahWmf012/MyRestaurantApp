@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 export interface UserInfoInterface {
     userId: string
     userName: string
+    isGuest?: boolean
 }
 
 // Function to load auth state from localStorage
@@ -36,11 +37,13 @@ export const userInfoSlice = createSlice({
         setUserInfo(state, { payload }: PayloadAction<UserInfoInterface>) {
             state.userId = payload.userId
             state.userName = payload.userName
+            state.isGuest = payload.isGuest
 
             // Handle localStorage persistence directly in the reducer
             localStorage.setItem('userInfo', JSON.stringify({
                 userId: state.userId,
                 userName: state.userName,
+                isGuest: state.isGuest
             }))
         },
         clearUserInfo() {
