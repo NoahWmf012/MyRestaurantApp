@@ -23,7 +23,7 @@ export interface Vote {
 
 export interface CreatePollRequest {
     title: string;
-    description?: string | undefined
+    description: string | undefined;
     expiresAt: Date;
     options: CreatePollOptions[];
 }

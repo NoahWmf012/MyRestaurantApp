@@ -16,7 +16,7 @@ interface Restaurant {
 }
 
 interface Props {
-    control: Control<CreatePollRequest, any>;
+    control: Control<CreatePollRequest, unknown, unknown>;
     append: UseFieldArrayAppend<CreatePollRequest, "options">;
     fields: FieldArrayWithId<CreatePollRequest, "options", "id">[];
     remove: UseFieldArrayRemove;

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import BaseModal from "../common/BaseModal";
 import { useCreatePollMutation } from "../../redux/services/api/voteAPI";
 import type { CreatePollRequest } from "../../interfaces/queryInterface/pollAPIInterface";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, type Resolver } from "react-hook-form";
 import { createVoteValidation } from "../../validations/vote.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RestaurantListSelect from "./RestaurantListSelect";
@@ -23,7 +23,7 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
         setError,
         reset,
     } = useForm<CreatePollRequest>({
-        resolver: yupResolver(createVoteValidation),
+        resolver: yupResolver(createVoteValidation) as Resolver<CreatePollRequest, unknown, CreatePollRequest>,
         defaultValues: {
             title: "",
             description: "",
