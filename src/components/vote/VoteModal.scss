@@ -768,6 +768,34 @@
     opacity: 0.8;
 }
 
+ul.restaurant-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid $border-color;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0 0;
+    z-index: 40;
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: $shadow-lg;
+    border-radius: $radius-lg;
+
+    li {
+        padding: 10px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid $border-color-light;
+        transition: background $transition-fast;
+
+        &:hover {
+            background: $neutral-100;
+        }
+    }
+}
+
 /* ========================================
    RESPONSIVE DESIGN
    ======================================== */
