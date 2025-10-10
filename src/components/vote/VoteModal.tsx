@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
-import { CURRENT_USER, DUMMY_POLLS } from '../../constants/voteData';
+import {
+    CURRENT_USER,
+    //  DUMMY_POLLS
+} from '../../constants/voteData';
 import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
 import CreatePollModal from './CreatePollModal';
-import { useGetPollsQuery } from '../../redux/services/api/voteAPI';
+import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 
 function VoteModal() {
@@ -17,6 +20,8 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    const [triggerVoteUpdate] = useUpdateVoteMutation();
+
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
@@ -25,7 +30,7 @@ function VoteModal() {
         if (votesData) {
             setPolls(votesData);
         } else {
-            setPolls(DUMMY_POLLS);
+            // setPolls(DUMMY_POLLS);
         }
     }, [votesData]);
 
@@ -47,7 +52,8 @@ function VoteModal() {
         setSelectedPoll(null);
     };
 
-    const handleVote = (pollId: number, restaurantId: number) => {
+    const handleVote = (pollId: number, restaurantId: number, optionId: number) => {
+        console.log("000000", { pollId, optionId })
         setPolls(prevPolls =>
             prevPolls.map(poll => {
                 if (poll.id !== pollId) return poll;
@@ -65,7 +71,8 @@ function VoteModal() {
                                 votes: [...filteredVotes, {
                                     userId: CURRENT_USER.userId,
                                     userName: CURRENT_USER.userName,
-                                    restaurantId
+                                    restaurantId,
+                                    pollOptionId: option.restaurantId
                                 }]
                             };
                         }
@@ -78,6 +85,9 @@ function VoteModal() {
                 };
             })
         );
+
+        // Trigger backend vote update
+        triggerVoteUpdate({ pollId, optionId });
 
         // Update selected poll if it's currently viewed
         if (selectedPoll && selectedPoll.id === pollId) {

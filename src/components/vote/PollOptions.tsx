@@ -5,7 +5,7 @@ type PollOptionsProps = {
     poll: PollResponse;
     currentUserVote: number | null;
     isExpired: boolean;
-    handleVoteClick: (restaurantId: number) => void;
+    handleVoteClick: (restaurantId: number, optionId: number) => void;
     currentUser: CurrentUserInterface;
 };
 export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick, currentUser }: PollOptionsProps) {
@@ -18,13 +18,14 @@ export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick,
     return [...poll.options]
         .sort((a, b) => b.votes.length - a.votes.length) // Sort by vote count (highest first)
         .map((option, index) => {
+            console.log("333333: ", option)
             const percentage = getVotePercentage(option.votes);
             const isUserVote = currentUserVote === option.restaurantId;
             const isWinner = index === 0 && option.votes.length > 0;
 
             return (
                 <div
-                    key={option.restaurantId}
+                    key={option.restaurantName}
                     className={`modern-poll-option ${isUserVote ? 'modern-poll-option--voted' : ''} ${isExpired ? 'modern-poll-option--expired' : ''} ${isWinner ? 'modern-poll-option--winner' : ''}`}
                 >
                     <div className="poll-option-header">
@@ -62,7 +63,7 @@ export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick,
                     {!isExpired && (
                         <button
                             className={`modern-vote-button ${isUserVote ? 'modern-vote-button--voted' : ''}`}
-                            onClick={() => handleVoteClick(option.restaurantId)}
+                            onClick={() => handleVoteClick(option.restaurantId, option.pollOptionId)}
                         >
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 {isUserVote ? (

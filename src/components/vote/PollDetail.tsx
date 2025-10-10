@@ -4,7 +4,7 @@ import { PollOptions } from './PollOptions';
 
 interface PollDetailProps {
     poll: PollResponse;
-    onVote: (pollId: number, restaurantId: number) => void;
+    onVote: (pollId: number, restaurantId: number, optionId: number) => void;
     currentUser: CurrentUserInterface;
 };
 
@@ -35,9 +35,10 @@ function PollDetail({ poll, onVote, currentUser }: PollDetailProps) {
         });
     };
 
-    const handleVoteClick = (restaurantId: number) => {
+    const handleVoteClick = (restaurantId: number, optionId: number) => {
+        console.log("111111", optionId)
         if (isExpired) return;
-        onVote(poll.id, restaurantId);
+        onVote(poll.id, restaurantId, optionId);
     };
 
     return (

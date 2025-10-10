@@ -13,12 +13,14 @@ export interface PollOption {
     restaurantId: number;
     restaurantName: string;
     votes: Vote[];
+    pollOptionId: number;
 }
 
 export interface Vote {
     userId: string;
     userName: string;
     restaurantId: number;
+    pollOptionId: number;
 }
 
 export interface CreatePollRequest {
@@ -35,5 +37,5 @@ export interface CreatePollOptions {
 
 export interface VoteRequest {
     pollId: number;
-    restaurantId: number;
+    optionId: number;
 }

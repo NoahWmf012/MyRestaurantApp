@@ -20,10 +20,10 @@ export const voteAPI = createApi({
             }),
         }),
         updateVote: builder.mutation<void, VoteRequest>({
-            query: ({ pollId, restaurantId }) => ({
+            query: ({ pollId, optionId }) => ({
                 url: `/polls/vote-poll`,
                 method: 'PUT',
-                body: { pollId, restaurantId },
+                body: { pollId, optionId },
             }),
         }),
     }),
