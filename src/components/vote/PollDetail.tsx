@@ -105,9 +105,9 @@ function PollDetail({ poll, onVote, currentUser }: PollDetailProps) {
                 </div>
                 <p className="poll-description">{poll.description}</p>
                 <div className="poll-meta">
-                    <span className="poll-creator">Created by {poll.createdBy}</span>
-                    <span className="poll-created">Created: {formatDate(poll.createdAt)}</span>
-                    <span className="poll-expires">Expires: {formatDate(poll.expiresAt)}</span>
+                    <span className="poll-creator">Created by {poll.createdBy} </span>
+                    <span className="poll-created">Created: {formatDate(poll.createdAt)} </span>
+                    <span className="poll-expires">Expires: {formatDate(poll.expiresAt)} </span>
                     <span className="poll-total-votes">{totalVotes} total votes</span>
                 </div>
                 {isExpired && (

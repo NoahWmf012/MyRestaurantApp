@@ -1,6 +1,6 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { CreatePollRequest, PollResponse } from '../../../interfaces/queryInterface/pollAPIInterface'
+import type { CreatePollRequest, PollResponse, VoteRequest } from '../../../interfaces/queryInterface/pollAPIInterface'
 
 export const voteAPI = createApi({
     reducerPath: 'voteAPI',
@@ -19,14 +19,14 @@ export const voteAPI = createApi({
                 body: newPoll,
             }),
         }),
-        // updateVote: builder.mutation<void, { voteId: string }>({
-        //     query: ({ voteId }) => ({
-        //         url: `/polls/${voteId}`,
-        //         method: 'PUT',
-        //         body: '',
-        //     }),
-        // }),
+        updateVote: builder.mutation<void, VoteRequest>({
+            query: ({ pollId, restaurantId }) => ({
+                url: `/polls/vote-poll`,
+                method: 'PUT',
+                body: { pollId, restaurantId },
+            }),
+        }),
     }),
 })
 
-export const { useCreatePollMutation, useGetPollsQuery } = voteAPI
+export const { useCreatePollMutation, useGetPollsQuery, useUpdateVoteMutation } = voteAPI

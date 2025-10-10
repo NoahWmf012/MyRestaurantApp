@@ -32,3 +32,8 @@ export interface CreatePollOptions {
     restaurantId?: number | undefined;
     restaurantName: string;
 }
+
+export interface VoteRequest {
+    pollId: number;
+    restaurantId: number;
+}

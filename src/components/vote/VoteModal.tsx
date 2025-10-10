@@ -90,7 +90,7 @@ function VoteModal() {
 
     if (!show) return null;
 
-    const renderContent = () => {
+    function VoteModalContent() {
         if (selectedPoll) {
             return (
                 <div>
@@ -135,7 +135,7 @@ function VoteModal() {
                 title="Restaurant Voting"
                 onClose={onClose}
             >
-                {renderContent()}
+                <VoteModalContent />
             </BaseModal>
 
             {showCreateModal && <CreatePollModal
