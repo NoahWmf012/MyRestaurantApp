@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
-import {
-    CURRENT_USER,
-    //  DUMMY_POLLS
-} from '../../constants/voteData';
 import PollDetail from './PollDetail';
 import './VoteModal.scss';
 import { PollList } from './PollList';
@@ -23,9 +19,8 @@ function VoteModal() {
     //get user info from redux/local storage
     const currentUser = useAppSelector((state) => state.userInfoState);
 
-    const [triggerVoteUpdate] = useUpdateVoteMutation();
-
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
+    const [triggerVoteUpdate] = useUpdateVoteMutation();
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
 
@@ -49,54 +44,30 @@ function VoteModal() {
     const handleCreateSuccess = async () => {
         // Refetch polls to update the list
         await refetchPolls();
+        setShowCreateModal(false);
     };
 
     const handleBackToList = () => {
         setSelectedPoll(null);
     };
 
-    const handleVote = (pollId: number, restaurantId: number, optionId: number) => {
-        setPolls(prevPolls =>
-            prevPolls.map(poll => {
-                if (poll.id !== pollId) return poll;
+    const handleVote = async (pollId: number, _restaurantId: number, optionId: number) => {
+        try {
+            // Trigger backend vote update
+            await triggerVoteUpdate({ pollId, optionId }).unwrap();
 
-                return {
-                    ...poll,
-                    options: poll.options.map(option => {
-                        // Remove user's previous vote from all options
-                        const filteredVotes = option.votes.filter(vote => vote.userId !== CURRENT_USER.userId);
+            // Refetch polls to get the latest data from server
+            const { data: updatedPolls } = await refetchPolls();
 
-                        // Add vote to the selected restaurant
-                        if (option.restaurantId === restaurantId) {
-                            return {
-                                ...option,
-                                votes: [...filteredVotes, {
-                                    userId: CURRENT_USER.userId,
-                                    userName: CURRENT_USER.userName,
-                                    restaurantId,
-                                    pollOptionId: option.restaurantId
-                                }]
-                            };
-                        }
-
-                        return {
-                            ...option,
-                            votes: filteredVotes
-                        };
-                    })
-                };
-            })
-        );
-
-        // Trigger backend vote update
-        triggerVoteUpdate({ pollId, optionId });
-
-        // Update selected poll if it's currently viewed
-        if (selectedPoll && selectedPoll.id === pollId) {
-            const updatedPoll = polls.find(p => p.id === pollId);
-            if (updatedPoll) {
-                setSelectedPoll(updatedPoll);
+            // Update selected poll if it's currently viewed
+            if (selectedPoll && selectedPoll.id === pollId && updatedPolls) {
+                const updatedPoll = updatedPolls.find(p => p.id === pollId);
+                if (updatedPoll) {
+                    setSelectedPoll(updatedPoll);
+                }
             }
+        } catch (error) {
+            console.error('Failed to update vote:', error);
         }
     };
 
