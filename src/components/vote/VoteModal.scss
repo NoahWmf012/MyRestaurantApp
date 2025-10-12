@@ -682,6 +682,22 @@
         width: 16px;
         height: 16px;
     }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: default;
+        transform: none;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+            background: $success-color;
+
+            &::before {
+                left: -100%;
+            }
+        }
+    }
 }
 
 .modern-voters-list {

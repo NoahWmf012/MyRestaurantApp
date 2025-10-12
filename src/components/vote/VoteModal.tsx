@@ -38,7 +38,12 @@ function VoteModal() {
     };
 
     const handlePollClick = (poll: PollResponse) => {
-        setSelectedPoll(poll);
+        // Sort options by vote count when first entering the poll
+        const sortedPoll = {
+            ...poll,
+            options: [...poll.options].sort((a, b) => b.votes.length - a.votes.length)
+        };
+        setSelectedPoll(sortedPoll);
     };
 
     const handleCreateSuccess = async () => {
@@ -59,11 +64,21 @@ function VoteModal() {
             // Refetch polls to get the latest data from server
             const { data: updatedPolls } = await refetchPolls();
 
-            // Update selected poll if it's currently viewed
+            // Update selected poll if it's currently viewed, but preserve the current order
             if (selectedPoll && selectedPoll.id === pollId && updatedPolls) {
                 const updatedPoll = updatedPolls.find(p => p.id === pollId);
                 if (updatedPoll) {
-                    setSelectedPoll(updatedPoll);
+                    // Preserve the current options order by matching with the current selectedPoll order
+                    const reorderedOptions = selectedPoll.options.map(currentOption => {
+                        return updatedPoll.options.find(
+                            opt => opt.restaurantId === currentOption.restaurantId
+                        )!;
+                    });
+
+                    setSelectedPoll({
+                        ...updatedPoll,
+                        options: reorderedOptions
+                    });
                 }
             }
         } catch (error) {
