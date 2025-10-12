@@ -20,6 +20,9 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    //get user info from redux/local storage
+    const currentUser = useAppSelector((state) => state.userInfoState);
+
     const [triggerVoteUpdate] = useUpdateVoteMutation();
 
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
@@ -53,7 +56,6 @@ function VoteModal() {
     };
 
     const handleVote = (pollId: number, restaurantId: number, optionId: number) => {
-        console.log("000000", { pollId, optionId })
         setPolls(prevPolls =>
             prevPolls.map(poll => {
                 if (poll.id !== pollId) return poll;
@@ -113,7 +115,7 @@ function VoteModal() {
                     <PollDetail
                         poll={selectedPoll}
                         onVote={handleVote}
-                        currentUser={CURRENT_USER}
+                        currentUser={currentUser}
                     />
                 </div>
             );

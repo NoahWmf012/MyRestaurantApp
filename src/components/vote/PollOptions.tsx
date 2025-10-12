@@ -18,7 +18,6 @@ export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick,
     return [...poll.options]
         .sort((a, b) => b.votes.length - a.votes.length) // Sort by vote count (highest first)
         .map((option, index) => {
-            console.log("333333: ", option)
             const percentage = getVotePercentage(option.votes);
             const isUserVote = currentUserVote === option.restaurantId;
             const isWinner = index === 0 && option.votes.length > 0;

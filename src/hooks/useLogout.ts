@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useLogoutMutation } from '../redux/services/api/userAPI';
 import { useAppDispatch } from '../redux/store';
 import { clearAuthInfo } from '../redux/reducers/authSlice';
-import { setUserInfo } from '../redux/reducers/userInfoSlice';
+import { clearUserInfo } from '../redux/reducers/userInfoSlice';
 import { useAuthRedirect } from './useAuthRedirect';
 
 export const useLogout = () => {
@@ -18,10 +18,7 @@ export const useLogout = () => {
             console.error('Logout API error:', error);
         } finally {
             dispatch(clearAuthInfo());
-            dispatch(setUserInfo({
-                userId: '',
-                userName: ''
-            }));
+            dispatch(clearUserInfo());
 
             redirectAfterLogout();
 
