@@ -63,7 +63,7 @@ export const forgotPasswordValidation = yup.object({
 });
 
 export const guestLoginValidation = yup.object({
-    username: yup
+    userName: yup
         .string()
         .min(2, 'Username must be at least 2 characters')
         .max(30, 'Username must not exceed 30 characters')

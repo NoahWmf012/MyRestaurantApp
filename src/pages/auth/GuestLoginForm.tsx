@@ -14,9 +14,9 @@ function GuestLoginForm() {
     const [triggerGuestLogin, guestLoginResult] = useLazyGuestLoginQuery()
     const { redirectAfterLogin } = useAuthRedirect();
 
-    const handleGuestLogin = async (data: { username: string }) => {
+    const handleGuestLogin = async (data: { userName: string }) => {
         try {
-            await triggerGuestLogin({ userName: data.username }).unwrap()
+            await triggerGuestLogin({ userName: data.userName }).unwrap()
         } catch (error) {
             console.error("Failed to login:", error)
             setGuestLoginError('root', {
@@ -60,10 +60,10 @@ function GuestLoginForm() {
         handleSubmit: handleGuestSubmit,
         formState: { errors: guestErrors },
         setError: setGuestLoginError
-    } = useForm<{ username: string }>({
+    } = useForm<{ userName: string }>({
         resolver: yupResolver(guestLoginValidation),
         defaultValues: {
-            username: ''
+            userName: ''
         }
     });
 
@@ -78,16 +78,16 @@ function GuestLoginForm() {
                         <div className="user-name-wrapper">
                             <input
                                 id="guest-user-name"
-                                {...registerGuestUsername('username')}
+                                {...registerGuestUsername('userName')}
                                 placeholder="What's your name?"
                                 className={"form-input has-icon"}
-                                autoComplete="username"
+                                autoComplete="userName"
                             />
                         </div>
-                        {guestErrors.username && (
+                        {guestErrors.userName && (
                             <div className="form-error">
                                 <span className="error-icon">⚠</span>
-                                {guestErrors.username.message}
+                                {guestErrors.userName.message}
                             </div>
                         )}
                         <button type="submit" className="auth-button" disabled={guestLoginResult.isFetching}>

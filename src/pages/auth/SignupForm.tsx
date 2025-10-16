@@ -43,7 +43,7 @@ function SignupForm() {
         try {
             // Map form data to API format
             const signupData = {
-                username: data.userName,
+                userName: data.userName,
                 email: data.email,
                 password: data.password
             };
@@ -78,9 +78,9 @@ function SignupForm() {
                                 type="text"
                                 id="userName"
                                 {...register('userName')}
-                                placeholder="Enter your username"
+                                placeholder="Enter your user name"
                                 className={`form-input has-icon ${errors.userName ? 'error' : ''}`}
-                                autoComplete="username"
+                                autoComplete="userName"
                             />
                             <span className="input-icon">👤</span>
                         </div>
