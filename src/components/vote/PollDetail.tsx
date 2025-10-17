@@ -1,15 +1,15 @@
-import { type CurrentUserInterface } from '../../constants/voteData';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
+import { useAppSelector } from '../../redux/store';
 import { PollOptions } from './PollOptions';
 
 interface PollDetailProps {
     poll: PollResponse;
     onVote: (pollId: number, restaurantId: number, optionId: number) => void;
-    currentUser: CurrentUserInterface;
 };
 
 
-function PollDetail({ poll, onVote, currentUser }: PollDetailProps) {
+function PollDetail({ poll, onVote }: PollDetailProps) {
+    const currentUser = useAppSelector((state) => state.userInfoState);
     const isExpired = !poll.isActive || new Date(poll.expiresAt) < new Date();
 
     const getUserVote = (): number | null => {

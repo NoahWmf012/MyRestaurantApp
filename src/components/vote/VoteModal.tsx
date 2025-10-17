@@ -16,9 +16,6 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
-    //get user info from redux/local storage
-    const currentUser = useAppSelector((state) => state.userInfoState);
-
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
     const [triggerVoteUpdate] = useUpdateVoteMutation();
 
@@ -56,9 +53,20 @@ function VoteModal() {
         setSelectedPoll(null);
     };
 
+    //Copy Poll Link handler
+    const handleCopyPollLink = () => {
+        if (selectedPoll) {
+            const url = `${window.location.origin}/vote/${selectedPoll.id}`;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Poll link copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy link: ', err);
+            });
+        }
+    };
+
     const handleVote = async (pollId: number, _restaurantId: number, optionId: number) => {
         try {
-            // Trigger backend vote update
             await triggerVoteUpdate({ pollId, optionId }).unwrap();
 
             // Refetch polls to get the latest data from server
@@ -92,16 +100,24 @@ function VoteModal() {
         if (selectedPoll) {
             return (
                 <div>
-                    <button
-                        className="btn btn-secondary mb-3"
-                        onClick={handleBackToList}
-                    >
-                        ← Back to Polls
-                    </button>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <button
+                            className="btn btn-secondary"
+                            onClick={handleBackToList}
+                        >
+                            ← Back to Polls
+                        </button>
+
+                        {/* A button that lets copy the url to clipboard */}
+                        {/* Change text after copying */}
+                        <button className="btn btn-outline-primary" onClick={handleCopyPollLink}>
+                            Copy Poll Link
+                        </button>
+                    </div>
+
                     <PollDetail
                         poll={selectedPoll}
                         onVote={handleVote}
-                        currentUser={currentUser}
                     />
                 </div>
             );
