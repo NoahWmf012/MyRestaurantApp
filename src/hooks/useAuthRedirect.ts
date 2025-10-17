@@ -11,27 +11,43 @@ export const useAuthRedirect = () => {
 
         const stateRedirect = (location.state as { from?: { pathname: string } })?.from?.pathname;
 
-        return redirectTo || stateRedirect || '/';
+        const redirectPath = redirectTo || stateRedirect || '/';
+
+        return redirectPath;
     }, [location]);
 
     const redirectAfterLogin = useCallback(() => {
         const redirectPath = getRedirectPath();
-        navigate(redirectPath, { replace: true });
-    }, [navigate, getRedirectPath]);
+
+        // Restore any previous state that was saved
+        const previousState = (location.state as { previousState?: unknown })?.previousState;
+
+        navigate(redirectPath, {
+            replace: true,
+            state: previousState // Restore the original state
+        });
+    }, [navigate, getRedirectPath, location.state]);
 
     const redirectToLogin = useCallback((currentPath?: string) => {
         const from = currentPath || location.pathname;
 
-        if (from === '/login' || from === '/signup') {
+
+        if (from === '/login' || from === '/signup' || from === '/guest-login') {
             navigate('/login', { replace: true });
             return;
         }
 
-        navigate(`/login?redirectTo=${encodeURIComponent(from)}`, {
-            state: { from: { pathname: from } },
+        const loginUrl = `/login?redirectTo=${encodeURIComponent(from)}`;
+
+        navigate(loginUrl, {
+            state: {
+                from: { pathname: from },
+                // Preserve any existing location state
+                previousState: location.state
+            },
             replace: true
         });
-    }, [navigate, location.pathname]);
+    }, [navigate, location.pathname, location.state]);
 
     const redirectAfterLogout = useCallback(() => {
         navigate('/', { replace: true });

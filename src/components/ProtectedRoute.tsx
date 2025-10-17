@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../redux/store';
 import { useAuthRedirect } from '../hooks/useAuthRedirect';
 
@@ -13,14 +14,17 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
     const { accessToken } = useAppSelector(state => state.authState);
     const { redirectToLogin } = useAuthRedirect();
+    const location = useLocation();
 
     const isAuthenticated = !!accessToken && accessToken.trim() !== '';
 
     useEffect(() => {
         if (requireAuth && !isAuthenticated) {
-            redirectToLogin();
+            // Pass the full path (including search params and hash) to preserve complete state
+            const fullPath = location.pathname + location.search + location.hash;
+            redirectToLogin(fullPath);
         }
-    }, [requireAuth, isAuthenticated, redirectToLogin]);
+    }, [requireAuth, isAuthenticated, redirectToLogin, location]);
 
     if (requireAuth && !isAuthenticated) {
         return null;

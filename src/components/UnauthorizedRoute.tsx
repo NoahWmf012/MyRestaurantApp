@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useAppSelector } from '../redux/store';
-import { useNavigate } from 'react-router-dom';
+import { useAuthRedirect } from '../hooks/useAuthRedirect';
 
 interface UnauthorizedRouteProps {
     children: React.ReactNode;
@@ -8,15 +8,14 @@ interface UnauthorizedRouteProps {
 
 export const UnauthorizedRoute: React.FC<UnauthorizedRouteProps> = ({ children }) => {
     const { accessToken } = useAppSelector(state => state.authState);
-    const navigate = useNavigate();
+    const { redirectAfterLogin } = useAuthRedirect();
     const isAuthenticated = !!accessToken;
 
     useEffect(() => {
         if (isAuthenticated) {
-            // If user is already authenticated, redirect to home page
-            navigate('/', { replace: true });
+            redirectAfterLogin();
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, redirectAfterLogin]);
 
     if (isAuthenticated) {
         return null;
