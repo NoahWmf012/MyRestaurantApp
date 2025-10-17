@@ -4,28 +4,30 @@ import type { CreatePollRequest, PollResponse, VoteRequest } from '../../../inte
 
 export const voteAPI = createApi({
     reducerPath: 'voteAPI',
-    baseQuery: fetchBaseQueryAuth(import.meta.env.VITE_SERVER_URL),
+    baseQuery: fetchBaseQueryAuth('polls'),
     endpoints: (builder) => ({
         getPolls: builder.query<PollResponse[], void>({
             query: () => ({
-                url: '/polls',
+                url: '/',
                 method: 'GET',
             }),
         }),
         createPoll: builder.mutation<void, CreatePollRequest>({
             query: (newPoll) => ({
-                url: 'polls/create-poll',
+                url: '/create-poll',
                 method: 'POST',
                 body: newPoll,
             }),
         }),
         updateVote: builder.mutation<void, VoteRequest>({
-            query: ({ pollId, optionId }) => ({
-                url: `/polls/vote-poll`,
+            query: (body) => ({
+                url: `/vote-poll`,
                 method: 'PUT',
-                body: { pollId, optionId },
+                body,
             }),
         }),
+
+        //@Get('share/:shareToken')
     }),
 })
 

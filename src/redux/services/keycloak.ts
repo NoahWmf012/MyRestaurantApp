@@ -80,7 +80,8 @@ const refreshAccessToken = async (baseUrl: string): Promise<string | null> => {
     return null
 }
 
-export const fetchBaseQueryAuth = (baseUrl: string) => {
+export const fetchBaseQueryAuth = (endpoints?: string) => {
+    const baseUrl = import.meta.env.VITE_SERVER_URL + (endpoints || '');
     return async (args: string | FetchArgs, api: BaseQueryApi) => {
         const localToken = getAccessToken()
 

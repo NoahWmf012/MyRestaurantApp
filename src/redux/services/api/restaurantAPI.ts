@@ -3,11 +3,11 @@ import { fetchBaseQueryAuth } from '../keycloak'
 
 export const restaurantAPI = createApi({
     reducerPath: 'restaurantAPI',
-    baseQuery: fetchBaseQueryAuth(import.meta.env.VITE_SERVER_URL),
+    baseQuery: fetchBaseQueryAuth('restaurants'),
     endpoints: (builder) => ({
         getRestaurants: builder.query({
             query: () => ({
-                url: '/restaurants',
+                url: '/',
                 method: 'GET',
             }),
         }),

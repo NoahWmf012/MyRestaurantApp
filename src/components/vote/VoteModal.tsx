@@ -17,7 +17,7 @@ function VoteModal() {
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
-    const [triggerVoteUpdate] = useUpdateVoteMutation();
+    const [updateVote] = useUpdateVoteMutation();
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
 
@@ -67,7 +67,7 @@ function VoteModal() {
 
     const handleVote = async (pollId: number, _restaurantId: number, optionId: number) => {
         try {
-            await triggerVoteUpdate({ pollId, optionId }).unwrap();
+            await updateVote({ pollId, optionId }).unwrap();
 
             // Refetch polls to get the latest data from server
             const { data: updatedPolls } = await refetchPolls();

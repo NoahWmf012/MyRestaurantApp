@@ -7,6 +7,7 @@ export interface PollResponse {
     expiresAt: string;
     options: PollOption[];
     isActive: boolean;
+    shareToken: string;
 }
 
 export interface PollOption {
@@ -38,4 +39,5 @@ export interface CreatePollOptions {
 export interface VoteRequest {
     pollId: number;
     optionId: number;
+    guestId?: string;
 }
