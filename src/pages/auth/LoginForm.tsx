@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './auth.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ShowIcon from '../../assets/icons/show.png'
 import HideIcon from '../../assets/icons/hide.png'
 import { useLazyLoginQuery, useLazyForgetPasswordQuery } from '../../redux/services/api/userAPI';
@@ -24,12 +24,24 @@ function LoginForm() {
     const [triggerForgotPassword, forgotPasswordResult] = useLazyForgetPasswordQuery();
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const dispatch = useAppDispatch();
     const { redirectAfterLogin } = useAuthRedirect();
 
     const guestLoginHandler = async () => {
-        navigate('/guest-login');
+        // Preserve the redirectTo query parameter when navigating to guest login
+        const searchParams = new URLSearchParams(location.search);
+        const redirectTo = searchParams.get('redirectTo');
+
+        if (redirectTo) {
+            // Pass the redirectTo as a query parameter to guest login page
+            navigate(`/guest-login?redirectTo=${encodeURIComponent(redirectTo)}`, {
+                state: location.state // Also preserve any location state
+            });
+        } else {
+            navigate('/guest-login');
+        }
     };
 
     // Main login form
