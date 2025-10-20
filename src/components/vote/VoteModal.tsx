@@ -8,6 +8,7 @@ import BaseModal from '../common/BaseModal';
 import CreatePollModal from './CreatePollModal';
 import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
+import { getAppUrl } from '../../hooks/urlHook';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
@@ -56,7 +57,7 @@ function VoteModal() {
     //Copy Poll Link handler
     const handleCopyPollLink = () => {
         if (selectedPoll) {
-            const url = `${window.location.origin}/vote/${selectedPoll.id}`;
+            const url = `${getAppUrl()}poll/share/${selectedPoll.shareToken}`;
             navigator.clipboard.writeText(url).then(() => {
                 alert('Poll link copied to clipboard!');
             }).catch(err => {

@@ -28,7 +28,13 @@ export const voteAPI = createApi({
         }),
 
         //@Get('share/:shareToken')
+        getPollByShareToken: builder.query<PollResponse, string>({
+            query: (shareToken: string) => ({
+                url: `/share/${shareToken}`,
+                method: 'GET',
+            }),
+        }),
     }),
 })
 
-export const { useCreatePollMutation, useGetPollsQuery, useUpdateVoteMutation } = voteAPI
+export const { useCreatePollMutation, useGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } = voteAPI

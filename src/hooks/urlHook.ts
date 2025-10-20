@@ -9,6 +9,10 @@ export const getAppBaseUrl = () => {
     return url
 }
 
+export const getAppUrl = () => {
+    return window.location.origin + getAppBaseUrl()
+}
+
 export const getBackendUrl = () => {
     let url = import.meta.env.VITE_BACKEND_URL || '/'
     if (!url.endsWith('/')) {
