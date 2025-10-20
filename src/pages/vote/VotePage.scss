@@ -1,0 +1,354 @@
+@use '../../style/variables' as *;
+
+/* ========================================
+   VOTE PAGE STYLES
+   ======================================== */
+
+.vote-page-container {
+    min-height: calc(100vh - 80px); // Account for header/footer
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, $neutral-50 0%, $background-color 100%);
+
+    @media (min-width: 768px) {
+        padding: 3rem 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        padding: 4rem 3rem;
+    }
+}
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1.5rem;
+    animation: fadeIn 0.3s ease-in;
+
+    p {
+        font-size: 1.125rem;
+        color: $text-color-secondary;
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid $neutral-200;
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   ERROR STATE
+   ======================================== */
+
+.error-state {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    text-align: center;
+    animation: fadeIn 0.4s ease-in;
+
+    h2 {
+        color: $error-color;
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 0 0 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        &::before {
+            content: '⚠️';
+            font-size: 2rem;
+        }
+    }
+
+    p {
+        color: $text-color-secondary;
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin: 0 0 2rem 0;
+    }
+
+    button {
+        background: $primary-color;
+        color: $text-color;
+        border: none;
+        padding: 0.875rem 2rem;
+        border-radius: $radius-full;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-fast;
+        box-shadow: $shadow-sm;
+
+        &:hover {
+            background: $primary-dark;
+            transform: translateY(-2px);
+            box-shadow: $shadow-md;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ========================================
+   NO POLL SELECTED STATE
+   ======================================== */
+
+.no-poll-selected {
+    max-width: 700px;
+    margin: 5rem auto;
+    padding: 4rem 2.5rem;
+    background: white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    text-align: center;
+    border: 2px dashed $neutral-300;
+    animation: fadeIn 0.4s ease-in;
+
+    h2 {
+        color: $text-color;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 1rem 0;
+
+        &::before {
+            content: '📊';
+            display: block;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    p {
+        color: $text-color-secondary;
+        font-size: 1.125rem;
+        line-height: 1.8;
+        margin: 0 0 2.5rem 0;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button {
+        background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+        color: $text-color;
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: $radius-full;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-normal;
+        box-shadow: $shadow-md;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $shadow-lg;
+        }
+
+        &:active {
+            transform: translateY(-1px);
+        }
+    }
+}
+
+/* ========================================
+   POLL NOT FOUND STATE
+   ======================================== */
+
+.poll-not-found {
+    max-width: 650px;
+    margin: 5rem auto;
+    padding: 4rem 2.5rem;
+    background: linear-gradient(135deg, #fff5f5 0%, white 100%);
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+    text-align: center;
+    border: 2px solid rgba($error-color, 0.2);
+    animation: fadeIn 0.4s ease-in;
+
+    h2 {
+        color: $error-color;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin: 0 0 1rem 0;
+
+        &::before {
+            content: '🔍';
+            display: block;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: grayscale(100%);
+        }
+    }
+
+    p {
+        color: $text-color-secondary;
+        font-size: 1.125rem;
+        line-height: 1.8;
+        margin: 0 0 2.5rem 0;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button {
+        background: white;
+        color: $error-color;
+        border: 2px solid $error-color;
+        padding: 1rem 2.5rem;
+        border-radius: $radius-full;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-normal;
+
+        &:hover {
+            background: $error-color;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: $shadow-md;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .vote-page-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .error-state,
+    .no-poll-selected,
+    .poll-not-found {
+        margin: 2rem auto;
+        padding: 2rem 1.5rem;
+
+        h2 {
+            font-size: 1.5rem;
+
+            &::before {
+                font-size: 3rem;
+            }
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+        }
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vote-page-container {
+        padding: 1rem 0.75rem;
+    }
+
+    .loading-state {
+        min-height: 300px;
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .error-state,
+    .no-poll-selected,
+    .poll-not-found {
+        margin: 1.5rem auto;
+        padding: 1.5rem 1rem;
+        border-radius: $radius-md;
+
+        h2 {
+            font-size: 1.25rem;
+
+            &::before {
+                font-size: 2.5rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        p {
+            font-size: 0.9375rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            font-size: 0.9375rem;
+        }
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus states for keyboard navigation */
+button:focus-visible {
+    outline: 3px solid $primary-color;
+    outline-offset: 2px;
+}

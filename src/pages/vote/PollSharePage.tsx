@@ -26,7 +26,6 @@ function PollSharePage() {
     // Once we have the poll data, redirect to VotePage with the poll data in state
     useEffect(() => {
         if (poll) {
-            console.log('✅ Poll loaded via share token, redirecting to VotePage with poll data');
             navigate('/vote', {
                 replace: true,
                 state: {

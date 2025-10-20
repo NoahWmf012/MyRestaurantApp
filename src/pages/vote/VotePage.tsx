@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import PollDetail from "../../components/vote/PollDetail";
-import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
+import { useGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
+import './VotePage.scss';
 
 interface LocationState {
     poll?: PollResponse;
@@ -16,24 +17,37 @@ function VotePage() {
     const [pollId, setPollId] = useState<number | null>(null);
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
 
-    // Check if poll data was passed via navigation state (from share link)
     const locationState = location.state as LocationState;
     const pollFromState = locationState?.poll;
     const fromShare = locationState?.fromShare;
+    const shareToken = pollFromState?.shareToken;
 
-    // Only fetch all polls if we don't have poll data from state
-    const { data: polls, isLoading, isError, refetch } = useGetPollsQuery(undefined, {
-        skip: !!pollFromState // Skip fetching if we already have poll data
+    const { data: polls, isLoading: isLoadingPolls, isError: isErrorPolls, refetch: refetchPolls } = useGetPollsQuery(undefined, {
+        skip: !!pollFromState
     });
+
+    const { data: sharedPoll, isLoading: isLoadingShare, isError: isErrorShare, refetch: refetchSharedPoll } = useGetPollByShareTokenQuery(shareToken || '', {
+        skip: !fromShare || !shareToken
+    });
+
     const [updateVote] = useUpdateVoteMutation();
+
+    const isLoading = isLoadingPolls || isLoadingShare;
+    const isError = isErrorPolls || isErrorShare;
 
     // If poll data was passed from share link, use it directly
     useEffect(() => {
         if (pollFromState) {
-            console.log('📨 Poll data received from share link');
             setSelectedPoll(pollFromState);
         }
     }, [pollFromState]);
+
+    // Update selected poll when shared poll is refetched
+    useEffect(() => {
+        if (sharedPoll && fromShare) {
+            setSelectedPoll(sharedPoll);
+        }
+    }, [sharedPoll, fromShare]);
 
     // Extract poll ID from URL hash (e.g., /vote#123) - only if no poll from state
     useEffect(() => {
@@ -64,15 +78,12 @@ function VotePage() {
         try {
             await updateVote({ pollId, optionId }).unwrap();
 
-            // If poll came from share link, we need to refetch using share token
-            if (fromShare && selectedPoll?.shareToken) {
-                // Refetch the poll using its share token to get updated data
-                const shareToken = selectedPoll.shareToken;
-                // We'll trigger a re-navigation to refresh the data
-                navigate(`/poll/share/${shareToken}`, { replace: true });
+            // If poll came from share link, refetch using share token
+            if (fromShare && shareToken) {
+                await refetchSharedPoll();
             } else {
                 // Otherwise refetch from the normal polls list
-                await refetch();
+                await refetchPolls();
             }
         } catch (error) {
             console.error('Failed to submit vote:', error);

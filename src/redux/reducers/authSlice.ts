@@ -41,7 +41,6 @@ export const authSlice = createSlice({
             state.refreshToken = payload.refreshToken
             state.expiredIn = payload.expiredIn
 
-            // Handle localStorage persistence directly in the reducer
             localStorage.setItem('authInfo', JSON.stringify({
                 accessToken: state.accessToken,
                 refreshToken: state.refreshToken,
@@ -50,7 +49,7 @@ export const authSlice = createSlice({
         },
         setApiToken(state, { payload }: PayloadAction<string>) {
             state.accessToken = payload
-            // Update localStorage when access token changes
+
             const currentAuth = {
                 accessToken: state.accessToken,
                 refreshToken: state.refreshToken,
@@ -60,7 +59,7 @@ export const authSlice = createSlice({
         },
         setRefreshToken(state, { payload }: PayloadAction<string>) {
             state.refreshToken = payload
-            // Update localStorage when refresh token changes
+
             const currentAuth = {
                 accessToken: state.accessToken,
                 refreshToken: state.refreshToken,
@@ -69,7 +68,6 @@ export const authSlice = createSlice({
             localStorage.setItem('authInfo', JSON.stringify(currentAuth))
         },
         clearAuthInfo(state) {
-            console.log("Clearing auth info")
             // Clear state
             state.accessToken = ''
             state.refreshToken = ''
@@ -77,7 +75,7 @@ export const authSlice = createSlice({
 
             // Clear localStorage
             localStorage.removeItem('authInfo')
-            //redirect to login page
+            //redirect to home page
             window.location.href = import.meta.env.VITE_BASE_URL || '/'
         },
         initializeAuthFromStorage(state) {

@@ -105,8 +105,6 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
             const newToken = await refreshAccessToken(baseUrl)
 
             if (newToken) {
-                console.log('Token refreshed successfully')
-
                 // Update the Redux state with the new token
                 const stored = localStorage.getItem('authInfo')
                 if (stored) {
@@ -125,7 +123,6 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
 
                 result = await retryQuery(args, api, {})
             } else {
-                console.log('Failed to refresh token, logging out user')
                 api.dispatch(clearAuthInfo())
             }
         }

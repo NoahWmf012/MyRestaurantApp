@@ -49,8 +49,6 @@ function SignupForm() {
             };
 
             await triggerSignup(signupData).unwrap();
-            console.log('Signup successful:', signupData);
-            // Handle successful signup here (redirect, show success message, etc.)
             navigate('/login');
         } catch (error) {
             console.error('Signup error:', error);
