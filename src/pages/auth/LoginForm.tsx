@@ -296,6 +296,12 @@ function LoginForm() {
                         Guest Login
                     </button>
 
+                    <div className="auth-footer">
+                        <p className="auth-link">
+                            Don't have an account? <span className="link" onClick={() => navigate('/signup')}>Sign up</span>
+                        </p>
+                    </div>
+
                     <div className="social-auth">
                         <div className="divider">
                             <span>or sign in with</span>
@@ -312,12 +318,6 @@ function LoginForm() {
                         </div>
                     </div>
                 </form>
-
-                <div className="auth-footer">
-                    <p className="auth-link">
-                        Don't have an account? <span className="link" onClick={() => navigate('/signup')}>Sign up</span>
-                    </p>
-                </div>
             </div>
         </div>
     );
