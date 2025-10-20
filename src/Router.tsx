@@ -10,6 +10,7 @@ import ProfilePage from './pages/profile/ProfilePage'
 import SettingsPage from './pages/settings/SettingsPage'
 import GuestLoginPage from './pages/auth/GuestLoginPage'
 import VotePage from './pages/vote/VotePage'
+import PollSharePage from './pages/vote/PollSharePage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -27,6 +28,9 @@ export const router = createBrowserRouter(
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path='vote' element={<VotePage />} />
+
+            {/* Poll Share Route - handles /poll/share/{shareToken} */}
+            <Route path="poll/share/:shareToken" element={<PollSharePage />} />
 
             <Route path="*" element={<NotFoundPage />} />
         </Route>
