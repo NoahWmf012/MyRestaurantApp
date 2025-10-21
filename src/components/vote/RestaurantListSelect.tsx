@@ -9,41 +9,31 @@ import type {
     CreatePollRequest,
     CreatePollOptions,
 } from "../../interfaces/queryInterface/pollAPIInterface";
-
-interface Restaurant {
-    id: number;
-    name: string;
-}
+import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
+import type { RestaurantItem } from "../../interfaces/queryInterface/restaurantInterface";
 
 interface Props {
     control: Control<CreatePollRequest, unknown, unknown>;
     append: UseFieldArrayAppend<CreatePollRequest, "options">;
     fields: FieldArrayWithId<CreatePollRequest, "options", "id">[];
     remove: UseFieldArrayRemove;
-    restaurantList?: Restaurant[]; // optional override
+    restaurantList?: RestaurantItem[]; // optional override
     error?: string | undefined;
-    /** optional placeholder text */
     placeholder?: string;
 }
-
-const DEFAULT_RESTAURANTS: Restaurant[] = [
-    { id: 1, name: "McDonald's" },
-    { id: 2, name: "Subway" },
-    { id: 3, name: "Pizza Hut" },
-    { id: 4, name: "KFC" },
-];
 
 export default function RestaurantListSelect({
     append,
     fields,
     remove,
-    restaurantList = DEFAULT_RESTAURANTS,
+    // restaurantList = DEFAULT_RESTAURANTS,
     error,
     placeholder = "Enter restaurant name",
 }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
-    const [suggestions, setSuggestions] = useState<Restaurant[]>([]);
+    const [suggestions, setSuggestions] = useState<RestaurantItem[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    const { data: restaurantList } = useGetRestaurantsQuery();
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     // filter suggestions
@@ -53,9 +43,9 @@ export default function RestaurantListSelect({
             setShowDropdown(false);
             return;
         }
-        const filtered = restaurantList.filter((r) =>
+        const filtered = restaurantList?.restaurantList?.filter((r) =>
             r.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        ) || [];
         setSuggestions(filtered);
         setShowDropdown(filtered.length > 0);
     }, [searchTerm, restaurantList]);
@@ -71,7 +61,7 @@ export default function RestaurantListSelect({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleAddOption = (restaurant: Restaurant | null) => {
+    const handleAddOption = (restaurant: RestaurantItem | null) => {
         const name = restaurant ? restaurant.name : searchTerm.trim();
         if (!name) return;
         const option: CreatePollOptions = restaurant
