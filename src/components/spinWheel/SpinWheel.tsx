@@ -81,7 +81,7 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
             {showResult && prizeIndex !== null && (
                 <ResultModal
                     winner={items[prizeIndex]}
-                    onClose={() => setShowResult(false)}
+                    onClose={onClose}
                     onSpinAgain={() => {
                         setShowResult(false);
                         setTimeout(() => startSpin(), 250);

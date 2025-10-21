@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import BaseModal from "../common/BaseModal";
 import { useCreatePollMutation } from "../../redux/services/api/voteAPI";
-import type { CreatePollRequest } from "../../interfaces/queryInterface/pollAPIInterface";
+import type { CreatePollRequest, CreatePollOptions } from "../../interfaces/queryInterface/pollAPIInterface";
 import { useForm, useFieldArray, type Resolver } from "react-hook-form";
 import { createVoteValidation } from "../../validations/vote.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import RestaurantListSelect from "./RestaurantListSelect";
+import RestaurantListSelect, { type RestaurantOption } from "./RestaurantListSelect";
 
 type CreatePollModalProps = {
     onClose: () => void;
@@ -64,6 +64,24 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
         errors.options && errors.options.message
             ? String(errors.options.message)
             : undefined;
+
+    // Convert fields to RestaurantOption[] for the generic component
+    const restaurantItems: RestaurantOption[] = fields.map(field => ({
+        restaurantName: field.restaurantName,
+        restaurantId: field.restaurantId
+    }));
+
+    const handleAddRestaurant = (restaurant: RestaurantOption) => {
+        const option: CreatePollOptions = {
+            restaurantName: restaurant.restaurantName,
+            restaurantId: restaurant.restaurantId
+        };
+        append(option);
+    };
+
+    const handleRemoveRestaurant = (index: number) => {
+        remove(index);
+    };
 
     return (
         <BaseModal title="Create Vote Poll" onClose={onClose}>
@@ -130,14 +148,13 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
                             )}
                         </div>
 
-                        {/* Restaurant selection: pass control + field array handlers */}
+                        {/* Restaurant selection */}
                         <div className="form-group">
                             <label className="form-label">Restaurants</label>
                             <RestaurantListSelect
-                                control={control}
-                                append={append}
-                                fields={fields}
-                                remove={remove}
+                                items={restaurantItems}
+                                onAdd={handleAddRestaurant}
+                                onRemove={handleRemoveRestaurant}
                                 error={optionsError}
                             />
                         </div>

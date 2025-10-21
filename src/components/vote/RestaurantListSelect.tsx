@@ -1,34 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import type {
-    Control,
-    FieldArrayWithId,
-    UseFieldArrayAppend,
-    UseFieldArrayRemove,
-} from "react-hook-form";
-import type {
-    CreatePollRequest,
-    CreatePollOptions,
-} from "../../interfaces/queryInterface/pollAPIInterface";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import type { RestaurantItem } from "../../interfaces/queryInterface/restaurantInterface";
 
+export interface RestaurantOption {
+    restaurantName: string;
+    restaurantId?: number;
+}
+
 interface Props {
-    control: Control<CreatePollRequest, unknown, unknown>;
-    append: UseFieldArrayAppend<CreatePollRequest, "options">;
-    fields: FieldArrayWithId<CreatePollRequest, "options", "id">[];
-    remove: UseFieldArrayRemove;
-    restaurantList?: RestaurantItem[]; // optional override
+    items: RestaurantOption[];
+    onAdd: (restaurant: RestaurantOption) => void;
+    onRemove: (index: number) => void;
     error?: string | undefined;
     placeholder?: string;
+    showList?: boolean;
 }
 
 export default function RestaurantListSelect({
-    append,
-    fields,
-    remove,
-    // restaurantList = DEFAULT_RESTAURANTS,
+    items,
+    onAdd,
+    onRemove,
     error,
     placeholder = "Enter restaurant name",
+    showList = true,
 }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
     const [suggestions, setSuggestions] = useState<RestaurantItem[]>([]);
@@ -61,26 +55,26 @@ export default function RestaurantListSelect({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleAddOption = (restaurant: RestaurantItem | null) => {
+    const handleAddOption = (restaurant: { name: string; id?: number } | null) => {
         const name = restaurant ? restaurant.name : searchTerm.trim();
         if (!name) return;
 
         // Check for duplicates (case-insensitive)
-        const isDuplicate = fields.some(
-            (field) => field.restaurantName.toLowerCase() === name.toLowerCase()
+        const isDuplicate = items.some(
+            (item) => item.restaurantName.toLowerCase() === name.toLowerCase()
         );
 
         if (isDuplicate) {
-            alert("This restaurant has already been added.");
+            alert("This restaurant has already been added."); //todo: improve UX
             setSearchTerm("");
             setShowDropdown(false);
             return;
         }
 
-        const option: CreatePollOptions = restaurant
+        const option: RestaurantOption = restaurant
             ? { restaurantName: name, restaurantId: restaurant.id }
             : { restaurantName: name };
-        append(option);
+        onAdd(option);
         setSearchTerm("");
         setShowDropdown(false);
     };
@@ -103,8 +97,8 @@ export default function RestaurantListSelect({
 
         if (!trimmedName) return false;
 
-        const isDuplicate = fields.some(
-            (field) => field.restaurantName.toLowerCase() === trimmedName
+        const isDuplicate = items.some(
+            (item) => item.restaurantName.toLowerCase() === trimmedName
         );
 
         return !isDuplicate;
@@ -149,26 +143,28 @@ export default function RestaurantListSelect({
             </div>
 
             {/* list of added options */}
-            <ul className="restaurant-list-select__options-list">
-                {fields.map((f, i) => (
-                    <li
-                        key={f.id}
-                        className="restaurant-list-select__option-item"
-                    >
-                        <span className="restaurant-list-select__option-name">
-                            {f.restaurantName}{" "}
-                        </span>
-                        <button
-                            type="button"
-                            onClick={() => remove(i)}
-                            aria-label={`Remove ${f.restaurantName}`}
-                            className="restaurant-list-select__remove-button"
+            {showList && (
+                <ul className="restaurant-list-select__options-list">
+                    {items.map((item, i) => (
+                        <li
+                            key={i}
+                            className="restaurant-list-select__option-item"
                         >
-                            ✖
-                        </button>
-                    </li>
-                ))}
-            </ul>
+                            <span className="restaurant-list-select__option-name">
+                                {item.restaurantName}{" "}
+                            </span>
+                            <button
+                                type="button"
+                                onClick={() => onRemove(i)}
+                                aria-label={`Remove ${item.restaurantName}`}
+                                className="restaurant-list-select__remove-button"
+                            >
+                                ✖
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
 
             {error && (
                 <div className="form-error restaurant-list-select__error">
