@@ -87,7 +87,7 @@ export default function RestaurantListSelect({
 
     return (
         <div className="restaurant-list-select" ref={wrapperRef}>
-            <div style={{ position: "relative", marginBottom: "0.5rem" }}>
+            <div className="restaurant-list-select__input-wrapper">
                 <input
                     type="text"
                     placeholder={placeholder}
@@ -118,32 +118,20 @@ export default function RestaurantListSelect({
             </div>
 
             {/* list of added options */}
-            <ul style={{ paddingLeft: 0, marginTop: 6 }}>
+            <ul className="restaurant-list-select__options-list">
                 {fields.map((f, i) => (
                     <li
                         key={f.id}
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 8,
-                            padding: "6px 0",
-                            listStyle: "none",
-                        }}
+                        className="restaurant-list-select__option-item"
                     >
-                        <span style={{ flex: 1 }}>
+                        <span className="restaurant-list-select__option-name">
                             {f.restaurantName}{" "}
                         </span>
                         <button
                             type="button"
                             onClick={() => remove(i)}
                             aria-label={`Remove ${f.restaurantName}`}
-                            style={{
-                                background: "transparent",
-                                border: "none",
-                                color: "#ef4444",
-                                cursor: "pointer",
-                                fontSize: 16,
-                            }}
+                            className="restaurant-list-select__remove-button"
                         >
                             ✖
                         </button>
@@ -152,7 +140,7 @@ export default function RestaurantListSelect({
             </ul>
 
             {error && (
-                <div className="form-error" style={{ marginTop: 6 }}>
+                <div className="form-error restaurant-list-select__error">
                     <span className="error-icon">⚠</span> {error}
                 </div>
             )}

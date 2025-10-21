@@ -813,6 +813,53 @@ ul.restaurant-suggestions {
 }
 
 /* ========================================
+   RESTAURANT LIST SELECT STYLES
+   ======================================== */
+
+.restaurant-list-select {
+    &__input-wrapper {
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+
+    &__options-list {
+        padding-left: 0;
+        margin-top: 6px;
+        list-style: none;
+    }
+
+    &__option-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+        list-style: none;
+    }
+
+    &__option-name {
+        flex: 1;
+    }
+
+    &__remove-button {
+        background: transparent;
+        border: none;
+        color: #ef4444;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all $transition-fast;
+
+        &:hover {
+            color: color.adjust(#ef4444, $lightness: -10%);
+            transform: scale(1.1);
+        }
+    }
+
+    &__error {
+        margin-top: 6px;
+    }
+}
+
+/* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 
