@@ -4,7 +4,7 @@ import { PollOptions } from './PollOptions';
 
 interface PollDetailProps {
     poll: PollResponse;
-    onVote: (pollId: number, restaurantId: number, optionId: number) => void;
+    onVote: (pollId: number, restaurantId: number | null, optionId: number) => void;
 };
 
 
@@ -16,7 +16,7 @@ function PollDetail({ poll, onVote }: PollDetailProps) {
         for (const option of poll.options) {
             const userVote = option.votes.find(vote => vote.userId === currentUser.userId);
             if (userVote) {
-                return option.restaurantId;
+                return option.pollOptionId;
             }
         }
         return null;
@@ -35,7 +35,7 @@ function PollDetail({ poll, onVote }: PollDetailProps) {
         });
     };
 
-    const handleVoteClick = (restaurantId: number, optionId: number) => {
+    const handleVoteClick = (restaurantId: number | null, optionId: number) => {
         if (isExpired) return;
         onVote(poll.id, restaurantId, optionId);
     };
@@ -134,7 +134,7 @@ function PollDetail({ poll, onVote }: PollDetailProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div>
-                        <p><strong>You voted for: {poll.options.find(o => o.restaurantId === currentUserVote)?.restaurantName}</strong></p>
+                        <p><strong>You voted for: {poll.options.find(o => o.pollOptionId === currentUserVote)?.restaurantName}</strong></p>
                         <p className="status-help-text">Click on any restaurant above to change your vote.</p>
                     </div>
                 </div>

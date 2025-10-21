@@ -11,7 +11,7 @@ export interface PollResponse {
 }
 
 export interface PollOption {
-    restaurantId: number;
+    restaurantId: number | null;
     restaurantName: string;
     votes: Vote[];
     pollOptionId: number;

@@ -5,7 +5,7 @@ type PollOptionsProps = {
     poll: PollResponse;
     currentUserVote: number | null;
     isExpired: boolean;
-    handleVoteClick: (restaurantId: number, optionId: number) => void;
+    handleVoteClick: (restaurantId: number | null, optionId: number) => void;
     currentUser: CurrentUserInterface;
 };
 export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick, currentUser }: PollOptionsProps) {
@@ -17,12 +17,12 @@ export function PollOptions({ poll, currentUserVote, isExpired, handleVoteClick,
 
     return poll.options.map((option, index) => {
         const percentage = getVotePercentage(option.votes);
-        const isUserVote = currentUserVote === option.restaurantId;
+        const isUserVote = currentUserVote === option.pollOptionId;
         const isWinner = index === 0 && option.votes.length > 0;
 
         return (
             <div
-                key={option.restaurantName}
+                key={option.pollOptionId}
                 className={`modern-poll-option ${isUserVote ? 'modern-poll-option--voted' : ''} ${isExpired ? 'modern-poll-option--expired' : ''} ${isWinner ? 'modern-poll-option--winner' : ''}`}
             >
                 <div className="poll-option-header">

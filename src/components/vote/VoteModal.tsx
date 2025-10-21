@@ -66,7 +66,7 @@ function VoteModal() {
         }
     };
 
-    const handleVote = async (pollId: number, _restaurantId: number, optionId: number) => {
+    const handleVote = async (pollId: number, _restaurantId: number | null, optionId: number) => {
         try {
             await updateVote({ pollId, optionId }).unwrap();
 
