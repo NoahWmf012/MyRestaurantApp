@@ -80,7 +80,7 @@ function VoteModal() {
                     // Preserve the current options order by matching with the current selectedPoll order
                     const reorderedOptions = selectedPoll.options.map(currentOption => {
                         return updatedPoll.options.find(
-                            opt => opt.restaurantId === currentOption.restaurantId
+                            opt => opt.pollOptionId === currentOption.pollOptionId
                         )!;
                     });
 
