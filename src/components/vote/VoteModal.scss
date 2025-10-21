@@ -820,6 +820,9 @@ ul.restaurant-suggestions {
     &__input-wrapper {
         position: relative;
         margin-bottom: 0.5rem;
+        display: flex;
+        gap: 8px;
+        align-items: center;
     }
 
     &__options-list {
@@ -856,6 +859,32 @@ ul.restaurant-suggestions {
 
     &__error {
         margin-top: 6px;
+    }
+}
+
+.restaurant-modal-add-btn {
+    background: $primary-color;
+    color: $text-color;
+    border: none;
+    padding: 10px 20px;
+    border-radius: $radius-lg;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &:hover:not(:disabled) {
+        background: $primary-dark;
+        transform: translateY(-1px);
+        box-shadow: $shadow-md;
+    }
+
+    &:disabled,
+    &.restaurant-modal-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: $neutral-400;
     }
 }
 

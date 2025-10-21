@@ -64,6 +64,19 @@ export default function RestaurantListSelect({
     const handleAddOption = (restaurant: RestaurantItem | null) => {
         const name = restaurant ? restaurant.name : searchTerm.trim();
         if (!name) return;
+
+        // Check for duplicates (case-insensitive)
+        const isDuplicate = fields.some(
+            (field) => field.restaurantName.toLowerCase() === name.toLowerCase()
+        );
+
+        if (isDuplicate) {
+            alert("This restaurant has already been added.");
+            setSearchTerm("");
+            setShowDropdown(false);
+            return;
+        }
+
         const option: CreatePollOptions = restaurant
             ? { restaurantName: name, restaurantId: restaurant.id }
             : { restaurantName: name };
@@ -85,6 +98,18 @@ export default function RestaurantListSelect({
         }
     };
 
+    const canAdd = (() => {
+        const trimmedName = searchTerm.trim().toLowerCase();
+
+        if (!trimmedName) return false;
+
+        const isDuplicate = fields.some(
+            (field) => field.restaurantName.toLowerCase() === trimmedName
+        );
+
+        return !isDuplicate;
+    })();
+
     return (
         <div className="restaurant-list-select" ref={wrapperRef}>
             <div className="restaurant-list-select__input-wrapper">
@@ -98,7 +123,13 @@ export default function RestaurantListSelect({
                     className="form-input"
                     aria-label="Add restaurant option"
                 />
-
+                <button
+                    className={`restaurant-modal-add-btn ${!canAdd ? 'restaurant-modal-disabled' : ''}`}
+                    onClick={handleAddOption.bind(null, null)}
+                    disabled={!canAdd}
+                >
+                    Add
+                </button>
                 {showDropdown && (
                     <ul
                         role="listbox"
