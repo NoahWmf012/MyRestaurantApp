@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import MainIcon from "../../assets/icons/main.png"
 import LoginIcon from "../../assets/icons/user-interface.png"
@@ -13,12 +13,31 @@ function Toolbar() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const dropdownRef = useRef<HTMLDivElement>(null)
 
     // Authentication state
     const { accessToken } = useAppSelector(state => state.authState)
     const { userName } = useAppSelector(state => state.userInfoState)
     const { logout } = useLogout()
     const isAuthenticated = !!accessToken
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false)
+            }
+        }
+
+        // Only add listener when dropdown is open
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [isDropdownOpen])
 
     const handleHomeClick = useCallback(() => {
         navigate("/")
@@ -111,7 +130,7 @@ function Toolbar() {
                 )}
 
                 {/* More dropdown */}
-                <div className="dropdown">
+                <div className="dropdown" ref={dropdownRef}>
                     <button
                         className={`title-btn more-button mx-1 ${isDropdownOpen ? 'dropdown-active' : ''}`}
                         type="button"
