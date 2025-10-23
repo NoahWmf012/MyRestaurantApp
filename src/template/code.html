@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Restaurant Guide</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<script>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Restaurant Guide</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -32,266 +35,326 @@
             },
         };
     </script>
-<style>
+    <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-<header class="flex justify-between items-center mb-8">
-<div class="flex items-center space-x-2">
-<span class="material-icons text-primary text-4xl">ramen_dining</span>
-<span class="text-2xl font-bold text-text-light dark:text-text-dark">FoodieFinds</span>
-</div>
-<div class="hidden md:flex items-center space-x-4">
-<a class="text-text-light dark:text-text-dark hover:text-primary" href="#">Home</a>
-<a class="text-text-light dark:text-text-dark hover:text-primary" href="#">Explore</a>
-<a class="text-text-light dark:text-text-dark hover:text-primary" href="#">About</a>
-</div>
-<a class="bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition" href="#">Login</a>
-</header>
-<section class="mb-10">
-<div class="relative">
-<input class="w-full pl-12 pr-32 py-4 rounded-full bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search restaurant / food" type="text"/>
-<span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-<div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-2">
-<span class="material-icons text-gray-400">location_on</span>
-<input class="w-24 bg-transparent border-none focus:outline-none" placeholder="Location" type="text"/>
-<button class="bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition flex items-center">
-<span class="material-icons mr-1">filter_list</span>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="flex justify-between items-center mb-8">
+            <div class="flex items-center space-x-2">
+                <span class="material-icons text-primary text-4xl">ramen_dining</span>
+                <span class="text-2xl font-bold text-text-light dark:text-text-dark">FoodieFinds</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a class="text-text-light dark:text-text-dark hover:text-primary" href="#">Home</a>
+                <a class="text-text-light dark:text-text-dark hover:text-primary" href="#">Explore</a>
+                <a class="text-text-light dark:text-text-dark hover:text-primary" href="#">About</a>
+            </div>
+            <a class="bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition"
+                href="#">Login</a>
+        </header>
+        <section class="mb-10">
+            <div class="relative">
+                <input
+                    class="w-full pl-12 pr-32 py-4 rounded-full bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Search restaurant / food" type="text" />
+                <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-2">
+                    <span class="material-icons text-gray-400">location_on</span>
+                    <input class="w-24 bg-transparent border-none focus:outline-none" placeholder="Location"
+                        type="text" />
+                    <button
+                        class="bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-opacity-90 transition flex items-center">
+                        <span class="material-icons mr-1">filter_list</span>
                         Filter
                     </button>
-</div>
-</div>
-<div class="mt-4 text-sm text-center md:text-left">
-<span class="font-semibold">Popular search:</span>
-<a class="text-primary hover:underline" href="#">Pizza</a>,
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-center md:text-left">
+                <span class="font-semibold">Popular search:</span>
+                <a class="text-primary hover:underline" href="#">Pizza</a>,
                 <a class="text-primary hover:underline" href="#">Sushi</a>,
                 <a class="text-primary hover:underline" href="#">Burger</a>,
                 <a class="text-primary hover:underline" href="#">more...</a>
-</div>
-</section>
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-<main class="lg:col-span-3">
-<section class="mb-10">
-<h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Food Category</h2>
-<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Pizza category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOGTug4v0gwL4xf9bWpiIM9bOAINSBnrLLVs2FWHMZFzF6YGIM4LRO3dpqraSOqHJe4SIOzphpCT7pmqc6xnXJR8cCG4I4HM06CfA0665sYIGfQcRkdsfePxgIkiSJtGdkXYpY1bdI47OUYSe2aLl7CS-5rE3zzDbt3y_f-G5ryyDeZtvn4yGuB8ohcrNq3GJ5lj0ViK9SPuT1_DAqC9JU_npFD48IH15hvoeV4VZAK2sdB94q4HaLt08ejRShU0-vhEGIuW4heMV4"/>
-<span class="text-sm font-medium">Pizza</span>
-</div>
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Sushi category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtCjlrd3PPvmiOlTukj-1wCdE2oCJSutHyoJvl4Dl-s6msJ9B0Homt2_RUXSwsZzKkAutrbQPFZgRcmFETZeeptnp9Lxi1BCRlp7BbsVt5CYBQz4NGjR5bC9q7f_nA0nN8QhkDNb4cRNjG8DjJ65T_KLe7GJeeSTxO1V2WUpWOPJvtO1FPTkvjFTUbpYYPUNl-U0PlT_nl364fRYIfwQJOLFtpgjoXASkiIWCqQEd1wLHGjexF-cO1ZhSL79-Tsuohuk4ZqDTUQi1z"/>
-<span class="text-sm font-medium">Sushi</span>
-</div>
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Burger category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoum_M4Kpb8PQxnXcxDq6FPT9OpjXQDJy6SQuk3xU4If0K4FEcRcouNoRfjFzs10yq7kAX_FIoGf9wW4CBNKPNmJxJHdMXL7fXVdFo59D1rMIogHcERqNvmXFIYaNZVhH-tjvpe9UTiU3mefznCCi4z6s2IUVTm1VNBPZ-nQIv9L0GVzsFBPRm1mAEjaJ9lV2o7H60VADjl4vl-n5HNYM-DON9C42LGJc_KgniLRJi6eesCKGquc4U1TMHoZ01npHn0iXRYFaXuXVK"/>
-<span class="text-sm font-medium">Burgers</span>
-</div>
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Pasta category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDib7RTl8ekb1K2dlKUu1ekHm349GabeegVuVshX3wzN_peAz7TXqS6r7iwBt3PDI4eIuTMIjcjmjORq9lO2_Sr8xHaY4LVIIxtPPRsZgHXiayQihaQ7a5iF8QTRB09d_43R2mixf929OgLh_jaJN3FaxhyGMHk8dSGn5ZLjMIum4_xmh4TEx3qRmc8T1PJZVip5xq02L-xogukHiIF20IvhW2jL430nXuWMQpxXZYO33Szy01dDDwjBC3zBObmIIAdH4HImOGlyB4S"/>
-<span class="text-sm font-medium">Pasta</span>
-</div>
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Tacos category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvnPJDe_COExWqe2Dn5lNKNtCOqFvW9bQQ0PvCn_iXe_dTv6GwRCXIi6kCx2q8RJER2SPJ59umdLdi7Ye1CudzsFlGZ3SjpUMaaZuTWJHFQMcGYVWw1auoScSOiKmVeYReuN63n17_nGJzbF-l7aiIYuOPxRd6YIeJIEfxDcLhEpG7S17sk8j3CQ-PwwXMKHYAr7k7mEmoiNDe_6xVCgLguMBfvTsQg2mF2Ie4R-hRhuvD2SgspZcBRoHQzzKGwRkT5Lake_OB0lF2"/>
-<span class="text-sm font-medium">Tacos</span>
-</div>
-<div class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
-<img alt="Dessert category" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3sohc_s7H9g2INXQfhTY8IPacXPhcYvJuhcFhQHMggRJqY9zuNSxRiommg696Fmsp6p7JwcEApN-HlOD3hqReSP050PtmoJpltk_xRtH7rzBVsXz8vvpXw2By140dykOTOePCuViCLpCmR1wfYOcRMz51CK7_G5-wQiDnupd7WfKWMIXlp_guGpS5JARWUDGwByHGqDlRgU2M--0k2djyyQfDULhGavHukrcaVfmLraMjo8cPl0DwMkU66MTXxfDFUPd64TFeR-3i"/>
-<span class="text-sm font-medium">Desserts</span>
-</div>
-</div>
-</section>
-<section class="mb-10">
-<h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Promotions</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-<div class="relative">
-<img alt="Delicious pizza" class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQV3uK2qGOTaMEUKJpW5hmpVs8Tsf5rwQkCaepdwa9wIB-XAXgGBiL0dBvW_iQKOR_3XBlcL9usi0OJayMecVVRnnkpu2a3Vv53mAgJ2sxThHsWVqxYDTNjhzDdkO5NoTrII3Nxfnk9bGZRPFWsLeLyhxP_EgFLN__AHne2xlhmnK9hNOFIT3zebUAr20-63J_4jIRNqCPHOOiDeQNiDTDHcKsSLxl2qtuNF9hcgRlbJSnqZX7Gvj4hUKXLAmlKAVs_ceh7Kbfgie-"/>
-<div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">Promotion</div>
-</div>
-<div class="p-4">
-<h3 class="font-bold text-lg">Mama's Pizzeria</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400">Get 20% off on all large pizzas!</p>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-<div class="relative">
-<img alt="Fresh sushi platter" class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ph4MwgrDWB3mcV8brfFAnnx_UBJcxbyg_4xdbTggpSAsqcKWoP4pktvj6oIyZ-2rCAf4lMSfveOa2B3mauSwJx85X9WK87VkRORPNxSifEBMyn2BYgoZ3dwzzC6hFEG-3oTl6Yl5Ps7II0HOGK7ddo8rOEwTgkW6a4_EHw2o_eULB-VB33Jx-62hCbHygneCBAo94BVYHLznyGM-ZytSis2Bg0Zq6yX_Xmu9pWdV15q75t2Ube7kD9bRpJxiXzApuxbruhHWSR74"/>
-<div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">Promotion</div>
-</div>
-<div class="p-4">
-<h3 class="font-bold text-lg">Sushi World</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400">Free appetizer with any platter order.</p>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-<div class="relative">
-<img alt="Juicy burger with fries" class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2qbuCaIgX_XmDubTIbtv7MngpDK3FA-ECr5FuVv7aHPWjV55YJaPTk6ObOCWnsEjUkT1wPK02_wfOwRJ00PrpDhvAP4sHmNdkYhbrJcPul7bWQpXxiA355eaYN2wFLzcRuM4Iqqmu9odsuL53hNk4yHAwCVMM6wuYZ9JjcoJ1NFjpelVsOgTGwpJ2DKZYWYHnZ_iiUI7TYYVVK3mRJz4vYmN8tDlGsfZlQQfRYs8RlbwJWyCzYBeA8khP_7PLKZR7t5BB8Cksnc7h"/>
-<div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">Promotion</div>
-</div>
-<div class="p-4">
-<h3 class="font-bold text-lg">The Burger Joint</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400">Burger, fries, and a drink for $10.</p>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-<div class="relative">
-<img alt="Creamy pasta dish" class="w-full h-48 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZtrDLLJXNEEAVphewcMWYhozL9WauTNXcCeJ1QdkW5OGJt3jAgqQ8z3U90wCjQ3uEJZJKZbW23O-XUIV7825kof2w5MN51EklvTE7dvzpkcGbtEhx21raUvWq9XWqfaMFybLi79U40tewvpfK1VFqhjuJoEeYN9IyAvKM2lY_dFFZY_ZezJKhd0Tofef5CkvOyEQ0mDs-3eYTnpxFQFDlHg_mw9tKdbZOnp9YzxKZAYu1v7OPyU8i-_eN2nQsXJZdtY0ItsJ_V4uk"/>
-<div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">Promotion</div>
-</div>
-<div class="p-4">
-<h3 class="font-bold text-lg">Pasta Palace</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400">Buy one pasta, get the second 50% off.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-<div>
-<h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Top Saved List</h2>
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md space-y-4">
-<div class="flex items-start space-x-4">
-<img alt="Ramen icon" class="w-12 h-12 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2ehPYLTf8fvF8CDcInC0CBHREllZTB9xr28J25adezsfwMfQTI0HiPZE3vg_geXKJgMhFuvEHUFIimSnZg3LgMX8ugfzdMrPhaDKUfNDqqBAJfSy6nQRsRS0LWyyTP5vC_j0HgY-qf24kPZFIkyfPlGv5qhpFWj1qm6SY9Y60QhRJ5MYgDZZrmiiCJK0aX1bh793GIAZ8jvdZq1UMraub4qO4wdkQy3hG9b2PXGg1dtoK5Ni5hcFzMnzv7KItpJH_SZGHXntZzR4r"/>
-<div>
-<h3 class="font-semibold">Asian Yummy — <span class="font-normal text-sm">by UserABC</span></h3>
-<p class="text-xs text-gray-500 dark:text-gray-400">150 Like, 100 saved, 50 comment, 4.9/5 rating</p>
-</div>
-</div>
-<div class="flex items-start space-x-4">
-<img alt="Taco icon" class="w-12 h-12 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-wHDM1POJabktf1EbDLXUm0A4EfC6CoRFxA4MoI8G4i5GoUW4dZCZPPqcp00kNPhRvCQTxn3iekFSG7AJwvWHnFpuhYV5_-HELNEDG2L5vshThhstdOVR-ceXjo91kg5CViRn6oGxPpKMT7oA5F3Mp3RdQ3knusmtwKOcDfBhnX7XEcZ1gac2PyV9V4481n9wOrgTIMNS4I_yK3zOevF-Ml_7jeJZ6Rl5uu3vShKbl5Bq9YooQAgN97lc-X8UEDhGZ5AHtJSGMmx_"/>
-<div>
-<h3 class="font-semibold">Taco Tuesday Fiesta — <span class="font-normal text-sm">by UserXYZ</span></h3>
-<p class="text-xs text-gray-500 dark:text-gray-400">120 Like, 80 saved, 45 comment, 4.8/5 rating</p>
-</div>
-</div>
-</div>
-</div>
-<div>
-<h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Recent Popular List</h2>
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md space-y-4">
-<div class="flex items-start space-x-4">
-<img alt="Pizza icon" class="w-12 h-12 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAISJNQQmZmoaEpf_kOtyw3Aq2BxdvJFrpYurx6jFHKxxvJx1K9ohDDmxlG6psRoCoR5PYGBQcv3lBeBEfn1bEbeY79qdbi1CYnjvDQawFHv1Wo1naKF_c31Qe4sag0C1-CYNmdEqbeaHq1PUR3aoOTr7OYwPAJvR7OTkvYfP1Eb8HvNeSPmFFt2Ch9JTiHeimZ0eBruJyeqng8bLdhoS4AFa-mbaWDjVvkW0e-Wf1S92Rr2mcdWuhjzHRCJKs2wr7M4zw66-cPF3LS"/>
-<div>
-<h3 class="font-semibold">Italian Delights — <span class="font-normal text-sm">by FoodLover123</span></h3>
-<p class="text-xs text-gray-500 dark:text-gray-400">200 Like, 150 saved, 80 comment, 4.9/5 rating</p>
-</div>
-</div>
-<div class="flex items-start space-x-4">
-<img alt="Cake icon" class="w-12 h-12 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8ENvgrAo4pH8FKfGW6Xqol4OhW_x45HqnFK8csLvWCqXa8t2FVIUNN7je--oIwExKoY-WFk9CClyZI_pEyzk2Qa3ZUrH_GtKDnv909CHGZ15QvolzdysfLEfFEnLC3i1SzbJy5QQqfaXjPnGrxhxlWpQmTzj9r4ra6aWQVyv_ZU951WHfk0c8zRaPafo7SgtnREqqc9kKdarIvePXB2KxoohBawkODl0z7-0g3m9JFsa3fq_50JYxe5rOaisZYN8eQ0uU2BYOSvCQ"/>
-<div>
-<h3 class="font-semibold">Sweet Tooth Heaven — <span class="font-normal text-sm">by DessertQueen</span></h3>
-<p class="text-xs text-gray-500 dark:text-gray-400">180 Like, 110 saved, 60 comment, 4.7/5 rating</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section>
-<h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Reviews</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
-<div class="flex items-center mb-2">
-<img alt="Salad dish" class="w-12 h-12 rounded-full object-cover mr-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3VsbX1gAiBO9QYXOekWuahRRaLJVMwqKYKkshyqxJqCuAYf_WIdddiXB3R9WftTxJH9U2j1lBeRYwZISxTLZuwc9z1trhSPDo50dLiTpRUljp_DuHFiIHrp-VyIe288Ar5ZolyPXoUIHhqtqEYhE-BtW-M7KofbAFfK4hOf1v-ti2vxCiut5TUeeWPBOeyoZXTmyOEXYgG-RQ1ywdebWxezgDaGNyj9i4FMkwLY7Y7BqsOkRg-whQjqCuhIgweNp_4ctGep4JF2nZ"/>
-<div>
-<h4 class="font-semibold">The Green Bowl</h4>
-<p class="text-xs text-gray-500 dark:text-gray-400">Fresh and healthy!</p>
-</div>
-</div>
-<p class="text-sm mb-2">"Absolutely loved the Caesar salad. The dressing was perfect and the ingredients were so fresh. Will definitely be back!"</p>
-<div class="flex justify-between items-center text-xs text-gray-400">
-<span>Like, Comment, Date</span>
-<span class="font-semibold">_jane_doe_</span>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
-<div class="flex items-center mb-2">
-<img alt="Pizza slice" class="w-12 h-12 rounded-full object-cover mr-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHI_S5tq7drWzfUQ4JPkxM8l4Cor-VD-64MIdBU60NfqxRomqlclF51BliLENFf6esHKw50pJkMNNotbvgQo2iUbr3EV9IBtN8KSiB1JHyrBjyDCuQWF1jKPufPgeLhqDnQ48M0OYN1Trc0EYnakElLvHALCmV0973jppqU4oYdOgTxRQP-LUHTx6dlK9zEYFETa1NXe3ZUAFgbNx4ZqHgtEVpfZqzBIL_USvjb6bylo_o3tXo8_gN0T3iNO9a4yjvK2fM8RKKKKZP"/>
-<div>
-<h4 class="font-semibold">Cheesy Corner</h4>
-<p class="text-xs text-gray-500 dark:text-gray-400">Best pizza in town.</p>
-</div>
-</div>
-<p class="text-sm mb-2">"The pepperoni pizza was out of this world. The crust was crispy and the cheese was so gooey. Highly recommended!"</p>
-<div class="flex justify-between items-center text-xs text-gray-400">
-<span>Like, Comment, Date</span>
-<span class="font-semibold">john.smith</span>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
-<div class="flex items-center mb-2">
-<img alt="Ice cream dessert" class="w-12 h-12 rounded-full object-cover mr-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOFjxA25xcCZ5VFWDSU9qzks_4PJn34mR0AzsBO6YXlhCbEQdq2Au2Em1tDDtXfvqd9N2TjBPzEAqZxRxhLPmvMb3nYSsTNIEWyb__oWx7OVtGONTBVT47-Flt0DaFLL46nA0BUF7wQu7NWGoNUEAtb--FGc8ml4Xtg5D-dmiVsxWMy_ls26nftwFkyrvh5zPmKHD7UP4qvxCJpWYe4a8CFozj0g1d4IeCZy9QZdzqr6cIUf_6z4ovWnkSzS6ULvdMj5cL5dkbRfut"/>
-<div>
-<h4 class="font-semibold">Scoop 'n' Swirl</h4>
-<p class="text-xs text-gray-500 dark:text-gray-400">Sweet treats galore!</p>
-</div>
-</div>
-<p class="text-sm mb-2">"Their double chocolate fudge ice cream is a dream come true. So rich and creamy. A must-visit for dessert lovers."</p>
-<div class="flex justify-between items-center text-xs text-gray-400">
-<span>Like, Comment, Date</span>
-<span class="font-semibold">sweet_escape</span>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
-<div class="flex items-center mb-2">
-<img alt="Healthy breakfast bowl" class="w-12 h-12 rounded-full object-cover mr-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2syMEeLFZnzCkm4ki-8bw8ixrrF8ZV99-OorGMRLQbPQtjcqXxbgJpyM2XO8BaDgOBU6062EU_pSKVLfmebhEFgYq6HNoRzTXlwPDYOEjqK1_2ULzrOlIyreFU_b6ujsCMzcZz-GuPziOFcmuOjgSrq_AWtWQ16sQRteON_3nMS2IcCKNO4dMm8IslnTvBxPvaevy6B1hg0MVdW6SSVWM54zBUPj-gN9NgNwNnCCewGwtD8LsHnl49caQE2zsL7UVwaJ-P8ixmpJ8"/>
-<div>
-<h4 class="font-semibold">Morning Glory Cafe</h4>
-<p class="text-xs text-gray-500 dark:text-gray-400">Start your day right.</p>
-</div>
-</div>
-<p class="text-sm mb-2">"The avocado toast was exceptional. Paired it with a freshly squeezed orange juice. Perfect breakfast spot."</p>
-<div class="flex justify-between items-center text-xs text-gray-400">
-<span>Like, Comment, Date</span>
-<span class="font-semibold">brunch_king</span>
-</div>
-</div>
-</div>
-</section>
-</main>
-<aside class="space-y-8">
-<div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md text-center">
-<span class="material-icons text-primary text-6xl mb-2">help_outline</span>
-<h3 class="font-bold text-lg mb-2">Let's find your best fit food</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400">Tell us your preferences and we'll find the perfect dish for you.</p>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
-<h3 class="font-bold text-lg mb-4">Top Restaurant</h3>
-<ul class="space-y-3">
-<li class="flex items-center space-x-3">
-<span class="font-bold text-primary">1.</span>
-<span>Mama's Pizzeria</span>
-</li>
-<li class="flex items-center space-x-3">
-<span class="font-bold text-primary">2.</span>
-<span>Sushi World</span>
-</li>
-<li class="flex items-center space-x-3">
-<span class="font-bold text-primary">3.</span>
-<span>The Burger Joint</span>
-</li>
-</ul>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
-<h3 class="font-bold text-lg mb-4">Recent Hot</h3>
-<div class="space-y-2">
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-3/4 rounded-full animate-pulse"></div>
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
-</div>
-</div>
-<div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
-<h3 class="font-bold text-lg mb-4">Popular food category</h3>
-<div class="space-y-2">
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-3/4 rounded-full animate-pulse"></div>
-<div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
-</div>
-</div>
-</aside>
-</div>
-</div>
+            </div>
+        </section>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <main class="lg:col-span-3">
+                <section class="mb-10">
+                    <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Food Category</h2>
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Pizza category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOGTug4v0gwL4xf9bWpiIM9bOAINSBnrLLVs2FWHMZFzF6YGIM4LRO3dpqraSOqHJe4SIOzphpCT7pmqc6xnXJR8cCG4I4HM06CfA0665sYIGfQcRkdsfePxgIkiSJtGdkXYpY1bdI47OUYSe2aLl7CS-5rE3zzDbt3y_f-G5ryyDeZtvn4yGuB8ohcrNq3GJ5lj0ViK9SPuT1_DAqC9JU_npFD48IH15hvoeV4VZAK2sdB94q4HaLt08ejRShU0-vhEGIuW4heMV4" />
+                            <span class="text-sm font-medium">Pizza</span>
+                        </div>
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Sushi category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtCjlrd3PPvmiOlTukj-1wCdE2oCJSutHyoJvl4Dl-s6msJ9B0Homt2_RUXSwsZzKkAutrbQPFZgRcmFETZeeptnp9Lxi1BCRlp7BbsVt5CYBQz4NGjR5bC9q7f_nA0nN8QhkDNb4cRNjG8DjJ65T_KLe7GJeeSTxO1V2WUpWOPJvtO1FPTkvjFTUbpYYPUNl-U0PlT_nl364fRYIfwQJOLFtpgjoXASkiIWCqQEd1wLHGjexF-cO1ZhSL79-Tsuohuk4ZqDTUQi1z" />
+                            <span class="text-sm font-medium">Sushi</span>
+                        </div>
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Burger category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoum_M4Kpb8PQxnXcxDq6FPT9OpjXQDJy6SQuk3xU4If0K4FEcRcouNoRfjFzs10yq7kAX_FIoGf9wW4CBNKPNmJxJHdMXL7fXVdFo59D1rMIogHcERqNvmXFIYaNZVhH-tjvpe9UTiU3mefznCCi4z6s2IUVTm1VNBPZ-nQIv9L0GVzsFBPRm1mAEjaJ9lV2o7H60VADjl4vl-n5HNYM-DON9C42LGJc_KgniLRJi6eesCKGquc4U1TMHoZ01npHn0iXRYFaXuXVK" />
+                            <span class="text-sm font-medium">Burgers</span>
+                        </div>
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Pasta category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDib7RTl8ekb1K2dlKUu1ekHm349GabeegVuVshX3wzN_peAz7TXqS6r7iwBt3PDI4eIuTMIjcjmjORq9lO2_Sr8xHaY4LVIIxtPPRsZgHXiayQihaQ7a5iF8QTRB09d_43R2mixf929OgLh_jaJN3FaxhyGMHk8dSGn5ZLjMIum4_xmh4TEx3qRmc8T1PJZVip5xq02L-xogukHiIF20IvhW2jL430nXuWMQpxXZYO33Szy01dDDwjBC3zBObmIIAdH4HImOGlyB4S" />
+                            <span class="text-sm font-medium">Pasta</span>
+                        </div>
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Tacos category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvnPJDe_COExWqe2Dn5lNKNtCOqFvW9bQQ0PvCn_iXe_dTv6GwRCXIi6kCx2q8RJER2SPJ59umdLdi7Ye1CudzsFlGZ3SjpUMaaZuTWJHFQMcGYVWw1auoScSOiKmVeYReuN63n17_nGJzbF-l7aiIYuOPxRd6YIeJIEfxDcLhEpG7S17sk8j3CQ-PwwXMKHYAr7k7mEmoiNDe_6xVCgLguMBfvTsQg2mF2Ie4R-hRhuvD2SgspZcBRoHQzzKGwRkT5Lake_OB0lF2" />
+                            <span class="text-sm font-medium">Tacos</span>
+                        </div>
+                        <div
+                            class="flex flex-col items-center space-y-2 p-2 rounded-lg bg-card-light dark:bg-card-dark hover:shadow-lg transition">
+                            <img alt="Dessert category" class="w-16 h-16 rounded-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3sohc_s7H9g2INXQfhTY8IPacXPhcYvJuhcFhQHMggRJqY9zuNSxRiommg696Fmsp6p7JwcEApN-HlOD3hqReSP050PtmoJpltk_xRtH7rzBVsXz8vvpXw2By140dykOTOePCuViCLpCmR1wfYOcRMz51CK7_G5-wQiDnupd7WfKWMIXlp_guGpS5JARWUDGwByHGqDlRgU2M--0k2djyyQfDULhGavHukrcaVfmLraMjo8cPl0DwMkU66MTXxfDFUPd64TFeR-3i" />
+                            <span class="text-sm font-medium">Desserts</span>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-10">
+                    <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Promotions</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                            <div class="relative">
+                                <img alt="Delicious pizza" class="w-full h-48 object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQV3uK2qGOTaMEUKJpW5hmpVs8Tsf5rwQkCaepdwa9wIB-XAXgGBiL0dBvW_iQKOR_3XBlcL9usi0OJayMecVVRnnkpu2a3Vv53mAgJ2sxThHsWVqxYDTNjhzDdkO5NoTrII3Nxfnk9bGZRPFWsLeLyhxP_EgFLN__AHne2xlhmnK9hNOFIT3zebUAr20-63J_4jIRNqCPHOOiDeQNiDTDHcKsSLxl2qtuNF9hcgRlbJSnqZX7Gvj4hUKXLAmlKAVs_ceh7Kbfgie-" />
+                                <div
+                                    class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
+                                    Promotion</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg">Mama's Pizzeria</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Get 20% off on all large pizzas!</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                            <div class="relative">
+                                <img alt="Fresh sushi platter" class="w-full h-48 object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ph4MwgrDWB3mcV8brfFAnnx_UBJcxbyg_4xdbTggpSAsqcKWoP4pktvj6oIyZ-2rCAf4lMSfveOa2B3mauSwJx85X9WK87VkRORPNxSifEBMyn2BYgoZ3dwzzC6hFEG-3oTl6Yl5Ps7II0HOGK7ddo8rOEwTgkW6a4_EHw2o_eULB-VB33Jx-62hCbHygneCBAo94BVYHLznyGM-ZytSis2Bg0Zq6yX_Xmu9pWdV15q75t2Ube7kD9bRpJxiXzApuxbruhHWSR74" />
+                                <div
+                                    class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
+                                    Promotion</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg">Sushi World</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Free appetizer with any platter
+                                    order.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                            <div class="relative">
+                                <img alt="Juicy burger with fries" class="w-full h-48 object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2qbuCaIgX_XmDubTIbtv7MngpDK3FA-ECr5FuVv7aHPWjV55YJaPTk6ObOCWnsEjUkT1wPK02_wfOwRJ00PrpDhvAP4sHmNdkYhbrJcPul7bWQpXxiA355eaYN2wFLzcRuM4Iqqmu9odsuL53hNk4yHAwCVMM6wuYZ9JjcoJ1NFjpelVsOgTGwpJ2DKZYWYHnZ_iiUI7TYYVVK3mRJz4vYmN8tDlGsfZlQQfRYs8RlbwJWyCzYBeA8khP_7PLKZR7t5BB8Cksnc7h" />
+                                <div
+                                    class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
+                                    Promotion</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg">The Burger Joint</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Burger, fries, and a drink for $10.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                            <div class="relative">
+                                <img alt="Creamy pasta dish" class="w-full h-48 object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZtrDLLJXNEEAVphewcMWYhozL9WauTNXcCeJ1QdkW5OGJt3jAgqQ8z3U90wCjQ3uEJZJKZbW23O-XUIV7825kof2w5MN51EklvTE7dvzpkcGbtEhx21raUvWq9XWqfaMFybLi79U40tewvpfK1VFqhjuJoEeYN9IyAvKM2lY_dFFZY_ZezJKhd0Tofef5CkvOyEQ0mDs-3eYTnpxFQFDlHg_mw9tKdbZOnp9YzxKZAYu1v7OPyU8i-_eN2nQsXJZdtY0ItsJ_V4uk" />
+                                <div
+                                    class="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
+                                    Promotion</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg">Pasta Palace</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Buy one pasta, get the second 50%
+                                    off.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Top Saved List</h2>
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <img alt="Ramen icon" class="w-12 h-12 rounded-lg object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2ehPYLTf8fvF8CDcInC0CBHREllZTB9xr28J25adezsfwMfQTI0HiPZE3vg_geXKJgMhFuvEHUFIimSnZg3LgMX8ugfzdMrPhaDKUfNDqqBAJfSy6nQRsRS0LWyyTP5vC_j0HgY-qf24kPZFIkyfPlGv5qhpFWj1qm6SY9Y60QhRJ5MYgDZZrmiiCJK0aX1bh793GIAZ8jvdZq1UMraub4qO4wdkQy3hG9b2PXGg1dtoK5Ni5hcFzMnzv7KItpJH_SZGHXntZzR4r" />
+                                <div>
+                                    <h3 class="font-semibold">Asian Yummy — <span class="font-normal text-sm">by
+                                            UserABC</span></h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">150 Like, 100 saved, 50 comment,
+                                        4.9/5 rating</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <img alt="Taco icon" class="w-12 h-12 rounded-lg object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-wHDM1POJabktf1EbDLXUm0A4EfC6CoRFxA4MoI8G4i5GoUW4dZCZPPqcp00kNPhRvCQTxn3iekFSG7AJwvWHnFpuhYV5_-HELNEDG2L5vshThhstdOVR-ceXjo91kg5CViRn6oGxPpKMT7oA5F3Mp3RdQ3knusmtwKOcDfBhnX7XEcZ1gac2PyV9V4481n9wOrgTIMNS4I_yK3zOevF-Ml_7jeJZ6Rl5uu3vShKbl5Bq9YooQAgN97lc-X8UEDhGZ5AHtJSGMmx_" />
+                                <div>
+                                    <h3 class="font-semibold">Taco Tuesday Fiesta — <span class="font-normal text-sm">by
+                                            UserXYZ</span></h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">120 Like, 80 saved, 45 comment,
+                                        4.8/5 rating</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Recent Popular List</h2>
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <img alt="Pizza icon" class="w-12 h-12 rounded-lg object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAISJNQQmZmoaEpf_kOtyw3Aq2BxdvJFrpYurx6jFHKxxvJx1K9ohDDmxlG6psRoCoR5PYGBQcv3lBeBEfn1bEbeY79qdbi1CYnjvDQawFHv1Wo1naKF_c31Qe4sag0C1-CYNmdEqbeaHq1PUR3aoOTr7OYwPAJvR7OTkvYfP1Eb8HvNeSPmFFt2Ch9JTiHeimZ0eBruJyeqng8bLdhoS4AFa-mbaWDjVvkW0e-Wf1S92Rr2mcdWuhjzHRCJKs2wr7M4zw66-cPF3LS" />
+                                <div>
+                                    <h3 class="font-semibold">Italian Delights — <span class="font-normal text-sm">by
+                                            FoodLover123</span></h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">200 Like, 150 saved, 80 comment,
+                                        4.9/5 rating</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <img alt="Cake icon" class="w-12 h-12 rounded-lg object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8ENvgrAo4pH8FKfGW6Xqol4OhW_x45HqnFK8csLvWCqXa8t2FVIUNN7je--oIwExKoY-WFk9CClyZI_pEyzk2Qa3ZUrH_GtKDnv909CHGZ15QvolzdysfLEfFEnLC3i1SzbJy5QQqfaXjPnGrxhxlWpQmTzj9r4ra6aWQVyv_ZU951WHfk0c8zRaPafo7SgtnREqqc9kKdarIvePXB2KxoohBawkODl0z7-0g3m9JFsa3fq_50JYxe5rOaisZYN8eQ0uU2BYOSvCQ" />
+                                <div>
+                                    <h3 class="font-semibold">Sweet Tooth Heaven — <span class="font-normal text-sm">by
+                                            DessertQueen</span></h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">180 Like, 110 saved, 60 comment,
+                                        4.7/5 rating</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 text-text-light dark:text-text-dark">Reviews</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-2">
+                                <img alt="Salad dish" class="w-12 h-12 rounded-full object-cover mr-3"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3VsbX1gAiBO9QYXOekWuahRRaLJVMwqKYKkshyqxJqCuAYf_WIdddiXB3R9WftTxJH9U2j1lBeRYwZISxTLZuwc9z1trhSPDo50dLiTpRUljp_DuHFiIHrp-VyIe288Ar5ZolyPXoUIHhqtqEYhE-BtW-M7KofbAFfK4hOf1v-ti2vxCiut5TUeeWPBOeyoZXTmyOEXYgG-RQ1ywdebWxezgDaGNyj9i4FMkwLY7Y7BqsOkRg-whQjqCuhIgweNp_4ctGep4JF2nZ" />
+                                <div>
+                                    <h4 class="font-semibold">The Green Bowl</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Fresh and healthy!</p>
+                                </div>
+                            </div>
+                            <p class="text-sm mb-2">"Absolutely loved the Caesar salad. The dressing was perfect and the
+                                ingredients were so fresh. Will definitely be back!"</p>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <span>Like, Comment, Date</span>
+                                <span class="font-semibold">_jane_doe_</span>
+                            </div>
+                        </div>
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-2">
+                                <img alt="Pizza slice" class="w-12 h-12 rounded-full object-cover mr-3"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHI_S5tq7drWzfUQ4JPkxM8l4Cor-VD-64MIdBU60NfqxRomqlclF51BliLENFf6esHKw50pJkMNNotbvgQo2iUbr3EV9IBtN8KSiB1JHyrBjyDCuQWF1jKPufPgeLhqDnQ48M0OYN1Trc0EYnakElLvHALCmV0973jppqU4oYdOgTxRQP-LUHTx6dlK9zEYFETa1NXe3ZUAFgbNx4ZqHgtEVpfZqzBIL_USvjb6bylo_o3tXo8_gN0T3iNO9a4yjvK2fM8RKKKKZP" />
+                                <div>
+                                    <h4 class="font-semibold">Cheesy Corner</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Best pizza in town.</p>
+                                </div>
+                            </div>
+                            <p class="text-sm mb-2">"The pepperoni pizza was out of this world. The crust was crispy and
+                                the cheese was so gooey. Highly recommended!"</p>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <span>Like, Comment, Date</span>
+                                <span class="font-semibold">john.smith</span>
+                            </div>
+                        </div>
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-2">
+                                <img alt="Ice cream dessert" class="w-12 h-12 rounded-full object-cover mr-3"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOFjxA25xcCZ5VFWDSU9qzks_4PJn34mR0AzsBO6YXlhCbEQdq2Au2Em1tDDtXfvqd9N2TjBPzEAqZxRxhLPmvMb3nYSsTNIEWyb__oWx7OVtGONTBVT47-Flt0DaFLL46nA0BUF7wQu7NWGoNUEAtb--FGc8ml4Xtg5D-dmiVsxWMy_ls26nftwFkyrvh5zPmKHD7UP4qvxCJpWYe4a8CFozj0g1d4IeCZy9QZdzqr6cIUf_6z4ovWnkSzS6ULvdMj5cL5dkbRfut" />
+                                <div>
+                                    <h4 class="font-semibold">Scoop 'n' Swirl</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Sweet treats galore!</p>
+                                </div>
+                            </div>
+                            <p class="text-sm mb-2">"Their double chocolate fudge ice cream is a dream come true. So
+                                rich and creamy. A must-visit for dessert lovers."</p>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <span>Like, Comment, Date</span>
+                                <span class="font-semibold">sweet_escape</span>
+                            </div>
+                        </div>
+                        <div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-2">
+                                <img alt="Healthy breakfast bowl" class="w-12 h-12 rounded-full object-cover mr-3"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2syMEeLFZnzCkm4ki-8bw8ixrrF8ZV99-OorGMRLQbPQtjcqXxbgJpyM2XO8BaDgOBU6062EU_pSKVLfmebhEFgYq6HNoRzTXlwPDYOEjqK1_2ULzrOlIyreFU_b6ujsCMzcZz-GuPziOFcmuOjgSrq_AWtWQ16sQRteON_3nMS2IcCKNO4dMm8IslnTvBxPvaevy6B1hg0MVdW6SSVWM54zBUPj-gN9NgNwNnCCewGwtD8LsHnl49caQE2zsL7UVwaJ-P8ixmpJ8" />
+                                <div>
+                                    <h4 class="font-semibold">Morning Glory Cafe</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Start your day right.</p>
+                                </div>
+                            </div>
+                            <p class="text-sm mb-2">"The avocado toast was exceptional. Paired it with a freshly
+                                squeezed orange juice. Perfect breakfast spot."</p>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <span>Like, Comment, Date</span>
+                                <span class="font-semibold">brunch_king</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <aside class="space-y-8">
+                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md text-center">
+                    <span class="material-icons text-primary text-6xl mb-2">help_outline</span>
+                    <h3 class="font-bold text-lg mb-2">Let's find your best fit food</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Tell us your preferences and we'll find the
+                        perfect dish for you.</p>
+                </div>
+                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg mb-4">Top Restaurant</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-3">
+                            <span class="font-bold text-primary">1.</span>
+                            <span>Mama's Pizzeria</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="font-bold text-primary">2.</span>
+                            <span>Sushi World</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <span class="font-bold text-primary">3.</span>
+                            <span>The Burger Joint</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg mb-4">Recent Hot</h3>
+                    <div class="space-y-2">
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-3/4 rounded-full animate-pulse"></div>
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg mb-4">Popular food category</h3>
+                    <div class="space-y-2">
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-3/4 rounded-full animate-pulse"></div>
+                        <div class="bg-gray-200 dark:bg-gray-700 h-2 w-full rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
 
-</body></html>
+</body>
+
+</html>

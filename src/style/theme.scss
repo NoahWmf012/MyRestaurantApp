@@ -2,6 +2,10 @@
 
 .home-page-container {
     margin: 20px 40px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
 }
 
 .header-container {
@@ -193,6 +197,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
+    background-color: $primary-lighter;
     min-width: 1000px;
 }
 
@@ -248,7 +253,7 @@ input[type="text"] {
     transition: all $transition-fast;
     cursor: pointer;
     background: white !important;
-    box-shadow: $shadow-sm;
+    box-shadow: $shadow-md;
 
     &:hover {
         border-color: $primary-color !important;
