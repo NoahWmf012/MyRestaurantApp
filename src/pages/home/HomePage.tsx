@@ -1,3 +1,4 @@
+import FoodCategory from "../../components/FoodCategory"
 import NewDishes from "../../components/section/NewDishes"
 import OrderAgain from "../../components/section/OrderAgain"
 import RestaurantRank from "../../components/section/RestaurantRank"
@@ -7,36 +8,46 @@ import WhatsHot from "../../components/section/WhatsHot"
 function HomePage() {
     return (
         <div className="home-page-container">
-            <main>
-                {/* 'What's Hot' section */}
+            <div className="home-page-food-category">
+                {/* Food Category for search */}
                 <section className="mb-4">
-                    <WhatsHot />
+                    <FoodCategory />
                 </section>
+            </div>
+            <div>
+                <main>
 
-                {/* Ranks of restaurants */}
-                <section className="mb-4">
-                    <RestaurantRank />
-                </section>
+                    {/* 'What's Hot' section */}
+                    <section className="mb-4">
+                        <WhatsHot />
+                    </section>
 
-                {/* 'Order Again' section */}
-                <section className="mb-4">
-                    <OrderAgain />
-                </section>
+                    {/* Ranks of restaurants */}
+                    <section className="mb-4">
+                        <RestaurantRank />
+                    </section>
 
-                {/* 'New Dishes' section */}
-                <section className="mb-4">
-                    <NewDishes />
-                </section>
+                    {/* 'Order Again' section */}
+                    <section className="mb-4">
+                        <OrderAgain />
+                    </section>
 
-                {/* 'Reviews' section */}
-                <section className="mb-4">
-                    <Reviews />
-                </section>
-            </main>
+                    {/* 'New Dishes' section */}
+                    <section className="mb-4">
+                        <NewDishes />
+                    </section>
 
-            <aside>
-                {/* Ads */}
-            </aside>
+                    {/* 'Reviews' section */}
+                    <section className="mb-4">
+                        <Reviews />
+                    </section>
+                </main>
+
+                <aside>
+                    {/* Ads */}
+                </aside>
+            </div>
+
         </div>
     )
 }

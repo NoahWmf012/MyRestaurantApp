@@ -6,6 +6,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 32px;
+
+    .home-page-food-category {
+        width: 100%;
+        flex: 0 0 100%;
+    }
 }
 
 .header-container {

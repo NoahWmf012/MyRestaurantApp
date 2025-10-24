@@ -25,8 +25,6 @@ function VoteModal() {
     useEffect(() => {
         if (votesData) {
             setPolls(votesData);
-        } else {
-            // setPolls(DUMMY_POLLS);
         }
     }, [votesData]);
 
