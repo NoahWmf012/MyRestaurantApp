@@ -1,12 +1,27 @@
 .food-category-container {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap; // Keep items in one row
+    justify-content: space-between; // Distribute items evenly with flexible gaps
+    align-items: center;
+    overflow-x: auto; // Allow horizontal scrolling if needed
+
+    // Hide scrollbar for cleaner look (optional)
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
 
     .food-category-item {
         display: flex;
-        width: 108px;
+        width: 98px;
         height: 108px;
         flex-direction: column;
         align-items: center;
