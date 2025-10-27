@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { getRestaurantImage1 } from '../../hooks/getImageSrcHook';
-import type { RestaurantInfoInterface } from '../../interfaces/restaurantInterface';
+import type { RestaurantItem } from '../../interfaces/queryInterface/restaurantInterface';
 
 type SearchDetailProps = {
-    list: RestaurantInfoInterface[]
+    list: RestaurantItem[]
 }
 function SearchDetail({ list }: SearchDetailProps) {
     const navigate = useNavigate();
@@ -38,11 +38,11 @@ function SearchDetail({ list }: SearchDetailProps) {
                                 <div className="restaurant-meta">
                                     <span className="cuisine-badge">{restaurant.cuisine}</span>
                                     <span className="rating">
-                                        {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
+                                        {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating}
                                     </span>
                                 </div>
                                 <p className="restaurant-location">{restaurant.location}</p>
-                                <p className="restaurant-description">{restaurant.desc}</p>
+                                <p className="restaurant-description">{restaurant.description}</p>
                             </div>
                         </div>
                     ))}

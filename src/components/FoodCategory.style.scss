@@ -1,8 +1,8 @@
 .food-category-container {
     display: flex;
-    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    grid-template-columns: repeat(6, 1fr);
+    flex-wrap: wrap;
+    justify-content: center;
 
     .food-category-item {
         display: flex;
