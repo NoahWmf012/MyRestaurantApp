@@ -1,17 +1,8 @@
 .food-category-container {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     grid-template-columns: repeat(6, 1fr);
-
-    // Responsive breakpoints
-    // @media (min-width: 640px) {
-    //     grid-template-columns: repeat(4, 1fr);
-    // }
-
-    // @media (min-width: 768px) {
-    //     grid-template-columns: repeat(6, 1fr);
-    // }
 
     .food-category-item {
         display: flex;
