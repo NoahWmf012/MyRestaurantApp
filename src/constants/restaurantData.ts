@@ -37,13 +37,13 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
         phoneNum: "(905) 479-9319",
         desc: "A popular sushi spot known for its fresh ingredients and vibrant atmosphere."
     },
-    {
-        id: 5,
-        name: "Congee Queen - Thornhill",
-        cuisine: "Chinese",
-        rating: 4.2,
-        location: "2930 Steeles Ave E, Thornhill, ON L3T 7X1",
-        phoneNum: "(905) 731-3880",
-        desc: "A popular sushi spot known for its fresh ingredients and vibrant atmosphere."
-    }
+    // {
+    //     id: 5,
+    //     name: "Congee Queen - Thornhill",
+    //     cuisine: "Chinese",
+    //     rating: 4.2,
+    //     location: "2930 Steeles Ave E, Thornhill, ON L3T 7X1",
+    //     phoneNum: "(905) 731-3880",
+    //     desc: "A popular sushi spot known for its fresh ingredients and vibrant atmosphere."
+    // }
 ];

@@ -1,10 +1,18 @@
 @use './variables' as *;
 
+// * Basics *//
+.font-bold {
+    font-weight: 700;
+}
+
 .home-page-container {
     margin: 20px 40px 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    //content alignment centered
+    justify-content: center;
 
     .home-page-food-category {
         width: 100%;
@@ -223,7 +231,7 @@ input[type="text"] {
 }
 
 .whats-hot-wrapper {
-    width: $carousel-width;
+    // width: $carousel-width;
 }
 
 .order-again-wrapper {

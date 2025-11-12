@@ -1,5 +1,5 @@
 import FoodCategory from "../../components/FoodCategory"
-import NewDishes from "../../components/section/NewDishes"
+// import NewDishes from "../../components/section/NewDishes"
 import OrderAgain from "../../components/section/OrderAgain"
 import RestaurantRank from "../../components/section/RestaurantRank"
 import Reviews from "../../components/section/Reviews"
@@ -14,17 +14,12 @@ function HomePage() {
                     <FoodCategory />
                 </section>
             </div>
-            <div>
-                <main>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 w-full">
+                <main className="lg:col-span-3">
 
                     {/* 'What's Hot' section */}
                     <section className="mb-4">
                         <WhatsHot />
-                    </section>
-
-                    {/* Ranks of restaurants */}
-                    <section className="mb-4">
-                        <RestaurantRank />
                     </section>
 
                     {/* 'Order Again' section */}
@@ -32,10 +27,16 @@ function HomePage() {
                         <OrderAgain />
                     </section>
 
-                    {/* 'New Dishes' section */}
+                    {/* Ranks of restaurants */}
+                    <section className="mb-4">
+                        <RestaurantRank />
+                    </section>
+
+                    {/* 'New Dishes' section //combined to What's Hot */}
+                    {/*
                     <section className="mb-4">
                         <NewDishes />
-                    </section>
+                    </section> */}
 
                     {/* 'Reviews' section */}
                     <section className="mb-4">
@@ -43,7 +44,7 @@ function HomePage() {
                     </section>
                 </main>
 
-                <aside>
+                <aside className="space-y-8">
                     {/* Ads */}
                 </aside>
             </div>
