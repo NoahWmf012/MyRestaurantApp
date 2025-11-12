@@ -32,17 +32,19 @@ function RestaurantInput({ items, onChange, onClose }: RestaurantInputProps) {
 
     return (
         <BaseModal
-            title="Edit Restaurants"
+            title="Add a new restaurant"
             onClose={onCancelHandler}
             minWidth='400px'
             maxWidth="500px"
         >
-            <RestaurantListSelect
-                items={restaurantItems}
-                onAdd={handleAddRestaurant}
-                onRemove={handleRemoveRestaurant}
-                placeholder="Add a restaurant"
-            />
+            <div className="form-group">
+                <RestaurantListSelect
+                    items={restaurantItems}
+                    onAdd={handleAddRestaurant}
+                    onRemove={handleRemoveRestaurant}
+                    placeholder="Add a restaurant"
+                />
+            </div>
 
             {items.length === 0 && (
                 <div className="restaurant-modal-empty" style={{ marginTop: 16, textAlign: 'center', color: '#999' }}>

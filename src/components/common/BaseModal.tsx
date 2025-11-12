@@ -1,5 +1,6 @@
 
 import { memo } from "react"
+import "./CommonStyle.style.scss"
 
 type BaseModalProps = {
     title: string;

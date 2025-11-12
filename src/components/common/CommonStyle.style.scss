@@ -1,0 +1,172 @@
+@use '../../style/variables.scss' as *;
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.form-label {
+    font-weight: 600;
+    color: $text-color;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transition: color $transition-fast;
+}
+
+.form-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    background-color: $neutral-50;
+    color: $text-color;
+    transition: all $transition-normal;
+    outline: none;
+
+    &::placeholder {
+        color: $text-color-light;
+        font-weight: 400;
+    }
+
+    &:focus {
+        border-color: $primary-color;
+        background-color: rgba($primary-color, 0.05);
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        transform: translateY(-1px);
+    }
+
+    &:hover:not(:focus) {
+        border-color: $neutral-300;
+        background-color: #ffffff;
+    }
+
+    // Input with icon padding
+    &.has-icon {
+        padding-left: 3rem;
+    }
+
+    &.has-toggle {
+        padding-right: 3rem;
+    }
+
+    // Error state
+    &.error {
+        border-color: $error-color;
+        background-color: rgba($error-color, 0.05);
+
+        &:focus {
+            border-color: $error-color;
+            box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+        }
+    }
+
+    // Success state
+    &.success {
+        border-color: $success-color;
+        background-color: rgba($success-color, 0.05);
+
+        &:focus {
+            border-color: $success-color;
+            box-shadow: 0 0 0 3px rgba($success-color, 0.1);
+        }
+    }
+}
+
+.form-error {
+    color: $error-color;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+    animation: slideInError $transition-fast ease-out;
+
+    .error-icon {
+        font-size: 1rem;
+    }
+}
+
+.form-success {
+    color: $success-color;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+    animation: slideInSuccess $transition-fast ease-out;
+
+    .success-icon {
+        font-size: 1rem;
+    }
+}
+
+// Checkbox styles
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+
+    .checkbox-input {
+        width: 1.125rem;
+        height: 1.125rem;
+        border: 2px solid $border-color;
+        border-radius: $radius-sm;
+        background-color: $neutral-50;
+        cursor: pointer;
+        position: relative;
+        transition: all $transition-fast;
+
+        &:checked {
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        }
+    }
+
+    .checkbox-label {
+        font-size: 0.875rem;
+        color: $text-color-secondary;
+        cursor: pointer;
+        user-select: none;
+
+        span {
+            color: $primary-dark;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color $transition-fast;
+
+            &:hover {
+                color: $primary-color;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.secondary-button {
+    background: transparent;
+    color: $text-color-secondary;
+    border: 2px solid $border-color;
+
+    &:hover {
+        background-color: $neutral-100;
+        border-color: $neutral-300;
+        color: $text-color;
+    }
+}
