@@ -69,7 +69,7 @@ function SearchFilter() {
             <div className="search-filter-gradient-top"></div>
             <div className="search-filter-scroll h-full overflow-y-auto p-1">
                 {/* Bookmarked */}
-                <CollapsibleSection title="Bookmarked" defaultOpen={false}>
+                <CollapsibleSection title="Bookmarked">
                     <div className="filter-option">
                         <label className="checkbox-label">
                             <input
@@ -77,13 +77,13 @@ function SearchFilter() {
                                 checked={bookmarked}
                                 onChange={(e) => setBookmarked(e.target.checked)}
                             />
-                            <span>Show only bookmarked restaurants</span>
+                            <span>Bookmarked</span>
                         </label>
                     </div>
                 </CollapsibleSection>
 
                 {/* Location */}
-                <CollapsibleSection title="Location">
+                <CollapsibleSection title="Location" defaultOpen={false}>
                     <div className="filter-options-list">
                         {SEARCH_FILTER_LOCATIONS.map((location) => (
                             <label key={location} className="checkbox-label">
@@ -133,7 +133,7 @@ function SearchFilter() {
                 </CollapsibleSection>
 
                 {/* Others */}
-                <CollapsibleSection title="Others">
+                <CollapsibleSection title="Others" defaultOpen={false}>
                     <div className="filter-options-list">
                         <label className="checkbox-label">
                             <input
@@ -179,7 +179,7 @@ function SearchFilter() {
                 </CollapsibleSection>
 
                 {/* Spending */}
-                <CollapsibleSection title="Spending">
+                <CollapsibleSection title="Spending" defaultOpen={false}>
                     <div className="filter-option">
                         <div className="spending-range">
                             <div className="spending-values">
