@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, $primary-light 0%, $neutral-50 50%, $primary-light 100%);
+    // background: linear-gradient(135deg, $primary-light 0%, $neutral-50 50%, $primary-light 100%);
     padding: 20px;
 }
 
@@ -344,28 +344,6 @@
 
         .social-auth .social-buttons {
             flex-direction: column;
-        }
-    }
-}
-
-// Dark mode support (if needed)
-@media (prefers-color-scheme: dark) {
-    .auth-card {
-        border-color: rgba($primary-color, 0.3);
-    }
-
-    .auth-header .auth-title,
-    .form-label,
-    .form-input {
-        color: $text-color-white;
-    }
-
-    .form-input {
-        background-color: rgba($neutral-700, 0.5);
-        border-color: $neutral-600;
-
-        &:focus {
-            background-color: rgba($primary-color, 0.1);
         }
     }
 }

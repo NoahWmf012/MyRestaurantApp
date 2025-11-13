@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import SearchFilter, { type FilterValues } from "./SearchFilter";
-import { FILTER_CONFIG } from "../../constants/searchFilterConstant";
+import SearchFilter from "./SearchFilter";
 import SearchDetail from "./SearchDetail";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import "./SearchPage.scss";
@@ -21,16 +19,22 @@ function SearchPage() {
     ) ?? [];
 
     // Search filter sidebar
-    const [appliedFilters, setAppliedFilters] = useState<FilterValues>({});
-    console.log('Applied Filters:', appliedFilters);
+    // const [appliedFilters, setAppliedFilters] = useState<FilterValues>({});
+    // console.log('Applied Filters:', appliedFilters);
 
     return (
-        <div className="container mt-4 restaurant-list-page d-flex">
-            <SearchFilter
-                sections={FILTER_CONFIG}
-                onChange={(filters) => setAppliedFilters(filters)}
-            />
-            <SearchDetail list={filteredRestaurants} />
+        <div className="search-page-container mt-4 restaurant-list-page d-flex">
+            <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 w-full">
+                <SearchFilter
+                // sections={FILTER_CONFIG}
+                // onChange={(filters) => setAppliedFilters(filters)}
+                />
+                <div className="col-span-4">
+                    <SearchDetail list={filteredRestaurants} />
+                </div>
+
+                {/* Ads: col-span-1 */}
+            </div>
         </div>
     );
 }

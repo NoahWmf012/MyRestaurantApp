@@ -50,7 +50,7 @@ function HotRestaurantItems(props: WhatsHotItemProps) {
         navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
     };
     return (
-        <div className="bg-white dark:bg-dark rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
 
             {/* image */}
             <div className="relative">
