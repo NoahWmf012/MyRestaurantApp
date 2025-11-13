@@ -165,9 +165,9 @@
 
             .restaurant-meta {
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 gap: 1rem;
-                margin-bottom: 0.75rem;
 
                 .cuisine-badge {
                     background: $primary-color;

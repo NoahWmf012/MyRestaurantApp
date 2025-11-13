@@ -28,7 +28,8 @@ function SearchDetail({ list }: SearchDetailProps) {
                         >
                             <div className="restaurant-image-wrapper">
                                 <img
-                                    src={getRestaurantImage1(restaurant.id)}
+                                    // src={getRestaurantImage1(restaurant.id)}
+                                    src={restaurant.photos[0] || getRestaurantImage1(restaurant.id)}
                                     alt={restaurant.name}
                                     className="restaurant-image"
                                 />
@@ -38,11 +39,11 @@ function SearchDetail({ list }: SearchDetailProps) {
                                 <div className="restaurant-meta">
                                     <span className="cuisine-badge">{restaurant.cuisine}</span>
                                     <span className="rating">
-                                        {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating}
+                                        {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating} {restaurant.reviews && `(${restaurant.reviews})`}
                                     </span>
                                 </div>
-                                <p className="restaurant-location">{restaurant.location}</p>
                                 <p className="restaurant-description">{restaurant.description}</p>
+                                {/* <p className="restaurant-location">{restaurant.location}</p> */}
                             </div>
                         </div>
                     ))}
