@@ -26,7 +26,6 @@ function SearchPage() {
         <div className="search-page-container mt-4 restaurant-list-page d-flex">
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 w-full">
                 <SearchFilter
-                // sections={FILTER_CONFIG}
                 // onChange={(filters) => setAppliedFilters(filters)}
                 />
                 <div className="col-span-4">
