@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SEARCH_FILTER_LOCATIONS } from '../../constants/searchFilterConstant';
+import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_PAYMENT_METHODS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -101,7 +101,7 @@ function SearchFilter() {
                 {/* Cuisine */}
                 <CollapsibleSection title="Cuisine">
                     <div className="filter-options-list">
-                        {['Chinese', 'Japanese', 'Korean', 'Western', 'Thai', 'Vietnamese', 'Indian', 'Italian'].map((cuisine) => (
+                        {SEARCH_FILTER_CUISINES.map((cuisine) => (
                             <label key={cuisine} className="checkbox-label">
                                 <input
                                     type="checkbox"
@@ -117,14 +117,7 @@ function SearchFilter() {
                 {/* Sort */}
                 <CollapsibleSection title="Sort">
                     <div className="filter-options-list">
-                        {[
-                            { label: 'Overall', value: 'overall' },
-                            { label: 'Score Smile', value: 'score_smile' },
-                            { label: 'Most Bookmark', value: 'bookmark' },
-                            { label: 'Distance', value: 'distance' },
-                            { label: 'Spending (low to high)', value: 'low_high' },
-                            { label: 'Spending (high to low)', value: 'high_low' },
-                        ].map((option) => (
+                        {SEARCH_FILTER_SORT_LIST.map((option) => (
                             <label key={option.value} className="radio-label">
                                 <input
                                     type="radio"
@@ -153,7 +146,7 @@ function SearchFilter() {
 
                         <div className="filter-subsection">
                             <div className="filter-subsection-title">Payment Methods</div>
-                            {['Cash', 'Credit Card', 'Octopus', 'AlipayHK', 'WeChat Pay'].map((method) => (
+                            {SEARCH_FILTER_PAYMENT_METHODS.map((method) => (
                                 <label key={method} className="checkbox-label">
                                     <input
                                         type="checkbox"

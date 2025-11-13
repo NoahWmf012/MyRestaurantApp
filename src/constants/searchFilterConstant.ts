@@ -9,3 +9,31 @@ export const SEARCH_FILTER_LOCATIONS = [
     'Vaughan',
     'Richmond Hill',
 ];
+
+export const SEARCH_FILTER_CUISINES = [
+    'Italian',
+    'Chinese',
+    'Indian',
+    'Mexican',
+    'Japanese',
+    'Mediterranean',
+    'Thai',
+    'French',
+    'American',
+    'Vietnamese',
+];
+
+export const SEARCH_FILTER_SORT_LIST = [
+    { label: 'Overall', value: 'overall' },
+    { label: 'Score Smile', value: 'score_smile' },
+    { label: 'Most Bookmark', value: 'bookmark' },
+    { label: 'Distance', value: 'distance' },
+    { label: 'Spending (low to high)', value: 'low_high' },
+    { label: 'Spending (high to low)', value: 'high_low' },
+];
+
+export const SEARCH_FILTER_PAYMENT_METHODS = [
+    'Credit Card',
+    'Debit Card',
+    'Cash'
+];
