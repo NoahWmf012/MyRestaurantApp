@@ -537,13 +537,13 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 16px;
-}
 
-.restaurant-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
+    .restaurant-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+    }
 }
 
 .ranking-badge {
