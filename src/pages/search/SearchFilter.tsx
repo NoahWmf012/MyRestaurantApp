@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_PAYMENT_METHODS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
+import { useEffect, useState } from 'react';
+import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
+import type { SearchCriteria } from '../../interfaces/queryInterface/searchCriteriaInterface';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -29,15 +30,19 @@ function CollapsibleSection({ title, children, defaultOpen = true }: Collapsible
     );
 }
 
-function SearchFilter() {
+type SearchFilterProps = {
+    onChange: (filters: SearchCriteria[]) => void
+};
+
+function SearchFilter({ onChange }: SearchFilterProps) {
     const [bookmarked, setBookmarked] = useState(false);
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState('overall');
-    const [parking, setParking] = useState(false);
-    const [payment, setPayment] = useState<string[]>([]);
-    const [dineInOnly, setDineInOnly] = useState(false);
-    const [takeOutOnly, setTakeOutOnly] = useState(false);
+    // const [parking, setParking] = useState(false);
+    // const [payment, setPayment] = useState<string[]>([]);
+    // const [dineInOnly, setDineInOnly] = useState(false);
+    // const [takeOutOnly, setTakeOutOnly] = useState(false);
     const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 1000]);
 
     const handleLocationChange = (location: string) => {
@@ -56,13 +61,67 @@ function SearchFilter() {
         );
     };
 
-    const handlePaymentChange = (method: string) => {
-        setPayment(prev =>
-            prev.includes(method)
-                ? prev.filter(p => p !== method)
-                : [...prev, method]
-        );
-    };
+    //handle onChange
+    useEffect(() => {
+        const filters: SearchCriteria[] = [];
+
+        // if (bookmarked) {
+        //     filters.push({ type: 'bookmarked', value: true });
+        // }
+        if (locations.length > 0) {
+            filters.push({ key: 'location', value: locations });
+        }
+        if (cuisines.length > 0) {
+            filters.push({ key: 'cuisine', value: cuisines });
+        }
+        if (sortBy) {
+            if (sortBy === 'overall') {
+                //remove sortBy filter to use default sorting
+                const index = filters.findIndex(f => f.key === 'sortBy');
+                if (index !== -1) {
+                    filters.splice(index, 1);
+                }
+            } else {
+                filters.push({ key: 'sortBy', value: sortBy });
+            }
+        }
+        // if (parking) {
+        //     filters.push({ key: 'parking', value: true });
+        // }
+        // if (payment.length > 0) {
+        //     filters.push({ key: 'payment', value: payment });
+        // }
+        // if (dineInOnly) {
+        //     filters.push({ key: 'dineInOnly', value: true });
+        // }
+        // if (takeOutOnly) {
+        //     filters.push({ key: 'takeOutOnly', value: true });
+        // }
+        if (spendingRange) {
+            filters.push({ key: 'spendingRange', value: spendingRange });
+        }
+
+        onChange(filters);
+    }, [
+        // bookmarked,
+        locations,
+        cuisines,
+        sortBy,
+        // parking,
+        // payment,
+        // dineInOnly,
+        // takeOutOnly,
+        spendingRange,
+        onChange
+    ]);
+
+    // const handlePaymentChange = (method: string) => {
+    //     setPayment(prev =>
+    //         prev.includes(method)
+    //             ? prev.filter(p => p !== method)
+    //             : [...prev, method]
+    //     );
+    // };
 
     return (
         <div className="search-filter-container mb-3 bg-white rounded-xl shadow-md overflow-hidden">
@@ -133,7 +192,7 @@ function SearchFilter() {
                 </CollapsibleSection>
 
                 {/* Others */}
-                <CollapsibleSection title="Others" defaultOpen={false}>
+                {/* <CollapsibleSection title="Others" defaultOpen={false}>
                     <div className="filter-options-list">
                         <label className="checkbox-label">
                             <input
@@ -176,7 +235,7 @@ function SearchFilter() {
                             <span>Take-out Only</span>
                         </label>
                     </div>
-                </CollapsibleSection>
+                </CollapsibleSection> */}
 
                 {/* Spending */}
                 <CollapsibleSection title="Spending" defaultOpen={false}>

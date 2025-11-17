@@ -1,5 +1,12 @@
+import type { SearchCriteria } from "./searchCriteriaInterface";
+
 export interface RestaurantResponse {
     restaurantList: RestaurantItem[];
+}
+
+export interface RestaurantRequest {
+    query: string;
+    searchCriteria?: SearchCriteria[];
 }
 
 export interface RestaurantItem {

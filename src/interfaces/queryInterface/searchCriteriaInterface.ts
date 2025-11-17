@@ -18,6 +18,6 @@ export type SearchOperation =
 
 export interface SearchCriteria {
     key: string;
-    value: string;
+    value: string | string[] | number | number[] | null;
     searchType?: SearchOperation;
 }
