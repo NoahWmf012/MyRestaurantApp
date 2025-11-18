@@ -39,7 +39,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState('overall');
-    // const [parking, setParking] = useState(false);
+    // const [parking, setParking] = useState(false); //todo
     // const [payment, setPayment] = useState<string[]>([]);
     // const [dineInOnly, setDineInOnly] = useState(false);
     // const [takeOutOnly, setTakeOutOnly] = useState(false);
@@ -65,7 +65,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     useEffect(() => {
         const filters: SearchCriteria[] = [];
 
-        // if (bookmarked) {
+        // if (bookmarked) { //todo
         //     filters.push({ type: 'bookmarked', value: true });
         // }
         if (locations.length > 0) {
@@ -115,6 +115,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         onChange
     ]);
 
+    //todo
     // const handlePaymentChange = (method: string) => {
     //     setPayment(prev =>
     //         prev.includes(method)
