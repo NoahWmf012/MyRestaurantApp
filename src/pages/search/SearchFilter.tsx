@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
-import type { SearchCriteria } from '../../interfaces/queryInterface/searchCriteriaInterface';
+import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -69,14 +69,14 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         //     filters.push({ type: 'bookmarked', value: true });
         // }
         if (locations.length > 0) {
-            filters.push({ key: 'location', value: locations });
+            filters.push({ key: 'location', value: locations, searchType: SearchOperation.IN });
         }
         if (cuisines.length > 0) {
-            filters.push({ key: 'cuisine', value: cuisines });
+            filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
         }
         if (sortBy) {
             if (sortBy === 'overall') {
-                //remove sortBy filter to use default sorting
+                //remove sortBy filter to use default sorting if 'overall'
                 const index = filters.findIndex(f => f.key === 'sortBy');
                 if (index !== -1) {
                     filters.splice(index, 1);
@@ -98,7 +98,8 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         //     filters.push({ key: 'takeOutOnly', value: true });
         // }
         if (spendingRange) {
-            filters.push({ key: 'spendingRange', value: spendingRange });
+            filters.push({ key: 'minPrice', value: spendingRange[0], searchType: SearchOperation.GREATER_THAN_EQUAL });
+            filters.push({ key: 'maxPrice', value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
         }
 
         onChange(filters);
