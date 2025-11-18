@@ -103,6 +103,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         }
 
         onChange(filters);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         // bookmarked,
         locations,
@@ -112,8 +113,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // payment,
         // dineInOnly,
         // takeOutOnly,
-        spendingRange,
-        onChange
+        spendingRange
     ]);
 
     //todo
