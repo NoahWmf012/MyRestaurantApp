@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import debounce from 'debounce';
 import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 
@@ -48,7 +49,21 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     // const [payment, setPayment] = useState<string[]>([]);
     // const [dineInOnly, setDineInOnly] = useState(false);
     // const [takeOutOnly, setTakeOutOnly] = useState(false);
-    const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 1000]);
+    const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 200]);
+    const [tempSpendingRange, setTempSpendingRange] = useState<[number, number]>([0, 200]);
+
+    // Create debounced function for spending range updates
+    const debouncedSetSpendingRange = useMemo(
+        () => debounce((newRange: [number, number]) => {
+            setSpendingRange(newRange);
+        }, 300),
+        []
+    );
+
+    const handleSpendingRangeChange = useCallback((newRange: [number, number]) => {
+        setTempSpendingRange(newRange);
+        debouncedSetSpendingRange(newRange);
+    }, [debouncedSetSpendingRange]);
 
     const handleLocationChange = (location: string) => {
         setLocations(prev =>
@@ -256,32 +271,71 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                     <div className="filter-option">
                         <div className="spending-range">
                             <div className="spending-values">
-                                <span>${spendingRange[0]}</span>
-                                <span>${spendingRange[1]}</span>
+                                <span className="spending-value">${tempSpendingRange[0]}</span>
+                                <span className="spending-value">${tempSpendingRange[1]}</span>
                             </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max="1000"
-                                step="50"
-                                value={spendingRange[1]}
-                                onChange={(e) => setSpendingRange([spendingRange[0], parseInt(e.target.value)])}
-                                className="spending-slider"
-                            />
+                            <div className="double-range-slider">
+                                <div className="slider-track"></div>
+                                <div
+                                    className="slider-range"
+                                    style={{
+                                        left: `${(tempSpendingRange[0] / 200) * 100}%`,
+                                        right: `${100 - (tempSpendingRange[1] / 200) * 100}%`
+                                    }}
+                                ></div>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="200"
+                                    step="10"
+                                    value={tempSpendingRange[0]}
+                                    onChange={(e) => {
+                                        const newMin = parseInt(e.target.value);
+                                        if (newMin < tempSpendingRange[1]) {
+                                            handleSpendingRangeChange([newMin, tempSpendingRange[1]]);
+                                        }
+                                    }}
+                                    className="spending-slider spending-slider-min"
+                                />
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="200"
+                                    step="10"
+                                    value={tempSpendingRange[1]}
+                                    onChange={(e) => {
+                                        const newMax = parseInt(e.target.value);
+                                        if (newMax > tempSpendingRange[0]) {
+                                            handleSpendingRangeChange([tempSpendingRange[0], newMax]);
+                                        }
+                                    }}
+                                    className="spending-slider spending-slider-max"
+                                />
+                            </div>
                             <div className="spending-inputs">
                                 <input
                                     type="number"
                                     placeholder="Min"
-                                    value={spendingRange[0]}
-                                    onChange={(e) => setSpendingRange([parseInt(e.target.value) || 0, spendingRange[1]])}
+                                    value={tempSpendingRange[0]}
+                                    onChange={(e) => {
+                                        const newMin = parseInt(e.target.value) || 0;
+                                        if (newMin <= tempSpendingRange[1]) {
+                                            handleSpendingRangeChange([newMin, tempSpendingRange[1]]);
+                                        }
+                                    }}
                                     className="spending-input"
                                 />
                                 <span>-</span>
                                 <input
                                     type="number"
                                     placeholder="Max"
-                                    value={spendingRange[1]}
-                                    onChange={(e) => setSpendingRange([spendingRange[0], parseInt(e.target.value) || 1000])}
+                                    value={tempSpendingRange[1]}
+                                    onChange={(e) => {
+                                        const newMax = parseInt(e.target.value) || 200;
+                                        if (newMax >= tempSpendingRange[0]) {
+                                            handleSpendingRangeChange([tempSpendingRange[0], newMax]);
+                                        }
+                                    }}
                                     className="spending-input"
                                 />
                             </div>
