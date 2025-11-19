@@ -69,7 +69,13 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         //     filters.push({ type: 'bookmarked', value: true });
         // }
         if (locations.length > 0) {
-            filters.push({ key: 'location', value: locations, searchType: SearchOperation.IN });
+            //change the city into 'Toronto' if it is 'Downtown'
+            if (locations.includes('Downtown')) {
+                const updatedLocations = locations.map(loc => loc === 'Downtown' ? 'Toronto' : loc);
+                filters.push({ key: 'city', value: updatedLocations, searchType: SearchOperation.IN });
+            } else {
+                filters.push({ key: 'city', value: locations, searchType: SearchOperation.IN });
+            }
         }
         if (cuisines.length > 0) {
             filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
