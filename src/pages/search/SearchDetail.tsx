@@ -39,7 +39,7 @@ function SearchDetail({ list }: SearchDetailProps) {
                                 <div className="restaurant-meta">
                                     <span className="cuisine-badge">{restaurant.cuisine}</span>
                                     <span className="rating">
-                                        {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating} {restaurant.reviews && `(${restaurant.reviews})`}
+                                        {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating} {`(${restaurant.reviews})`}
                                     </span>
                                 </div>
                                 <div className="lg:col-span-2">
