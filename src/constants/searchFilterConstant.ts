@@ -31,7 +31,7 @@ export const SEARCH_FILTER_SORT_LIST = [
     { label: 'Most Bookmark', value: 'bookmark' },
     { label: 'Rating', value: 'rating' },
     { label: 'Reviews', value: 'reviews' },
-    { label: 'Distance', value: 'distance' },
+    // { label: 'Distance', value: 'distance' }, todo: implement distance sort
     { label: 'Spending (low to high)', value: 'low_high' },
     { label: 'Spending (high to low)', value: 'high_low' },
 ];

@@ -10,6 +10,7 @@ function SearchPage() {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('query') || '';
     const [appliedFilters, setAppliedFilters] = useState([] as SearchCriteria[]);
+    const [sortFilter, setSortFilter] = useState<{ sortBy: string; sortOrder: 'asc' | 'desc' } | null>(null);
     const [isFilterReady, setIsFilterReady] = useState(false);
 
     // Mark filter as ready after first render
@@ -18,7 +19,7 @@ function SearchPage() {
     }, []);
 
     const { data: restaurantData } = useGetRestaurantsQuery(
-        { query, searchCriteria: appliedFilters },
+        { query, searchCriteria: appliedFilters, sortBy: sortFilter?.sortBy, sortOrder: sortFilter?.sortOrder },
         { skip: !isFilterReady }
     );
 
@@ -26,7 +27,10 @@ function SearchPage() {
         <div className="search-page-container mt-4 restaurant-list-page d-flex">
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 w-full">
                 <SearchFilter
-                    onChange={(filters) => setAppliedFilters(filters)}
+                    onChange={(filters, sortFilter) => {
+                        setAppliedFilters(filters);
+                        setSortFilter(sortFilter || null);
+                    }}
                 />
                 <div className="col-span-4">
                     <SearchDetail list={restaurantData?.restaurantList || []} />

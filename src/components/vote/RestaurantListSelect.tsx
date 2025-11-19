@@ -27,7 +27,7 @@ export default function RestaurantListSelect({
     const [searchTerm, setSearchTerm] = useState("");
     const [suggestions, setSuggestions] = useState<RestaurantItem[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const { data: restaurantList } = useGetRestaurantsQuery();
+    const { data: restaurantList } = useGetRestaurantsQuery({ query: searchTerm });
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     // filter suggestions

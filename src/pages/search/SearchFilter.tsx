@@ -8,6 +8,11 @@ interface CollapsibleSectionProps {
     defaultOpen?: boolean;
 }
 
+interface SortFilterInterface {
+    sortBy: string;
+    sortOrder: 'asc' | 'desc';
+}
+
 function CollapsibleSection({ title, children, defaultOpen = true }: CollapsibleSectionProps) {
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -31,7 +36,7 @@ function CollapsibleSection({ title, children, defaultOpen = true }: Collapsible
 }
 
 type SearchFilterProps = {
-    onChange: (filters: SearchCriteria[]) => void
+    onChange: (filters: SearchCriteria[], sortFilter?: SortFilterInterface | null) => void
 };
 
 function SearchFilter({ onChange }: SearchFilterProps) {
@@ -64,6 +69,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     //handle onChange
     useEffect(() => {
         const filters: SearchCriteria[] = [];
+        let sortFilter: SortFilterInterface | undefined = undefined
 
         // if (bookmarked) { //todo
         //     filters.push({ type: 'bookmarked', value: true });
@@ -81,14 +87,14 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
         }
         if (sortBy) {
-            if (sortBy === 'overall') {
-                //remove sortBy filter to use default sorting if 'overall'
-                const index = filters.findIndex(f => f.key === 'sortBy');
-                if (index !== -1) {
-                    filters.splice(index, 1);
+            if (sortBy !== 'overall') {
+                if (sortBy === 'low_high') {
+                    sortFilter = { sortBy: 'minPrice', sortOrder: 'asc' };
+                } else if (sortBy === 'high_low') {
+                    sortFilter = { sortBy: 'maxPrice', sortOrder: 'desc' };
+                } else {
+                    sortFilter = { sortBy, sortOrder: 'desc' };
                 }
-            } else {
-                filters.push({ key: 'sortBy', value: sortBy });
             }
         }
         // if (parking) {
@@ -108,7 +114,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             filters.push({ key: 'maxPrice', value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
         }
 
-        onChange(filters);
+        onChange(filters, sortFilter);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         // bookmarked,

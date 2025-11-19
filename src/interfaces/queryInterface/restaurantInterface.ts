@@ -7,6 +7,8 @@ export interface RestaurantResponse {
 export interface RestaurantRequest {
     query: string;
     searchCriteria?: SearchCriteria[];
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
 }
 
 export interface RestaurantItem {
