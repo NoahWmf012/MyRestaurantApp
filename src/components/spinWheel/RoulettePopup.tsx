@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import SpinWheel from './SpinWheel';
 import { hideRouletteModal } from '../../redux/reducers/modalVisibleSlice';
@@ -14,16 +15,16 @@ function RoulettePopup() {
 
     if (!show) return null;
 
-    return (
+    return createPortal(
         <>
+            <div className='blur-layer'></div>
             <SpinWheel
                 items={restaurants}
                 onClose={() => onClose()}
                 onItemsChange={setRestaurants}
             />
-            <div className='blur-layer'></div>
-        </>
-
+        </>,
+        document.body
     )
 }
 
