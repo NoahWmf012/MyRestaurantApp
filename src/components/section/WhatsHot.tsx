@@ -87,7 +87,7 @@ function WhatsHot() {
                 <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
                 What's Hot
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                 {RESTAURANT_LIST.map((restaurant) => (
                     <HotRestaurantItems
                         key={restaurant.id}

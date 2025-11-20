@@ -1,8 +1,8 @@
 import FoodCategory from "../../components/FoodCategory"
 // import NewDishes from "../../components/section/NewDishes"
 import OrderAgain from "../../components/section/OrderAgain"
-import RestaurantRank from "../../components/section/RestaurantRank"
-import Reviews from "../../components/section/Reviews"
+// import RestaurantRank from "../../components/section/RestaurantRank"
+// import Reviews from "../../components/section/Reviews"
 import WhatsHot from "../../components/section/WhatsHot"
 
 function HomePage() {
@@ -10,7 +10,7 @@ function HomePage() {
         <div className="home-page-container">
             <div className="home-page-food-category">
                 {/* Food Category for search */}
-                <section className="mb-4">
+                <section>
                     <FoodCategory />
                 </section>
             </div>
@@ -28,9 +28,9 @@ function HomePage() {
                     </section>
 
                     {/* Ranks of restaurants */}
-                    <section className="mb-4">
+                    {/* <section className="mb-4">
                         <RestaurantRank />
-                    </section>
+                    </section> */}
 
                     {/* 'New Dishes' section //combined to What's Hot */}
                     {/*
@@ -39,9 +39,9 @@ function HomePage() {
                     </section> */}
 
                     {/* 'Reviews' section */}
-                    <section className="mb-4">
+                    {/* <section className="mb-4">
                         <Reviews />
-                    </section>
+                    </section> */}
                 </main>
 
                 <aside className="space-y-8">

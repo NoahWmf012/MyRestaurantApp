@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './SearchBar.css';
 import SearchPopup from './SearchPopup';
 
@@ -14,7 +14,8 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ suggestions }: SearchBarProps) => {
-    const [query, setQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('query') || '';
     const [history, setHistory] = useState<string[]>([]);
     const [showPopup, setShowPopup] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,6 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
     }, []);
 
     const handleSearch = async (keyword: string) => {
-        setQuery(keyword);
         setShowPopup(false);
         setIsLoading(true);
 
@@ -48,6 +48,10 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
         if (keyword.trim()) {
             navigate(`/search?query=${encodeURIComponent(keyword)}`);
         }
+    };
+
+    const setQuery = (value: string) => {
+        setSearchParams({ query: value });
     };
 
     const clearHistory = () => {
@@ -106,7 +110,7 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
                 {query && !isLoading && (
                     <button
                         className="clear-search-btn"
-                        onClick={() => setQuery('')}
+                        onClick={() => setSearchParams({})}
                         aria-label="Clear search"
                     >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
