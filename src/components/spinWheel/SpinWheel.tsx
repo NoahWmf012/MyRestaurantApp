@@ -2,6 +2,7 @@ import { useState } from 'react';
 import WheelCanvas from './WheelCanvas';
 import ResultModal from './ResultModal';
 import './SpinWheel.scss';
+import RestaurantInput from './RestaurantInput';
 
 interface SpinWheelProps {
     items: string[];
@@ -49,17 +50,18 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
     };
 
     return (
-        <div className="spinwheel-overlay" onClick={onClose}>
-            <div className="spinwheel-popup" onClick={(e) => e.stopPropagation()}>
+        <div className="spinwheel-overlay">
+            {/* <div className="spinwheel-popup" onClick={(e) => e.stopPropagation()}>
                 <h2 className="spinwheel-title">Restaurant Roulette</h2>
-                <div className="spinwheel-wheel-wrapper">
-                    <WheelCanvas
-                        items={items}
-                        rotation={rotation}
-                        isSpinning={isSpinning}
-                        onTransitionEnd={onTransitionEnd}
-                    />
-                </div>
+                
+            </div> */}
+            <div className='wheel-canvas-container'>
+                <WheelCanvas
+                    items={items}
+                    rotation={rotation}
+                    isSpinning={isSpinning}
+                    onTransitionEnd={onTransitionEnd}
+                />
                 <div className="spinwheel-button-container">
                     <button className="spinwheel-button spinwheel-button-secondary"
                         onClick={onClose}
@@ -77,6 +79,8 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
                     </button>
                 </div>
             </div>
+
+            <RestaurantInput items={items} onChange={onItemsChange} />
 
             {showResult && prizeIndex !== null && (
                 <ResultModal

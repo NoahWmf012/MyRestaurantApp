@@ -1,22 +1,12 @@
-import { useAppDispatch } from '../../redux/store';
-import { hideRouletteModal } from '../../redux/reducers/modalVisibleSlice';
-import BaseModal from '../common/BaseModal';
+import BasePanel from '../common/BasePanel';
 import RestaurantListSelect, { type RestaurantOption } from '../vote/RestaurantListSelect';
 
 type RestaurantInputProps = {
     items: string[];
     onChange: (items: string[]) => void;
-    onClose: () => void;
 };
 
-function RestaurantInput({ items, onChange, onClose }: RestaurantInputProps) {
-    const dispatch = useAppDispatch();
-
-    const onCancelHandler = () => {
-        dispatch(hideRouletteModal());
-    };
-
-    // Convert string[] to RestaurantOption[]
+function RestaurantInput({ items, onChange }: RestaurantInputProps) {
     const restaurantItems: RestaurantOption[] = items.map((name) => ({
         restaurantName: name,
     }));
@@ -31,31 +21,32 @@ function RestaurantInput({ items, onChange, onClose }: RestaurantInputProps) {
     };
 
     return (
-        <BaseModal
-            title="Add a new restaurant"
-            onClose={onCancelHandler}
+        <BasePanel
             minWidth='400px'
             maxWidth="500px"
+            className="restaurant-input-panel"
         >
-            <div className="form-group">
-                <RestaurantListSelect
-                    items={restaurantItems}
-                    onAdd={handleAddRestaurant}
-                    onRemove={handleRemoveRestaurant}
-                    placeholder="Add a restaurant"
-                />
+            <div className="panel-header">
+                <h2 className="panel-title">Add a new restaurant</h2>
             </div>
 
-            {items.length === 0 && (
-                <div className="restaurant-modal-empty" style={{ marginTop: 16, textAlign: 'center', color: '#999' }}>
-                    No restaurants yet. Add some above.
+            <div className="panel-body">
+                <div className="form-group">
+                    <RestaurantListSelect
+                        items={restaurantItems}
+                        onAdd={handleAddRestaurant}
+                        onRemove={handleRemoveRestaurant}
+                        placeholder="Add a restaurant"
+                    />
                 </div>
-            )}
 
-            <div className="restaurant-modal-footer">
-                <button className="restaurant-modal-ok-btn spinwheel-button-primary" onClick={onClose}>OK</button>
+                {items.length === 0 && (
+                    <div className="restaurant-modal-empty" style={{ marginTop: 16, textAlign: 'center', color: '#999' }}>
+                        No restaurants yet. Add some above.
+                    </div>
+                )}
             </div>
-        </BaseModal>
+        </BasePanel>
     );
 }
 

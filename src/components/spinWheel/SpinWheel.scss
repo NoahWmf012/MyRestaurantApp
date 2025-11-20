@@ -73,7 +73,9 @@
 /* Main popup container */
 .spinwheel-popup {
     position: relative;
-    background: rgba(255, 255, 255, 0.95);
+    // background: rgba(255, 255, 255, 0.95);
+    width: 0;
+    height: 0;
     backdrop-filter: blur(20px);
     border-radius: $radius-2xl;
     display: flex;
@@ -122,6 +124,11 @@
     height: 400px;
     margin-bottom: 32px;
     filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+}
+
+.wheel-canvas-container {
+    //flex
+    // display: flex;
 }
 
 /* The rotating element (keeps pointer fixed) */
@@ -396,8 +403,7 @@
 
 .restaurant-modal-add-btn,
 .restaurant-modal-remove-btn,
-.restaurant-modal-cancel-btn,
-.restaurant-modal-ok-btn {
+.restaurant-modal-cancel-btn {
     padding: 12px 20px;
     border-radius: $radius-lg;
     border: none;
@@ -516,14 +522,6 @@
     border: 2px dashed rgba(0, 0, 0, 0.1);
 }
 
-.restaurant-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    padding: 16px 24px 24px 24px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-}
-
 .restaurant-modal-cancel-btn {
     background: rgba(255, 255, 255, 0.8);
     color: $text-color-secondary;
@@ -535,21 +533,6 @@
         border-color: rgba(253, 225, 48, 0.3);
         transform: translateY(-1px);
         box-shadow: $shadow-sm;
-    }
-
-    &:active {
-        transform: translateY(0);
-    }
-}
-
-.restaurant-modal-ok-btn {
-    background: $gradient-primary;
-    color: $text-color;
-    box-shadow: $shadow-sm;
-
-    &:hover {
-        transform: translateY(-1px);
-        box-shadow: $shadow-md, $shadow-yellow;
     }
 
     &:active {
@@ -583,23 +566,13 @@
 /* Responsive Design for Restaurant Modal */
 @media (max-width: 768px) {
 
-    .restaurant-modal-footer {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
     .restaurant-modal-add-row {
         flex-direction: column;
         gap: 8px;
     }
 
-    .restaurant-modal-footer {
-        flex-direction: column;
-    }
-
     .restaurant-modal-add-btn,
-    .restaurant-modal-cancel-btn,
-    .restaurant-modal-ok-btn {
+    .restaurant-modal-cancel-btn {
         width: 100%;
     }
 }
