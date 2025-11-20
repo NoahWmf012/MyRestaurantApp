@@ -87,22 +87,6 @@ function WhatsHot() {
                 <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
                 What's Hot
             </div>
-            <div className="carousel-container">
-                {/* <Carousel
-                    responsive={RESPONSIVE_SETTINGS}
-                    draggable={false}
-                >
-                    {RESTAURANT_LIST.map((restaurant) => (
-                        <WhatsHotItem
-                            key={restaurant.id}
-                            imageSrc={getRestaurantImage1(restaurant.id)}
-                            title={restaurant.name}
-                            text={restaurant.name}
-                            restaurantName={restaurant.name}
-                        />
-                    ))}
-                </Carousel> */}
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {RESTAURANT_LIST.map((restaurant) => (
                     <HotRestaurantItems

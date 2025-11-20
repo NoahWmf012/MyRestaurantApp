@@ -51,10 +51,6 @@ export default function SpinWheel({ items, onClose, onItemsChange }: SpinWheelPr
 
     return (
         <div className="spinwheel-overlay">
-            {/* <div className="spinwheel-popup" onClick={(e) => e.stopPropagation()}>
-                <h2 className="spinwheel-title">Restaurant Roulette</h2>
-                
-            </div> */}
             <div className='wheel-canvas-container'>
                 <WheelCanvas
                     items={items}

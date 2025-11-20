@@ -21,7 +21,7 @@ function OrderAgainItem(props: OrderAgainItemProps) {
     };
     return (
         <div
-            className="horizontal-card order-again-item border-0 shadow-sm shadow mb-2 mx-1 rounded"
+            className="horizontal-card order-again-item border-0 shadow-sm shadow my-2 mx-1 rounded"
             role="button"
             onClick={handleClick}
         >

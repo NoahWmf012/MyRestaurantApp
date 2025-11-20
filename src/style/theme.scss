@@ -321,7 +321,7 @@ input[type="text"] {
 .carousel-container {
     flex: 1 1 0;
     min-width: 0; // prevents overflow issues
-    max-width: $carousel-width;
+    max-width: 100%;
 }
 
 .horizontal-card {
