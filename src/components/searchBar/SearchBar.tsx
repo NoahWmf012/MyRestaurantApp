@@ -1,19 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './SearchBar.css';
+import './SearchBar.style.scss';
 import SearchPopup from './SearchPopup';
+import { SUGGESTED_RESTAURANT_NAMES } from '../../constants/restaurantData';
 
-interface SuggestedItem {
-    id: number;
-    keyword: string;
-    image: string;
-}
-
-interface SearchBarProps {
-    suggestions: SuggestedItem[];
-}
-
-const SearchBar = ({ suggestions }: SearchBarProps) => {
+const SearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get('query') || '';
     const [history, setHistory] = useState<string[]>([]);
@@ -123,7 +114,7 @@ const SearchBar = ({ suggestions }: SearchBarProps) => {
 
             {showPopup && (
                 <SearchPopup
-                    suggestions={suggestions}
+                    suggestions={SUGGESTED_RESTAURANT_NAMES}
                     history={history}
                     onSelect={handleSearch}
                     onClearHistory={clearHistory}

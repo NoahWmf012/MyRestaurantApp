@@ -92,7 +92,7 @@ function Toolbar() {
 
             {/* Search field */}
             <div className="toolbar-section toolbar-section--search">
-                <SearchBar suggestions={[]} />
+                <SearchBar />
             </div>
 
             <div className="toolbar-section d-flex">

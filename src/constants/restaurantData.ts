@@ -1,5 +1,12 @@
+import type { SuggestedItem } from "../interfaces/queryInterface/restaurantInterface";
 import type { RestaurantInfoInterface } from "../interfaces/restaurantInterface";
+import SUSHI_ICON from '../assets/icons/food_category/sushi.png';
+import GRILL_ICON from '../assets/icons/food_category/grill.png';
+import CHINESE_ICON from '../assets/icons/food_category/chinese.png';
+import PHO_ICON from '../assets/icons/food_category/pho.png';
+import TACO_ICON from '../assets/icons/food_category/taco.png';
 
+// Promote Restaurant Data (todo: fetch from backend later)
 export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
     {
         id: 1,
@@ -37,13 +44,13 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
         phoneNum: "(905) 479-9319",
         desc: "A popular sushi spot known for its fresh ingredients and vibrant atmosphere."
     },
-    // {
-    //     id: 5,
-    //     name: "Congee Queen - Thornhill",
-    //     cuisine: "Chinese",
-    //     rating: 4.2,
-    //     location: "2930 Steeles Ave E, Thornhill, ON L3T 7X1",
-    //     phoneNum: "(905) 731-3880",
-    //     desc: "A popular sushi spot known for its fresh ingredients and vibrant atmosphere."
-    // }
+];
+
+// Suggested Restaurant Names for Search Bar (todo: fetch from backend later)
+export const SUGGESTED_RESTAURANT_NAMES: SuggestedItem[] = [
+    { keyword: "j.san sushi & MARKET", image: SUSHI_ICON },
+    { keyword: "Gyubee Japanese Grill 牛兵衛", image: GRILL_ICON },
+    { keyword: "Hualien Tai Ping Hsiang BBQ 花蓮太平香", image: TACO_ICON },
+    { keyword: "Yunshang Rice Noodle 雲尚米線", image: PHO_ICON },
+    { keyword: "Din Tai Fung 鼎泰豐", image: CHINESE_ICON },
 ];

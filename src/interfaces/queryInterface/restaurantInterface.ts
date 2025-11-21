@@ -31,3 +31,8 @@ export interface RestaurantItem {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface SuggestedItem {
+    keyword: string;
+    image: string;
+}

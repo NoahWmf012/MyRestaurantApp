@@ -1,8 +1,4 @@
-interface SuggestedItem {
-    id: number;
-    keyword: string;
-    image: string;
-}
+import type { SuggestedItem } from "../../interfaces/queryInterface/restaurantInterface";
 
 interface SearchPopupProps {
     suggestions: SuggestedItem[];
@@ -43,12 +39,12 @@ const SearchPopup = ({ suggestions, history, onSelect, onClearHistory }: SearchP
                 <div className="suggestion-grid">
                     {suggestions.map((item) => (
                         <div
-                            key={item.id}
+                            key={item.keyword}
                             className="suggestion-card"
                             onClick={() => onSelect(item.keyword)}
                         >
                             <img src={item.image} alt={item.keyword} className="suggestion-image" />
-                            <span className="suggestion-keyword">{item.keyword}</span>
+                            <span className="suggestion-keyword"><strong>{item.keyword}</strong></span>
                         </div>
                     ))}
                 </div>
