@@ -34,5 +34,6 @@ export interface RestaurantItem {
 
 export interface SuggestedItem {
     keyword: string;
+    value: string;
     image: string;
 }

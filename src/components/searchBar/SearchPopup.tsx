@@ -41,7 +41,7 @@ const SearchPopup = ({ suggestions, history, onSelect, onClearHistory }: SearchP
                         <div
                             key={item.keyword}
                             className="suggestion-card"
-                            onClick={() => onSelect(item.keyword)}
+                            onClick={() => onSelect(item.value)}
                         >
                             <img src={item.image} alt={item.keyword} className="suggestion-image" />
                             <span className="suggestion-keyword"><strong>{item.keyword}</strong></span>

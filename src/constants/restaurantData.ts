@@ -48,9 +48,9 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
 
 // Suggested Restaurant Names for Search Bar (todo: fetch from backend later)
 export const SUGGESTED_RESTAURANT_NAMES: SuggestedItem[] = [
-    { keyword: "j.san sushi & MARKET", image: SUSHI_ICON },
-    { keyword: "Gyubee Japanese Grill 牛兵衛", image: GRILL_ICON },
-    { keyword: "Hualien Tai Ping Hsiang BBQ 花蓮太平香", image: TACO_ICON },
-    { keyword: "Yunshang Rice Noodle 雲尚米線", image: PHO_ICON },
-    { keyword: "Din Tai Fung 鼎泰豐", image: CHINESE_ICON },
+    { keyword: "j.san sushi & MARKET", value: "J San Sushi", image: SUSHI_ICON },
+    { keyword: "Gyubee Japanese Grill 牛兵衛", value: "Gyubee Japanese Grill", image: GRILL_ICON },
+    { keyword: "Hualien Tai Ping Hsiang BBQ 花蓮太平香", value: "Hualien Tai Ping Hsiang BBQ", image: CHINESE_ICON },
+    { keyword: "Yunshang Rice Noodle 雲尚米線", value: "Yunshang Rice Noodle", image: PHO_ICON },
+    { keyword: "Taco Fiesta", value: "Taco Fiesta", image: TACO_ICON },
 ];
