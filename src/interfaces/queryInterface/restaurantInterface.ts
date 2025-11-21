@@ -5,7 +5,7 @@ export interface RestaurantResponse {
 }
 
 export interface RestaurantRequest {
-    query: string;
+    query?: string;
     searchCriteria?: SearchCriteria[];
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
@@ -25,8 +25,8 @@ export interface RestaurantItem {
     rating?: number;
     reviews?: number;
     openingHours?: string;
-    cuisine?: string;
-    photos: string[];
+    cuisine?: string[];
+    photos: string[]; // Array of photo URLs
     tags: string[];
     createdAt: Date;
     updatedAt: Date;

@@ -17,11 +17,11 @@ function OrderAgainItem(props: OrderAgainItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${props.restaurantName}`);
+        navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
     };
     return (
         <div
-            className="horizontal-card order-again-item border-0 shadow-sm shadow my-2 mx-1 rounded"
+            className="horizontal-card order-again-item border-0 shadow-sm my-2 mx-1 rounded"
             role="button"
             onClick={handleClick}
         >

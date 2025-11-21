@@ -19,7 +19,7 @@ export const router = createBrowserRouter(
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="restaurant/:name" element={<RestaurantPage />} />{/* Promote Restaurant */}
-            <Route path="restaurant-search/:id" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
+            <Route path="restaurant-search/:restaurantId" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
 
             {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />

@@ -8,8 +8,10 @@ type SearchDetailProps = {
 function SearchDetail({ list }: SearchDetailProps) {
     const navigate = useNavigate();
 
-    const handleRestaurantClick = (restaurantName: string) => {
-        navigate(`/restaurant/${encodeURIComponent(restaurantName)}`);
+    const handleRestaurantClick = (restaurantId: number) => {
+        //encript restaurantId
+        const encryptedId = btoa(restaurantId.toString());
+        navigate(`/restaurant-search/${encryptedId}`);
     };
     return (
         <div id='search-detail'>
@@ -24,7 +26,7 @@ function SearchDetail({ list }: SearchDetailProps) {
                         <div
                             key={restaurant.id}
                             className="restaurant-card"
-                            onClick={() => handleRestaurantClick(restaurant.name)}
+                            onClick={() => handleRestaurantClick(restaurant.id)}
                         >
                             <div className="restaurant-image-wrapper">
                                 <img
@@ -37,7 +39,7 @@ function SearchDetail({ list }: SearchDetailProps) {
                             <div className="restaurant-info grid grid-cols-1 lg:grid-cols-4 gap-8 w-full">
                                 <h3 className="restaurant-name">{restaurant.name}</h3>
                                 <div className="restaurant-meta">
-                                    <span className="cuisine-badge">{restaurant.cuisine}</span>
+                                    <span className="cuisine-badge">{restaurant.cuisine?.map(c => c).join(', ')}</span>
                                     <span className="rating">
                                         {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating} {`(${restaurant.reviews})`}
                                     </span>
