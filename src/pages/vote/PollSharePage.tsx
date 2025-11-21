@@ -4,13 +4,6 @@ import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useGetPollByShareTokenQuery } from '../../redux/services/api/voteAPI';
 import { useAppSelector } from '../../redux/store';
 
-/**
- * PollSharePage handles share links like: /poll/share/{shareToken}
- * 
- * Flow:
- * 1. If user is logged in -> fetch poll by share token -> redirect to VotePage with poll data
- * 2. If user is not logged in -> ProtectedRoute redirects to login -> after login, come back here -> fetch poll -> redirect to VotePage
- */
 function PollSharePage() {
     const { shareToken } = useParams<{ shareToken: string }>();
     const navigate = useNavigate();
@@ -18,12 +11,10 @@ function PollSharePage() {
 
     const isAuthenticated = !!accessToken && accessToken.trim() !== '';
 
-    // Only fetch poll data if user is authenticated and we have a shareToken
     const { data: poll, isLoading, isError, error } = useGetPollByShareTokenQuery(shareToken || '', {
         skip: !shareToken || !isAuthenticated, // Skip query if no token OR not authenticated
     });
 
-    // Once we have the poll data, redirect to VotePage with the poll data in state
     useEffect(() => {
         if (poll) {
             navigate('/vote', {

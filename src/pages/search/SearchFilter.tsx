@@ -156,19 +156,22 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         <div className="search-filter-container mb-3 bg-white rounded-xl shadow-md overflow-hidden">
             <div className="search-filter-gradient-top"></div>
             <div className="search-filter-scroll h-full overflow-y-auto p-1">
-                {/* Bookmarked */}
+                {/* Bookmarked  */} {/* todo: member function */}
                 <CollapsibleSection title="Bookmarked">
-                    <div className="filter-option">
+                    <div className="filter-option" title="Coming soon">
                         <label className="checkbox-label">
                             <input
                                 type="checkbox"
                                 checked={bookmarked}
                                 onChange={(e) => setBookmarked(e.target.checked)}
+                                disabled={true}
                             />
                             <span>Bookmarked</span>
                         </label>
                     </div>
                 </CollapsibleSection>
+
+                {/* Distance */}
 
                 {/* Location */}
                 <CollapsibleSection title="Location" defaultOpen={false}>
@@ -267,7 +270,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                 </CollapsibleSection> */}
 
                 {/* Spending */}
-                <CollapsibleSection title="Spending" defaultOpen={false}>
+                <CollapsibleSection title="Spending">
                     <div className="filter-option">
                         <div className="spending-range">
                             <div className="spending-values">

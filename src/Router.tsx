@@ -11,13 +11,15 @@ import SettingsPage from './pages/settings/SettingsPage'
 import GuestLoginPage from './pages/auth/GuestLoginPage'
 import VotePage from './pages/vote/VotePage'
 import PollSharePage from './pages/vote/PollSharePage'
+import StaticRestaurantPage from './pages/restaurant/StaticRestaurantPage'
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />} errorElement={<ErrorBoundary />}>
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="restaurant/:name" element={<RestaurantPage />} />
+            <Route path="restaurant/:name" element={<RestaurantPage />} />{/* Promote Restaurant */}
+            <Route path="restaurant-search/:id" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
 
             {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />
@@ -28,8 +30,6 @@ export const router = createBrowserRouter(
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path='vote' element={<VotePage />} />
-
-            {/* Poll Share Route - handles /poll/share/{shareToken} */}
             <Route path="poll/share/:shareToken" element={<PollSharePage />} />
 
             <Route path="*" element={<NotFoundPage />} />
