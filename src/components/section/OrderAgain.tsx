@@ -37,11 +37,11 @@ function OrderAgain() {
         <div className="order-again-wrapper">
             <div className="section-title d-flex align-items-center">
                 <img src={OrderIcon} alt="Order Icon" className="title-icon mx-1" />
-                Order Again
+                Recommended
             </div>
 
             <div className="d-flex flex-row align-items-center">
-                {/* History of Orders */}
+                {/* History of Orders / Search */}
                 <div className="carousel-container">
                     <Carousel
                         responsive={RESPONSIVE_SETTINGS}

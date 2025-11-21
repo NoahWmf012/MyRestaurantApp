@@ -22,7 +22,7 @@ function HomePage() {
                         <WhatsHot />
                     </section>
 
-                    {/* 'Order Again' section */}
+                    {/* 'Recommended' section */}
                     <section className="mb-4">
                         <OrderAgain />
                     </section>
