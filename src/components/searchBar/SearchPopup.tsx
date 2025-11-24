@@ -3,7 +3,7 @@ import type { SuggestedItem } from "../../interfaces/queryInterface/restaurantIn
 interface SearchPopupProps {
     suggestions: SuggestedItem[];
     history: string[];
-    onSelect: (keyword: string) => void;
+    onSelect: (keyword: string, popularSearch?: string) => void;
     onClearHistory: () => void;
 }
 
@@ -25,7 +25,14 @@ const SearchPopup = ({ suggestions, history, onSelect, onClearHistory }: SearchP
                     </div>
                     <div className="search-history">
                         {history.map((item, idx) => (
-                            <button key={idx} className="history-item" onClick={() => onSelect(item)}>
+                            <button
+                                key={idx}
+                                className="history-item"
+                                onMouseDown={(e) => {
+                                    e.preventDefault(); // Prevent blur from firing
+                                    onSelect(item);
+                                }}
+                            >
                                 {item}
                             </button>
                         ))}
@@ -41,7 +48,10 @@ const SearchPopup = ({ suggestions, history, onSelect, onClearHistory }: SearchP
                         <div
                             key={item.keyword}
                             className="suggestion-card"
-                            onClick={() => onSelect(item.value)}
+                            onMouseDown={(e) => {
+                                e.preventDefault(); // Prevent blur from firing
+                                onSelect(item.value, item.value);
+                            }}
                         >
                             <img src={item.image} alt={item.keyword} className="suggestion-image" />
                             <span className="suggestion-keyword"><strong>{item.keyword}</strong></span>

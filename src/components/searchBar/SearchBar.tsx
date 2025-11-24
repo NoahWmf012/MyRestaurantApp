@@ -22,7 +22,6 @@ const SearchBar = () => {
     const navigate = useNavigate();
 
     const handleSearch = async (keyword: string, popularSearch?: string) => {
-        setShowPopup(false);
         setIsLoading(true);
 
         // Simulate search delay for better UX
@@ -38,6 +37,8 @@ const SearchBar = () => {
             goToSearchPage(keyword);
         }
         setIsLoading(false);
+        setShowPopup(false);
+
     };
 
     const goToSearchPage = (keyword: string) => {

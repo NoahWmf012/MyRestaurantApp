@@ -4,13 +4,19 @@ import { useParams } from "react-router-dom";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 
 function StaticRestaurantPage() {
-    // decrypt restaurant id from url
+    // decrypt restaurant id/name from url
     const { restaurantId } = useParams<{ restaurantId: string }>();
-    const decryptedId = restaurantId ? atob(restaurantId) : null;
+    const decryptedValue = restaurantId ? atob(restaurantId) : null;
+
+    // Determine if the decrypted value is a number (ID) or string (name)
+    const isNumeric = decryptedValue && !isNaN(Number(decryptedValue));
+    const searchCriteria = isNumeric
+        ? [{ key: 'id', value: Number(decryptedValue) }]
+        : [{ key: 'name', value: decryptedValue }];
 
     const { data: response, isLoading, isError } = useGetRestaurantsQuery(
-        { searchCriteria: [{ key: 'id', value: Number(decryptedId) }] },
-        { skip: !decryptedId }
+        { searchCriteria },
+        { skip: !decryptedValue }
     );
 
     const handleAddressClick = (address: string) => {
