@@ -8,6 +8,89 @@
 }
 
 /* ========================================
+   Pagination DESIGN
+   ======================================== */
+.search-results-header {
+    margin-bottom: 20px;
+}
+
+.results-count {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background: #f9fafb;
+        border-color: #3b82f6;
+        color: #3b82f6;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.pagination-number {
+    min-width: 40px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #f9fafb;
+        border-color: #3b82f6;
+        color: #3b82f6;
+    }
+
+    &.active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+    }
+}
+
+.pagination-ellipsis {
+    color: #6b7280;
+    padding: 0 8px;
+    font-weight: 500;
+}
+
+/* ========================================
    SearchFilter.tsx DESIGN
    ======================================== */
 .search-filter-container {
