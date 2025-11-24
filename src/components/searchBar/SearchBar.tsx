@@ -1,27 +1,27 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './SearchBar.style.scss';
 import SearchPopup from './SearchPopup';
 import { SUGGESTED_RESTAURANT_NAMES } from '../../constants/restaurantData';
+import { SEARCH_HISTTORY_KEY } from '../../constants/searchFilterConstant';
 
 const SearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get('query') || '';
-    const [history, setHistory] = useState<string[]>([]);
+
+    // Initialize history from localStorage
+    const [history, setHistory] = useState<string[]>(() => {
+        const savedHistory = localStorage.getItem(SEARCH_HISTTORY_KEY);
+        return savedHistory ? JSON.parse(savedHistory) : [];
+    });
+
     const [showPopup, setShowPopup] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // Load history from localStorage on mount
-        const savedHistory = localStorage.getItem('searchHistory');
-        if (savedHistory) {
-            setHistory(JSON.parse(savedHistory));
-        }
-    }, []);
-
-    const handleSearch = async (keyword: string) => {
+    const handleSearch = async (keyword: string, popularSearch?: string) => {
         setShowPopup(false);
         setIsLoading(true);
 
@@ -30,8 +30,13 @@ const SearchBar = () => {
 
         const updatedHistory = [keyword, ...history.filter(h => h !== keyword)].slice(0, 5);
         setHistory(updatedHistory);
-        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-        goToSearchPage(keyword);
+        localStorage.setItem(SEARCH_HISTTORY_KEY, JSON.stringify(updatedHistory));
+        if (popularSearch && popularSearch.trim()) {
+            const encryptedName = btoa(popularSearch.toString());
+            navigate(`/restaurant-search/${encryptedName}`);
+        } else {
+            goToSearchPage(keyword);
+        }
         setIsLoading(false);
     };
 
@@ -41,28 +46,29 @@ const SearchBar = () => {
         }
     };
 
-    const setQuery = (value: string) => {
-        setSearchParams({ query: value });
+    const clearSearch = () => {
+        if (inputRef.current) {
+            inputRef.current.value = '';
+        }
+        setSearchParams({});
     };
 
     const clearHistory = () => {
         setHistory([]);
-        localStorage.removeItem('searchHistory');
+        localStorage.removeItem(SEARCH_HISTTORY_KEY);
     };
 
-    // Close popup when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-                setShowPopup(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
     return (
-        <div className="modern-searchbar-wrapper" ref={wrapperRef}>
+        <div
+            className="modern-searchbar-wrapper"
+            ref={wrapperRef}
+            onBlur={(e) => {
+                // Close popup when clicking outside
+                if (!wrapperRef.current?.contains(e.relatedTarget as Node)) {
+                    setShowPopup(false);
+                }
+            }}
+        >
             <div className="modern-searchbar-container">
                 <svg
                     className="search-icon"
@@ -75,15 +81,16 @@ const SearchBar = () => {
                 </svg>
 
                 <input
+                    ref={inputRef}
                     type="text"
                     className="modern-searchbar-input"
                     placeholder="Search restaurants, cuisines, or dishes..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    defaultValue={query}
+                    key={query} // Force re-render when query changes to sync value
                     onClick={() => setShowPopup(true)}
                     onKeyDown={(e) => {
-                        if (e.key === 'Enter' && query.trim()) {
-                            handleSearch(query);
+                        if (e.key === 'Enter' && inputRef.current?.value.trim()) {
+                            handleSearch(inputRef.current.value);
                         }
                     }}
                     disabled={isLoading}
@@ -101,7 +108,7 @@ const SearchBar = () => {
                 {query && !isLoading && (
                     <button
                         className="clear-search-btn"
-                        onClick={() => setSearchParams({})}
+                        onClick={clearSearch}
                         aria-label="Clear search"
                     >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">

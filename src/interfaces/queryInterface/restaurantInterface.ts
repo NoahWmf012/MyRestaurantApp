@@ -1,11 +1,11 @@
-import type { PaginatedRequest, PaginatedResponse } from "./base.types";
+import type { PaginatedRequest, PaginatedResponse, SortFilterInterface } from "./base.types";
 import type { SearchCriteria } from "./searchCriteriaInterface";
 
 export interface RestaurantResponse extends PaginatedResponse {
     restaurantList: RestaurantItem[];
 }
 
-export interface RestaurantRequest extends PaginatedRequest {
+export interface RestaurantRequest extends PaginatedRequest, SortFilterInterface {
     query?: string;
     searchCriteria?: SearchCriteria[];
     location?: {
@@ -13,8 +13,6 @@ export interface RestaurantRequest extends PaginatedRequest {
         longitude: number;
         radiusKm: number;
     };
-    sortBy?: string;
-    sortOrder?: 'asc' | 'desc';
     language?: string;
 }
 

@@ -1,17 +1,13 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import debounce from 'debounce';
 import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
+import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 
 interface CollapsibleSectionProps {
     title: string;
     children: React.ReactNode;
     defaultOpen?: boolean;
-}
-
-interface SortFilterInterface {
-    sortBy: string;
-    sortOrder: 'asc' | 'desc';
 }
 
 function CollapsibleSection({ title, children, defaultOpen = true }: CollapsibleSectionProps) {
@@ -44,7 +40,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [bookmarked, setBookmarked] = useState(false);
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
-    const [sortBy, setSortBy] = useState('overall');
+    const [sortBy, setSortBy] = useState('reviews');
     // const [parking, setParking] = useState(false); //todo
     // const [payment, setPayment] = useState<string[]>([]);
     // const [dineInOnly, setDineInOnly] = useState(false);
@@ -53,17 +49,15 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [tempSpendingRange, setTempSpendingRange] = useState<[number, number]>([0, 200]);
 
     // Create debounced function for spending range updates
-    const debouncedSetSpendingRange = useMemo(
-        () => debounce((newRange: [number, number]) => {
-            setSpendingRange(newRange);
-        }, 300),
-        []
+    const debouncedSetSpendingRange = useRef(debounce((newRange: [number, number]) => {
+        setSpendingRange(newRange);
+    }, 300)
     );
 
     const handleSpendingRangeChange = useCallback((newRange: [number, number]) => {
         setTempSpendingRange(newRange);
-        debouncedSetSpendingRange(newRange);
-    }, [debouncedSetSpendingRange]);
+        debouncedSetSpendingRange.current(newRange);
+    }, []);
 
     const handleLocationChange = (location: string) => {
         setLocations(prev =>
@@ -84,7 +78,10 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     //handle onChange
     useEffect(() => {
         const filters: SearchCriteria[] = [];
-        let sortFilter: SortFilterInterface | undefined = undefined
+        let sortFilter: SortFilterInterface | undefined = {
+            sortBy: 'reviews',
+            sortOrder: 'desc'
+        }
 
         // if (bookmarked) { //todo
         //     filters.push({ type: 'bookmarked', value: true });
@@ -102,14 +99,12 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
         }
         if (sortBy) {
-            if (sortBy !== 'overall') {
-                if (sortBy === 'low_high') {
-                    sortFilter = { sortBy: 'minPrice', sortOrder: 'asc' };
-                } else if (sortBy === 'high_low') {
-                    sortFilter = { sortBy: 'maxPrice', sortOrder: 'desc' };
-                } else {
-                    sortFilter = { sortBy, sortOrder: 'desc' };
-                }
+            if (sortBy === 'low_high') {
+                sortFilter = { sortBy: 'minPrice', sortOrder: 'asc' };
+            } else if (sortBy === 'high_low') {
+                sortFilter = { sortBy: 'maxPrice', sortOrder: 'desc' };
+            } else {
+                sortFilter = { sortBy, sortOrder: 'desc' };
             }
         }
         // if (parking) {

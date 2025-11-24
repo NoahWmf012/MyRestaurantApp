@@ -27,10 +27,9 @@ export const SEARCH_FILTER_CUISINES = [
 ];
 
 export const SEARCH_FILTER_SORT_LIST = [
-    { label: 'Overall', value: 'overall' },
-    { label: 'Most Bookmark', value: 'bookmark' },
-    { label: 'Rating', value: 'rating' },
     { label: 'Reviews', value: 'reviews' },
+    { label: 'Rating', value: 'rating' },
+    { label: 'Most Bookmark', value: 'bookmark' },
     // { label: 'Distance', value: 'distance' }, todo: implement distance sort
     { label: 'Spending (low to high)', value: 'low_high' },
     { label: 'Spending (high to low)', value: 'high_low' },
@@ -41,3 +40,5 @@ export const SEARCH_FILTER_PAYMENT_METHODS = [
     'Debit Card',
     'Cash'
 ];
+
+export const SEARCH_HISTTORY_KEY = 'searchHistory';

@@ -14,5 +14,10 @@ export interface PaginatedRequest {
     pageSize?: number; // Items per page
 }
 
+export interface SortFilterInterface {
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+}
+
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
