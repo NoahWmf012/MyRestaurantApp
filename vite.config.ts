@@ -17,5 +17,29 @@ export default ({ mode }: { mode: string }) => {
                 },
             },
         },
+        build: {
+            // Optimize chunk splitting
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        // Separate vendor chunks to improve caching
+                        'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+                        'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
+                        'form-vendor': ['react-hook-form', '@hookform/resolvers', 'yup'],
+                        'bootstrap-vendor': ['bootstrap'],
+                    },
+                },
+            },
+            // Warn for chunks over 1MB
+            chunkSizeWarningLimit: 1000,
+            // Use esbuild for faster builds (default in Vite)
+            minify: 'esbuild',
+            // Enable source maps for production debugging (optional)
+            sourcemap: false,
+        },
+        // Pre-bundle dependencies
+        optimizeDeps: {
+            include: ['react', 'react-dom', 'react-router-dom'],
+        },
     })
 }

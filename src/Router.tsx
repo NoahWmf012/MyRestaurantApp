@@ -1,17 +1,20 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom'
-import HomePage from './pages/home/HomePage'
+import { lazy } from 'react'
 import { Layout } from './Layout'
-import RestaurantPage from './pages/restaurant/RestaurantPage'
 import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
-import SearchPage from './pages/search/SearchPage'
-import LoginPage from './pages/auth/LoginPage'
-import SignupPage from './pages/auth/SignupPage'
-import ProfilePage from './pages/profile/ProfilePage'
-import SettingsPage from './pages/settings/SettingsPage'
-import GuestLoginPage from './pages/auth/GuestLoginPage'
-import VotePage from './pages/vote/VotePage'
-import PollSharePage from './pages/vote/PollSharePage'
-import StaticRestaurantPage from './pages/restaurant/StaticRestaurantPage'
+
+// Lazy load all page components for better code splitting
+const HomePage = lazy(() => import('./pages/home/HomePage'))
+const RestaurantPage = lazy(() => import('./pages/restaurant/RestaurantPage'))
+const SearchPage = lazy(() => import('./pages/search/SearchPage'))
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
+const SignupPage = lazy(() => import('./pages/auth/SignupPage'))
+const ProfilePage = lazy(() => import('./pages/profile/ProfilePage'))
+const SettingsPage = lazy(() => import('./pages/settings/SettingsPage'))
+const GuestLoginPage = lazy(() => import('./pages/auth/GuestLoginPage'))
+const VotePage = lazy(() => import('./pages/vote/VotePage'))
+const PollSharePage = lazy(() => import('./pages/vote/PollSharePage'))
+const StaticRestaurantPage = lazy(() => import('./pages/restaurant/StaticRestaurantPage'))
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
