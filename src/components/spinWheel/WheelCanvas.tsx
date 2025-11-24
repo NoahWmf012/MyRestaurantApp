@@ -62,7 +62,7 @@ export default function WheelCanvas({ items, rotation, isSpinning, onTransitionE
                         const textPos = polarToCartesian(radius * 0.62, center);
                         let textRotation = center + 90;
 
-                        if (items.length >= 7) {
+                        if (items.length >= 5) {
                             textRotation = center;
                         }
 

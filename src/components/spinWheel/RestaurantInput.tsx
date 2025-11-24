@@ -1,4 +1,4 @@
-import BasePanel from '../common/BasePanel';
+import BaseRightSidePanel from '../common/BaseRightSidePanel';
 import RestaurantListSelect, { type RestaurantOption } from '../vote/RestaurantListSelect';
 
 type RestaurantInputProps = {
@@ -21,9 +21,7 @@ function RestaurantInput({ items, onChange }: RestaurantInputProps) {
     };
 
     return (
-        <BasePanel
-            minWidth='400px'
-            maxWidth="500px"
+        <BaseRightSidePanel
             className="restaurant-input-panel"
         >
             <div className="panel-header">
@@ -46,7 +44,7 @@ function RestaurantInput({ items, onChange }: RestaurantInputProps) {
                     </div>
                 )}
             </div>
-        </BasePanel>
+        </BaseRightSidePanel>
     );
 }
 
