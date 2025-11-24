@@ -5,6 +5,7 @@ import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import "./SearchPage.scss";
 import { useState, useEffect } from "react";
 import type { SearchCriteria } from "../../interfaces/queryInterface/searchCriteriaInterface";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../../interfaces/queryInterface/base.types";
 
 function SearchPage() {
     const [searchParams] = useSearchParams();
@@ -19,7 +20,7 @@ function SearchPage() {
     }, []);
 
     const { data: restaurantData } = useGetRestaurantsQuery(
-        { query, searchCriteria: appliedFilters, sortBy: sortFilter?.sortBy, sortOrder: sortFilter?.sortOrder },
+        { query, searchCriteria: appliedFilters, sortBy: sortFilter?.sortBy, sortOrder: sortFilter?.sortOrder, pageSize: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
         { skip: !isFilterReady }
     );
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import type { RestaurantItem } from "../../interfaces/queryInterface/restaurantInterface";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../../interfaces/queryInterface/base.types";
 
 export interface RestaurantOption {
     restaurantName: string;
@@ -27,7 +28,7 @@ export default function RestaurantListSelect({
     const [searchTerm, setSearchTerm] = useState("");
     const [suggestions, setSuggestions] = useState<RestaurantItem[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const { data: restaurantList } = useGetRestaurantsQuery({ query: searchTerm });
+    const { data: restaurantList } = useGetRestaurantsQuery({ query: searchTerm, pageSize: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE });
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     // filter suggestions
