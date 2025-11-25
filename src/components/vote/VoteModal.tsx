@@ -43,7 +43,6 @@ function VoteModal() {
     };
 
     const handleCreateSuccess = async () => {
-        // Refetch polls to update the list
         await refetchPolls();
         setShowCreateModal(false);
     };
@@ -68,7 +67,6 @@ function VoteModal() {
         try {
             await updateVote({ pollId, optionId }).unwrap();
 
-            // Refetch polls to get the latest data from server
             const { data: updatedPolls } = await refetchPolls();
 
             // Update selected poll if it's currently viewed, but preserve the current order
@@ -108,7 +106,6 @@ function VoteModal() {
                         </button>
 
                         {/* A button that lets copy the url to clipboard */}
-                        {/* Change text after copying */}
                         <button className="btn btn-outline-primary" onClick={handleCopyPollLink}>
                             Copy Poll Link
                         </button>

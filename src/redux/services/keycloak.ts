@@ -3,16 +3,18 @@ import type { AuthInterface } from "../reducers/authSlice";
 import { setAuthInfo, clearAuthInfo } from "../reducers/authSlice";
 import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userAPIInterface";
 
+const AUTH_INFO_KEY = 'authInfo'
+
 // get JWT from localStorage
 export const getAccessToken = (): string => {
-    const stored = localStorage.getItem('authInfo')
+    const stored = localStorage.getItem(AUTH_INFO_KEY)
     if (stored) {
         try {
             const parsed = JSON.parse(stored) as AuthInterface
             return parsed.accessToken || ''
         } catch (error) {
             console.error('Error parsing authInfo from localStorage:', error)
-            localStorage.removeItem('authInfo') // Clear corrupted data
+            localStorage.removeItem(AUTH_INFO_KEY) // Clear corrupted data
         }
     }
     return ''
@@ -20,14 +22,14 @@ export const getAccessToken = (): string => {
 
 // get refresh token from localStorage
 export const getRefreshToken = (): string => {
-    const stored = localStorage.getItem('authInfo')
+    const stored = localStorage.getItem(AUTH_INFO_KEY)
     if (stored) {
         try {
             const parsed = JSON.parse(stored) as AuthInterface
             return parsed.refreshToken || ''
         } catch (error) {
             console.error('Error parsing authInfo from localStorage:', error)
-            localStorage.removeItem('authInfo') // Clear corrupted data
+            localStorage.removeItem(AUTH_INFO_KEY) // Clear corrupted data
         }
     }
     return ''
@@ -35,10 +37,12 @@ export const getRefreshToken = (): string => {
 
 // Function to refresh the access token
 const refreshAccessToken = async (baseUrl: string): Promise<string | null> => {
+    console.log("baseUrl>>>: ", baseUrl)
     const refreshToken = getRefreshToken()
 
     if (!refreshToken) {
         console.log('No refresh token available')
+        alert('Session expired. Please log in again.');
         return null
     }
 
@@ -56,15 +60,14 @@ const refreshAccessToken = async (baseUrl: string): Promise<string | null> => {
 
             if (data.accessToken) {
                 // Update the tokens in localStorage and Redux store
-                const currentAuth = JSON.parse(localStorage.getItem('authInfo') || '{}') as AuthInterface
+                const currentAuth = JSON.parse(localStorage.getItem(AUTH_INFO_KEY) || '{}') as AuthInterface
                 const updatedAuth: AuthInterface = {
                     accessToken: data.accessToken,
                     refreshToken: data.refreshToken || currentAuth.refreshToken,
                     expiredIn: data.expiredIn || currentAuth.expiredIn
                 }
 
-                // Update localStorage directly (since we can't dispatch here)
-                localStorage.setItem('authInfo', JSON.stringify(updatedAuth))
+                localStorage.setItem(AUTH_INFO_KEY, JSON.stringify(updatedAuth))
 
                 return data.accessToken
             }
@@ -106,7 +109,7 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
 
             if (newToken) {
                 // Update the Redux state with the new token
-                const stored = localStorage.getItem('authInfo')
+                const stored = localStorage.getItem(AUTH_INFO_KEY)
                 if (stored) {
                     const authData = JSON.parse(stored) as AuthInterface
                     api.dispatch(setAuthInfo(authData))
