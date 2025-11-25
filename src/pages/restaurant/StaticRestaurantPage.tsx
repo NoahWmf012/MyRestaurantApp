@@ -26,7 +26,7 @@ function StaticRestaurantPage() {
 
     if (isLoading) {
         return (
-            <div className="container mt-4 restaurant-page">
+            <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
                 <div className="loading-state">
                     <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
@@ -39,7 +39,7 @@ function StaticRestaurantPage() {
 
     if (isError || !response || !response.restaurantList || response.restaurantList.length === 0) {
         return (
-            <div className="container mt-4 restaurant-page">
+            <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
                 <div className="not-found">
                     <h1>Restaurant not found</h1>
                     <p>The restaurant you're looking for doesn't exist.</p>
@@ -55,7 +55,7 @@ function StaticRestaurantPage() {
     const cuisine = Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(', ') : (restaurant.cuisine || 'Restaurant');
 
     return (
-        <div className="container mt-4 restaurant-page">
+        <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
             <div className="row">
                 <div className="col-md-8">
                     <div className="restaurant-header">
@@ -63,7 +63,7 @@ function StaticRestaurantPage() {
                     </div>
 
                     <div className="restaurant-meta">
-                        <span className="badge bg-primary cuisine-badge">{cuisine}</span>
+                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{cuisine}</span>
                         {restaurant.rating && (
                             <span className="rating">
                                 {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
@@ -138,7 +138,7 @@ function StaticRestaurantPage() {
                             <h3>Tags</h3>
                             <div className="tags-container">
                                 {restaurant.tags.map((tag: string, index: number) => (
-                                    <span key={index} className="badge bg-secondary me-2 mb-2">
+                                    <span key={index} className="inline-block bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm mr-2 mb-2">
                                         {tag}
                                     </span>
                                 ))}

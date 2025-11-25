@@ -18,7 +18,7 @@ const RestaurantPage = () => {
 
     if (!restaurant) {
         return (
-            <div className="container mt-4 restaurant-page">
+            <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
                 <div className="not-found">
                     <h1>Restaurant not found</h1>
                     <p>The restaurant you're looking for doesn't exist.</p>
@@ -28,7 +28,7 @@ const RestaurantPage = () => {
     }
 
     return (
-        <div className="container mt-4 restaurant-page">
+        <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
             <div className="row">
                 <div className="col-md-8">
                     <div className="restaurant-header">
@@ -36,7 +36,7 @@ const RestaurantPage = () => {
                     </div>
 
                     <div className="restaurant-meta">
-                        <span className="badge bg-primary cuisine-badge">{restaurant.cuisine}</span>
+                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{restaurant.cuisine}</span>
                         <span className="rating">
                             {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
                         </span>

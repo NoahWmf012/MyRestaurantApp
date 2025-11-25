@@ -73,7 +73,7 @@ function Toolbar() {
     }, [navigate])
 
     return (
-        <div className="toolbar-container d-flex justify-content-between align-items-center">
+        <div className="toolbar-container flex justify-between items-center">
             {/* Home button */}
             <div className="toolbar-section">
                 <button
@@ -95,12 +95,12 @@ function Toolbar() {
                 <SearchBar />
             </div>
 
-            <div className="toolbar-section d-flex">
+            <div className="toolbar-section flex">
                 {isAuthenticated ? (
                     <>
                         {/* Settings button (only shown when logged in) */}
                         <button
-                            className="title-btn settings-button mx-1"
+                            className="title-btn settings-button mx-2"
                             aria-label="Open settings"
                             onClick={handleSettingsClick}
                         >
@@ -110,7 +110,7 @@ function Toolbar() {
 
                         {/* User welcome message */}
                         <button
-                            className="title-btn user-welcome mx-1"
+                            className="title-btn user-welcome mx-2"
                             onClick={handleProfileClick}
                         >
                             <img src={LoginIcon} alt="" className="title-icon" />
@@ -120,7 +120,7 @@ function Toolbar() {
                 ) : (
                     /* Log in button (only shown when not logged in) */
                     <button
-                        className="title-btn login-button mx-1"
+                        className="title-btn login-button mx-2"
                         aria-label="Log in to your account"
                         onClick={() => navigate("/login")}
                     >
@@ -132,7 +132,7 @@ function Toolbar() {
                 {/* More dropdown */}
                 <div className="dropdown" ref={dropdownRef}>
                     <button
-                        className={`title-btn more-button mx-1 ${isDropdownOpen ? 'dropdown-active' : ''}`}
+                        className={`title-btn more-button mx-2 ${isDropdownOpen ? 'dropdown-active' : ''}`}
                         type="button"
                         onClick={toggleDropdown}
                         aria-expanded={isDropdownOpen}

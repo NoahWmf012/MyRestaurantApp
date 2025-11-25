@@ -18,28 +18,28 @@ function HomePage() {
                 <main className="lg:col-span-3">
 
                     {/* 'What's Hot' section */}
-                    <section className="mb-4">
+                    <section className="mb-8">
                         <WhatsHot />
                     </section>
 
                     {/* 'Recommended' section */}
-                    <section className="mb-4">
+                    <section className="mb-8">
                         <OrderAgain />
                     </section>
 
                     {/* Ranks of restaurants */}
-                    {/* <section className="mb-4">
+                    {/* <section className="mb-8">
                         <RestaurantRank />
                     </section> */}
 
                     {/* 'New Dishes' section //combined to What's Hot */}
                     {/*
-                    <section className="mb-4">
+                    <section className="mb-8">
                         <NewDishes />
                     </section> */}
 
                     {/* 'Reviews' section */}
-                    {/* <section className="mb-4">
+                    {/* <section className="mb-8">
                         <Reviews />
                     </section> */}
                 </main>

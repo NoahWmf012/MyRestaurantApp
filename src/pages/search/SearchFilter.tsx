@@ -148,7 +148,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     // };
 
     return (
-        <div className="search-filter-container mb-3 bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="search-filter-container mb-8 bg-white rounded-xl shadow-md overflow-hidden">
             <div className="search-filter-gradient-top"></div>
             <div className="search-filter-scroll h-full overflow-y-auto p-1">
                 {/* Bookmarked  */} {/* todo: member function */}

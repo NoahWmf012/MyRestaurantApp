@@ -83,8 +83,8 @@ function HotRestaurantItems(props: WhatsHotItemProps) {
 function WhatsHot() {
     return (
         <div className="whats-hot-wrapper">
-            <div className="section-title d-flex align-items-center">
-                <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
+            <div className="section-title flex items-center">
+                <img src={FireIcon} alt="Hot Icon" className="title-icon mx-2" />
                 What's Hot
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">

@@ -21,7 +21,7 @@ function OrderAgainItem(props: OrderAgainItemProps) {
     };
     return (
         <div
-            className="horizontal-card order-again-item border-0 shadow-sm my-2 mx-1 rounded"
+            className="horizontal-card order-again-item border-none shadow-sm my-4 mx-2 rounded"
             role="button"
             onClick={handleClick}
         >
@@ -35,12 +35,12 @@ function OrderAgainItem(props: OrderAgainItemProps) {
 function OrderAgain() {
     return (
         <div className="order-again-wrapper">
-            <div className="section-title d-flex align-items-center">
-                <img src={OrderIcon} alt="Order Icon" className="title-icon mx-1" />
+            <div className="section-title flex items-center">
+                <img src={OrderIcon} alt="Order Icon" className="title-icon mx-2" />
                 Recommended
             </div>
 
-            <div className="d-flex flex-row align-items-center">
+            <div className="flex flex-row items-center">
                 {/* History of Orders / Search */}
                 <div className="carousel-container">
                     <Carousel

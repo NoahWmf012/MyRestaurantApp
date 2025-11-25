@@ -99,7 +99,7 @@ function VoteModal() {
         if (selectedPoll) {
             return (
                 <div>
-                    <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div className="flex justify-between items-center mb-8">
                         <button
                             className="btn btn-secondary"
                             onClick={handleBackToList}
@@ -124,7 +124,7 @@ function VoteModal() {
 
         return (
             <div>
-                <div className="d-flex justify-content-between align-items-center mb-3">
+                <div className="flex justify-between items-center mb-8">
                     <h5>Active Polls</h5>
                     <button
                         className="btn btn-success"
