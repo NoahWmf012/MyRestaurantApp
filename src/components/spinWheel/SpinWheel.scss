@@ -35,6 +35,27 @@
     animation: fadeIn $transition-normal ease-out forwards;
 }
 
+/* Wheel Canvas Container - positioned to account for sidebar */
+.wheel-canvas-container {
+    position: absolute;
+    left: 0;
+    right: 400px;
+    /* Account for sidebar width */
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    pointer-events: none;
+
+    /* Make children interactive */
+    >* {
+        pointer-events: auto;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -139,11 +160,6 @@
     height: 400px;
     margin-bottom: 32px;
     filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
-}
-
-.wheel-canvas-container {
-    //flex
-    // display: flex;
 }
 
 /* The rotating element (keeps pointer fixed) */
