@@ -1,0 +1,70 @@
+/* ========================================
+   BUTTON STYLES (replacing Bootstrap btn classes)
+   ======================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 0.75rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 680ms;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &:not(:disabled):hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    &:not(:disabled):active {
+        transform: translateY(0);
+    }
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+
+    &:not(:disabled):hover {
+        background-color: #5c636a;
+        border-color: #565e64;
+    }
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border-color: #28a745;
+    box-shadow: 0 1px 2px 0 rgba(40, 167, 69, 0.05);
+
+    &:not(:disabled):hover {
+        background: linear-gradient(135deg, #218838, #1aa179);
+        border-color: #1e7e34;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06),
+            0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    color: #fde130;
+    border-color: #fde130;
+
+    &:not(:disabled):hover {
+        background-color: #fde130;
+        color: #212529;
+    }
+}
