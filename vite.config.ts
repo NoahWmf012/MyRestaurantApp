@@ -26,7 +26,6 @@ export default ({ mode }: { mode: string }) => {
                         'react-vendor': ['react', 'react-dom', 'react-router-dom'],
                         'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
                         'form-vendor': ['react-hook-form', '@hookform/resolvers', 'yup'],
-                        'bootstrap-vendor': ['bootstrap'],
                     },
                 },
             },

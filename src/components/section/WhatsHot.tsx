@@ -69,9 +69,9 @@ function HotRestaurantItems(props: WhatsHotItemProps) {
 
             {/* captions */}
             <div className="p-4">
-                <h3 className="font-bold text-lg">
+                <h5 className="font-bold text-lg">
                     {props.title}
-                </h3>
+                </h5>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{props.text}</p>
             </div>
         </div>

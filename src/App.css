@@ -1,9 +1,6 @@
 /* Tailwind first */
 @import "tailwindcss";
 
-/* Then Bootstrap */
-@import "bootstrap/dist/css/bootstrap.min.css";
-
 /* body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
