@@ -12,7 +12,7 @@ import { useAppDispatch } from '../../redux/store';
 import { loginValidation, forgotPasswordValidation } from '../../validations/auth.validation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuthRedirect } from '../../hooks/useAuthRedirect';
+import { useAuthRedirect } from '../../hooks/authHooks';
 
 // const finishLoading = () => ({ type: 'loading/finishLoading' as const });
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../redux/store';
-import { useAuthRedirect } from '../hooks/useAuthRedirect';
+import { useAuthRedirect } from '../hooks/authHooks';
 
 interface ProtectedRouteProps {
     children: React.ReactNode;

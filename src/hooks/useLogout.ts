@@ -3,7 +3,7 @@ import { useLogoutMutation } from '../redux/services/api/userAPI';
 import { useAppDispatch } from '../redux/store';
 import { clearAuthInfo } from '../redux/reducers/authSlice';
 import { clearUserInfo } from '../redux/reducers/userInfoSlice';
-import { useAuthRedirect } from './useAuthRedirect';
+import { useAuthRedirect } from './authHooks';
 
 export const useLogout = () => {
     const [triggerLogout] = useLogoutMutation();
