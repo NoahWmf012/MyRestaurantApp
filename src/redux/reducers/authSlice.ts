@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 export interface AuthInterface {
     accessToken: string;
     refreshToken: string;
-    expiredIn?: number;
+    expiredIn?: number; //default 7 days in seconds (604800)
 }
 
 // Function to load auth state from localStorage

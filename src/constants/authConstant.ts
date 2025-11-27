@@ -1,0 +1,1 @@
+export const AUTH_INFO_KEY = 'authInfo'

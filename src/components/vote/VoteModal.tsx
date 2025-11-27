@@ -17,7 +17,7 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
-    const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
+    const { data: votesData, error, refetch: refetchPolls } = useGetPollsQuery()
     const [updateVote] = useUpdateVoteMutation();
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
@@ -27,6 +27,13 @@ function VoteModal() {
             setPolls(votesData);
         }
     }, [votesData]);
+
+    useEffect(() => {
+        if (error) {
+            console.error('Error fetching polls:', error);
+            alert('Failed to fetch polls. Please log in again.');
+        }
+    }, [error]);
 
     const onClose = () => {
         dispatch(hideVoteModal());

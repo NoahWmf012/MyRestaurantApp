@@ -2,8 +2,7 @@ import { fetchBaseQuery, type BaseQueryApi, type FetchArgs } from "@reduxjs/tool
 import type { AuthInterface } from "../reducers/authSlice";
 import { setAuthInfo, clearAuthInfo } from "../reducers/authSlice";
 import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userAPIInterface";
-
-const AUTH_INFO_KEY = 'authInfo'
+import { AUTH_INFO_KEY } from "../../constants/authConstant";
 
 // get JWT from localStorage
 export const getAccessToken = (): string => {
@@ -36,8 +35,8 @@ export const getRefreshToken = (): string => {
 }
 
 // Function to refresh the access token
-const refreshAccessToken = async (baseUrl: string): Promise<string | null> => {
-    console.log("baseUrl>>>: ", baseUrl)
+const refreshAccessToken = async (): Promise<string | null> => {
+    const baseServerUrl = import.meta.env.VITE_SERVER_URL
     const refreshToken = getRefreshToken()
 
     if (!refreshToken) {
@@ -47,7 +46,7 @@ const refreshAccessToken = async (baseUrl: string): Promise<string | null> => {
     }
 
     try {
-        const response = await fetch(`${baseUrl}/auth/refresh-token`, {
+        const response = await fetch(`${baseServerUrl}/auth/refresh-token`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -98,14 +97,13 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
             }
         })
 
-        // Make the initial request
         let result = await baseQuery(args, api, {})
 
         // If we get a 401 (Unauthorized) response, try to refresh the token
         if (result.error && 'status' in result.error && result.error.status === 401) {
             console.log('Token expired, attempting to refresh...')
 
-            const newToken = await refreshAccessToken(baseUrl)
+            const newToken = await refreshAccessToken()
 
             if (newToken) {
                 // Update the Redux state with the new token
