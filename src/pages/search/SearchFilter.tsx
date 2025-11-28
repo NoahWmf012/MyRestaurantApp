@@ -95,9 +95,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // }
 
         if (locationMode === 'current' && coordinates && distance) {
-            filters.push({ key: 'latitude', value: coordinates.latitude })
-            filters.push({ key: 'longitude', value: coordinates.longitude })
-            filters.push({ key: 'distance', value: distance })
+            filters.push({ key: 'ranged', value: [coordinates.latitude, coordinates.longitude, distance] })
         }
         // else if (locationMode === 'specific' && specificLocation.trim() && distance) {
         //     console.log('Specific location:', specificLocation);
@@ -248,9 +246,6 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                         {/* {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocation.trim())) && ( */}
                         {(locationMode === 'current' && coordinates) && (
                             <div>
-                                <div className="text-sm text-gray-600 mb-2">
-                                    Select distance radius:
-                                </div>
                                 <div>
                                     <select
                                         value={distance ?? ''}
