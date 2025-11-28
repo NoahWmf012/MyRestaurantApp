@@ -41,4 +41,13 @@ export const SEARCH_FILTER_PAYMENT_METHODS = [
     'Cash'
 ];
 
+export const SEARCH_FILTER_DISTANCE = [
+    { label: 'Any Distance', value: undefined },
+    { label: 'Within 5 km', value: 5 },
+    { label: 'Within 10 km', value: 10 },
+    { label: 'Within 15 km', value: 15 },
+    { label: 'Within 25 km', value: 25 },
+    { label: 'Within 50 km', value: 50 },
+];
+
 export const SEARCH_HISTTORY_KEY = 'searchHistory';

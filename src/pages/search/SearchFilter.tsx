@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import debounce from 'debounce';
-import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
+import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_DISTANCE, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
+import { useGeolocation } from '../../hooks/useGeolocation';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -41,12 +42,18 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState('reviews');
+    const [locationMode, setLocationMode] = useState<'none' | 'current' | 'specific'>('none');
+    const [specificLocation, setSpecificLocation] = useState('');
+    const [distance, setDistance] = useState<number | undefined>(undefined);
     // const [parking, setParking] = useState(false); //todo
     // const [payment, setPayment] = useState<string[]>([]);
     // const [dineInOnly, setDineInOnly] = useState(false);
     // const [takeOutOnly, setTakeOutOnly] = useState(false);
     const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 200]);
     const [tempSpendingRange, setTempSpendingRange] = useState<[number, number]>([0, 200]);
+
+    // Use geolocation hook
+    const { loading: locationLoading, error: locationError, coordinates, getCurrentLocation, clearLocation } = useGeolocation();
 
     // Create debounced function for spending range updates
     const debouncedSetSpendingRange = useRef(debounce((newRange: [number, number]) => {
@@ -86,6 +93,16 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // if (bookmarked) { //todo
         //     filters.push({ type: 'bookmarked', value: true });
         // }
+
+        if (locationMode === 'current' && coordinates && distance) {
+            filters.push({ key: 'latitude', value: coordinates.latitude })
+            filters.push({ key: 'longitude', value: coordinates.longitude })
+            filters.push({ key: 'distance', value: distance })
+        } else if (locationMode === 'specific' && specificLocation.trim() && distance) {
+            console.log('Specific location:', specificLocation);
+            console.log('Selected distance radius:', distance, 'km');
+        }
+
         if (locations.length > 0) {
             //change the city into 'Toronto' if it is 'Downtown'
             if (locations.includes('Downtown')) {
@@ -128,6 +145,10 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         // bookmarked,
+        locationMode,
+        specificLocation,
+        coordinates,
+        distance,
         locations,
         cuisines,
         sortBy,
@@ -167,6 +188,85 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                 </CollapsibleSection>
 
                 {/* Distance */}
+                <CollapsibleSection title="Distance" defaultOpen={false}>
+                    <div className="filter-options-list">
+                        {/* Radio button for Current Location */}
+                        <label className="radio-label">
+                            <input
+                                type="radio"
+                                name="locationMode"
+                                value="current"
+                                checked={locationMode === 'current'}
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setLocationMode('current');
+                                        setSpecificLocation('');
+                                        getCurrentLocation();
+                                    }
+                                }}
+                            />
+                            <span>
+                                From Current Location
+                                {locationMode === 'current' && locationLoading && <span className="ml-2 text-sm text-gray-500">(Loading...)</span>}
+                                {locationMode === 'current' && locationError && <span className="ml-2 text-sm text-red-500" title={locationError}>(Error)</span>}
+                            </span>
+                        </label>
+
+                        {/* Radio button for Specific Location */}
+                        <label className="radio-label">
+                            <input
+                                type="radio"
+                                name="locationMode"
+                                value="specific"
+                                checked={locationMode === 'specific'}
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setLocationMode('specific');
+                                        clearLocation();
+                                        setDistance(undefined);
+                                    }
+                                }}
+                            />
+                            <span>From Specific Location</span>
+                        </label>
+
+                        {/* Input field for specific location */}
+                        {locationMode === 'specific' && (
+                            <div className="ml-6 mt-2">
+                                <input
+                                    type="text"
+                                    placeholder="Enter address or location..."
+                                    value={specificLocation}
+                                    onChange={(e) => setSpecificLocation(e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                        )}
+
+                        {/* Distance options - show when current location is obtained OR specific location is entered */}
+                        {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocation.trim())) && (
+                            <div>
+                                <div className="text-sm text-gray-600 mb-2">
+                                    Select distance radius:
+                                </div>
+                                <div className="ml-6 mt-3">
+                                    {SEARCH_FILTER_DISTANCE.map((option) => (
+                                        <label key={option.label} className="radio-label">
+                                            <input
+                                                type="radio"
+                                                name="distance"
+                                                value={option.value}
+                                                checked={distance === option.value}
+                                                onChange={(e) => setDistance(Number(e.target.value) || undefined)}
+                                            />
+                                            <span>{option.label}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </CollapsibleSection>
 
                 {/* Location */}
                 <CollapsibleSection title="Location" defaultOpen={false}>
