@@ -53,7 +53,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [tempSpendingRange, setTempSpendingRange] = useState<[number, number]>([0, 200]);
 
     // Use geolocation hook
-    const { loading: locationLoading, error: locationError, coordinates, getCurrentLocation, clearLocation } = useGeolocation();
+    const { loading: locationLoading, error: locationError, coordinates, getCurrentLocation } = useGeolocation();
 
     // Create debounced function for spending range updates
     const debouncedSetSpendingRange = useRef(debounce((newRange: [number, number]) => {
@@ -214,7 +214,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                         </label>
 
                         {/* Radio button for Specific Location */}
-                        <label className="radio-label">
+                        {/* <label className="radio-label">
                             <input
                                 type="radio"
                                 name="locationMode"
@@ -229,7 +229,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                                 }}
                             />
                             <span>From Specific Location</span>
-                        </label>
+                        </label> */}
 
                         {/* Input field for specific location */}
                         {/* {locationMode === 'specific' && (
@@ -251,19 +251,18 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                                 <div className="text-sm text-gray-600 mb-2">
                                     Select distance radius:
                                 </div>
-                                <div className="ml-6 mt-3">
-                                    {SEARCH_FILTER_DISTANCE.map((option) => (
-                                        <label key={option.label} className="radio-label">
-                                            <input
-                                                type="radio"
-                                                name="distance"
-                                                value={option.value}
-                                                checked={distance === option.value}
-                                                onChange={(e) => setDistance(Number(e.target.value) || undefined)}
-                                            />
-                                            <span>{option.label}</span>
-                                        </label>
-                                    ))}
+                                <div>
+                                    <select
+                                        value={distance ?? ''}
+                                        onChange={(e) => setDistance(e.target.value ? Number(e.target.value) : undefined)}
+                                        className="w-full px-1 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        {SEARCH_FILTER_DISTANCE.map((option) => (
+                                            <option key={option.label} value={option.value ?? ''}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                         )}
