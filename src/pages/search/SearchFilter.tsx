@@ -4,6 +4,7 @@ import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_DISTANCE, SEARCH_FILTER_LOCATIONS
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 import { useGeolocation } from '../../hooks/useGeolocation';
+import LocationAutocompleteInput from '../../components/LocationAutocompleteInput';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -44,6 +45,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [sortBy, setSortBy] = useState('reviews');
     const [locationMode, setLocationMode] = useState<'none' | 'current' | 'specific'>('none');
     const [specificLocation, setSpecificLocation] = useState('');
+    const [specificLocationCoords, setSpecificLocationCoords] = useState<{ lat: number; lon: number } | null>(null);
     const [distance, setDistance] = useState<number | undefined>(undefined);
     // const [parking, setParking] = useState(false); //todo
     // const [payment, setPayment] = useState<string[]>([]);
@@ -98,9 +100,10 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             filters.push({ key: 'latitude', value: coordinates.latitude })
             filters.push({ key: 'longitude', value: coordinates.longitude })
             filters.push({ key: 'distance', value: distance })
-        } else if (locationMode === 'specific' && specificLocation.trim() && distance) {
-            console.log('Specific location:', specificLocation);
-            console.log('Selected distance radius:', distance, 'km');
+        } else if (locationMode === 'specific' && specificLocationCoords && distance) {
+            filters.push({ key: 'latitude', value: specificLocationCoords.lat })
+            filters.push({ key: 'longitude', value: specificLocationCoords.lon })
+            filters.push({ key: 'distance', value: distance })
         }
 
         if (locations.length > 0) {
@@ -147,6 +150,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // bookmarked,
         locationMode,
         specificLocation,
+        specificLocationCoords,
         coordinates,
         distance,
         locations,
@@ -233,18 +237,26 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                         {/* Input field for specific location */}
                         {locationMode === 'specific' && (
                             <div className="ml-6 mt-2">
-                                <input
-                                    type="text"
-                                    placeholder="Enter address or location..."
+                                <LocationAutocompleteInput
                                     value={specificLocation}
-                                    onChange={(e) => setSpecificLocation(e.target.value)}
+                                    onChange={(value, coords) => {
+                                        setSpecificLocation(value);
+                                        setSpecificLocationCoords(coords || null);
+                                    }}
+                                    placeholder="Enter address or location..."
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    countryCode="ca"
                                 />
+                                {specificLocationCoords && (
+                                    <div className="text-xs text-green-600 mt-1">
+                                        ✓ Location found ({specificLocationCoords.lat.toFixed(4)}, {specificLocationCoords.lon.toFixed(4)})
+                                    </div>
+                                )}
                             </div>
                         )}
 
-                        {/* Distance options - show when current location is obtained OR specific location is entered */}
-                        {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocation.trim())) && (
+                        {/* Distance options - show when current location is obtained OR specific location coordinates are available */}
+                        {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocationCoords)) && (
                             <div>
                                 <div className="text-sm text-gray-600 mb-2">
                                     Select distance radius:
