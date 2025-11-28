@@ -43,7 +43,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [cuisines, setCuisines] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState('reviews');
     const [locationMode, setLocationMode] = useState<'none' | 'current' | 'specific'>('none');
-    const [specificLocation, setSpecificLocation] = useState('');
+    // const [specificLocation, setSpecificLocation] = useState('');
     const [distance, setDistance] = useState<number | undefined>(undefined);
     // const [parking, setParking] = useState(false); //todo
     // const [payment, setPayment] = useState<string[]>([]);
@@ -98,10 +98,11 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             filters.push({ key: 'latitude', value: coordinates.latitude })
             filters.push({ key: 'longitude', value: coordinates.longitude })
             filters.push({ key: 'distance', value: distance })
-        } else if (locationMode === 'specific' && specificLocation.trim() && distance) {
-            console.log('Specific location:', specificLocation);
-            console.log('Selected distance radius:', distance, 'km');
         }
+        // else if (locationMode === 'specific' && specificLocation.trim() && distance) {
+        //     console.log('Specific location:', specificLocation);
+        //     console.log('Selected distance radius:', distance, 'km');
+        // }
 
         if (locations.length > 0) {
             //change the city into 'Toronto' if it is 'Downtown'
@@ -146,7 +147,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     }, [
         // bookmarked,
         locationMode,
-        specificLocation,
+        // specificLocation,
         coordinates,
         distance,
         locations,
@@ -200,7 +201,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                                 onChange={(e) => {
                                     if (e.target.checked) {
                                         setLocationMode('current');
-                                        setSpecificLocation('');
+                                        // setSpecificLocation('');
                                         getCurrentLocation();
                                     }
                                 }}
@@ -231,7 +232,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                         </label>
 
                         {/* Input field for specific location */}
-                        {locationMode === 'specific' && (
+                        {/* {locationMode === 'specific' && (
                             <div className="ml-6 mt-2">
                                 <input
                                     type="text"
@@ -241,10 +242,11 @@ function SearchFilter({ onChange }: SearchFilterProps) {
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                        )}
+                        )} */}
 
                         {/* Distance options - show when current location is obtained OR specific location is entered */}
-                        {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocation.trim())) && (
+                        {/* {((locationMode === 'current' && coordinates) || (locationMode === 'specific' && specificLocation.trim())) && ( */}
+                        {(locationMode === 'current' && coordinates) && (
                             <div>
                                 <div className="text-sm text-gray-600 mb-2">
                                     Select distance radius:
