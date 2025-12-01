@@ -42,10 +42,12 @@ export function PollList({ polls, handlePollClick }: { polls: PollResponse[]; ha
                     const totalVotes = getTotalVotes(poll);
                     const timeRemaining = getTimeRemaining(poll.expiresAt);
 
+                    const isExpired = !poll.isActive || new Date(poll.expiresAt) < new Date();
+
                     return (
                         <div
                             key={poll.id}
-                            className={`poll-card ${!poll.isActive ? 'poll-card--expired' : ''}`}
+                            className={`poll-card ${isExpired ? 'poll-card--expired' : ''}`}
                             onClick={() => handlePollClick(poll)}
                             role="button"
                             tabIndex={0}
@@ -58,9 +60,9 @@ export function PollList({ polls, handlePollClick }: { polls: PollResponse[]; ha
                             <div className="poll-card__header">
                                 <div className="poll-card__title-section">
                                     <h3 className="poll-card__title">{poll.title}</h3>
-                                    <span className={`poll-status poll-status--${poll.isActive ? 'active' : 'expired'}`}>
+                                    <span className={`poll-status poll-status--${isExpired ? 'expired' : 'active'}`}>
                                         <span className="poll-status__dot"></span>
-                                        {poll.isActive ? 'Active' : 'Expired'}
+                                        {isExpired ? 'Expired' : 'Active'}
                                     </span>
                                 </div>
                                 <div className="poll-card__arrow">
