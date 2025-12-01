@@ -6,6 +6,7 @@ import { useForm, useFieldArray, type Resolver } from "react-hook-form";
 import { createVoteValidation } from "../../validations/vote.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RestaurantListSelect, { type RestaurantOption } from "./RestaurantListSelect";
+import "./CreatePollModal.scss";
 
 type CreatePollModalProps = {
     onClose: () => void;
@@ -85,9 +86,10 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
 
     return (
         <BaseModal title="Create Vote Poll" onClose={onClose}>
-            <div className="auth-container">
-                <div className="auth-card">
-                    <form className="auth-form" onSubmit={handleSubmit(handleCreatePoll)}>
+            <div className="poll-modal-container">
+                <div className="auth-container">
+                    <div className="auth-card">
+                        <form className="auth-form" onSubmit={handleSubmit(handleCreatePoll)}>
                         {/* Title */}
                         <div className="form-group">
                             <label htmlFor="title" className="form-label">
@@ -167,12 +169,13 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
                         )}
 
                         {/* Submit */}
-                        <button type="submit" className="auth-button" disabled={isSubmitting}>
+                        <button type="submit" className="poll-submit-button" disabled={isSubmitting}>
                             Create Poll
                         </button>
                     </form>
                 </div>
             </div>
+        </div>
         </BaseModal>
     );
 }

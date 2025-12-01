@@ -1,4 +1,5 @@
 @use '../../style/variables' as *;
+@use '../../style/buttons' as *;
 
 // Auth Container Styles
 .auth-container {
@@ -110,58 +111,8 @@
 
     // Button styles
     .auth-button {
-        width: 100%;
-        padding: 0.875rem 1.5rem;
-        background: $gradient-primary;
-        color: $text-color;
-        border: none;
-        border-radius: $radius-lg;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all $transition-normal;
-        position: relative;
-        overflow: hidden;
+        @extend .btn-primary;
         margin-top: 0.5rem;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left $transition-slow;
-        }
-
-        &:hover {
-            transform: translateY(-2px);
-            box-shadow: $shadow-lg, $shadow-yellow;
-
-            &::before {
-                left: 100%;
-            }
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
-
-        &:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-
-            &:hover {
-                transform: none;
-                box-shadow: none;
-
-                &::before {
-                    left: -100%;
-                }
-            }
-        }
 
         // Loading state
         &.loading {

@@ -1,0 +1,43 @@
+@use '../../style/variables' as *;
+@use '../../style/buttons' as *;
+
+/* ========================================
+   POLL MODAL SPECIFIC STYLES
+   ======================================== */
+
+.poll-modal-container {
+    .auth-container {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .auth-card {
+        max-width: 100%;
+        padding: 2rem;
+        margin: 0;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+// Poll specific button
+.poll-submit-button {
+    @extend .btn-primary;
+    margin-top: 0.5rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 480px) {
+    .poll-modal-container {
+        .auth-card {
+            padding: 1.5rem;
+        }
+    }
+}

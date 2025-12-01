@@ -1,0 +1,252 @@
+@use './variables' as *;
+
+/* ========================================
+   COMMON BUTTON STYLES
+   ======================================== */
+
+// Primary Button (Yellow Gradient)
+.btn-primary {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: $gradient-primary;
+    color: $text-color;
+    border: none;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-normal;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left $transition-slow;
+    }
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg, $shadow-yellow;
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+
+            &::before {
+                left: -100%;
+            }
+        }
+    }
+}
+
+// Secondary Button (Outline)
+.btn-secondary {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: transparent;
+    color: $primary-dark;
+    border: 2px solid $primary-color;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover:not(:disabled) {
+        background: $primary-light;
+        border-color: $primary-dark;
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+
+        &:hover {
+            background: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+    }
+}
+
+// Small Button Variant
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+// Large Button Variant
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+// Icon Button
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+// Full width button
+.btn-block {
+    width: 100%;
+    display: block;
+}
+
+/* ========================================
+   FORM INPUT STYLES
+   ======================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 0.25rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    color: $text-color;
+    background-color: white;
+    transition: all $transition-fast;
+
+    &::placeholder {
+        color: $text-color-light;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &:disabled {
+        background-color: $neutral-100;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    &.error {
+        border-color: $error-color;
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+        }
+    }
+}
+
+// Textarea
+.form-textarea {
+    @extend .form-input;
+    min-height: 100px;
+    resize: vertical;
+}
+
+// Form Error Message
+.form-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: $error-color;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    animation: slideInError 0.2s ease-out;
+
+    .error-icon {
+        flex-shrink: 0;
+        font-size: 1rem;
+    }
+}
+
+// Form Success Message
+.form-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: $success-color;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    animation: slideInSuccess 0.2s ease-out;
+
+    .success-icon {
+        flex-shrink: 0;
+        font-size: 1rem;
+    }
+}
+
+// Form Helper Text
+.form-helper {
+    font-size: 0.875rem;
+    color: $text-color-secondary;
+    margin-top: 0.25rem;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slideInError {
+    from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInSuccess {
+    from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
