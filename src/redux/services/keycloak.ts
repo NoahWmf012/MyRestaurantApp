@@ -5,7 +5,7 @@ import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userA
 import { AUTH_INFO_KEY } from "../../constants/authConstant";
 
 // get JWT from localStorage
-export const getAccessToken = (): string => {
+const getAccessToken = (): string => {
     const stored = localStorage.getItem(AUTH_INFO_KEY)
     if (stored) {
         try {
@@ -20,7 +20,7 @@ export const getAccessToken = (): string => {
 }
 
 // get refresh token from localStorage
-export const getRefreshToken = (): string => {
+const getRefreshToken = (): string => {
     const stored = localStorage.getItem(AUTH_INFO_KEY)
     if (stored) {
         try {

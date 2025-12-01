@@ -6,6 +6,7 @@ import { ScrollToTop } from './components/ScrollToTop'
 import RoulettePopup from './components/spinWheel/RoulettePopup'
 import VoteModal from './components/vote/VoteModal'
 import ErrModal from './components/common/ErrModal'
+import { useAppSelector } from './redux/store'
 
 const style = {
     flexFlow: "column" as const,
@@ -14,7 +15,7 @@ const style = {
     display: "flex"
 }
 export const Layout = () => {
-
+    const show = useAppSelector((state) => state.showVoteModalState.visible);
     return (
         <div className="layout-container" style={style}>
             <ScrollToTop />
@@ -24,7 +25,7 @@ export const Layout = () => {
 
             {/* modals */}
             <RoulettePopup />
-            <VoteModal />
+            {show && <VoteModal />} {/* Prevent auth API call */}
             <ErrModal />
         </div>
     )
