@@ -90,92 +90,92 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
                 <div className="auth-container">
                     <div className="auth-card">
                         <form className="auth-form" onSubmit={handleSubmit(handleCreatePoll)}>
-                        {/* Title */}
-                        <div className="form-group">
-                            <label htmlFor="title" className="form-label">
-                                Title
-                            </label>
-                            <input
-                                id="poll-title"
-                                {...register("title")}
-                                placeholder="Write your poll title"
-                                className="form-input"
-                                autoComplete="off"
-                            />
-                            {errors.title && (
-                                <div className="form-error">
-                                    <span className="error-icon">⚠</span>
-                                    {errors.title.message}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Description */}
-                        <div className="form-group">
-                            <label htmlFor="description" className="form-label">
-                                Description
-                            </label>
-                            <input
-                                id="poll-description"
-                                {...register("description")}
-                                placeholder="Write a short description"
-                                className="form-input"
-                                autoComplete="off"
-                            />
-                            {errors.description && (
-                                <div className="form-error">
-                                    <span className="error-icon">⚠</span>
-                                    {errors.description.message}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Expiration Date */}
-                        <div className="form-group">
-                            <label htmlFor="expiresAt" className="form-label">
-                                Expires At
-                            </label>
-                            <input
-                                id="poll-expiresAt"
-                                {...register("expiresAt")}
-                                type="datetime-local"
-                                className="form-input"
-                                autoComplete="off"
-                            />
-                            {errors.expiresAt && (
-                                <div className="form-error">
-                                    <span className="error-icon">⚠</span>
-                                    {errors.expiresAt.message}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Restaurant selection */}
-                        <div className="form-group">
-                            <label className="form-label">Restaurants</label>
-                            <RestaurantListSelect
-                                items={restaurantItems}
-                                onAdd={handleAddRestaurant}
-                                onRemove={handleRemoveRestaurant}
-                                error={optionsError}
-                            />
-                        </div>
-
-                        {/* Root error (submission) */}
-                        {errors.root && (
-                            <div className="form-error" style={{ marginBottom: 8 }}>
-                                {errors.root.message}
+                            {/* Title */}
+                            <div className="form-group">
+                                <label htmlFor="title" className="form-label">
+                                    Title
+                                </label>
+                                <input
+                                    id="poll-title"
+                                    {...register("title")}
+                                    placeholder="Write your poll title"
+                                    className="form-input"
+                                    autoComplete="off"
+                                />
+                                {errors.title && (
+                                    <div className="form-error">
+                                        <span className="error-icon">⚠</span>
+                                        {errors.title.message}
+                                    </div>
+                                )}
                             </div>
-                        )}
 
-                        {/* Submit */}
-                        <button type="submit" className="poll-submit-button" disabled={isSubmitting}>
-                            Create Poll
-                        </button>
-                    </form>
+                            {/* Description */}
+                            <div className="form-group">
+                                <label htmlFor="description" className="form-label">
+                                    Description
+                                </label>
+                                <input
+                                    id="poll-description"
+                                    {...register("description")}
+                                    placeholder="Write a short description"
+                                    className="form-input"
+                                    autoComplete="off"
+                                />
+                                {errors.description && (
+                                    <div className="form-error">
+                                        <span className="error-icon">⚠</span>
+                                        {errors.description.message}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Expiration Date */}
+                            <div className="form-group">
+                                <label htmlFor="expiresAt" className="form-label">
+                                    Expires At
+                                </label>
+                                <input
+                                    id="poll-expiresAt"
+                                    {...register("expiresAt")}
+                                    type="datetime-local"
+                                    className="form-input"
+                                    autoComplete="off"
+                                />
+                                {errors.expiresAt && (
+                                    <div className="form-error">
+                                        <span className="error-icon">⚠</span>
+                                        {errors.expiresAt.message}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Restaurant selection */}
+                            <div className="form-group">
+                                <label className="form-label">Restaurants</label>
+                                <RestaurantListSelect
+                                    items={restaurantItems}
+                                    onAdd={handleAddRestaurant}
+                                    onRemove={handleRemoveRestaurant}
+                                    error={optionsError}
+                                />
+                            </div>
+
+                            {/* Root error (submission) */}
+                            {errors.root && (
+                                <div className="form-error" style={{ marginBottom: 8 }}>
+                                    {errors.root.message}
+                                </div>
+                            )}
+
+                            {/* Submit */}
+                            <button type="submit" className="poll-submit-button" disabled={isSubmitting}>
+                                Create Poll
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         </BaseModal>
     );
 }
