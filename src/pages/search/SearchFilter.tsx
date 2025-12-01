@@ -167,13 +167,17 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     //     );
     // };
 
+    const handleBookmarkedClick = () => {
+        alert('Coming soon!');
+    };
+
     return (
         <div className="search-filter-container mb-8 bg-white rounded-xl shadow-md overflow-hidden">
             <div className="search-filter-gradient-top"></div>
             <div className="search-filter-scroll h-full overflow-y-auto p-1">
                 {/* Bookmarked  */} {/* todo: member function */}
                 <CollapsibleSection title="Bookmarked">
-                    <div className="filter-option" title="Coming soon">
+                    <div className="filter-option" title="Coming soon" onClick={handleBookmarkedClick}>
                         <label className="checkbox-label">
                             <input
                                 type="checkbox"

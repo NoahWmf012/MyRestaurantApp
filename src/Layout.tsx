@@ -17,6 +17,9 @@ export const Layout = () => {
             <Header />
             <Outlet />
             <Footer />
+
+            {/* modals */}
+
         </div>
     )
 }
