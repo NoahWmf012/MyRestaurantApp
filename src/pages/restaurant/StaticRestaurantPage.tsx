@@ -2,6 +2,7 @@
 
 import { useParams } from "react-router-dom";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
+import "./RestaurantPage.scss"
 
 function StaticRestaurantPage() {
     // decrypt restaurant id/name from url
