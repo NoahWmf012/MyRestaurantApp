@@ -236,7 +236,7 @@
     }
 }
 
-.section-title {
+.legal-page .section-title {
     font-size: 2rem;
     font-weight: 700;
     color: $text-color;
@@ -244,6 +244,10 @@
     padding-bottom: 16px;
     border-bottom: 3px solid $primary-color;
     position: relative;
+
+    &::before {
+        display: none; // Override global style
+    }
 
     &::after {
         content: '';

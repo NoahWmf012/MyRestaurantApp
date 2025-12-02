@@ -109,12 +109,16 @@
     animation: float 3s ease-in-out infinite;
 }
 
-.section-title {
+.about-us-page .section-title {
     font-size: 2.5rem;
     font-weight: 700;
     color: $text-color;
     margin: 0;
     position: relative;
+
+    &::before {
+        display: none; // Override global style
+    }
 
     &::after {
         content: '';
