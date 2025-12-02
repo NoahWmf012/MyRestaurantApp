@@ -15,6 +15,10 @@ const GuestLoginPage = lazy(() => import('./pages/auth/GuestLoginPage'))
 const VotePage = lazy(() => import('./pages/vote/VotePage'))
 const PollSharePage = lazy(() => import('./pages/vote/PollSharePage'))
 const StaticRestaurantPage = lazy(() => import('./pages/restaurant/StaticRestaurantPage'))
+const AboutUsPage = lazy(() => import('./pages/footer/AboutUsPage'))
+const ContactPage = lazy(() => import('./pages/footer/ContactPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/footer/PrivacyPolicyPage'))
+const TermsOfServicePage = lazy(() => import('./pages/footer/TermsOfServicePage'))
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -23,6 +27,10 @@ export const router = createBrowserRouter(
             <Route path="search" element={<SearchPage />} />
             <Route path="restaurant/:name" element={<RestaurantPage />} />{/* Promote Restaurant */}
             <Route path="restaurant-search/:restaurantId" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
+            <Route path="about-us" element={<AboutUsPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="terms-of-service" element={<TermsOfServicePage />} />
 
             {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />

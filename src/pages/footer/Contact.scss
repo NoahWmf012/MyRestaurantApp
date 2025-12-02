@@ -1,0 +1,470 @@
+@use '../../style/variables' as *;
+
+/* ========================================
+   CONTACT PAGE STYLES
+   ======================================== */
+
+.contact-page {
+    min-height: 100vh;
+    background: $background-color;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.contact-hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    padding: 120px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+}
+
+.contact-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: $text-color;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
+}
+
+.contact-hero-subtitle {
+    font-size: 1.5rem;
+    color: $neutral-800;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+        font-size: 1.125rem;
+    }
+}
+
+/* ========================================
+   CONTAINER & GRID
+   ======================================== */
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+
+    @media (max-width: 768px) {
+        padding: 60px 20px;
+    }
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    margin-bottom: 80px;
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+/* ========================================
+   CONTACT INFORMATION
+   ======================================== */
+
+.contact-info {
+    .info-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 16px 0;
+    }
+
+    .info-description {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: $text-color-secondary;
+        margin: 0 0 40px 0;
+    }
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.contact-method {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-md;
+        transform: translateX(8px);
+
+        .method-icon {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.method-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    transition: transform $transition-fast;
+}
+
+.method-content {
+    flex: 1;
+
+    .method-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 8px 0;
+    }
+
+    .method-text {
+        font-size: 1rem;
+        color: $primary-color;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+    }
+
+    .method-note {
+        font-size: 0.875rem;
+        color: $text-color-secondary;
+        margin: 0;
+    }
+}
+
+/* ========================================
+   FAQ SECTION
+   ======================================== */
+
+.faq-section {
+    background: linear-gradient(135deg, $primary-lighter 0%, white 100%);
+    border: 1px solid rgba($primary-color, 0.2);
+    border-radius: $radius-lg;
+    padding: 24px;
+
+    .faq-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 16px 0;
+    }
+
+    .faq-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            padding: 10px 0;
+            color: $text-color-secondary;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba($border-color, 0.5);
+            cursor: pointer;
+            transition: all $transition-fast;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                color: $primary-color;
+                padding-left: 8px;
+            }
+        }
+    }
+}
+
+/* ========================================
+   CONTACT FORM
+   ======================================== */
+
+.contact-form-wrapper {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 40px;
+    box-shadow: $shadow-lg;
+
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+}
+
+.contact-form {
+    .form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 32px 0;
+        text-align: center;
+    }
+}
+
+.form-group {
+    margin-bottom: 24px;
+
+    &:last-of-type {
+        margin-bottom: 32px;
+    }
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 8px;
+
+    .required {
+        color: $error-color;
+        margin-left: 4px;
+    }
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $text-color;
+    background: white;
+    transition: all $transition-fast;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &::placeholder {
+        color: $neutral-400;
+    }
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 16px 32px;
+    background: $gradient-primary;
+    color: $text-color;
+    border: none;
+    border-radius: $radius-lg;
+    font-size: 1.125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all $transition-fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+
+    .submit-icon {
+        font-size: 1.25rem;
+    }
+
+    &:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba($primary-color, 0.4);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
+}
+
+.success-message {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba($success-color, 0.1);
+    border: 1px solid $success-color;
+    border-radius: $radius-lg;
+    color: $success-color;
+    text-align: center;
+    font-weight: 600;
+    animation: slideDown 0.3s ease-out;
+}
+
+/* ========================================
+   HELP SECTION
+   ======================================== */
+
+.help-section {
+    background: linear-gradient(135deg, $neutral-800 0%, $neutral-900 100%);
+    border-radius: $radius-2xl;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(253, 225, 48, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 40px 24px;
+    }
+}
+
+.help-content {
+    position: relative;
+    z-index: 1;
+
+    .help-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primary-color;
+        text-align: center;
+        margin: 0 0 40px 0;
+
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.help-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.help-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $radius-xl;
+    padding: 32px;
+    text-align: center;
+    transition: all $transition-fast;
+    backdrop-filter: blur(10px);
+
+    .help-icon {
+        font-size: 3rem;
+        margin-bottom: 16px;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color-white;
+        margin: 0 0 12px 0;
+    }
+
+    p {
+        font-size: 1rem;
+        color: $neutral-300;
+        margin: 0 0 20px 0;
+        line-height: 1.6;
+    }
+
+    .help-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: $primary-color;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all $transition-fast;
+
+        &:hover {
+            gap: 12px;
+            text-decoration: underline;
+        }
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: 0 8px 24px rgba(253, 225, 48, 0.2);
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 80px 20px 60px;
+    }
+
+    .help-cards {
+        grid-template-columns: 1fr;
+    }
+}

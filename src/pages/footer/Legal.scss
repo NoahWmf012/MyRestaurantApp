@@ -1,0 +1,631 @@
+@use '../../style/variables' as *;
+
+/* ========================================
+   LEGAL PAGE STYLES (Privacy & Terms)
+   ======================================== */
+
+.legal-page {
+    min-height: 100vh;
+    background: $background-color;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.legal-hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    padding: 120px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -100px;
+        left: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        pointer-events: none;
+    }
+}
+
+.legal-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.legal-hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: $text-color;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
+}
+
+.legal-hero-subtitle {
+    font-size: 1.5rem;
+    color: $neutral-800;
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+        font-size: 1.125rem;
+    }
+}
+
+.legal-update {
+    font-size: 1rem;
+    color: $neutral-700;
+    font-weight: 600;
+    margin: 0;
+    padding: 8px 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: $radius-full;
+    display: inline-block;
+}
+
+/* ========================================
+   CONTAINER & LAYOUT
+   ======================================== */
+
+.legal-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 60px;
+    align-items: start;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        padding: 40px 20px 80px;
+        gap: 40px;
+    }
+}
+
+/* ========================================
+   SIDEBAR NAVIGATION
+   ======================================== */
+
+.legal-sidebar {
+    @media (min-width: 1025px) {
+        position: sticky;
+        top: 100px;
+    }
+
+    @media (max-width: 1024px) {
+        background: white;
+        border: 1px solid $border-color;
+        border-radius: $radius-xl;
+        padding: 24px;
+        box-shadow: $shadow-md;
+    }
+}
+
+.sidebar-sticky {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 24px;
+    box-shadow: $shadow-md;
+
+    @media (max-width: 1024px) {
+        background: transparent;
+        border: none;
+        padding: 0;
+        box-shadow: none;
+    }
+}
+
+.sidebar-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid $border-color;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @media (max-width: 1024px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+.nav-link {
+    display: block;
+    padding: 10px 16px;
+    color: $text-color-secondary;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-radius: $radius-md;
+    transition: all $transition-fast;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 0;
+        background: $primary-color;
+        transition: height $transition-fast;
+        border-radius: $radius-sm;
+    }
+
+    &:hover {
+        background: rgba($primary-color, 0.08);
+        color: $primary-color;
+        padding-left: 20px;
+
+        &::before {
+            height: 60%;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        padding: 8px 16px;
+        background: rgba($primary-color, 0.05);
+        border: 1px solid $border-color;
+
+        &::before {
+            display: none;
+        }
+
+        &:hover {
+            padding-left: 16px;
+            background: rgba($primary-color, 0.15);
+            border-color: $primary-color;
+        }
+    }
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+.legal-content {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-2xl;
+    padding: 60px;
+    box-shadow: $shadow-lg;
+
+    @media (max-width: 768px) {
+        padding: 32px 24px;
+    }
+}
+
+.legal-section {
+    margin-bottom: 60px;
+    scroll-margin-top: 100px;
+
+    &:last-of-type {
+        margin-bottom: 40px;
+    }
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 3px solid $primary-color;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: $neutral-800;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
+}
+
+.subsection-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 32px 0 16px 0;
+
+    @media (max-width: 768px) {
+        font-size: 1.25rem;
+    }
+}
+
+.legal-content p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: $text-color-secondary;
+    margin: 0 0 20px 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all $transition-fast;
+
+        &:hover {
+            text-decoration: underline;
+            color: $primary-dark;
+        }
+    }
+}
+
+.legal-list {
+    margin: 16px 0 24px 0;
+    padding-left: 24px;
+
+    li {
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: $text-color-secondary;
+        margin-bottom: 12px;
+        position: relative;
+
+        &::marker {
+            color: $primary-color;
+        }
+
+        strong {
+            color: $text-color;
+            font-weight: 600;
+        }
+    }
+}
+
+/* ========================================
+   INFORMATION BOXES
+   ======================================== */
+
+.info-box {
+    background: rgba($info-color, 0.05);
+    border: 1px solid rgba($info-color, 0.3);
+    border-left: 4px solid $info-color;
+    border-radius: $radius-lg;
+    padding: 24px;
+    margin: 24px 0;
+
+    h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    ul {
+        margin: 12px 0 0 0;
+        padding-left: 24px;
+
+        li {
+            margin-bottom: 8px;
+            color: $text-color-secondary;
+        }
+    }
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, rgba($primary-color, 0.1) 0%, rgba($primary-color, 0.05) 100%);
+    border: 2px solid $primary-color;
+    border-radius: $radius-lg;
+    padding: 20px 24px;
+    margin: 24px 0;
+    text-align: center;
+
+    strong {
+        font-size: 1.125rem;
+        color: $text-color;
+        font-weight: 700;
+    }
+}
+
+.warning-box {
+    background: rgba($error-color, 0.05);
+    border: 2px solid $error-color;
+    border-radius: $radius-lg;
+    padding: 24px;
+    margin: 24px 0;
+
+    h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $error-color;
+        margin: 0 0 16px 0;
+    }
+
+    p {
+        font-weight: 600;
+        color: $text-color;
+        line-height: 1.6;
+        margin-bottom: 16px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    ul {
+        margin: 12px 0 0 0;
+        padding-left: 24px;
+
+        li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+    }
+}
+
+/* ========================================
+   PURPOSE GRID
+   ======================================== */
+
+.purpose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.purpose-card {
+    background: linear-gradient(135deg, white 0%, $primary-lighter 100%);
+    border: 1px solid rgba($primary-color, 0.2);
+    border-radius: $radius-lg;
+    padding: 24px;
+    text-align: center;
+    transition: all $transition-fast;
+
+    .purpose-icon {
+        font-size: 3rem;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 12px 0;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: $text-color-secondary;
+        margin: 0;
+    }
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: $shadow-lg;
+        border-color: $primary-color;
+    }
+}
+
+/* ========================================
+   RIGHTS GRID
+   ======================================== */
+
+.rights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.right-item {
+    background: white;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    padding: 24px;
+    transition: all $transition-fast;
+
+    h4 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: $text-color-secondary;
+        margin: 0;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-md;
+        transform: translateY(-4px);
+    }
+}
+
+/* ========================================
+   PROHIBITED ACTIVITIES GRID
+   ======================================== */
+
+.prohibited-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+}
+
+.prohibited-item {
+    background: rgba($error-color, 0.03);
+    border: 1px solid rgba($error-color, 0.2);
+    border-radius: $radius-lg;
+    padding: 20px;
+    text-align: center;
+    transition: all $transition-fast;
+
+    .prohibited-icon {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    h4 {
+        font-size: 1.0625rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 8px 0;
+    }
+
+    p {
+        font-size: 0.9rem;
+        color: $text-color-secondary;
+        margin: 0;
+    }
+
+    &:hover {
+        border-color: $error-color;
+        box-shadow: 0 4px 12px rgba($error-color, 0.15);
+        transform: translateY(-4px);
+    }
+}
+
+/* ========================================
+   CONTACT INFO BOX
+   ======================================== */
+
+.contact-info-box {
+    background: linear-gradient(135deg, $primary-lighter 0%, white 100%);
+    border: 1px solid rgba($primary-color, 0.3);
+    border-radius: $radius-xl;
+    padding: 32px;
+    margin: 24px 0;
+
+    .contact-method {
+        font-size: 1.0625rem;
+        line-height: 2;
+        color: $text-color-secondary;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba($border-color, 0.5);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        strong {
+            color: $text-color;
+            font-weight: 700;
+            min-width: 100px;
+        }
+
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            font-weight: 600;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* ========================================
+   LEGAL FOOTER
+   ======================================== */
+
+.legal-footer {
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 2px solid $border-color;
+    text-align: center;
+
+    p {
+        font-size: 1rem;
+        color: $text-color-secondary;
+        font-style: italic;
+        margin: 0;
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .legal-hero {
+        padding: 80px 20px 60px;
+    }
+
+    .purpose-grid,
+    .rights-grid,
+    .prohibited-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info-box .contact-method {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        strong {
+            min-width: auto;
+        }
+    }
+}
+
+/* ========================================
+   SMOOTH SCROLLING
+   ======================================== */
+
+html {
+    scroll-behavior: smooth;
+}

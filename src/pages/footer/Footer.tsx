@@ -1,7 +1,33 @@
+import { useNavigate } from 'react-router-dom';
 import './Footer.scss';
 
 function Footer() {
+    const navigate = useNavigate();
     const currentYear = new Date().getFullYear();
+
+    const onVoteClick = () => {
+        navigate('/vote');
+    }
+
+    const onSpinWheelClick = () => {
+        navigate('/spin-wheel');
+    }
+
+    const onAboutUsClick = () => {
+        navigate('/about-us');
+    }
+
+    const onContactClick = () => {
+        navigate('/contact');
+    }
+
+    const onPolicyClick = () => {
+        navigate('/privacy-policy');
+    }
+
+    const onTermsClick = () => {
+        navigate('/terms-of-service');
+    }
 
     return (
         <footer id="footer">
@@ -42,9 +68,8 @@ function Footer() {
                     <div className="footer-section">
                         <h3 className="footer-section-title">Quick Links</h3>
                         <ul className="footer-links">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/vote">Vote</a></li>
-                            <li><a href="/spin-wheel">Spin Wheel</a></li>
+                            <li className="li-link" onClick={onVoteClick}><span>Vote</span></li>
+                            <li className="li-link" onClick={onSpinWheelClick}><span>Spin Wheel</span></li>
                         </ul>
                     </div>
 
@@ -52,10 +77,8 @@ function Footer() {
                     <div className="footer-section">
                         <h3 className="footer-section-title">Resources</h3>
                         <ul className="footer-links">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li className="li-link" onClick={onAboutUsClick}><span>About Us</span></li>
+                            <li className="li-link" onClick={onContactClick}><span>Contact</span></li>
                         </ul>
                     </div>
 
@@ -63,10 +86,8 @@ function Footer() {
                     <div className="footer-section">
                         <h3 className="footer-section-title">Legal</h3>
                         <ul className="footer-links">
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Cookie Policy</a></li>
-                            <li><a href="#">Accessibility</a></li>
+                            <li className="li-link" onClick={onPolicyClick}><span>Privacy Policy</span></li>
+                            <li className="li-link" onClick={onTermsClick}><span>Terms of Service</span></li>
                         </ul>
                     </div>
                 </div>

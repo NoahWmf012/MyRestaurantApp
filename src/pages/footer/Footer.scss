@@ -119,14 +119,20 @@
 
     li {
         margin-bottom: 12px;
+    }
 
-        a {
-            color: $neutral-300;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all $transition-fast;
-            display: inline-block;
+    .li-link {
+        cursor: pointer;
+        color: $neutral-300;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all $transition-fast;
+        display: block;
+
+        span {
             position: relative;
+            display: inline-block;
+            transition: all $transition-fast;
 
             &::before {
                 content: '';
@@ -138,14 +144,14 @@
                 background: $primary-color;
                 transition: width $transition-fast;
             }
+        }
 
-            &:hover {
-                color: $primary-color;
-                transform: translateX(4px);
+        &:hover {
+            color: $primary-color;
+            transform: translateX(4px);
 
-                &::before {
-                    width: 100%;
-                }
+            span::before {
+                width: 100%;
             }
         }
     }
