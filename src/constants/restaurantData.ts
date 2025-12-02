@@ -10,7 +10,7 @@ import TACO_ICON from '../assets/icons/food_category/taco.png';
 export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
     {
         id: 1,
-        name: "j.san sushi & MARKET",
+        name: "J.san sushi & MARKET",
         cuisine: "Japanese",
         rating: 4.5,
         location: "3365 Steeles Ave E Unit B01, Toronto, ON M2H 0A7",
@@ -48,7 +48,7 @@ export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
 
 // Suggested Restaurant Names for Search Bar (todo: fetch from backend later)
 export const SUGGESTED_RESTAURANT_NAMES: SuggestedItem[] = [
-    { keyword: "j.san sushi & MARKET", value: "J San Sushi & Market", image: SUSHI_ICON },
+    { keyword: "J.san sushi & MARKET", value: "J San Sushi & Market", image: SUSHI_ICON },
     { keyword: "Gyubee Japanese Grill 牛兵衛", value: "Gyubee Japanese Grill", image: GRILL_ICON },
     { keyword: "Hualien Tai Ping Hsiang BBQ 花蓮太平香", value: "Hualien Tai Ping Hsiang BBQ", image: CHINESE_ICON },
     { keyword: "Yunshang Rice Noodle 雲尚米線", value: "Yunshang Rice Noodle", image: PHO_ICON },

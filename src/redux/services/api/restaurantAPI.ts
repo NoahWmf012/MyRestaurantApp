@@ -1,10 +1,10 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
-import { fetchBaseQueryNoAuth } from '../keycloak'
+import { fetchBaseQueryAuth } from '../keycloak'
 import type { RestaurantRequest, RestaurantResponse } from '../../../interfaces/queryInterface/restaurantInterface'
 
 export const restaurantAPI = createApi({
     reducerPath: 'restaurantAPI',
-    baseQuery: fetchBaseQueryNoAuth('restaurants'),
+    baseQuery: fetchBaseQueryAuth('restaurants'),
     endpoints: (builder) => ({
         getRestaurants: builder.query<RestaurantResponse, RestaurantRequest>({
             query: (body) => ({
