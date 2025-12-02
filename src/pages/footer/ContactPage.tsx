@@ -33,14 +33,14 @@ function ContactPage() {
     return (
         <div className="contact-page">
             {/* Hero Section */}
-            <section className="contact-hero">
+            {/* <section className="contact-hero">
                 <div className="contact-hero-content">
                     <h1 className="contact-hero-title">Get In Touch</h1>
                     <p className="contact-hero-subtitle">
                         We'd love to hear from you. Send us a message and we'll respond as soon as possible.
                     </p>
                 </div>
-            </section>
+            </section> */}
 
             {/* Main Content */}
             <div className="contact-container">

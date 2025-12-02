@@ -1,0 +1,501 @@
+@use '../../style/variables' as *;
+
+/* ========================================
+   PROFILE PAGE STYLES
+   ======================================== */
+
+.profile-page {
+    min-height: 100vh;
+    background: $background-color;
+}
+
+/* ========================================
+   LOADING & ERROR STATES
+   ======================================== */
+
+.profile-loading,
+.profile-error {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+
+    .loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid $border-color;
+        border-top-color: $primary-color;
+        border-radius: $radius-full;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.125rem;
+        color: $text-color-secondary;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: $text-color;
+        margin-bottom: 12px;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.profile-hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 40px 20px;
+    }
+}
+
+.profile-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+}
+
+.profile-avatar {
+    position: relative;
+
+    .avatar-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: $radius-full;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: 700;
+        color: $primary-color;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        box-shadow: $shadow-xl;
+
+        @media (max-width: 768px) {
+            width: 100px;
+            height: 100px;
+            font-size: 2.5rem;
+        }
+    }
+
+    .avatar-edit-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: $radius-full;
+        background: white;
+        border: 2px solid $primary-color;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: all $transition-fast;
+
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: $shadow-md;
+        }
+    }
+}
+
+.profile-info {
+    flex: 1;
+
+    .profile-name {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: $text-color;
+        margin: 0 0 8px 0;
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+
+    .profile-email {
+        font-size: 1.125rem;
+        color: $neutral-800;
+        margin: 0 0 16px 0;
+    }
+
+    .profile-badges {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
+    }
+
+    .badge {
+        padding: 6px 16px;
+        border-radius: $radius-full;
+        font-size: 0.875rem;
+        font-weight: 600;
+
+        &.badge-verified {
+            background: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+
+        &.badge-role {
+            background: rgba(255, 255, 255, 0.2);
+            color: $text-color;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: capitalize;
+        }
+    }
+}
+
+.btn-edit-profile {
+    padding: 12px 24px;
+    background: white;
+    color: $text-color;
+    border: 2px solid $text-color;
+    border-radius: $radius-lg;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all $transition-fast;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+        background: $text-color;
+        color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+/* ========================================
+   STATS SECTION
+   ======================================== */
+
+.profile-stats {
+    max-width: 1200px;
+    margin: -40px auto 60px;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+        padding: 0 20px;
+        margin: -30px auto 40px;
+    }
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: $shadow-lg;
+    transition: all $transition-fast;
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-xl, $shadow-yellow;
+        transform: translateY(-4px);
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: $text-color;
+        margin-bottom: 8px;
+    }
+
+    .stat-label {
+        font-size: 0.95rem;
+        color: $text-color-secondary;
+        font-weight: 500;
+    }
+}
+
+/* ========================================
+   CONTENT SECTION
+   ======================================== */
+
+.profile-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+
+    @media (max-width: 768px) {
+        padding: 0 20px 60px;
+    }
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid $border-color;
+    padding-bottom: 0;
+    overflow-x: auto;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: $text-color-secondary;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: -2px;
+
+    &:hover {
+        color: $primary-color;
+        background: rgba($primary-color, 0.05);
+    }
+
+    &.active {
+        color: $primary-color;
+        border-bottom-color: $primary-color;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+.tab-content {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 40px;
+    box-shadow: $shadow-md;
+
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+}
+
+/* ========================================
+   OVERVIEW CONTENT
+   ======================================== */
+
+.overview-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 24px 0;
+    }
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: $primary-lighter;
+    border-radius: $radius-lg;
+    border: 1px solid rgba($primary-color, 0.2);
+    transition: all $transition-fast;
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-sm;
+    }
+
+    .activity-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .activity-details {
+        flex: 1;
+
+        .activity-text {
+            font-size: 0.95rem;
+            color: $text-color;
+            margin: 0 0 4px 0;
+
+            strong {
+                font-weight: 700;
+                color: $primary-color;
+            }
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: $text-color-secondary;
+            margin: 0;
+        }
+    }
+}
+
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.preference-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-color;
+    transition: all $transition-fast;
+
+    .preference-icon {
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        background: $primary-lighter;
+    }
+}
+
+/* ========================================
+   EMPTY STATES
+   ======================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+
+    .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 12px 0;
+    }
+
+    p {
+        font-size: 1rem;
+        color: $text-color-secondary;
+        margin: 0 0 24px 0;
+    }
+
+    .btn-primary {
+        padding: 12px 32px;
+        background: $gradient-primary;
+        color: $text-color;
+        border: none;
+        border-radius: $radius-lg;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all $transition-fast;
+        box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+        }
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .preferences-grid {
+        grid-template-columns: 1fr;
+    }
+}

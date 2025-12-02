@@ -1,0 +1,574 @@
+@use '../../style/variables' as *;
+@use 'sass:color';
+
+/* ========================================
+   SETTINGS PAGE STYLES
+   ======================================== */
+
+.settings-page {
+    min-height: 100vh;
+    background: $background-color;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.settings-hero {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 60px 20px 40px;
+    }
+}
+
+.settings-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+
+    .settings-hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: $text-color;
+        margin: 0 0 16px 0;
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+
+    .settings-hero-subtitle {
+        font-size: 1.25rem;
+        color: $neutral-800;
+        font-weight: 500;
+        margin: 0;
+
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
+    }
+}
+
+/* ========================================
+   CONTAINER & LAYOUT
+   ======================================== */
+
+.settings-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 40px;
+    align-items: start;
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+        padding: 40px 20px 80px;
+        gap: 32px;
+    }
+}
+
+/* ========================================
+   SIDEBAR NAVIGATION
+   ======================================== */
+
+.settings-sidebar {
+    @media (min-width: 969px) {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+.settings-nav {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 12px;
+    box-shadow: $shadow-md;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @media (max-width: 968px) {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: none;
+    border: none;
+    border-radius: $radius-lg;
+    color: $text-color-secondary;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    text-align: left;
+    white-space: nowrap;
+
+    .nav-icon {
+        font-size: 1.25rem;
+    }
+
+    &:hover {
+        background: rgba($primary-color, 0.08);
+        color: $primary-color;
+    }
+
+    &.active {
+        background: $gradient-primary;
+        color: $text-color;
+        box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+    }
+
+    @media (max-width: 968px) {
+        .nav-text {
+            display: none;
+        }
+
+        padding: 12px 16px;
+    }
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+
+.settings-content {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $radius-xl;
+    padding: 40px;
+    box-shadow: $shadow-lg;
+    min-height: 500px;
+
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+}
+
+.settings-message {
+    padding: 16px 20px;
+    border-radius: $radius-lg;
+    margin-bottom: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideIn 0.3s ease-out;
+
+    &.success {
+        background: rgba($success-color, 0.1);
+        color: $success-color;
+        border: 1px solid $success-color;
+    }
+
+    &.error {
+        background: rgba($error-color, 0.1);
+        color: $error-color;
+        border: 1px solid $error-color;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.settings-section {
+    .section-header {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 12px 0;
+
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+        }
+    }
+
+    .section-description {
+        font-size: 1rem;
+        color: $text-color-secondary;
+        margin: 0 0 32px 0;
+        line-height: 1.6;
+    }
+
+    .subsection-header {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 24px 0;
+
+        &.danger {
+            color: $error-color;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+.section-divider {
+    height: 1px;
+    background: $border-color;
+    margin: 40px 0;
+}
+
+/* ========================================
+   FORMS
+   ======================================== */
+
+.settings-form {
+    margin-bottom: 32px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.form-group {
+    margin-bottom: 24px;
+
+    &:last-of-type {
+        margin-bottom: 32px;
+    }
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 8px;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $text-color;
+    background: white;
+    transition: all $transition-fast;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &::placeholder {
+        color: $neutral-400;
+    }
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-save,
+.btn-secondary,
+.btn-danger,
+.btn-danger-confirm,
+.btn-cancel {
+    padding: 12px 32px;
+    border: none;
+    border-radius: $radius-lg;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+}
+
+.btn-save {
+    background: $gradient-primary;
+    color: $text-color;
+    box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+    }
+}
+
+.btn-secondary {
+    background: white;
+    color: $text-color;
+    border: 2px solid $border-color;
+
+    &:hover {
+        border-color: $primary-color;
+        background: $primary-lighter;
+    }
+}
+
+.btn-danger {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+    border: 2px solid $error-color;
+
+    &:hover {
+        background: $error-color;
+        color: white;
+    }
+}
+
+.btn-danger-confirm {
+    background: $error-color;
+    color: white;
+
+    &:hover {
+        background: color.adjust($error-color, $lightness: -10%);
+        box-shadow: 0 4px 12px rgba($error-color, 0.3);
+    }
+}
+
+.btn-cancel {
+    background: white;
+    color: $text-color;
+    border: 2px solid $border-color;
+
+    &:hover {
+        background: $neutral-100;
+    }
+}
+
+/* ========================================
+   SETTINGS LIST
+   ======================================== */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: $primary-lighter;
+    border: 1px solid rgba($primary-color, 0.2);
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-sm;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+.setting-info {
+    flex: 1;
+
+    .setting-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 6px 0;
+    }
+
+    .setting-desc {
+        font-size: 0.9rem;
+        color: $text-color-secondary;
+        margin: 0;
+        line-height: 1.5;
+    }
+}
+
+/* ========================================
+   TOGGLE SWITCH
+   ======================================== */
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+    flex-shrink: 0;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked+.toggle-slider {
+            background: $primary-color;
+
+            &::before {
+                transform: translateX(26px);
+            }
+        }
+
+        &:focus+.toggle-slider {
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+        }
+    }
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $neutral-300;
+    border-radius: 30px;
+    transition: all $transition-fast;
+
+    &::before {
+        content: '';
+        position: absolute;
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background: white;
+        border-radius: $radius-full;
+        transition: all $transition-fast;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* ========================================
+   DANGER ZONE
+   ======================================== */
+
+.danger-zone {
+    background: rgba($error-color, 0.05);
+    border: 2px solid rgba($error-color, 0.3);
+    border-radius: $radius-xl;
+    padding: 32px;
+
+    .danger-text {
+        font-size: 1rem;
+        color: $text-color-secondary;
+        margin: 0 0 24px 0;
+        line-height: 1.6;
+    }
+}
+
+.delete-confirm {
+    background: white;
+    border: 2px solid $error-color;
+    border-radius: $radius-lg;
+    padding: 24px;
+    margin-top: 16px;
+
+    .confirm-text {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: $error-color;
+        margin: 0 0 20px 0;
+    }
+
+    .confirm-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+}
+
+/* ========================================
+   PREFERENCES GRID
+   ======================================== */
+
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.preference-card {
+    background: $primary-lighter;
+    border: 1px solid rgba($primary-color, 0.2);
+    border-radius: $radius-xl;
+    padding: 24px;
+    transition: all $transition-fast;
+
+    h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $text-color;
+        margin: 0 0 8px 0;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: $text-color-secondary;
+        margin: 0 0 20px 0;
+        line-height: 1.5;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        box-shadow: $shadow-md;
+        transform: translateY(-4px);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .preferences-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .confirm-buttons {
+        flex-direction: column;
+
+        button {
+            width: 100%;
+        }
+    }
+}
