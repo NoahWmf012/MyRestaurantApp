@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { hideErrModal } from '../../redux/reducers/modalVisibleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import './CommonStyle.style.scss';
+import { modalCallbackManager } from '../../utils/modalCallbackManager';
 
 function ErrModal() {
     const { visible, title, message, type } = useAppSelector((state) => state.showErrModalState);
@@ -9,6 +10,9 @@ function ErrModal() {
     const dismissTimerRef = useRef<NodeJS.Timeout | null>(null);
 
     const onClose = useCallback(() => {
+        // Execute callback if exists
+        modalCallbackManager.execute();
+
         dispatch(hideErrModal());
         if (dismissTimerRef.current) {
             clearTimeout(dismissTimerRef.current);

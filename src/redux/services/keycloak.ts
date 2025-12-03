@@ -5,6 +5,7 @@ import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userA
 import { AUTH_INFO_KEY } from "../../constants/authConstant";
 import { showErrModal } from "../reducers/modalVisibleSlice";
 import { store } from "../store";
+import { modalCallbackManager } from "../../utils/modalCallbackManager";
 
 // get JWT from localStorage
 const getAccessToken = (): string => {
@@ -130,7 +131,16 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
 
                 result = await retryQuery(args, api, {})
             } else {
-                api.dispatch(clearAuthInfo())
+                // Show modal, clear auth when user closes it
+                modalCallbackManager.set(() => {
+                    api.dispatch(clearAuthInfo());
+                });
+
+                store.dispatch(showErrModal({
+                    message: 'Your session has expired. Please log in again to continue.',
+                    title: 'Session Expired',
+                    type: 'warning'
+                }));
             }
         }
 
