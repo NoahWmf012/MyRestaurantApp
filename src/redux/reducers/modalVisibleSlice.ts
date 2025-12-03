@@ -1,12 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit"
+import type { PayloadAction } from "@reduxjs/toolkit"
 
 export interface ModalVisibleState {
     visible: boolean
 }
 
+export interface ErrModalState {
+    visible: boolean
+    title: string
+    message: string
+    type?: 'error' | 'warning' | 'info' | 'success'
+}
+
 const initialState = {
     visible: false
 } as ModalVisibleState
+
+const errModalInitialState: ErrModalState = {
+    visible: false,
+    title: '',
+    message: '',
+    type: 'error'
+}
 
 const createGenericModalVisible = ({
     name = ''
@@ -29,8 +44,22 @@ const createGenericModalVisible = ({
 }
 
 //#region Error Modal
-export const showErrModalState = createGenericModalVisible({
+export const showErrModalState = createSlice({
     name: 'showErrModalState',
+    initialState: errModalInitialState,
+    reducers: {
+        show(state, action: PayloadAction<{ title?: string; message: string; type?: 'error' | 'warning' | 'info' | 'success' }>) {
+            state.visible = true
+            state.title = action.payload.title || 'Error'
+            state.message = action.payload.message
+            state.type = action.payload.type || 'error'
+        },
+        hide(state) {
+            state.visible = false
+            state.title = ''
+            state.message = ''
+        }
+    }
 })
 
 export const {

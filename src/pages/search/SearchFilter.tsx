@@ -4,6 +4,7 @@ import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_DISTANCE, SEARCH_FILTER_LOCATIONS
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 import { useGeolocation } from '../../hooks/useGeolocation';
+import { useErrorModal } from '../../hooks/useErrorModal';
 
 interface CollapsibleSectionProps {
     title: string;
@@ -54,6 +55,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
 
     // Use geolocation hook
     const { loading: locationLoading, error: locationError, coordinates, getCurrentLocation } = useGeolocation();
+    const { showInfo } = useErrorModal();
 
     // Create debounced function for spending range updates
     const debouncedSetSpendingRange = useRef(debounce((newRange: [number, number]) => {
@@ -168,7 +170,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     // };
 
     const handleBookmarkedClick = () => {
-        alert('Coming soon!');
+        showInfo('The bookmarked feature is coming soon! Stay tuned for updates.', 'Coming Soon');
     };
 
     return (
