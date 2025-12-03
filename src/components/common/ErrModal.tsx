@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { hideErrModal } from '../../redux/reducers/modalVisibleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import './CommonStyle.style.scss';
@@ -6,21 +6,43 @@ import './CommonStyle.style.scss';
 function ErrModal() {
     const { visible, title, message, type } = useAppSelector((state) => state.showErrModalState);
     const dispatch = useAppDispatch();
+    const dismissTimerRef = useRef<NodeJS.Timeout | null>(null);
 
     const onClose = useCallback(() => {
         dispatch(hideErrModal());
+        if (dismissTimerRef.current) {
+            clearTimeout(dismissTimerRef.current);
+            dismissTimerRef.current = null;
+        }
     }, [dispatch]);
 
-    // Auto-dismiss after 5 seconds
-    // useEffect(() => {
-    //     if (visible) {
-    //         const timer = setTimeout(() => {
-    //             onClose();
-    //         }, 5000);
+    // Handle click outside to start dismiss timer
+    useEffect(() => {
+        if (!visible) return;
 
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [visible, onClose]);
+        const handleClickOutside = (event: MouseEvent) => {
+            const toastElement = document.querySelector('.toast');
+            if (toastElement && !toastElement.contains(event.target as Node)) {
+                // Clear any existing timer
+                if (dismissTimerRef.current) {
+                    clearTimeout(dismissTimerRef.current);
+                }
+
+                dismissTimerRef.current = setTimeout(() => {
+                    onClose();
+                }, 1500);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            if (dismissTimerRef.current) {
+                clearTimeout(dismissTimerRef.current);
+            }
+        };
+    }, [visible, onClose]);
 
     if (!visible) return null;
 
