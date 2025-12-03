@@ -3,6 +3,8 @@ import type { AuthInterface } from "../reducers/authSlice";
 import { setAuthInfo, clearAuthInfo } from "../reducers/authSlice";
 import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userAPIInterface";
 import { AUTH_INFO_KEY } from "../../constants/authConstant";
+import { showErrModal } from "../reducers/modalVisibleSlice";
+import { store } from "../store";
 
 // get JWT from localStorage
 const getAccessToken = (): string => {
@@ -41,7 +43,11 @@ const refreshAccessToken = async (): Promise<string | null> => {
 
     if (!refreshToken) {
         console.log('No refresh token available')
-        alert('Session expired. Please log in again.');
+        store.dispatch(showErrModal({
+            message: 'Your session has expired. Please log in again to continue.',
+            title: 'Session Expired',
+            type: 'warning'
+        }));
         return null
     }
 

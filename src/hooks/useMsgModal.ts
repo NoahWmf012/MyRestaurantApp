@@ -1,7 +1,7 @@
 import { useAppDispatch } from '../redux/store';
 import { showErrModal } from '../redux/reducers/modalVisibleSlice';
 
-export const useErrorModal = () => {
+export const useMsgModal = () => {
     const dispatch = useAppDispatch();
 
     const showError = (message: string, title?: string) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import type { RestaurantItem } from "../../interfaces/queryInterface/restaurantInterface";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../../interfaces/queryInterface/base.types";
-import { useErrorModal } from "../../hooks/useErrorModal";
+import { useMsgModal } from "../../hooks/useMsgModal";
 
 export interface RestaurantOption {
     restaurantName: string;
@@ -31,7 +31,7 @@ export default function RestaurantListSelect({
     const [showDropdown, setShowDropdown] = useState(false);
     const { data: restaurantList } = useGetRestaurantsQuery({ query: searchTerm, pageSize: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE });
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const { showWarning } = useErrorModal();
+    const { showWarning } = useMsgModal();
 
     // filter suggestions
     useEffect(() => {

@@ -9,6 +9,7 @@ import CreatePollModal from './CreatePollModal';
 import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 import { getAppUrl } from '../../hooks/urlHook';
+import { useMsgModal } from '../../hooks/useMsgModal';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
@@ -20,6 +21,8 @@ function VoteModal() {
     const { data: votesData, error, refetch: refetchPolls } = useGetPollsQuery()
     const [updateVote] = useUpdateVoteMutation();
 
+    const { showSuccess, showError } = useMsgModal();
+
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
 
     useEffect(() => {
@@ -30,8 +33,7 @@ function VoteModal() {
 
     useEffect(() => {
         if (error) {
-            console.error('Error fetching polls:', error);
-            alert('Failed to fetch polls. Please log in again.');
+            console.error('Error fetching polls:', error); // handled in keycloak.ts
         }
     }, [error]);
 
@@ -63,9 +65,9 @@ function VoteModal() {
         if (selectedPoll) {
             const url = `${getAppUrl()}poll/share/${selectedPoll.shareToken}`;
             navigator.clipboard.writeText(url).then(() => {
-                alert('Poll link copied to clipboard!');
+                showSuccess('Poll link copied to clipboard!');
             }).catch(err => {
-                console.error('Failed to copy link: ', err);
+                showError('Failed to copy link', err);
             });
         }
     };
