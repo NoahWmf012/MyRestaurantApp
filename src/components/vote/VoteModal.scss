@@ -32,6 +32,14 @@
    HEADER STYLES
    ======================================== */
 
+.poll-detail-actions {
+    .poll-action-btn {
+        flex: 1;
+        max-width: 180px;
+        justify-content: center;
+    }
+}
+
 .vote-modal-header-back {
     display: flex;
     flex-direction: column;
