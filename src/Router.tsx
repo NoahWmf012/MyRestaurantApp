@@ -5,7 +5,7 @@ import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
 
 // Lazy load all page components for better code splitting
 const HomePage = lazy(() => import('./pages/home/HomePage'))
-const RestaurantPage = lazy(() => import('./pages/restaurant/RestaurantPage'))
+const RestaurantPage = lazy(() => import('./pages/restaurant/PromotedRestaurantPage'))
 const SearchPage = lazy(() => import('./pages/search/SearchPage'))
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
 const SignupPage = lazy(() => import('./pages/auth/SignupPage'))
