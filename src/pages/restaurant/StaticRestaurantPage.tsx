@@ -1,10 +1,15 @@
 // This page is for general search restaurant page that is mostly static content
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import "./RestaurantPage.scss"
 
 function StaticRestaurantPage() {
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
+    const [showAllPhotos, setShowAllPhotos] = useState(false);
+
     // decrypt restaurant id/name from url
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -25,13 +30,29 @@ function StaticRestaurantPage() {
         window.open(googleMapsUrl, '_blank');
     };
 
+    const handleBooking = () => {
+        // Placeholder for booking functionality
+        alert('Booking functionality coming soon!');
+    };
+
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: restaurant.name,
+                text: `Check out ${restaurant.name}!`,
+                url: window.location.href,
+            });
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!');
+        }
+    };
+
     if (isLoading) {
         return (
-            <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
+            <div className="restaurant-page-modern">
                 <div className="loading-state">
-                    <div className="spinner-border text-primary" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
+                    <div className="spinner"></div>
                     <p>Loading restaurant details...</p>
                 </div>
             </div>
@@ -40,10 +61,13 @@ function StaticRestaurantPage() {
 
     if (isError || !response || !response.restaurantList || response.restaurantList.length === 0) {
         return (
-            <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
+            <div className="restaurant-page-modern">
                 <div className="not-found">
                     <h1>Restaurant not found</h1>
                     <p>The restaurant you're looking for doesn't exist.</p>
+                    <button onClick={() => navigate('/search')} className="btn-primary">
+                        Back to Search
+                    </button>
                 </div>
             </div>
         );
@@ -54,104 +78,230 @@ function StaticRestaurantPage() {
     const phoneNum = restaurant.phone || '';
     const description = restaurant.description || 'No description available.';
     const cuisine = Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(', ') : (restaurant.cuisine || 'Restaurant');
+    const photos = restaurant.photos || [];
+    const displayPhotos = showAllPhotos ? photos : photos.slice(0, 5);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 mt-8 restaurant-page">
-            <div className="row">
-                <div className="col-md-8">
-                    <div className="restaurant-header">
-                        <h1>{restaurant.name}</h1>
+        <div className="restaurant-page-modern">
+            {/* Hero Section */}
+            <div className="restaurant-hero">
+                <div className="hero-content">
+                    <div className="breadcrumb">
+                        <span onClick={() => navigate('/')}>Home</span>
+                        <span className="separator">›</span>
+                        <span onClick={() => navigate('/search')}>Restaurants</span>
+                        <span className="separator">›</span>
+                        <span className="current">{restaurant.name}</span>
                     </div>
 
-                    <div className="restaurant-meta">
-                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{cuisine}</span>
+                    <h1 className="restaurant-title">{restaurant.name}</h1>
+
+                    <div className="restaurant-meta-badges">
+                        <span className="cuisine-badge">{cuisine}</span>
+                        {restaurant.minPrice && restaurant.maxPrice && (
+                            <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>
+                        )}
                         {restaurant.rating && (
-                            <span className="rating">
-                                {'★'.repeat(Math.floor(restaurant.rating))} {restaurant.rating}
+                            <span className="rating-badge">
+                                <span className="stars">{'★'.repeat(Math.floor(restaurant.rating))}</span>
+                                <span className="rating-number">{restaurant.rating}</span>
                             </span>
                         )}
                     </div>
 
-                    {restaurant.photos && restaurant.photos.length > 0 && (
-                        <div className="restaurant-images">
-                            <div className="row">
-                                {restaurant.photos.slice(0, 2).map((photo: string, index: number) => (
-                                    <div key={index} className="col-md-6">
-                                        <img
-                                            src={photo}
-                                            alt={`${restaurant.name} ${index + 1}`}
-                                            className="restaurant-image"
-                                        />
+                    <div className="action-buttons">
+                        <button className="btn-book" onClick={handleBooking}>
+                            <span className="icon">📅</span>
+                            Book Now
+                        </button>
+                        <button className="btn-share" onClick={handleShare}>
+                            <span className="icon">🔗</span>
+                            Share
+                        </button>
+                        <button className="btn-favorite">
+                            <span className="icon">♡</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Photo Gallery */}
+            {photos.length > 0 && (
+                <div className="photo-gallery">
+                    <div className="gallery-grid">
+                        {displayPhotos.map((photo: string, index: number) => (
+                            <div
+                                key={index}
+                                className={`gallery-item ${index === 0 ? 'main-photo' : ''}`}
+                            >
+                                <img
+                                    src={photo}
+                                    alt={`${restaurant.name} ${index + 1}`}
+                                />
+                                {index === 4 && photos.length > 5 && !showAllPhotos && (
+                                    <div className="view-all-overlay" onClick={() => setShowAllPhotos(true)}>
+                                        <span>+{photos.length - 5} more</span>
                                     </div>
-                                ))}
+                                )}
                             </div>
-                        </div>
-                    )}
-
-                    <div className="restaurant-section">
-                        <h3>About</h3>
-                        <p>{description}</p>
+                        ))}
                     </div>
+                </div>
+            )}
 
-                    <div className="restaurant-section contact-info">
-                        <h3>Contact Information</h3>
+            {/* Main Content */}
+            <div className="restaurant-content">
+                {/* Info Card */}
+                <div className="info-sidebar">
+                    <div className="info-card">
+                        <h3>Restaurant Info</h3>
+
                         {address && (
-                            <p>
-                                <strong>Address:</strong>{' '}
-                                <span
-                                    onClick={() => handleAddressClick(address)}
-                                    className="address-link"
-                                    title="Click to open in Google Maps"
-                                >
-                                    {address}
-                                </span>
-                            </p>
+                            <div className="info-item">
+                                <div className="info-icon">📍</div>
+                                <div className="info-details">
+                                    <div className="info-label">Address</div>
+                                    <div
+                                        className="info-value clickable"
+                                        onClick={() => handleAddressClick(address)}
+                                    >
+                                        {address}
+                                    </div>
+                                </div>
+                            </div>
                         )}
+
                         {phoneNum && (
-                            <p>
-                                <strong>Phone:</strong>{' '}
-                                <span className="phone-number">{phoneNum}</span>
-                            </p>
+                            <div className="info-item">
+                                <div className="info-icon">📞</div>
+                                <div className="info-details">
+                                    <div className="info-label">Phone</div>
+                                    <div className="info-value">
+                                        <a href={`tel:${phoneNum}`}>{phoneNum}</a>
+                                    </div>
+                                </div>
+                            </div>
                         )}
-                        {restaurant.email && (
-                            <p>
-                                <strong>Email:</strong>{' '}
-                                <a href={`mailto:${restaurant.email}`}>{restaurant.email}</a>
-                            </p>
-                        )}
-                        {restaurant.website && (
-                            <p>
-                                <strong>Website:</strong>{' '}
-                                <a href={restaurant.website} target="_blank" rel="noopener noreferrer">
-                                    {restaurant.website}
-                                </a>
-                            </p>
-                        )}
+
                         {restaurant.openingHours && (
-                            <p>
-                                <strong>Hours:</strong> {restaurant.openingHours}
-                            </p>
+                            <div className="info-item">
+                                <div className="info-icon">🕐</div>
+                                <div className="info-details">
+                                    <div className="info-label">Opening Hours</div>
+                                    <div className="info-value">{restaurant.openingHours}</div>
+                                </div>
+                            </div>
+                        )}
+
+                        {restaurant.website && (
+                            <div className="info-item">
+                                <div className="info-icon">🌐</div>
+                                <div className="info-details">
+                                    <div className="info-label">Website</div>
+                                    <div className="info-value">
+                                        <a href={restaurant.website} target="_blank" rel="noopener noreferrer">
+                                            Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {restaurant.email && (
+                            <div className="info-item">
+                                <div className="info-icon">✉️</div>
+                                <div className="info-details">
+                                    <div className="info-label">Email</div>
+                                    <div className="info-value">
+                                        <a href={`mailto:${restaurant.email}`}>{restaurant.email}</a>
+                                    </div>
+                                </div>
+                            </div>
                         )}
                     </div>
 
+                    {/* Tags */}
                     {restaurant.tags && restaurant.tags.length > 0 && (
-                        <div className="restaurant-section">
-                            <h3>Tags</h3>
-                            <div className="tags-container">
+                        <div className="tags-card">
+                            <h4>Popular Tags</h4>
+                            <div className="tags-list">
                                 {restaurant.tags.map((tag: string, index: number) => (
-                                    <span key={index} className="inline-block bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm mr-2 mb-2">
+                                    <span key={index} className="tag">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
                         </div>
                     )}
+                </div>
 
-                    <div className="restaurant-section">
-                        <h3>Price Range</h3>
-                        <p>
-                            <strong>${restaurant.minPrice}</strong> - <strong>${restaurant.maxPrice}</strong>
-                        </p>
+                {/* Main Content Area */}
+                <div className="main-content">
+                    {/* Tabs */}
+                    <div className="content-tabs">
+                        <button
+                            className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('overview')}
+                        >
+                            Overview
+                        </button>
+                        {/* todo */}
+                        {/* <button
+                            className={`tab ${activeTab === 'photos' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('photos')}
+                        >
+                            Photos ({photos.length})
+                        </button> */}
+                        <button
+                            className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('reviews')}
+                        >
+                            Reviews
+                        </button>
+                    </div>
+
+                    {/* Tab Content */}
+                    <div className="tab-content">
+                        {activeTab === 'overview' && (
+                            <div className="overview-content">
+                                <section className="about-section">
+                                    <h2>About {restaurant.name}</h2>
+                                    <p className="description">{description}</p>
+                                </section>
+                            </div>
+                        )}
+
+                        {activeTab === 'photos' && (
+                            <div className="photos-content">
+                                <div className="photos-grid">
+                                    {photos.map((photo: string, index: number) => (
+                                        <div key={index} className="photo-item">
+                                            <img src={photo} alt={`${restaurant.name} ${index + 1}`} />
+                                        </div>
+                                    ))}
+                                </div>
+                                {photos.length === 0 && (
+                                    <p className="no-content">No photos available yet.</p>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab === 'reviews' && (
+                            <div className="reviews-content">
+                                <div className="reviews-summary">
+                                    <div className="rating-overview">
+                                        <div className="rating-score">
+                                            {restaurant.rating || 'N/A'}
+                                        </div>
+                                        <div className="rating-stars">
+                                            {'★'.repeat(Math.floor(restaurant.rating || 0))}
+                                        </div>
+                                        <p className="rating-text">Based on customer reviews</p>
+                                    </div>
+                                </div>
+                                <p className="no-content">Reviews coming soon!</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
