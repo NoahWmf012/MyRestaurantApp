@@ -38,7 +38,7 @@ function StaticRestaurantPage() {
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: restaurant.name,
+                title: restaurant.name || '',
                 text: `Check out ${restaurant.name}!`,
                 url: window.location.href,
             });
@@ -101,10 +101,10 @@ function StaticRestaurantPage() {
                         {restaurant.minPrice && restaurant.maxPrice && (
                             <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>
                         )}
-                        {restaurant.rating && (
+                        {restaurant.googleRating && (
                             <span className="rating-badge">
-                                <span className="stars">{'★'.repeat(Math.floor(restaurant.rating))}</span>
-                                <span className="rating-number">{restaurant.rating}</span>
+                                <span className="stars">{'★'.repeat(Math.floor(restaurant.googleRating))}</span>
+                                <span className="rating-number">{restaurant.googleRating}</span>
                             </span>
                         )}
                     </div>
@@ -291,10 +291,10 @@ function StaticRestaurantPage() {
                                 <div className="reviews-summary">
                                     <div className="rating-overview">
                                         <div className="rating-score">
-                                            {restaurant.rating || 'N/A'}
+                                            {restaurant.googleRating || 'N/A'}
                                         </div>
                                         <div className="rating-stars">
-                                            {'★'.repeat(Math.floor(restaurant.rating || 0))}
+                                            {'★'.repeat(Math.floor(restaurant.googleRating || 0))}
                                         </div>
                                         <p className="rating-text">Based on customer reviews</p>
                                     </div>

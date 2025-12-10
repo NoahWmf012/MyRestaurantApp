@@ -17,8 +17,8 @@ export interface RestaurantRequest extends PaginatedRequest, SortFilterInterface
 }
 
 export interface RestaurantItem { //import type { Restaurant } from '@prisma/client';
-    name: string;
     id: number;
+    name: string | null;
     streetAddress: string | null;
     city: string | null;
     province: string | null;
@@ -31,16 +31,20 @@ export interface RestaurantItem { //import type { Restaurant } from '@prisma/cli
     email: string | null;
     website: string | null;
     description: string | null;
-    minPrice: number;
-    maxPrice: number;
-    rating: number | null;
-    reviews: number | null;
+    minPrice: number | null;
+    maxPrice: number | null;
+    googleRating: number | null;
+    googleReviews: number | null;
+    ratingGood: number | null;
+    ratingNormal: number | null;
+    ratingBad: number | null;
+    reviewCount: number | null;
     openingHours: string | null;
-    cuisine: string[];
-    photos: string[];
-    tags: string[];
-    createdAt: Date;
-    updatedAt: Date;
+    cuisine: string[] | null;
+    photos: string[] | null;
+    tags: string[] | null;
+    createdAt: string | null;
+    updatedAt: string | null;
 }
 
 export interface SuggestedItem {

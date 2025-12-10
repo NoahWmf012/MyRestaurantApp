@@ -27,8 +27,8 @@ export const SEARCH_FILTER_CUISINES = [
 ];
 
 export const SEARCH_FILTER_SORT_LIST = [
-    { label: 'Reviews', value: 'reviews' },
-    { label: 'Rating', value: 'rating' },
+    { label: 'Reviews', value: 'googleReviews' },
+    { label: 'Rating', value: 'googleRating' },
     { label: 'Most Bookmark', value: 'bookmark' },
     // { label: 'Distance', value: 'distance' }, todo: implement distance sort
     { label: 'Spending (low to high)', value: 'low_high' },

@@ -45,8 +45,8 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                                 <div className="restaurant-image-wrapper">
                                     <img
                                         // src={getRestaurantImage1(restaurant.id)}
-                                        src={restaurant.photos[0] || getRestaurantImage1(restaurant.id)}
-                                        alt={restaurant.name}
+                                        src={restaurant.photos?.[0] || getRestaurantImage1(restaurant.id)}
+                                        alt={restaurant.name || 'Restaurant Image'}
                                         className="restaurant-image"
                                     />
                                 </div>
@@ -55,7 +55,7 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                                     <div className="restaurant-meta">
                                         <span className="cuisine-badge">{restaurant.cuisine?.map(c => c).join(', ')}</span>
                                         <span className="rating">
-                                            {'★'.repeat(Math.floor(restaurant.rating ?? 0))} {restaurant.rating} {`(${restaurant.reviews})`}
+                                            {'★'.repeat(Math.floor(restaurant.googleRating ?? 0))} {restaurant.googleRating} {restaurant.googleReviews ? `(${restaurant.googleReviews})` : ''}
                                         </span>
                                     </div>
                                     <div className="lg:col-span-2">
