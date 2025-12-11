@@ -32,7 +32,7 @@ function SearchPage() {
 
     return (
         <div className="search-page-container restaurant-list-page">
-            <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 w-full">
+            <div className="search-page-grid-container">
                 <SearchFilter
                     onChange={(filters, sortFilter) => {
                         setAppliedFilters(filters);

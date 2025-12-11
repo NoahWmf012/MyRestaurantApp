@@ -8,6 +8,13 @@
     margin-top: 1rem;
     /* mt-4 equivalent */
     display: flex;
+
+    .search-page-grid-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 2rem;
+        width: 100%;
+    }
 }
 
 /* ========================================
