@@ -42,7 +42,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     const [bookmarked, setBookmarked] = useState(false);
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
-    const [sortBy, setSortBy] = useState('reviews');
+    const [sortBy, setSortBy] = useState('googleReviews');
     const [locationMode, setLocationMode] = useState<'none' | 'current' | 'specific'>('none');
     // const [specificLocation, setSpecificLocation] = useState('');
     const [distance, setDistance] = useState<number | undefined>(undefined);
@@ -88,7 +88,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     useEffect(() => {
         const filters: SearchCriteria[] = [];
         let sortFilter: SortFilterInterface | undefined = {
-            sortBy: 'reviews',
+            sortBy: 'googleReviews',
             sortOrder: 'desc'
         }
 
