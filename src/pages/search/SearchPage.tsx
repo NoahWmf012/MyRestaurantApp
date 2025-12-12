@@ -5,13 +5,13 @@ import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 import "./SearchPage.scss";
 import { useState, useEffect } from "react";
 import type { SearchCriteria } from "../../interfaces/queryInterface/searchCriteriaInterface";
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../../interfaces/queryInterface/base.types";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, type SortFilterInterface } from "../../interfaces/queryInterface/base.types";
 
 function SearchPage() {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('query') || '';
     const [appliedFilters, setAppliedFilters] = useState([] as SearchCriteria[]);
-    const [sortFilter, setSortFilter] = useState<{ sortBy: string; sortOrder: 'asc' | 'desc' } | null>(null);
+    const [sortFilter, setSortFilter] = useState<SortFilterInterface | null>(null);
     const [isFilterReady, setIsFilterReady] = useState(false);
     const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
 
@@ -36,7 +36,7 @@ function SearchPage() {
                 <SearchFilter
                     onChange={(filters, sortFilter) => {
                         setAppliedFilters(filters);
-                        setSortFilter(sortFilter || null);
+                        setSortFilter(sortFilter);
                     }}
                 />
                 <div className="col-span-4">

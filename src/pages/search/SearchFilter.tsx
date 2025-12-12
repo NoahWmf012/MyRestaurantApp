@@ -35,7 +35,7 @@ function CollapsibleSection({ title, children, defaultOpen = true }: Collapsible
 }
 
 type SearchFilterProps = {
-    onChange: (filters: SearchCriteria[], sortFilter?: SortFilterInterface | null) => void
+    onChange: (filters: SearchCriteria[], sortFilter: SortFilterInterface) => void
 };
 
 function SearchFilter({ onChange }: SearchFilterProps) {
@@ -87,7 +87,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
     //handle onChange
     useEffect(() => {
         const filters: SearchCriteria[] = [];
-        let sortFilter: SortFilterInterface | undefined = {
+        let sortFilter: SortFilterInterface = {
             sortBy: 'googleReviews',
             sortOrder: 'desc'
         }

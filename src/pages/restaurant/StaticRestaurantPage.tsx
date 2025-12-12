@@ -48,6 +48,11 @@ function StaticRestaurantPage() {
         }
     };
 
+    const handleBookmarked = () => {
+        // Placeholder for bookmark functionality
+        alert('Bookmark functionality coming soon!');
+    }
+
     if (isLoading) {
         return (
             <div className="restaurant-page-modern">
@@ -118,7 +123,7 @@ function StaticRestaurantPage() {
                             <span className="icon">🔗</span>
                             Share
                         </button>
-                        <button className="btn-favorite">
+                        <button className="btn-bookmark" onClick={handleBookmarked}>
                             <span className="icon">♡</span>
                         </button>
                     </div>
@@ -265,7 +270,7 @@ function StaticRestaurantPage() {
                         {activeTab === 'overview' && (
                             <div className="overview-content">
                                 <section className="about-section">
-                                    <h2>About {restaurant.name}</h2>
+                                    <h2>{restaurant.name}</h2>
                                     <p className="description">{description}</p>
                                 </section>
                             </div>
