@@ -277,6 +277,16 @@ model PollVote {
 }
  */
 
+//==================================================
+// SOCIAL SCHEMA - Reviews, Ratings, and Reactions
+//==================================================
+
+export enum Rating {
+    GOOD = 'GOOD',
+    NORMAL = 'NORMAL',
+    BAD = 'BAD'
+}
+
 export interface RestaurantPrismaInterface {
     id: number;
     name: string;
@@ -318,7 +328,7 @@ export interface ReviewPrismaInterface {
     userId: string;
     title?: string;
     content?: string;
-    rating: 'GOOD' | 'NORMAL' | 'BAD';
+    rating: Rating;
     likeCount: number;
     viewCount: number;
     isEdited: boolean;

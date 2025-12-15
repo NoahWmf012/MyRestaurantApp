@@ -1,4 +1,4 @@
-import type { ReviewPrismaInterface } from "../../interfaces/schemaPrismaInterface";
+import type { Rating, ReviewPrismaInterface } from "../../interfaces/schemaPrismaInterface";
 
 // Helper functions
 const formatDate = (date: Date | string): string => {
@@ -9,7 +9,7 @@ const formatDate = (date: Date | string): string => {
     });
 };
 
-const getRatingEmoji = (rating: 'GOOD' | 'NORMAL' | 'BAD'): string => {
+const getRatingEmoji = (rating: Rating): string => {
     const emojiMap = {
         GOOD: '👍',
         NORMAL: '👌',
@@ -18,7 +18,7 @@ const getRatingEmoji = (rating: 'GOOD' | 'NORMAL' | 'BAD'): string => {
     return emojiMap[rating];
 };
 
-const getRatingLabel = (rating: 'GOOD' | 'NORMAL' | 'BAD'): string => {
+const getRatingLabel = (rating: Rating): string => {
     const labelMap = {
         GOOD: 'Good',
         NORMAL: 'Normal',
