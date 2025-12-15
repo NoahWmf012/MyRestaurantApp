@@ -5,11 +5,13 @@ import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
 import "./RestaurantPage.scss"
 import ReviewItem from "./ReviewItem";
+import WriteReviewModal, { type ReviewFormData } from "./WriteReviewModal";
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
+    const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
 
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -67,6 +69,17 @@ function StaticRestaurantPage() {
         // Placeholder for bookmark functionality
         alert('Bookmark functionality coming soon!');
     }
+
+    const handleWriteReview = () => {
+        setIsWriteReviewOpen(true);
+    };
+
+    const handleSubmitReview = (reviewData: ReviewFormData) => {
+        // TODO: Implement API call to submit review
+        console.log('Submitting review:', reviewData);
+        alert(`Review submitted!\n\nRating: ${reviewData.rating}\nTitle: ${reviewData.title}\nContent: ${reviewData.content}`);
+        // After successful submission, you would refetch the restaurant data
+    };
 
     if (isLoading) {
         return (
@@ -302,6 +315,13 @@ function StaticRestaurantPage() {
 
                         {activeTab === 'reviews' && (
                             <div className="reviews-content">
+                                <div className="reviews-header-actions">
+                                    <button className="btn-write-review" onClick={handleWriteReview}>
+                                        <span className="icon">✍️</span>
+                                        Write a Review
+                                    </button>
+                                </div>
+
                                 <div className="reviews-summary">
                                     <div className="rating-overview">
                                         <div className="rating-score">
@@ -333,6 +353,13 @@ function StaticRestaurantPage() {
                     </div>
                 </div>
             </div>
+
+            <WriteReviewModal
+                isOpen={isWriteReviewOpen}
+                onClose={() => setIsWriteReviewOpen(false)}
+                restaurantName={restaurant.name}
+                onSubmit={handleSubmitReview}
+            />
         </div>
     );
 }

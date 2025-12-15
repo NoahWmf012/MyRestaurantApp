@@ -504,6 +504,41 @@
                 }
 
                 .reviews-content {
+                    .reviews-header-actions {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 1.5rem;
+
+                        .btn-write-review {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            padding: 0.875rem 1.75rem;
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+                            .icon {
+                                font-size: 1.25rem;
+                            }
+
+                            &:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+                            }
+
+                            &:active {
+                                transform: translateY(0);
+                            }
+                        }
+                    }
+
                     .reviews-summary {
                         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                         border-radius: 16px;
@@ -739,6 +774,15 @@
                     padding: 1.5rem;
 
                     .reviews-content {
+                        .reviews-header-actions {
+                            .btn-write-review {
+                                width: 100%;
+                                justify-content: center;
+                                padding: 0.75rem 1.5rem;
+                                font-size: 0.95rem;
+                            }
+                        }
+
                         .reviews-summary {
                             padding: 1.5rem;
 

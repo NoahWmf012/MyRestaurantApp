@@ -1,0 +1,175 @@
+@use '../../style/variables.scss' as *;
+
+// Write Review Modal Content Styles
+.write-review-content {
+
+    .restaurant-name {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+    }
+
+    .review-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    // Use base form-group styles from CommonStyle
+    // Additional custom styles for rating options
+    .rating-options {
+        display: flex;
+        gap: 1rem;
+
+        .rating-option {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            .rating-emoji {
+                font-size: 2rem;
+            }
+
+            .rating-text {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #6b7280;
+            }
+
+            &:hover {
+                border-color: #d1d5db;
+                transform: translateY(-2px);
+            }
+
+            &.rating-good {
+                &.selected {
+                    border-color: #10b981;
+                    background: #d1fae5;
+
+                    .rating-text {
+                        color: #065f46;
+                    }
+                }
+            }
+
+            &.rating-normal {
+                &.selected {
+                    border-color: #f59e0b;
+                    background: #fef3c7;
+
+                    .rating-text {
+                        color: #92400e;
+                    }
+                }
+            }
+
+            &.rating-bad {
+                &.selected {
+                    border-color: #ef4444;
+                    background: #fee2e2;
+
+                    .rating-text {
+                        color: #991b1b;
+                    }
+                }
+            }
+        }
+    }
+
+    // Use base form-input and form-textarea styles from CommonStyle
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        line-height: 1.6;
+    }
+
+    .character-count {
+        font-size: 0.85rem;
+        color: #9ca3af;
+        align-self: flex-end;
+        margin-top: -0.25rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+
+        button {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: $radius-lg;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.btn-cancel {
+                background: $neutral-100;
+                color: $text-color-secondary;
+
+                &:hover {
+                    background: $neutral-200;
+                    color: $text-color;
+                }
+            }
+
+            &.btn-submit {
+                background: $gradient-primary;
+                color: white;
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .write-review-content {
+        .rating-options {
+            flex-direction: column;
+
+            .rating-option {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 1rem;
+                padding: 0.875rem 1rem;
+
+                .rating-emoji {
+                    font-size: 1.5rem;
+                }
+
+                .rating-text {
+                    font-size: 0.95rem;
+                }
+            }
+        }
+
+        .modal-actions {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
