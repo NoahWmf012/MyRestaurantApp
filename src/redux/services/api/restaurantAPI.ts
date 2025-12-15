@@ -1,6 +1,7 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
 import type { RestaurantRequest, RestaurantResponse } from '../../../interfaces/queryInterface/restaurantInterface'
+import type { RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
 
 export const restaurantAPI = createApi({
     reducerPath: 'restaurantAPI',
@@ -11,6 +12,12 @@ export const restaurantAPI = createApi({
                 url: '/',
                 method: 'POST',
                 body
+            }),
+        }),
+        getRestaurantById: builder.query<RestaurantPrismaInterface, number>({
+            query: (id) => ({
+                url: `/${id}`,
+                method: 'GET',
             }),
         }),
     }),
