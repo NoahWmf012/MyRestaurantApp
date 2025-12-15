@@ -23,4 +23,4 @@ export const restaurantAPI = createApi({
     }),
 })
 
-export const { useGetRestaurantsQuery } = restaurantAPI
+export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery } = restaurantAPI

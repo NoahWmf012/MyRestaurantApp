@@ -2,7 +2,7 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
+import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
 import "./RestaurantPage.scss"
 
 function StaticRestaurantPage() {
@@ -10,20 +10,12 @@ function StaticRestaurantPage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
 
-    // decrypt restaurant id/name from url
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
 
-    // Determine if the decrypted value is a number (ID) or string (name)
     const isNumeric = decryptedValue && !isNaN(Number(decryptedValue));
-    const searchCriteria = isNumeric
-        ? [{ key: 'id', value: Number(decryptedValue) }]
-        : [{ key: 'name', value: decryptedValue }];
 
-    const { data: response, isLoading, isError } = useGetRestaurantsQuery(
-        { searchCriteria },
-        { skip: !decryptedValue }
-    );
+    const { data: response, isLoading, isError } = useGetRestaurantByIdQuery(isNumeric && decryptedValue ? Number(decryptedValue) : -1);
 
     const handleAddressClick = (address: string) => {
         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
@@ -64,7 +56,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    if (isError || !response || !response.restaurantList || response.restaurantList.length === 0) {
+    if (isError || !response) {
         return (
             <div className="restaurant-page-modern">
                 <div className="not-found">
@@ -78,7 +70,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    const restaurant = response.restaurantList[0];
+    const restaurant = response;
     const address = restaurant.address || restaurant.location || '';
     const phoneNum = restaurant.phone || '';
     const description = restaurant.description || 'No description available.';
