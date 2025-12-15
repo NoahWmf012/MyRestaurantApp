@@ -1,9 +1,10 @@
 // This page is for general search restaurant page that is mostly static content
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
 import "./RestaurantPage.scss"
+import ReviewItem from "./ReviewItem";
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
@@ -15,7 +16,29 @@ function StaticRestaurantPage() {
 
     const isNumeric = decryptedValue && !isNaN(Number(decryptedValue));
 
-    const { data: response, isLoading, isError } = useGetRestaurantByIdQuery(isNumeric && decryptedValue ? Number(decryptedValue) : -1);
+    const { data: restaurant, isLoading, isError } = useGetRestaurantByIdQuery(isNumeric && decryptedValue ? Number(decryptedValue) : -1);
+
+    // Memoized values
+    const restaurantData = useMemo(() => {
+        if (!restaurant) return null;
+
+        return {
+            address: restaurant.address || restaurant.location || '',
+            phoneNum: restaurant.phone || '',
+            description: restaurant.description || 'No description available.',
+            cuisine: Array.isArray(restaurant.cuisine)
+                ? restaurant.cuisine.join(', ')
+                : (restaurant.cuisine || 'Restaurant'),
+            photos: restaurant.photos || [],
+            reviews: restaurant.reviews || [],
+            reviewCount: restaurant.reviews?.length || 0
+        };
+    }, [restaurant]);
+
+    const displayPhotos = useMemo(() => {
+        if (!restaurantData) return [];
+        return showAllPhotos ? restaurantData.photos : restaurantData.photos.slice(0, 5);
+    }, [restaurantData, showAllPhotos]);
 
     const handleAddressClick = (address: string) => {
         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
@@ -30,8 +53,8 @@ function StaticRestaurantPage() {
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: restaurant.name || '',
-                text: `Check out ${restaurant.name}!`,
+                title: restaurant?.name || '',
+                text: `Check out ${restaurant?.name}!`,
                 url: window.location.href,
             });
         } else {
@@ -56,7 +79,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    if (isError || !response) {
+    if (isError || !restaurant || !restaurantData) {
         return (
             <div className="restaurant-page-modern">
                 <div className="not-found">
@@ -70,13 +93,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    const restaurant = response;
-    const address = restaurant.address || restaurant.location || '';
-    const phoneNum = restaurant.phone || '';
-    const description = restaurant.description || 'No description available.';
-    const cuisine = Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(', ') : (restaurant.cuisine || 'Restaurant');
-    const photos = restaurant.photos || [];
-    const displayPhotos = showAllPhotos ? photos : photos.slice(0, 5);
+    const { address, phoneNum, description, cuisine, photos, reviews, reviewCount } = restaurantData;
 
     return (
         <div className="restaurant-page-modern">
@@ -293,10 +310,24 @@ function StaticRestaurantPage() {
                                         <div className="rating-stars">
                                             {'★'.repeat(Math.floor(restaurant.googleRating || 0))}
                                         </div>
-                                        <p className="rating-text">Based on customer reviews</p>
+                                        <p className="rating-text">
+                                            Based on {reviewCount} customer review{reviewCount !== 1 ? 's' : ''}
+                                        </p>
                                     </div>
                                 </div>
-                                <p className="no-content">Reviews coming soon!</p>
+
+                                {reviews.length > 0 ? (
+                                    <div className="reviews-list">
+                                        {reviews.map((review) => (
+                                            <ReviewItem key={review.id} review={review} />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="no-reviews-state">
+                                        <div className="no-reviews-icon">📝</div>
+                                        <p className="no-content">No reviews yet. Be the first to review!</p>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
