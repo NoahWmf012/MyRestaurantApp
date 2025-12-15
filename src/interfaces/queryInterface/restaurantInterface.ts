@@ -1,3 +1,4 @@
+import type { Rating } from "../schemaPrismaInterface";
 import type { PaginatedRequest, PaginatedResponse, SortFilterInterface } from "./base.types";
 import type { SearchCriteria } from "./searchCriteriaInterface";
 
@@ -45,6 +46,18 @@ export interface RestaurantItem { //import type { Restaurant } from '@prisma/cli
     tags: string[] | null;
     createdAt: string | null;
     updatedAt: string | null;
+}
+
+export interface RestaurantReviewRequest {
+    restaurantId: number;
+    rating: Rating;
+    comment?: string;
+    title?: string;
+    content?: string
+}
+
+export interface RestaurantReviewResponse {
+    message: string;
 }
 
 export interface SuggestedItem {
