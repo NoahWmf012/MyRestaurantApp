@@ -80,12 +80,25 @@ function HotRestaurantItems(props: WhatsHotItemProps) {
 
 //#endregion
 
+
+
 function WhatsHot() {
+    const navigate = useNavigate();
+
+    const handleMoreClick = () => {
+        navigate('/promoted-restaurant-search');
+    }
+
     return (
         <div className="whats-hot-wrapper">
-            <div className="section-title flex items-center">
-                <img src={FireIcon} alt="Hot Icon" className="title-icon mx-2" />
-                What's Hot
+            <div className="flex items-center justify-between w-full mb-4">
+                <div className="section-title flex items-center">
+                    <img src={FireIcon} alt="Hot Icon" className="title-icon mr-2" />
+                    What's Hot
+                </div>
+                <button onClick={handleMoreClick} className="text-sm hover:underline transition mt-4 cursor-pointer">
+                    More &gt;
+                </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                 {RESTAURANT_LIST.map((restaurant) => (
