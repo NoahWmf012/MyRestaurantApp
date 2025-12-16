@@ -789,16 +789,6 @@
                 position: static;
             }
         }
-
-        .photo-gallery .gallery-grid {
-            grid-template-columns: repeat(2, 1fr);
-            height: auto;
-
-            .gallery-item.main-photo {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-        }
     }
 }
 
@@ -814,14 +804,6 @@
                     flex: 1;
                     justify-content: center;
                 }
-            }
-        }
-
-        .photo-gallery .gallery-grid {
-            grid-template-columns: 1fr;
-
-            .gallery-item.main-photo {
-                grid-column: span 1;
             }
         }
 
