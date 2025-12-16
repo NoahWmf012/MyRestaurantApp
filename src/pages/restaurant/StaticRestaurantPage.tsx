@@ -371,7 +371,6 @@ function StaticRestaurantPage() {
                 isOpen={isWriteReviewOpen}
                 onClose={() => setIsWriteReviewOpen(false)}
                 restaurantId={restaurant.id}
-                restaurantName={restaurant.name}
             />
         </div>
     );

@@ -9,6 +9,7 @@ type BaseModalProps = {
     width?: string;
     minWidth?: string;
     maxWidth?: string;
+    hideCloseButton?: boolean;
 }
 
 function BaseModal(props: BaseModalProps) {
@@ -18,7 +19,9 @@ function BaseModal(props: BaseModalProps) {
             <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: props.width, minWidth: props.minWidth, maxWidth: props.maxWidth }}>
                 <div className="modal-header">
                     <h2>{props.title}</h2>
-                    <button className="modal-close" onClick={props.onClose}>×</button>
+                    {!props.hideCloseButton &&
+                        <button className="modal-close" onClick={props.onClose}>×</button>
+                    }
                 </div>
 
                 <div className="modal-body">

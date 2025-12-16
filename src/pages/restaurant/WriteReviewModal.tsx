@@ -8,7 +8,6 @@ interface WriteReviewModalProps {
     isOpen: boolean;
     onClose: () => void;
     restaurantId: number;
-    restaurantName: string;
 }
 
 type ReviewStep = 'rating' | 'details';
@@ -17,7 +16,6 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
     isOpen,
     onClose,
     restaurantId,
-    restaurantName,
 }) => {
     const [currentStep, setCurrentStep] = useState<ReviewStep>('rating');
     const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
@@ -72,8 +70,13 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                 content: content.trim() || undefined,
             }).unwrap();
 
-            // Success - close modal and reset
-            handleClose();
+            // Success - reset state and close modal
+            setCurrentStep('rating');
+            setSelectedRating(null);
+            setTitle('');
+            setContent('');
+            setErrors({ title: '', content: '' });
+            onClose();
             alert('Review submitted successfully!');
         } catch (error) {
             console.error('Failed to submit review:', error);
@@ -126,6 +129,7 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
             title={currentStep === 'rating' ? 'Rate Your Experience' : 'Write Your Review'}
             onClose={handleClose}
             maxWidth="600px"
+            hideCloseButton={true}
         >
             <div className="write-review-content">
                 {/* Step 1: Rating Selection */}
