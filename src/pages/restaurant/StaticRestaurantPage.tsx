@@ -5,7 +5,7 @@ import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
 import "./RestaurantPage.scss"
 import ReviewItem from "./ReviewItem";
-import WriteReviewModal, { type ReviewFormData } from "./WriteReviewModal";
+import WriteReviewModal from "./WriteReviewModal";
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
@@ -72,13 +72,6 @@ function StaticRestaurantPage() {
 
     const handleWriteReview = () => {
         setIsWriteReviewOpen(true);
-    };
-
-    const handleSubmitReview = (reviewData: ReviewFormData) => {
-        // TODO: Implement API call to submit review
-        console.log('Submitting review:', reviewData);
-        alert(`Review submitted!\n\nRating: ${reviewData.rating}\nTitle: ${reviewData.title}\nContent: ${reviewData.content}`);
-        // After successful submission, you would refetch the restaurant data
     };
 
     if (isLoading) {
@@ -357,8 +350,8 @@ function StaticRestaurantPage() {
             <WriteReviewModal
                 isOpen={isWriteReviewOpen}
                 onClose={() => setIsWriteReviewOpen(false)}
+                restaurantId={restaurant.id}
                 restaurantName={restaurant.name}
-                onSubmit={handleSubmitReview}
             />
         </div>
     );

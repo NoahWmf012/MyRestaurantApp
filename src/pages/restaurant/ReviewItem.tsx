@@ -49,7 +49,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
                         {getUserInitial(review.userId)}
                     </div>
                     <div className="author-info">
-                        <div className="author-name">{maskUserId(review.userId)}</div>
+                        <div className="author-name">{maskUserId(review.user.userName)}</div>
                         <div className="review-date">{formatDate(review.createdAt)}</div>
                     </div>
                 </div>

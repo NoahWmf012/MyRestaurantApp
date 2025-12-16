@@ -8,6 +8,68 @@
         color: #6b7280;
         margin-bottom: 1.5rem;
         font-weight: 500;
+        text-align: center;
+    }
+
+    // Step 1: Rating Selection
+    .rating-step {
+        text-align: center;
+        padding: 1rem 0;
+
+        .step-description {
+            font-size: 1.125rem;
+            color: $text-color;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+    }
+
+    // Step 2: Details Form
+    .details-step {
+        .selected-rating-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: $radius-lg;
+
+            .rating-label {
+                font-size: 0.95rem;
+                color: $text-color-secondary;
+                font-weight: 500;
+            }
+
+            .rating-badge {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.95rem;
+                font-weight: 600;
+
+                &.rating-good {
+                    background: #d1fae5;
+                    color: #065f46;
+                    border: 1px solid #6ee7b7;
+                }
+
+                &.rating-normal {
+                    background: #fef3c7;
+                    color: #92400e;
+                    border: 1px solid #fcd34d;
+                }
+
+                &.rating-bad {
+                    background: #fee2e2;
+                    color: #991b1b;
+                    border: 1px solid #fca5a5;
+                }
+            }
+        }
     }
 
     .review-form {
@@ -114,11 +176,18 @@
             cursor: pointer;
             transition: all 0.3s ease;
 
-            &.btn-cancel {
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            &.btn-back {
                 background: $neutral-100;
                 color: $text-color-secondary;
+                flex: 0 0 auto;
+                min-width: 120px;
 
-                &:hover {
+                &:hover:not(:disabled) {
                     background: $neutral-200;
                     color: $text-color;
                 }
@@ -129,12 +198,12 @@
                 color: white;
                 box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 
-                &:hover {
+                &:hover:not(:disabled) {
                     transform: translateY(-2px);
                     box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
                 }
 
-                &:active {
+                &:active:not(:disabled) {
                     transform: translateY(0);
                 }
             }
@@ -165,10 +234,10 @@
         }
 
         .modal-actions {
-            flex-direction: column;
+            gap: 0.75rem;
 
-            button {
-                width: 100%;
+            .btn-back {
+                min-width: 100px;
             }
         }
     }

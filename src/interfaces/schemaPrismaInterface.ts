@@ -334,6 +334,13 @@ export interface ReviewPrismaInterface {
     isEdited: boolean;
     createdAt: Date;
     updatedAt: Date;
+
+    //user type from getRestaurantById
+    user: {
+        id: string;
+        userName: string;
+        avatarUrl: string | null;
+    };
 }
 
 export interface RestaurantI18nPrismaInterface {
