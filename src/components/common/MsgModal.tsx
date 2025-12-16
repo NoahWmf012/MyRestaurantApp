@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store'
 import './CommonStyle.style.scss';
 import { modalCallbackManager } from '../../utils/modalCallbackManager';
 
-function ErrModal() {
+function MsgModal() {
     const { visible, title, message, type } = useAppSelector((state) => state.showErrModalState);
     const dispatch = useAppDispatch();
     const dismissTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -105,4 +105,4 @@ function ErrModal() {
     );
 }
 
-export default ErrModal;
+export default MsgModal;

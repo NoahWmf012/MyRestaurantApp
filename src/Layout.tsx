@@ -5,7 +5,7 @@ import Header from './pages/header/Header'
 import { ScrollToTop } from './components/ScrollToTop'
 import RoulettePopup from './components/spinWheel/RoulettePopup'
 import VoteModal from './components/vote/VoteModal'
-import ErrModal from './components/common/ErrModal'
+import MsgModal from './components/common/MsgModal'
 import { useAppSelector } from './redux/store'
 
 const style = {
@@ -26,7 +26,7 @@ export const Layout = () => {
             {/* modals */}
             <RoulettePopup />
             {show && <VoteModal />} {/* Prevent auth API call */}
-            <ErrModal />
+            <MsgModal />
         </div>
     )
 }
