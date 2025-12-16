@@ -127,6 +127,29 @@ function StaticRestaurantPage() {
                                 <span className="rating-number">{restaurant.googleRating}</span>
                             </span>
                         )}
+                        {/* Rating counts */}
+                        {(restaurant.ratingGood > 0 || restaurant.ratingNormal > 0 || restaurant.ratingBad > 0) && (
+                            <div className="rating-counts">
+                                {restaurant.ratingGood > 0 && (
+                                    <span className="count-badge count-good">
+                                        <span className="count-icon">👍</span>
+                                        <span className="count-number">{restaurant.ratingGood}</span>
+                                    </span>
+                                )}
+                                {restaurant.ratingNormal > 0 && (
+                                    <span className="count-badge count-normal">
+                                        <span className="count-icon">👌</span>
+                                        <span className="count-number">{restaurant.ratingNormal}</span>
+                                    </span>
+                                )}
+                                {restaurant.ratingBad > 0 && (
+                                    <span className="count-badge count-bad">
+                                        <span className="count-icon">👎</span>
+                                        <span className="count-number">{restaurant.ratingBad}</span>
+                                    </span>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <div className="action-buttons">
@@ -308,13 +331,6 @@ function StaticRestaurantPage() {
 
                         {activeTab === 'reviews' && (
                             <div className="reviews-content">
-                                <div className="reviews-header-actions">
-                                    <button className="btn-write-review" onClick={handleWriteReview}>
-                                        <span className="icon">✍️</span>
-                                        Write a Review
-                                    </button>
-                                </div>
-
                                 <div className="reviews-summary">
                                     <div className="rating-overview">
                                         <div className="rating-score">
@@ -327,6 +343,10 @@ function StaticRestaurantPage() {
                                             Based on {reviewCount} customer review{reviewCount !== 1 ? 's' : ''}
                                         </p>
                                     </div>
+                                    <button className="btn-write-review" onClick={handleWriteReview}>
+                                        <span className="icon">✍️</span>
+                                        Write a Review
+                                    </button>
                                 </div>
 
                                 {reviews.length > 0 ? (

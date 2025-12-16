@@ -128,8 +128,6 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
             maxWidth="600px"
         >
             <div className="write-review-content">
-                <p className="restaurant-name">for {restaurantName}</p>
-
                 {/* Step 1: Rating Selection */}
                 {currentStep === 'rating' && (
                     <div className="rating-step">

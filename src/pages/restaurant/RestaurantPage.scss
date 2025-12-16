@@ -159,6 +159,62 @@
                     color: #333;
                 }
             }
+
+            .rating-counts {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                .count-badge {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                    padding: 0.375rem 0.75rem;
+                    border-radius: 16px;
+                    font-size: 0.875rem;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    border: 1px solid transparent;
+
+                    .count-icon {
+                        font-size: 1rem;
+                    }
+
+                    .count-number {
+                        font-size: 0.875rem;
+                    }
+
+                    &.count-good {
+                        background: #d1fae5;
+                        color: #065f46;
+                        border-color: #6ee7b7;
+
+                        &:hover {
+                            background: #a7f3d0;
+                        }
+                    }
+
+                    &.count-normal {
+                        background: #fef3c7;
+                        color: #92400e;
+                        border-color: #fcd34d;
+
+                        &:hover {
+                            background: #fde68a;
+                        }
+                    }
+
+                    &.count-bad {
+                        background: #fee2e2;
+                        color: #991b1b;
+                        border-color: #fca5a5;
+
+                        &:hover {
+                            background: #fecaca;
+                        }
+                    }
+                }
+            }
         }
 
         .action-buttons {
@@ -504,50 +560,21 @@
                 }
 
                 .reviews-content {
-                    .reviews-header-actions {
-                        display: flex;
-                        justify-content: flex-end;
-                        margin-bottom: 1.5rem;
-
-                        .btn-write-review {
-                            display: flex;
-                            align-items: center;
-                            gap: 0.5rem;
-                            padding: 0.875rem 1.75rem;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            color: white;
-                            border: none;
-                            border-radius: 8px;
-                            font-size: 1rem;
-                            font-weight: 600;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-
-                            .icon {
-                                font-size: 1.25rem;
-                            }
-
-                            &:hover {
-                                transform: translateY(-2px);
-                                box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-                            }
-
-                            &:active {
-                                transform: translateY(0);
-                            }
-                        }
-                    }
-
                     .reviews-summary {
                         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                         border-radius: 16px;
                         padding: 2.5rem;
                         margin-bottom: 2rem;
-                        text-align: center;
                         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 2rem;
 
                         .rating-overview {
+                            flex: 1;
+                            text-align: left;
+
                             .rating-score {
                                 font-size: 3.5rem;
                                 font-weight: 800;
@@ -567,6 +594,38 @@
                                 font-size: 1rem;
                                 color: rgba(255, 255, 255, 0.9);
                                 font-weight: 500;
+                            }
+                        }
+
+                        .btn-write-review {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            padding: 0.875rem 1.75rem;
+                            background: rgba(255, 255, 255, 0.95);
+                            color: #667eea;
+                            border: 2px solid rgba(255, 255, 255, 0.3);
+                            border-radius: 8px;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            white-space: nowrap;
+                            flex-shrink: 0;
+
+                            .icon {
+                                font-size: 1.25rem;
+                            }
+
+                            &:hover {
+                                background: white;
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+                            }
+
+                            &:active {
+                                transform: translateY(0);
                             }
                         }
                     }
@@ -774,19 +833,15 @@
                     padding: 1.5rem;
 
                     .reviews-content {
-                        .reviews-header-actions {
-                            .btn-write-review {
-                                width: 100%;
-                                justify-content: center;
-                                padding: 0.75rem 1.5rem;
-                                font-size: 0.95rem;
-                            }
-                        }
-
                         .reviews-summary {
+                            flex-direction: column;
                             padding: 1.5rem;
+                            text-align: center;
+                            gap: 1.5rem;
 
                             .rating-overview {
+                                text-align: center;
+
                                 .rating-score {
                                     font-size: 2.5rem;
                                 }
@@ -798,6 +853,13 @@
                                 .rating-text {
                                     font-size: 0.875rem;
                                 }
+                            }
+
+                            .btn-write-review {
+                                width: 100%;
+                                justify-content: center;
+                                padding: 0.75rem 1.5rem;
+                                font-size: 0.95rem;
                             }
                         }
 
