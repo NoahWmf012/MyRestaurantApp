@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Rating } from "../../interfaces/schemaPrismaInterface";
 import BaseModal from "../../components/common/BaseModal";
 import { usePostRestaurantReviewMutation } from "../../redux/services/api/restaurantAPI";
+import { useMsgModal } from "../../hooks/useMsgModal";
 import "./WriteReviewModal.scss";
 
 interface WriteReviewModalProps {
@@ -26,6 +27,7 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
         content: '',
     });
 
+    const { showSuccess, showError } = useMsgModal();
     const [postReview, { isLoading }] = usePostRestaurantReviewMutation();
 
     const validateDetailsForm = (): boolean => {
@@ -76,11 +78,10 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
             setTitle('');
             setContent('');
             setErrors({ title: '', content: '' });
-            onClose();
-            alert('Review submitted successfully!');
+            showSuccess('Review submitted successfully!');
         } catch (error) {
             console.error('Failed to submit review:', error);
-            alert('Failed to submit review. Please try again.');
+            showError('Failed to submit review. Please try again.');
         }
     };
 
@@ -95,10 +96,10 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                         title: title.trim() || undefined,
                         content: content.trim() || undefined,
                     }).unwrap();
-                    alert('Review submitted successfully!');
+                    showSuccess('Review submitted successfully!');
                 } catch (error) {
                     console.error('Failed to submit review:', error);
-                    alert('Failed to submit review. Please try again.');
+                    showError('Failed to submit review. Please try again.');
                 }
             }
         }

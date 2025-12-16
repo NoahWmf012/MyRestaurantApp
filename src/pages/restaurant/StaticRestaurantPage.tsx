@@ -3,6 +3,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
+import { useMsgModal } from "../../hooks/useMsgModal";
 import "./RestaurantPage.scss"
 import ReviewItem from "./ReviewItem";
 import WriteReviewModal from "./WriteReviewModal";
@@ -12,6 +13,7 @@ function StaticRestaurantPage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
+    const { showInfo, showSuccess } = useMsgModal();
 
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -49,7 +51,7 @@ function StaticRestaurantPage() {
 
     const handleBooking = () => {
         // Placeholder for booking functionality
-        alert('Booking functionality coming soon!');
+        showInfo('Booking functionality coming soon!');
     };
 
     const handleShare = () => {
@@ -61,13 +63,13 @@ function StaticRestaurantPage() {
             });
         } else {
             navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+            showSuccess('Link copied to clipboard!');
         }
     };
 
     const handleBookmarked = () => {
         // Placeholder for bookmark functionality
-        alert('Bookmark functionality coming soon!');
+        showInfo('Bookmark functionality coming soon!');
     }
 
     const handleWriteReview = () => {
