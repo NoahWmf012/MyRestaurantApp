@@ -154,7 +154,8 @@ function StaticRestaurantPage() {
                         )}
                     </div>
 
-                    <div className="action-buttons">
+                    {/* todo */}
+                    {/* <div className="action-buttons">
                         <button className="btn-book" onClick={handleBooking}>
                             <span className="icon">📅</span>
                             Book Now
@@ -166,7 +167,7 @@ function StaticRestaurantPage() {
                         <button className="btn-bookmark" onClick={handleBookmarked}>
                             <span className="icon">♡</span>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

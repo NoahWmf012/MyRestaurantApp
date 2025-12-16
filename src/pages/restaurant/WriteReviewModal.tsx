@@ -78,6 +78,7 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
             setTitle('');
             setContent('');
             setErrors({ title: '', content: '' });
+            onClose();
             showSuccess('Review submitted successfully!');
         } catch (error) {
             console.error('Failed to submit review:', error);
