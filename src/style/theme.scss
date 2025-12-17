@@ -234,7 +234,7 @@ input[type="text"] {
     // width: $carousel-width;
 }
 
-.order-again-wrapper {
+.recommend-wrapper {
     width: 100%;
 }
 
@@ -258,7 +258,7 @@ input[type="text"] {
 
 /* Modern Card Styles */
 .whats-hot-item,
-.order-again-item {
+.recommend-item {
     border: 1px solid $border-color-light !important;
     border-radius: $radius-xl !important;
     overflow: hidden;
@@ -309,6 +309,14 @@ input[type="text"] {
             line-height: 1.5;
             margin-bottom: 0;
         }
+    }
+}
+
+.card-hover-animated {
+    &:hover {
+        border-color: $primary-color !important;
+        transform: translateY(-4px);
+        box-shadow: $shadow-lg, $shadow-yellow;
     }
 }
 

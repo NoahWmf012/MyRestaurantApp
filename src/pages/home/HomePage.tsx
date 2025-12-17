@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import FoodCategory from "../../components/FoodCategory"
 // import NewDishes from "../../components/section/NewDishes"
-import OrderAgain from "../../components/section/OrderAgain"
+import Recommendations from "../../components/section/Recommendations"
 // import RestaurantRank from "../../components/section/RestaurantRank"
 // import Reviews from "../../components/section/Reviews"
 import WhatsHot from "../../components/section/WhatsHot"
@@ -41,7 +41,7 @@ function HomePage() {
 
                     {/* 'Recommended' section */}
                     <section className="mb-8">
-                        <OrderAgain />
+                        <Recommendations />
                     </section>
 
                     {/* Ranks of restaurants */}

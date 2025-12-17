@@ -13,7 +13,7 @@ type OrderAgainItemProps = {
     restaurantName: string;
 }
 
-function OrderAgainItem(props: OrderAgainItemProps) {
+function RecommendItem(props: OrderAgainItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -21,7 +21,7 @@ function OrderAgainItem(props: OrderAgainItemProps) {
     };
     return (
         <div
-            className="horizontal-card order-again-item border-none shadow-sm my-4 mx-2 rounded"
+            className="horizontal-card recommend-item border-none shadow-sm my-4 mx-2 rounded"
             role="button"
             onClick={handleClick}
         >
@@ -32,12 +32,19 @@ function OrderAgainItem(props: OrderAgainItemProps) {
 }
 //#endregion
 
-function OrderAgain() {
+function Recommendations() {
+    const navigate = useNavigate();
+
+    const handleMoreClick = () => {
+        navigate('/promoted-restaurant-search');
+    }
     return (
-        <div className="order-again-wrapper">
-            <div className="section-title flex items-center">
-                <img src={OrderIcon} alt="Order Icon" className="title-icon mx-2" />
-                Recommended
+        <div className="recommend-wrapper">
+            <div className="flex w-full mb-4">
+                <div className="section-title flex items-center cursor-pointer hover:scale-105 transition-transform duration-200" onClick={handleMoreClick}>
+                    <img src={OrderIcon} alt="Order Icon" className="title-icon mx-2" />
+                    Recommendation
+                </div>
             </div>
 
             <div className="flex flex-row items-center">
@@ -48,7 +55,7 @@ function OrderAgain() {
                         draggable={false}
                     >
                         {RESTAURANT_LIST.map((restaurant) => (
-                            <OrderAgainItem
+                            <RecommendItem
                                 key={restaurant.id}
                                 imageSrc={getRestaurantImage2(restaurant.id)}
                                 title={restaurant.name}
@@ -64,4 +71,4 @@ function OrderAgain() {
     )
 }
 
-export default OrderAgain
+export default Recommendations
