@@ -3,7 +3,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
-import { useMsgModal } from "../../hooks/useMsgModal";
+// import { useMsgModal } from "../../hooks/useMsgModal";
 import "./RestaurantPage.scss"
 import ReviewItem from "./ReviewItem";
 import WriteReviewModal from "./WriteReviewModal";
@@ -13,7 +13,7 @@ function StaticRestaurantPage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
-    const { showInfo, showSuccess } = useMsgModal();
+    // const { showInfo, showSuccess } = useMsgModal();
 
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -49,28 +49,28 @@ function StaticRestaurantPage() {
         window.open(googleMapsUrl, '_blank');
     };
 
-    const handleBooking = () => {
-        // Placeholder for booking functionality
-        showInfo('Booking functionality coming soon!');
-    };
+    // const handleBooking = () => {
+    //     // Placeholder for booking functionality
+    //     showInfo('Booking functionality coming soon!');
+    // };
 
-    const handleShare = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: restaurant?.name || '',
-                text: `Check out ${restaurant?.name}!`,
-                url: window.location.href,
-            });
-        } else {
-            navigator.clipboard.writeText(window.location.href);
-            showSuccess('Link copied to clipboard!');
-        }
-    };
+    // const handleShare = () => {
+    //     if (navigator.share) {
+    //         navigator.share({
+    //             title: restaurant?.name || '',
+    //             text: `Check out ${restaurant?.name}!`,
+    //             url: window.location.href,
+    //         });
+    //     } else {
+    //         navigator.clipboard.writeText(window.location.href);
+    //         showSuccess('Link copied to clipboard!');
+    //     }
+    // };
 
-    const handleBookmarked = () => {
-        // Placeholder for bookmark functionality
-        showInfo('Bookmark functionality coming soon!');
-    }
+    // const handleBookmarked = () => {
+    //     // Placeholder for bookmark functionality
+    //     showInfo('Bookmark functionality coming soon!');
+    // }
 
     const handleWriteReview = () => {
         setIsWriteReviewOpen(true);

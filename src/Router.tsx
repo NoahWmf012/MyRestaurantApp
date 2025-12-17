@@ -5,7 +5,7 @@ import { ErrorBoundary, NotFoundPage } from './components/ErrorBoundary'
 
 // Lazy load all page components for better code splitting
 const HomePage = lazy(() => import('./pages/home/HomePage'))
-const RestaurantPage = lazy(() => import('./pages/restaurant/PromotedRestaurantPage'))
+const PromotedRestaurantPage = lazy(() => import('./pages/restaurant/PromotedRestaurantPage'))
 const SearchPage = lazy(() => import('./pages/search/SearchPage'))
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
 const SignupPage = lazy(() => import('./pages/auth/SignupPage'))
@@ -26,7 +26,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Layout />} errorElement={<ErrorBoundary />}>
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="restaurant/:name" element={<RestaurantPage />} />{/* Promote Restaurant */}
+            <Route path="restaurant/:name" element={<PromotedRestaurantPage />} />{/* Promote Restaurant */}
             <Route path="restaurant-search/:restaurantId" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
             <Route path="about-us" element={<AboutUsPage />} />
             <Route path="contact" element={<ContactPage />} />
