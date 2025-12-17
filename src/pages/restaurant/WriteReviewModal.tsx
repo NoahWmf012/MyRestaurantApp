@@ -22,7 +22,7 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
     const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [errors, setErrors] = useState({
+    const [errors, setErrors] = useState({ //todo: add bad language filtering
         title: '',
         content: '',
     });
@@ -36,15 +36,15 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
             content: '',
         };
 
-        if (title.trim() && title.length < 3) {
-            newErrors.title = 'Title must be at least 3 characters';
-        }
+        // if (title.trim() && title.length < 3) {
+        //     newErrors.title = 'Title must be at least 3 characters';
+        // }
 
-        if (content.trim() && content.length < 10) {
-            newErrors.content = 'Review must be at least 10 characters';
-        }
+        // if (content.trim() && content.length < 10) {
+        //     newErrors.content = 'Review must be at least 10 characters';
+        // }
 
-        setErrors(newErrors);
+        // setErrors(newErrors);
         return !newErrors.title && !newErrors.content;
     };
 
@@ -210,7 +210,7 @@ const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                                     rows={6}
                                     maxLength={1000}
                                 />
-                                {errors.content && <span className="form-error">{errors.content}</span>}
+                                {/* {errors.content && <span className="form-error">{errors.content}</span>} */}
                                 <span className="character-count">{content.length}/1000</span>
                             </div>
 
