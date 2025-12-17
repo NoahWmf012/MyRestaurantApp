@@ -6,7 +6,7 @@ import FireIcon from "../../assets/icons/whatshot.png"
 import { useNavigate } from "react-router-dom";
 
 //#region card items
-type WhatsHotItemProps = {
+export type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
@@ -43,7 +43,7 @@ type WhatsHotItemProps = {
 //     )
 // }
 
-function HotRestaurantItems(props: WhatsHotItemProps) {
+export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
