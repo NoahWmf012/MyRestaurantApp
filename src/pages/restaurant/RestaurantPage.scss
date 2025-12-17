@@ -134,11 +134,14 @@
             .cuisine-badge,
             .price-badge {
                 padding: 0.5rem 1rem;
-                background: #f0f0f0;
                 border-radius: 20px;
                 font-size: 0.9rem;
                 font-weight: 500;
                 color: #333;
+            }
+
+            .price-badge {
+                background: #f0f0f0;
             }
 
             .rating-badge {

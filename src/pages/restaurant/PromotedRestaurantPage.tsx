@@ -3,7 +3,7 @@
 import { useParams } from 'react-router-dom';
 import { RESTAURANT_LIST } from '../../constants/restaurantData';
 import { getRestaurantImage1, getRestaurantImage2 } from '../../hooks/getImageSrcHook';
-import './PromotedRestaurantPage.scss';
+import './RestaurantPage.scss';
 
 const PromotedRestaurantPage = () => {
     const { name } = useParams<{ name: string }>();

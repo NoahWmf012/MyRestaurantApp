@@ -119,7 +119,7 @@ function StaticRestaurantPage() {
                     <h1 className="restaurant-title">{restaurant.name}</h1>
 
                     <div className="restaurant-meta-badges">
-                        <span className="cuisine-badge">{cuisine}</span>
+                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{cuisine}</span>
                         {restaurant.minPrice && restaurant.maxPrice && (
                             <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>
                         )}
