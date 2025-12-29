@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import FireIcon from "../../assets/icons/whatshot.png";
@@ -15,7 +14,8 @@ function PromotedRestaurantSearchPage() {
                     <h1 className="text-3xl font-bold">Selected Recommendations</h1>
                 </div>
                 <p className="text-gray-600 mt-2">
-                    Handpicked restaurants that have been personally tried and tested. Each one is chosen for delivering an exceptional dining experience.
+                    GetherEat discovers the best promoted restaurants for you! We select top-rated eateries
+                    Explore top deals and popular spots handpicked just for you.
                 </p>
             </div>
 
