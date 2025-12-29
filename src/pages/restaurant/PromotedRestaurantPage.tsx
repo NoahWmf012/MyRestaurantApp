@@ -1,7 +1,6 @@
 // This page is for dynamic restaurant page which shows promoted restaurant details
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { RESTAURANT_LIST } from '../../constants/restaurantData';
 import { getRestaurantImage1 } from '../../hooks/getImageSrcHook';
 import './RestaurantPage.scss';

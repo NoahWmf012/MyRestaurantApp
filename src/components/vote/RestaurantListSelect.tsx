@@ -41,7 +41,7 @@ export default function RestaurantListSelect({
             return;
         }
         const filtered = restaurantList?.restaurantList?.filter((r) =>
-            r.name.toLowerCase().includes(searchTerm.toLowerCase())
+            r.name?.toLowerCase().includes(searchTerm.toLowerCase())
         ) || [];
         setSuggestions(filtered);
         setShowDropdown(filtered.length > 0);
@@ -58,7 +58,7 @@ export default function RestaurantListSelect({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleAddOption = (restaurant: { name: string; id?: number } | null) => {
+    const handleAddOption = (restaurant: RestaurantItem | null) => {
         const name = restaurant ? restaurant.name : searchTerm.trim();
         if (!name) return;
 
