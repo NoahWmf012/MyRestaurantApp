@@ -47,8 +47,5 @@ export const router = createBrowserRouter(
 
             <Route path="*" element={<NotFoundPage />} />
         </Route>
-    ),
-    {
-        basename: '/my-restaurant-fe'
-    }
+    )
 )
