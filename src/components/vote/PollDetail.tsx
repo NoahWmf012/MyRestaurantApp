@@ -1,3 +1,5 @@
+import { getAppUrl } from '../../hooks/urlHook';
+import { useMsgModal } from '../../hooks/useMsgModal';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 import { useAppSelector } from '../../redux/store';
 import { PollOptions } from './PollOptions';
@@ -5,13 +7,15 @@ import { PollOptions } from './PollOptions';
 interface PollDetailProps {
     poll: PollResponse;
     onVote: (pollId: number, restaurantId: number | null, optionId: number) => void;
-    onBack?: () => void;
+    onBack: () => void;
 };
 
 
 function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
     const currentUser = useAppSelector((state) => state.userInfoState);
     const isExpired = !poll.isActive || new Date(poll.expiresAt) < new Date();
+
+    const { showSuccess, showError } = useMsgModal();
 
     const getUserVote = (): number | null => {
         for (const option of poll.options) {
@@ -36,6 +40,16 @@ function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
         });
     };
 
+    //Copy Poll Link handler
+    const handleCopyPollLink = () => {
+        const url = `${getAppUrl()}poll/share/${poll.shareToken}`;
+        navigator.clipboard.writeText(url).then(() => {
+            showSuccess('Poll link copied to clipboard!');
+        }).catch(err => {
+            showError('Failed to copy link', err);
+        });
+    };
+
     const handleVoteClick = (restaurantId: number | null, optionId: number) => {
         if (isExpired) return;
         onVote(poll.id, restaurantId, optionId);
@@ -43,14 +57,21 @@ function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
 
     return (
         <div className="modern-poll-detail">
-            {onBack && (
+            <div className="flex justify-between poll-detail-actions">
                 <button
                     className="btn btn-secondary poll-back-btn"
                     onClick={onBack}
                 >
                     ← Back to Polls
                 </button>
-            )}
+
+                {/* A button that lets copy the url to clipboard */}
+                <button className="btn btn-outline-primary poll-action-btn" onClick={handleCopyPollLink}>
+                    Copy Poll Link
+                </button>
+
+            </div>
+
             <div className="modern-poll-info">
                 <div className="poll-info-header">
                     <div className="poll-info-icon">
