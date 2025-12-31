@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import PollDetail from "../../components/vote/PollDetail";
+import { PollList } from "../../components/vote/PollList";
 import { useGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 import './VotePage.scss';
@@ -14,7 +15,6 @@ interface LocationState {
 function VotePage() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [pollId, setPollId] = useState<number | null>(null);
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
 
     const locationState = location.state as LocationState;
@@ -49,30 +49,18 @@ function VotePage() {
         }
     }, [sharedPoll, fromShare]);
 
-    // Extract poll ID from URL hash (e.g., /vote#123) - only if no poll from state
-    useEffect(() => {
-        if (!pollFromState) {
-            const hash = location.hash.replace('#', '');
-            if (hash) {
-                const id = parseInt(hash, 10);
-                if (!isNaN(id)) {
-                    setPollId(id);
-                }
-            }
-        }
-    }, [location.hash, pollFromState]);
+    const handlePollClick = (poll: PollResponse) => {
+        // Sort options by vote count when first entering the poll
+        const sortedPoll = {
+            ...poll,
+            options: [...poll.options].sort((a, b) => b.votes.length - a.votes.length)
+        };
+        setSelectedPoll(sortedPoll);
+    };
 
-    // Find the selected poll from fetched polls - only if no poll from state
-    useEffect(() => {
-        if (!pollFromState && polls && pollId) {
-            const poll = polls.find((p: PollResponse) => p.id === pollId);
-            if (poll) {
-                setSelectedPoll(poll);
-            } else {
-                console.error('Poll with ID ' + pollId + ' not found');
-            }
-        }
-    }, [polls, pollId, pollFromState]);
+    const handleBackToList = () => {
+        setSelectedPoll(null);
+    };
 
     const handleVote = async (pollId: number, _restaurantId: number | null, optionId: number) => {
         try {
@@ -80,10 +68,39 @@ function VotePage() {
 
             // If poll came from share link, refetch using share token
             if (fromShare && shareToken) {
-                await refetchSharedPoll();
+                const { data: updatedSharedPoll } = await refetchSharedPoll();
+                // Update selected poll if it's currently viewed, preserving current order
+                if (selectedPoll && selectedPoll.id === pollId && updatedSharedPoll) {
+                    const reorderedOptions = selectedPoll.options.map(currentOption => {
+                        return updatedSharedPoll.options.find(
+                            opt => opt.pollOptionId === currentOption.pollOptionId
+                        )!;
+                    });
+
+                    setSelectedPoll({
+                        ...updatedSharedPoll,
+                        options: reorderedOptions
+                    });
+                }
             } else {
                 // Otherwise refetch from the normal polls list
-                await refetchPolls();
+                const { data: updatedPolls } = await refetchPolls();
+                // Update selected poll if it's currently viewed, preserving current order
+                if (selectedPoll && selectedPoll.id === pollId && updatedPolls) {
+                    const updatedPoll = updatedPolls.find(p => p.id === pollId);
+                    if (updatedPoll) {
+                        const reorderedOptions = selectedPoll.options.map(currentOption => {
+                            return updatedPoll.options.find(
+                                opt => opt.pollOptionId === currentOption.pollOptionId
+                            )!;
+                        });
+
+                        setSelectedPoll({
+                            ...updatedPoll,
+                            options: reorderedOptions
+                        });
+                    }
+                }
             }
         } catch (error) {
             console.error('Failed to submit vote:', error);
@@ -108,27 +125,19 @@ function VotePage() {
                     </div>
                 )}
 
-                {!isLoading && !isError && !pollId && !pollFromState && (
-                    <div className="no-poll-selected">
-                        <h2>No Poll Selected</h2>
-                        <p>Please select a poll from the URL hash (e.g., /vote#123)</p>
-                        <button onClick={() => navigate('/')}>Go Home</button>
-                    </div>
-                )}
-
-                {!isLoading && !isError && pollId && !selectedPoll && !pollFromState && (
-                    <div className="poll-not-found">
-                        <h2>Poll Not Found</h2>
-                        <p>The poll with ID {pollId} could not be found.</p>
-                        <button onClick={() => navigate('/')}>Go Home</button>
-                    </div>
-                )}
-
-                {selectedPoll && (
+                {!isLoading && !isError && selectedPoll && (
                     <PollDetail
                         poll={selectedPoll}
                         onVote={handleVote}
+                        onBack={handleBackToList}
                     />
+                )}
+
+                {!isLoading && !isError && !selectedPoll && polls && (
+                    <div className="vote-page-list">
+                        <h1>Polls</h1>
+                        <PollList polls={polls} handlePollClick={handlePollClick} />
+                    </div>
                 )}
             </div>
         </ProtectedRoute>

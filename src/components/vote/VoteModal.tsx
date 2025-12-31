@@ -108,13 +108,6 @@ function VoteModal() {
             return (
                 <div>
                     <div className="flex justify-between items-center mb-8 poll-detail-actions">
-                        <button
-                            className="btn btn-secondary poll-action-btn"
-                            onClick={handleBackToList}
-                        >
-                            ← Back to Polls
-                        </button>
-
                         {/* A button that lets copy the url to clipboard */}
                         <button className="btn btn-outline-primary poll-action-btn" onClick={handleCopyPollLink}>
                             Copy Poll Link
@@ -124,6 +117,7 @@ function VoteModal() {
                     <PollDetail
                         poll={selectedPoll}
                         onVote={handleVote}
+                        onBack={handleBackToList}
                     />
                 </div>
             );

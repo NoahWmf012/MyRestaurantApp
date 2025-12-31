@@ -5,10 +5,11 @@ import { PollOptions } from './PollOptions';
 interface PollDetailProps {
     poll: PollResponse;
     onVote: (pollId: number, restaurantId: number | null, optionId: number) => void;
+    onBack?: () => void;
 };
 
 
-function PollDetail({ poll, onVote }: PollDetailProps) {
+function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
     const currentUser = useAppSelector((state) => state.userInfoState);
     const isExpired = !poll.isActive || new Date(poll.expiresAt) < new Date();
 
@@ -42,6 +43,14 @@ function PollDetail({ poll, onVote }: PollDetailProps) {
 
     return (
         <div className="modern-poll-detail">
+            {onBack && (
+                <button
+                    className="btn btn-secondary poll-back-btn"
+                    onClick={onBack}
+                >
+                    ← Back to Polls
+                </button>
+            )}
             <div className="modern-poll-info">
                 <div className="poll-info-header">
                     <div className="poll-info-icon">
