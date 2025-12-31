@@ -132,9 +132,9 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
                 result = await retryQuery(args, api, {})
             } else {
                 // Show modal, clear auth when user closes it
-                modalCallbackManager.set(() => {
-                    api.dispatch(clearAuthInfo());
-                });
+                // modalCallbackManager.set(() => {
+                //     api.dispatch(clearAuthInfo());
+                // });
 
                 store.dispatch(showErrModal({
                     message: 'Your session has expired. Please log in again to continue.',

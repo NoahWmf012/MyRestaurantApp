@@ -13,6 +13,7 @@ import { useMsgModal } from '../../hooks/useMsgModal';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
+    const { accessToken } = useAppSelector(state => state.authState);
     const dispatch = useAppDispatch();
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
     const [polls, setPolls] = useState([] as PollResponse[]);
@@ -100,7 +101,7 @@ function VoteModal() {
         }
     };
 
-    if (!show) return null;
+    if (!show || !accessToken) return null;
 
     function VoteModalContent() {
         if (selectedPoll) {

@@ -76,7 +76,7 @@ export const authSlice = createSlice({
             // Clear localStorage
             localStorage.removeItem('authInfo')
             //redirect to home page
-            window.location.href = import.meta.env.VITE_BASE_URL || '/'
+            // window.location.href = '/login'
         },
         initializeAuthFromStorage(state) {
             const authData = loadAuthFromStorage()
