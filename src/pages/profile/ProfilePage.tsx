@@ -2,6 +2,7 @@ import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.scss';
+import { useAppSelector } from "../../redux/store";
 
 interface UserProfile {
     id: string;
@@ -21,18 +22,19 @@ function ProfilePage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'reviews' | 'favorites' | 'polls'>('overview');
     const [isLoading, setIsLoading] = useState(true);
 
+    //get userInfo from userInfoSlice
+    const userInfo = useAppSelector((state) => state.userInfoState);
+
     useEffect(() => {
         // Load user profile data
         const loadProfile = () => {
             try {
-                const authInfo = localStorage.getItem('authInfo');
-                if (authInfo) {
-                    const parsed = JSON.parse(authInfo);
+                if (userInfo) {
                     // Mock profile data - replace with actual API call
                     setProfile({
-                        id: parsed.userId || '1',
-                        userName: parsed.userName || 'User',
-                        email: parsed.email || 'user@example.com',
+                        id: userInfo.userId || '1',
+                        userName: userInfo.userName || 'User',
+                        email: userInfo.userEmail || 'user@example.com',
                         role: 'user',
                         isAnonymous: false,
                         joinedDate: '2024-01-15',
