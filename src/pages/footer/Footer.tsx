@@ -1,17 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import './Footer.scss';
+import { useCallback } from 'react';
+import { useAppDispatch } from '../../redux/store';
+import { showRouletteModal } from '../../redux/reducers/modalVisibleSlice';
 
 function Footer() {
     const navigate = useNavigate();
     const currentYear = new Date().getFullYear();
+    const dispatch = useAppDispatch()
 
     const onVoteClick = () => {
         navigate('/vote');
     }
 
-    const onSpinWheelClick = () => {
-        navigate('/spin-wheel');
-    }
+    const onSpinWheelClick = useCallback(() => {
+        dispatch(showRouletteModal())
+    }, [dispatch]);
 
     const onAboutUsClick = () => {
         navigate('/about-us');

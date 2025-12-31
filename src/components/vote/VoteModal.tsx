@@ -8,11 +8,10 @@ import BaseModal from '../common/BaseModal';
 import CreatePollModal from './CreatePollModal';
 import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
-import { getAppUrl } from '../../hooks/urlHook';
-import { useMsgModal } from '../../hooks/useMsgModal';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
+    const { accessToken } = useAppSelector(state => state.authState);
     const dispatch = useAppDispatch();
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
     const [polls, setPolls] = useState([] as PollResponse[]);
@@ -20,8 +19,6 @@ function VoteModal() {
 
     const { data: votesData, error, refetch: refetchPolls } = useGetPollsQuery()
     const [updateVote] = useUpdateVoteMutation();
-
-    const { showSuccess, showError } = useMsgModal();
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
 
@@ -60,18 +57,6 @@ function VoteModal() {
         setSelectedPoll(null);
     };
 
-    //Copy Poll Link handler
-    const handleCopyPollLink = () => {
-        if (selectedPoll) {
-            const url = `${getAppUrl()}poll/share/${selectedPoll.shareToken}`;
-            navigator.clipboard.writeText(url).then(() => {
-                showSuccess('Poll link copied to clipboard!');
-            }).catch(err => {
-                showError('Failed to copy link', err);
-            });
-        }
-    };
-
     const handleVote = async (pollId: number, _restaurantId: number | null, optionId: number) => {
         try {
             await updateVote({ pollId, optionId }).unwrap();
@@ -100,29 +85,16 @@ function VoteModal() {
         }
     };
 
-    if (!show) return null;
+    if (!show || !accessToken) return null;
 
     function VoteModalContent() {
         if (selectedPoll) {
             return (
                 <div>
-                    <div className="flex justify-between items-center mb-8 poll-detail-actions">
-                        <button
-                            className="btn btn-secondary poll-action-btn"
-                            onClick={handleBackToList}
-                        >
-                            ← Back to Polls
-                        </button>
-
-                        {/* A button that lets copy the url to clipboard */}
-                        <button className="btn btn-outline-primary poll-action-btn" onClick={handleCopyPollLink}>
-                            Copy Poll Link
-                        </button>
-                    </div>
-
                     <PollDetail
                         poll={selectedPoll}
                         onVote={handleVote}
+                        onBack={handleBackToList}
                     />
                 </div>
             );
@@ -131,7 +103,7 @@ function VoteModal() {
         return (
             <div>
                 <div className="flex justify-between items-center mb-8">
-                    <h5>Active Polls</h5>
+                    <h5>Polls</h5>
                     <button
                         className="btn btn-success"
                         onClick={() => setShowCreateModal(true)}

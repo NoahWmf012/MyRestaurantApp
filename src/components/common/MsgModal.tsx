@@ -12,6 +12,7 @@ function MsgModal() {
     const onClose = useCallback(() => {
         // Execute callback if exists
         modalCallbackManager.execute();
+        modalCallbackManager.clear();
 
         dispatch(hideErrModal());
         if (dismissTimerRef.current) {
