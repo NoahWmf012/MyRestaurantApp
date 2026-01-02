@@ -2,7 +2,7 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
-import { useGetRestaurantByIdQuery } from "../../redux/services/api/restaurantAPI";
+import { useGetRestaurantByIdQuery, useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
 // import { useMsgModal } from "../../hooks/useMsgModal";
 import "./RestaurantPage.scss"
 import ReviewItem from "./ReviewItem";
@@ -20,7 +20,19 @@ function StaticRestaurantPage() {
 
     const isNumeric = decryptedValue && !isNaN(Number(decryptedValue));
 
-    const { data: restaurant, isLoading, isError } = useGetRestaurantByIdQuery(isNumeric && decryptedValue ? Number(decryptedValue) : -1);
+    const { data: restaurantById, isLoading: isLoadingById, isError: isErrorById } = useGetRestaurantByIdQuery(
+        isNumeric ? Number(decryptedValue) : -1,
+        { skip: !isNumeric }
+    );
+
+    const { data: restaurantsData, isLoading: isLoadingList, isError: isErrorList } = useGetRestaurantsQuery(
+        { query: decryptedValue || '' },
+        { skip: isNumeric || !decryptedValue }
+    );
+
+    const restaurant = isNumeric ? restaurantById : restaurantsData?.restaurantList?.[0];
+    const isLoading = isLoadingById || isLoadingList;
+    const isError = isErrorById || isErrorList;
 
     // Memoized values
     const restaurantData = useMemo(() => {
@@ -35,7 +47,7 @@ function StaticRestaurantPage() {
                 : (restaurant.cuisine || 'Restaurant'),
             photos: restaurant.photos || [],
             reviews: restaurant.reviews || [],
-            reviewCount: restaurant.reviews?.length || 0
+            reviewCount: restaurant.googleReviews || 0
         };
     }, [restaurant]);
 
@@ -130,21 +142,21 @@ function StaticRestaurantPage() {
                             </span>
                         )}
                         {/* Rating counts */}
-                        {(restaurant.ratingGood > 0 || restaurant.ratingNormal > 0 || restaurant.ratingBad > 0) && (
+                        {((restaurant?.ratingGood ?? 0) > 0 || (restaurant?.ratingNormal ?? 0) > 0 || (restaurant?.ratingBad ?? 0) > 0) && (
                             <div className="rating-counts">
-                                {restaurant.ratingGood > 0 && (
+                                {(restaurant.ratingGood ?? 0) > 0 && (
                                     <span className="count-badge count-good">
                                         <span className="count-icon">👍</span>
                                         <span className="count-number">{restaurant.ratingGood}</span>
                                     </span>
                                 )}
-                                {restaurant.ratingNormal > 0 && (
+                                {(restaurant.ratingNormal ?? 0) > 0 && (
                                     <span className="count-badge count-normal">
                                         <span className="count-icon">👌</span>
                                         <span className="count-number">{restaurant.ratingNormal}</span>
                                     </span>
                                 )}
-                                {restaurant.ratingBad > 0 && (
+                                {(restaurant.ratingBad ?? 0) > 0 && (
                                     <span className="count-badge count-bad">
                                         <span className="count-icon">👎</span>
                                         <span className="count-number">{restaurant.ratingBad}</span>
@@ -352,7 +364,7 @@ function StaticRestaurantPage() {
                                     </button>
                                 </div>
 
-                                {reviews.length > 0 ? (
+                                {reviewCount > 0 ? (
                                     <div className="reviews-list">
                                         {reviews.map((review) => (
                                             <ReviewItem key={review.id} review={review} />

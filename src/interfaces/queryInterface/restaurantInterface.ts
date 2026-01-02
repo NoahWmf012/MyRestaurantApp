@@ -1,9 +1,9 @@
-import type { Rating } from "../schemaPrismaInterface";
+import type { Rating, RestaurantPrismaInterface } from "../schemaPrismaInterface";
 import type { PaginatedRequest, PaginatedResponse, SortFilterInterface } from "./base.types";
 import type { SearchCriteria } from "./searchCriteriaInterface";
 
 export interface RestaurantResponse extends PaginatedResponse {
-    restaurantList: RestaurantItem[];
+    restaurantList: RestaurantPrismaInterface[];
 }
 
 export interface RestaurantRequest extends PaginatedRequest, SortFilterInterface {
