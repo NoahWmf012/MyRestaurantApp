@@ -1,7 +1,7 @@
 import { fetchBaseQuery, type BaseQueryApi, type FetchArgs } from "@reduxjs/toolkit/query";
 import type { AuthInterface } from "../reducers/authSlice";
 import { setAuthInfo } from "../reducers/authSlice";
-import type { RefreshTokenResponse } from "../../interfaces/queryInterface/userAPIInterface";
+import type { RefreshTokenResponse } from "../../interfaces/queryInterface/authAPIInterface";
 import { AUTH_INFO_KEY } from "../../constants/authConstant";
 import { showErrModal } from "../reducers/modalVisibleSlice";
 import { store } from "../store";

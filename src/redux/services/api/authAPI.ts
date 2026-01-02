@@ -1,9 +1,9 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryNoAuth } from '../keycloak'
-import type { ForgetPasswordRequest, ForgetPasswordResponse, GuestLoginRequest, GuestLoginResponse, LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/userAPIInterface'
+import type { ForgetPasswordRequest, ForgetPasswordResponse, GuestLoginRequest, GuestLoginResponse, LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse, SignUpRequest, SignUpResponse } from '../../../interfaces/queryInterface/authAPIInterface'
 
-export const userAPI = createApi({
-    reducerPath: 'userAPI',
+export const authAPI = createApi({
+    reducerPath: 'authAPI',
     baseQuery: fetchBaseQueryNoAuth(import.meta.env.VITE_SERVER_URL),
     endpoints: (builder) => ({
         login: builder.query<LoginResponse, LoginRequest>({
@@ -47,7 +47,13 @@ export const userAPI = createApi({
                 method: 'POST',
             }),
         }),
+        getProfile: builder.query<void, void>({
+            query: () => ({
+                url: '/user/profile',
+                method: 'GET',
+            }),
+        }),
     }),
 })
 
-export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLazyFreshTokenQuery, useLazyGuestLoginQuery, useLogoutMutation } = userAPI
+export const { useLazyLoginQuery, useLazySignUpQuery, useLazyForgetPasswordQuery, useLazyFreshTokenQuery, useLazyGuestLoginQuery, useLogoutMutation } = authAPI

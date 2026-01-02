@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useLogoutMutation } from '../redux/services/api/userAPI';
+import { useLogoutMutation } from '../redux/services/api/authAPI';
 import { useAppDispatch } from '../redux/store';
 import { clearAuthInfo } from '../redux/reducers/authSlice';
 import { clearUserInfo } from '../redux/reducers/userInfoSlice';

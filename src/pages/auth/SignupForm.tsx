@@ -4,7 +4,7 @@ import ShowIcon from '../../assets/icons/show.png'
 import HideIcon from '../../assets/icons/hide.png'
 import './auth.scss'
 import { signupValidation } from '../../validations/auth.validation';
-import { useLazySignUpQuery } from '../../redux/services/api/userAPI';
+import { useLazySignUpQuery } from '../../redux/services/api/authAPI';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux
 import { combineReducers } from "redux";
 import { showErrModalState, showRouletteModalState, showVoteModalState } from "./reducers/modalVisibleSlice";
 import { userInfoSlice } from "./reducers/userInfoSlice";
-import { userAPI } from "./services/api/userAPI";
+import { authAPI } from "./services/api/authAPI";
 import { restaurantAPI } from "./services/api/restaurantAPI";
 import { voteAPI } from "./services/api/voteAPI";
 import { authSlice } from "./reducers/authSlice";
@@ -17,7 +17,7 @@ const reducer = combineReducers({
     authState: authSlice.reducer,
 
     //API reducers
-    [userAPI.reducerPath]: userAPI.reducer,
+    [authAPI.reducerPath]: authAPI.reducer,
     [restaurantAPI.reducerPath]: restaurantAPI.reducer,
     [voteAPI.reducerPath]: voteAPI.reducer,
 })
@@ -27,7 +27,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
     }).concat(
-        userAPI.middleware,
+        authAPI.middleware,
         restaurantAPI.middleware,
         voteAPI.middleware,
     ),

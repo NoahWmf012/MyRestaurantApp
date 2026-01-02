@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCallback } from 'react';
-import { userAPI } from '../redux/services/api/userAPI';
+import { authAPI } from '../redux/services/api/authAPI';
 import { store } from '../redux/store';
 
 export const useAuthRedirect = () => {
@@ -72,7 +72,7 @@ export const checkAndRefreshToken = async () => {
             const thresholdInSeconds = 2 * 24 * 60 * 60 // 2 days
             if (parsed.expiredIn && (parsed.expiredIn - currentTimeInSeconds) < thresholdInSeconds) {
 
-                const result = await store.dispatch(userAPI.endpoints.freshToken.initiate({ refreshToken: parsed.refreshToken })).unwrap()
+                const result = await store.dispatch(authAPI.endpoints.freshToken.initiate({ refreshToken: parsed.refreshToken })).unwrap()
 
                 if (result.accessToken) {
                     // Update localStorage with new tokens
