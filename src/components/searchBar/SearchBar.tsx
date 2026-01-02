@@ -59,16 +59,20 @@ const SearchBar = () => {
         localStorage.removeItem(SEARCH_HISTTORY_KEY);
     };
 
+    const handleWrapperBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+        // Only close if focus is moving outside the wrapper entirely
+        const relatedTarget = e.relatedTarget as HTMLElement;
+        if (!wrapperRef.current?.contains(relatedTarget)) {
+            setShowPopup(false)
+        }
+    };
+
     return (
         <div
             className="modern-searchbar-wrapper"
             ref={wrapperRef}
-            onBlur={(e) => {
-                // Close popup when clicking outside
-                if (!wrapperRef.current?.contains(e.relatedTarget as Node)) {
-                    setShowPopup(false);
-                }
-            }}
+            onBlur={handleWrapperBlur}
+            tabIndex={-1}
         >
             <div className="modern-searchbar-container">
                 <svg

@@ -49,7 +49,8 @@ function LoginForm() {
         register: registerLogin,
         handleSubmit: handleLoginSubmit,
         formState: { errors: loginErrors, isSubmitting: isLoginLoading },
-        setError: setLoginError
+        setError: setLoginError,
+        getValues: getLoginValues
     } = useForm<LoginRequest>({
         resolver: yupResolver(loginValidation),
         defaultValues: {
@@ -97,7 +98,8 @@ function LoginForm() {
                 //set userInfoSlice
                 dispatch(setUserInfo({
                     userId: loginResult.data.userId,
-                    userName: loginResult.data.userName
+                    userName: loginResult.data.userName,
+                    userEmail: getLoginValues('email')
                 }))
 
                 // Redirect to intended page after successful login

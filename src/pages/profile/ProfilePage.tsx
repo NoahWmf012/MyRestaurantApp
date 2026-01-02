@@ -2,6 +2,7 @@ import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.scss';
+import { useAppSelector } from "../../redux/store";
 
 interface UserProfile {
     id: string;
@@ -9,7 +10,6 @@ interface UserProfile {
     email: string;
     role: string;
     isAnonymous: boolean;
-    joinedDate?: string;
     favoriteRestaurants?: number;
     totalReviews?: number;
     pollsCreated?: number;
@@ -18,24 +18,24 @@ interface UserProfile {
 function ProfilePage() {
     const navigate = useNavigate();
     const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [activeTab, setActiveTab] = useState<'overview' | 'reviews' | 'favorites' | 'polls'>('overview');
+    const [activeTab, setActiveTab] = useState<'favorites' | 'reviews' | 'polls'>('favorites');
     const [isLoading, setIsLoading] = useState(true);
+
+    //get userInfo from userInfoSlice
+    const userInfo = useAppSelector((state) => state.userInfoState);
 
     useEffect(() => {
         // Load user profile data
         const loadProfile = () => {
             try {
-                const authInfo = localStorage.getItem('authInfo');
-                if (authInfo) {
-                    const parsed = JSON.parse(authInfo);
+                if (userInfo) {
                     // Mock profile data - replace with actual API call
                     setProfile({
-                        id: parsed.userId || '1',
-                        userName: parsed.userName || 'User',
-                        email: parsed.email || 'user@example.com',
+                        id: userInfo.userId || '1',
+                        userName: userInfo.userName || 'User',
+                        email: userInfo.userEmail || 'user@example.com',
                         role: 'user',
                         isAnonymous: false,
-                        joinedDate: '2024-01-15',
                         favoriteRestaurants: 12,
                         totalReviews: 28,
                         pollsCreated: 15
@@ -125,15 +125,6 @@ function ProfilePage() {
                             <div className="stat-value">{profile.pollsCreated || 0}</div>
                             <div className="stat-label">Polls Created</div>
                         </div>
-                        <div className="stat-card">
-                            <div className="stat-icon">📅</div>
-                            <div className="stat-value">
-                                {profile.joinedDate
-                                    ? new Date(profile.joinedDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-                                    : 'N/A'}
-                            </div>
-                            <div className="stat-label">Member Since</div>
-                        </div>
                     </div>
                 </section>
 
@@ -141,22 +132,16 @@ function ProfilePage() {
                 <section className="profile-content">
                     <div className="profile-tabs">
                         <button
-                            className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('overview')}
+                            className={`tab-btn ${activeTab === 'favorites' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('favorites')}
                         >
-                            📊 Overview
+                            ❤️ Favorites
                         </button>
                         <button
                             className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
                             onClick={() => setActiveTab('reviews')}
                         >
                             ⭐ My Reviews
-                        </button>
-                        <button
-                            className={`tab-btn ${activeTab === 'favorites' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('favorites')}
-                        >
-                            ❤️ Favorites
                         </button>
                         <button
                             className={`tab-btn ${activeTab === 'polls' ? 'active' : ''}`}
@@ -167,65 +152,6 @@ function ProfilePage() {
                     </div>
 
                     <div className="tab-content">
-                        {activeTab === 'overview' && (
-                            <div className="overview-content">
-                                <div className="activity-section">
-                                    <h2>Recent Activity</h2>
-                                    <div className="activity-list">
-                                        <div className="activity-item">
-                                            <div className="activity-icon">⭐</div>
-                                            <div className="activity-details">
-                                                <p className="activity-text">
-                                                    Reviewed <strong>Italian Bistro</strong>
-                                                </p>
-                                                <p className="activity-time">2 hours ago</p>
-                                            </div>
-                                        </div>
-                                        <div className="activity-item">
-                                            <div className="activity-icon">❤️</div>
-                                            <div className="activity-details">
-                                                <p className="activity-text">
-                                                    Added <strong>Sushi Paradise</strong> to favorites
-                                                </p>
-                                                <p className="activity-time">1 day ago</p>
-                                            </div>
-                                        </div>
-                                        <div className="activity-item">
-                                            <div className="activity-icon">🗳️</div>
-                                            <div className="activity-details">
-                                                <p className="activity-text">
-                                                    Created poll "Weekend Brunch Spot"
-                                                </p>
-                                                <p className="activity-time">3 days ago</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="preferences-section">
-                                    <h2>Dining Preferences</h2>
-                                    <div className="preferences-grid">
-                                        <div className="preference-item">
-                                            <span className="preference-icon">🍕</span>
-                                            <span>Italian Cuisine</span>
-                                        </div>
-                                        <div className="preference-item">
-                                            <span className="preference-icon">🍣</span>
-                                            <span>Japanese Cuisine</span>
-                                        </div>
-                                        <div className="preference-item">
-                                            <span className="preference-icon">🌮</span>
-                                            <span>Mexican Food</span>
-                                        </div>
-                                        <div className="preference-item">
-                                            <span className="preference-icon">🥗</span>
-                                            <span>Healthy Options</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
                         {activeTab === 'reviews' && (
                             <div className="reviews-content">
                                 <div className="empty-state">

@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { getRestaurantImage1 } from '../../hooks/getImageSrcHook';
-import type { RestaurantItem } from '../../interfaces/queryInterface/restaurantInterface';
 import Pagination from '../../components/common/Pagination';
+import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
 
 type SearchDetailProps = {
-    list: RestaurantItem[];
+    list: RestaurantPrismaInterface[];
     currentPage: number;
     totalCount: number;
     pageSize: number;

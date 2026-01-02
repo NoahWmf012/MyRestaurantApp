@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 export interface UserInfoInterface {
     userId: string
     userName: string
+    userEmail?: string
     isGuest?: boolean
 }
 
@@ -15,6 +16,7 @@ const loadUserInfoFromStorage = (): UserInfoInterface => {
             return {
                 userId: parsed.userId || '',
                 userName: parsed.userName || '',
+                userEmail: parsed.userEmail || '',
             }
         }
     } catch (error) {
@@ -24,7 +26,8 @@ const loadUserInfoFromStorage = (): UserInfoInterface => {
 
     return {
         userId: '',
-        userName: ''
+        userName: '',
+        userEmail: ''
     }
 }
 
@@ -37,6 +40,7 @@ export const userInfoSlice = createSlice({
         setUserInfo(state, { payload }: PayloadAction<UserInfoInterface>) {
             state.userId = payload.userId
             state.userName = payload.userName
+            state.userEmail = payload.userEmail
             state.isGuest = payload.isGuest
 
             // Handle localStorage persistence directly in the reducer

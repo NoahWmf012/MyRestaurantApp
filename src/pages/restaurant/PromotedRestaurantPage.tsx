@@ -55,7 +55,7 @@ const PromotedRestaurantPage = () => {
                             Featured
                         </span>
                     </div>
-                    <h1 className="text-5xl font-bold mb-3">{restaurant.name}</h1>
+                    <h1 className="text-5xl font-bold mb-3 text-outline">{restaurant.name}</h1>
                     <div className="flex items-center gap-4">
                         <span className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold">
                             {restaurant.cuisine}
