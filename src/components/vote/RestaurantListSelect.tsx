@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
-import type { RestaurantItem } from "../../interfaces/queryInterface/restaurantInterface";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../../interfaces/queryInterface/base.types";
 import { useMsgModal } from "../../hooks/useMsgModal";
+import type { RestaurantPrismaInterface } from "../../interfaces/schemaPrismaInterface";
 
 export interface RestaurantOption {
     restaurantName: string;
@@ -27,7 +27,7 @@ export default function RestaurantListSelect({
     showList = true,
 }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
-    const [suggestions, setSuggestions] = useState<RestaurantItem[]>([]);
+    const [suggestions, setSuggestions] = useState<RestaurantPrismaInterface[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const { data: restaurantList } = useGetRestaurantsQuery({ query: searchTerm, pageSize: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE });
     const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -58,7 +58,7 @@ export default function RestaurantListSelect({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleAddOption = (restaurant: RestaurantItem | null) => {
+    const handleAddOption = (restaurant: RestaurantPrismaInterface | null) => {
         const name = restaurant ? restaurant.name : searchTerm.trim();
         if (!name) return;
 
