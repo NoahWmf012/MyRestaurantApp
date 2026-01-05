@@ -6,18 +6,18 @@
    ======================================== */
 
 .poll-modal-container {
-    .auth-container {
+    .poll-container {
         min-height: auto;
         padding: 0;
     }
 
-    .auth-card {
+    .poll-card {
         max-width: 100%;
         padding: 2rem;
         margin: 0;
     }
 
-    .auth-form {
+    .poll-form {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
@@ -36,7 +36,7 @@
 
 @media (max-width: 480px) {
     .poll-modal-container {
-        .auth-card {
+        .poll-card {
             padding: 1.5rem;
         }
     }
