@@ -1,291 +1,37 @@
-/**
+// All tables are from prisma/schema.prisma
+
 //==================================================
 // CORE SCHEMA - User and Authentication
 //==================================================
-
-model User {
-    id        String   @id // Use Supabase user ID
-    email     String   @unique
-    userName  String
-    avatarUrl String?
-    bio       String?
-    role      String   @default("user") // "user" | "admin" | "guest"
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+export interface UserPrismaInterface {
+    id: string;
+    email: string;
+    userName: string;
+    avatarUrl?: string | null;
+    bio?: string | null;
+    role: string; // "user" | "admin" | "guest"
+    createdAt: Date;
+    updatedAt: Date;
 
     // Relations
-    reviews               Review[]
-    bookmarkedRestaurants Bookmark[]
-    followers             UserFollow[] @relation("Following")
-    following             UserFollow[] @relation("Followers")
-
-    @@map("users")
+    bookmarkedRestaurants: BookmarkPrismaInterface[]; //Favorite Restaurants
+    bookmarkGroups: BookmarkGroupPrismaInterface[]; // Define BookmarkGroupPrismaInterface if needed
+    reviews: ReviewPrismaInterface[];
+    polls: PollPrismaInterface[];
+    followers: UserFollowPrismaInterface[];
+    following: UserFollowPrismaInterface[];
 }
 
-model UserFollow {
-    id          Int      @id @default(autoincrement())
-    followerId  String // User who follows
-    followingId String // User being followed
-    createdAt   DateTime @default(now())
-
-    follower  User @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade)
-    following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
-
-    @@unique([followerId, followingId])
-    @@index([followerId])
-    @@index([followingId])
-    @@map("user_follows")
+export interface UserFollowPrismaInterface {
+    id: number;
+    followerId: string; // User who follows
+    followingId: string; // User being followed
+    createdAt: Date;
 }
 
 //==================================================
 // RESTAURANT SCHEMA - Restaurant Data
 //==================================================
-
-model Restaurant {
-    id            Int      @id @default(autoincrement())
-    name          String
-    streetAddress String // "#139, 3636 Steeles Ave E"
-    city          String // "Markham"
-    province      String? // "ON"
-    postalCode    String? // "L3R 2Z5"
-    address       String // Full address (keep for backward compatibility)
-    latitude      Float
-    longitude     Float
-    location      String // Google Map url
-    phone         String?
-    email         String?
-    website       String?
-    description   String?
-    minPrice      Int
-    maxPrice      Int
-    // Google rating and reviews from Google Maps
-    googleRating  Float?
-    googleReviews Int?
-    // Rating stats (cached from reviews)
-    ratingGood    Int      @default(0) // Count of "Good" ratings
-    ratingNormal  Int      @default(0) // Count of "Normal" ratings
-    ratingBad     Int      @default(0) // Count of "Bad" ratings
-    reviewCount   Int      @default(0) // Total number of reviews
-    openingHours  String?
-    cuisine       String[]
-    photos        String[] // Array of photo URLs
-    tags          String[] // e.g., ["vegan", "family-friendly", "香港小炒"]
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-
-    // Relations
-    restaurantI18ns RestaurantI18n[]
-    reviews         Review[]
-    bookmarkedBy    Bookmark[]
-
-    @@unique([name, address])
-    @@index([city])
-    @@index([province])
-    @@index([name])
-    @@index([streetAddress])
-    @@index([address])
-    @@index([cuisine], type: Gin)
-    @@index([tags], type: Gin)
-    @@map("restaurants")
-}
-
-model RestaurantI18n {
-    id              Int     @id @default(autoincrement())
-    restaurantId    Int
-    zhHkName        String? // Chinese (Traditional)
-    zhHkDescription String?
-    zhCnName        String? // Chinese (Simplified)
-    zhCnDescription String?
-    frName          String? // French
-    frDescription   String?
-
-    restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-
-    @@unique([restaurantId])
-    @@map("restaurant_i18ns")
-}
-
-model PromoteRestaurant {
-    id            Int       @id @default(autoincrement())
-    restaurantId  Int
-    promotePhotos String[] // URL of the promotional photos
-    promoteText   String?
-    isActive      Boolean   @default(true)
-    startDate     DateTime  @default(now())
-    endDate       DateTime?
-    createdAt     DateTime  @default(now())
-
-    promoteRestaurantI18n PromoteRestaurantI18n?
-
-    @@index([restaurantId])
-    @@index([isActive, startDate, endDate])
-    @@map("promote_restaurants")
-}
-
-model PromoteRestaurantI18n {
-    id                  Int     @id @default(autoincrement())
-    promoteRestaurantId Int
-    zhHkText            String? // Chinese (Traditional)
-    zhCnText            String? // Chinese (Simplified)
-    frText              String? // French
-
-    promoteRestaurant PromoteRestaurant @relation(fields: [promoteRestaurantId], references: [id], onDelete: Cascade)
-
-    @@unique([promoteRestaurantId])
-    @@map("promote_restaurant_i18ns")
-}
-
-//==================================================
-// SOCIAL SCHEMA - Reviews, Ratings, and Reactions
-//==================================================
-
-enum Rating {
-    GOOD
-    NORMAL
-    BAD
-
-    @@map("rating")
-}
-
-model Bookmark {
-    id           Int      @id @default(autoincrement())
-    userId       String
-    restaurantId Int
-    createdAt    DateTime @default(now())
-
-    user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-
-    @@unique([userId, restaurantId])
-    @@index([userId])
-    @@index([restaurantId])
-    @@map("bookmarks")
-}
-
-model Review {
-    id           Int      @id @default(autoincrement())
-    restaurantId Int
-    userId       String
-    title        String?
-    content      String? // Review text
-    rating       Rating // Simple rating: GOOD, NORMAL, BAD
-    // Cached counts (updated via triggers or application logic)
-    likeCount    Int      @default(0)
-    viewCount    Int      @default(0)
-    isEdited     Boolean  @default(false)
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-
-    // Relations
-    restaurant Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-    user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-    photos     ReviewPhoto[]
-
-    @@index([restaurantId])
-    @@index([userId])
-    @@index([rating])
-    @@index([createdAt])
-    @@index([likeCount])
-    @@map("reviews")
-}
-
-model ReviewPhoto {
-    id         Int      @id @default(autoincrement())
-    reviewId   Int
-    imageUrl   String
-    caption    String?
-    order      Int      @default(0) // Display order
-    uploadedAt DateTime @default(now())
-
-    review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-
-    @@index([reviewId])
-    @@map("review_photos")
-}
-
-//==================================================
-// FEATURE SCHEMA - Polls and Other Features
-//==================================================
-
-model Poll {
-    id          Int       @id @default(autoincrement())
-    title       String
-    description String?
-    createdBy   String
-    expiresAt   DateTime?
-    isActive    Boolean   @default(true)
-    shareToken  String    @unique @default(uuid())
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-
-    options    PollOption[]
-    votes      PollVote[]
-    sharedWith PollShare[]
-
-    @@index([createdBy])
-    @@index([isActive])
-    @@index([shareToken])
-    @@map("polls")
-}
-
-model PollShare {
-    id       Int      @id @default(autoincrement())
-    pollId   Int
-    userId   String
-    sharedAt DateTime @default(now())
-
-    poll Poll @relation(fields: [pollId], references: [id], onDelete: Cascade)
-
-    @@unique([pollId, userId])
-    @@index([pollId])
-    @@index([userId])
-    @@map("poll_shares")
-}
-
-model PollOption {
-    id             Int      @id @default(autoincrement())
-    restaurantId   Int? // Link to restaurant if exists in DB
-    restaurantName String
-    description    String?
-    pollId         Int
-    createdAt      DateTime @default(now())
-
-    poll  Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
-    votes PollVote[]
-
-    @@index([pollId])
-    @@index([restaurantId])
-    @@map("poll_options")
-}
-
-model PollVote {
-    id           Int      @id @default(autoincrement())
-    userId       String
-    userName     String
-    pollId       Int
-    pollOptionId Int
-    votedAt      DateTime @default(now())
-
-    poll       Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
-    pollOption PollOption @relation(fields: [pollOptionId], references: [id], onDelete: Cascade)
-
-    @@unique([userId, pollId]) // One vote per user per poll
-    @@index([pollId])
-    @@index([pollOptionId])
-    @@index([userId])
-    @@map("poll_votes")
-}
- */
-
-//==================================================
-// SOCIAL SCHEMA - Reviews, Ratings, and Reactions
-//==================================================
-
-export enum Rating {
-    GOOD = 'GOOD',
-    NORMAL = 'NORMAL',
-    BAD = 'BAD'
-}
 
 export interface RestaurantPrismaInterface {
     id: number;
@@ -322,27 +68,6 @@ export interface RestaurantPrismaInterface {
     bookmarkedBy: BookmarkPrismaInterface[]
 }
 
-export interface ReviewPrismaInterface {
-    id: number;
-    restaurantId: number;
-    userId: string;
-    title?: string;
-    content?: string;
-    rating: Rating;
-    likeCount: number;
-    viewCount: number;
-    isEdited: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-
-    //user type from getRestaurantById
-    user: {
-        id: string;
-        userName: string;
-        avatarUrl: string | null;
-    };
-}
-
 export interface RestaurantI18nPrismaInterface {
     id: number;
     restaurantId: number;
@@ -354,9 +79,193 @@ export interface RestaurantI18nPrismaInterface {
     frDescription?: string;
 }
 
+/**model PromoteRestaurant {
+    id           Int       @id @default(autoincrement())
+    restaurantId Int
+    promoteText  String? // html content
+    isActive     Boolean   @default(true)
+    startDate    DateTime  @default(now())
+    endDate      DateTime?
+    createdAt    DateTime  @default(now())
+
+    promoteRestaurantI18n PromoteRestaurantI18n?
+
+    @@index([restaurantId])
+    @@index([isActive, startDate, endDate])
+    @@map("promote_restaurants")
+} */
+
+export interface PromoteRestaurantPrismaInterface {
+    id: number;
+    restaurantId: number;
+    promoteText?: string; // html content
+    isActive: boolean;
+    startDate: Date;
+    endDate?: Date | null;
+    createdAt: Date;
+
+    promoteRestaurantI18n?: PromoteRestaurantI18nPrismaInterface | null;
+}
+
+
+export interface PromoteRestaurantI18nPrismaInterface {
+    id: number;
+    promoteRestaurantId: number;
+    zhHkText?: string; // Chinese (Traditional)
+    zhCnText?: string; // Chinese (Simplified)
+    frText?: string; // French
+}
+
+export interface KeySearchRestaurantPrismaInterface {
+    id: number;
+    restaurantId: number;
+    keyword: string;
+    value: string;
+    imageUrl?: string | null;
+}
+
+//==================================================
+// SOCIAL SCHEMA - Reviews, Ratings, and Reactions
+//==================================================
+
+export enum Rating {
+    GOOD = 'GOOD',
+    NORMAL = 'NORMAL',
+    BAD = 'BAD'
+}
+
 export interface BookmarkPrismaInterface {
     id: number;
     userId: string;
     restaurantId: number;
     createdAt: Date;
+    bookmarkGroup?: BookmarkGroupPrismaInterface;
+}
+
+export interface BookmarkGroupPrismaInterface {
+    id: number;
+    userId: string;
+    name: string;
+    description?: string | null;
+    color?: string | null;
+    order: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+/**model Review {
+    id           Int      @id @default(autoincrement())
+    restaurantId Int
+    userId       String
+    title        String?
+    content      String? // Review text
+    rating       Rating // Simple rating: GOOD, NORMAL, BAD
+    // Cached counts (updated via triggers or application logic)
+    likeCount    Int      @default(0)
+    viewCount    Int      @default(0)
+    isEdited     Boolean  @default(false)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    // Relations
+    restaurant Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+    user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    photos     ReviewPhoto[]
+
+    @@index([restaurantId])
+    @@index([userId])
+    @@index([rating])
+    @@index([createdAt])
+    @@index([likeCount])
+    @@map("reviews")
+} */
+
+export interface ReviewPrismaInterface {
+    id: number;
+    restaurantId: number;
+    userId: string;
+    title?: string | null;
+    content?: string | null; // Review text
+    rating: Rating; // Simple rating: GOOD, NORMAL, BAD
+    // Cached counts (updated via triggers or application logic)
+    likeCount: number;
+    viewCount: number;
+    isEdited: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+
+    // Relations
+    restaurant: RestaurantPrismaInterface;
+    user: UserPrismaInterface;
+    photos: ReviewPhotoPrismaInterface[];
+}
+
+export interface ReviewPhotoPrismaInterface {
+    id: number;
+    reviewId: number;
+    imageUrl: string;
+    caption?: string | null;
+    order: number;
+    uploadedAt: Date;
+}
+
+// export interface ReviewPrismaInterface {
+//     id: number;
+//     restaurantId: number;
+//     userId: string;
+//     title?: string;
+//     content?: string;
+//     rating: Rating;
+//     likeCount: number;
+//     viewCount: number;
+//     isEdited: boolean;
+//     createdAt: Date;
+//     updatedAt: Date;
+
+//     //user type from getRestaurantById
+//     user: {
+//         id: string;
+//         userName: string;
+//         avatarUrl: string | null;
+//     };
+// }
+
+//==================================================
+// FEATURE SCHEMA - Polls and Other Features
+//==================================================
+export interface PollPrismaInterface {
+    id: number;
+    title: string;
+    description?: string;
+    createdBy: string; // User ID of poll creator
+    expiresAt?: Date;
+    isActive: boolean;
+    shareToken: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface PollSharePrismaInterface {
+    id: number;
+    pollId: number;
+    userId: string;
+    sharedAt: Date;
+}
+
+export interface PollOptionPrismaInterface {
+    id: number;
+    restaurantId?: number | null;
+    restaurantName: string;
+    description?: string | null;
+    pollId: number;
+    createdAt: Date;
+}
+
+export interface PollVotePrismaInterface {
+    id: number;
+    userId: string;
+    userName: string;
+    pollId: number;
+    pollOptionId: number;
+    votedAt: Date;
 }

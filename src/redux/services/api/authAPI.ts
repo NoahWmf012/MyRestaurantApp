@@ -4,7 +4,7 @@ import type { ForgetPasswordRequest, ForgetPasswordResponse, GuestLoginRequest, 
 
 export const authAPI = createApi({
     reducerPath: 'authAPI',
-    baseQuery: fetchBaseQueryNoAuth(import.meta.env.VITE_SERVER_URL),
+    baseQuery: fetchBaseQueryNoAuth(),
     endpoints: (builder) => ({
         login: builder.query<LoginResponse, LoginRequest>({
             query: (body) => ({

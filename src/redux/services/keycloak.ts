@@ -147,6 +147,6 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
     };
 };
 
-export const fetchBaseQueryNoAuth = (baseUrl: string) => {
-    return fetchBaseQuery({ baseUrl });
+export const fetchBaseQueryNoAuth = () => {
+    return fetchBaseQuery({ baseUrl: import.meta.env.VITE_SERVER_URL });
 };
