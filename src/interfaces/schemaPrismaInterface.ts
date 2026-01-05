@@ -1,4 +1,4 @@
-// All tables are from prisma/schema.prisma
+// Refer to prisma/schema.prisma
 
 //==================================================
 // CORE SCHEMA - User and Authentication
@@ -79,22 +79,6 @@ export interface RestaurantI18nPrismaInterface {
     frDescription?: string;
 }
 
-/**model PromoteRestaurant {
-    id           Int       @id @default(autoincrement())
-    restaurantId Int
-    promoteText  String? // html content
-    isActive     Boolean   @default(true)
-    startDate    DateTime  @default(now())
-    endDate      DateTime?
-    createdAt    DateTime  @default(now())
-
-    promoteRestaurantI18n PromoteRestaurantI18n?
-
-    @@index([restaurantId])
-    @@index([isActive, startDate, endDate])
-    @@map("promote_restaurants")
-} */
-
 export interface PromoteRestaurantPrismaInterface {
     id: number;
     restaurantId: number;
@@ -153,33 +137,6 @@ export interface BookmarkGroupPrismaInterface {
     updatedAt: Date;
 }
 
-/**model Review {
-    id           Int      @id @default(autoincrement())
-    restaurantId Int
-    userId       String
-    title        String?
-    content      String? // Review text
-    rating       Rating // Simple rating: GOOD, NORMAL, BAD
-    // Cached counts (updated via triggers or application logic)
-    likeCount    Int      @default(0)
-    viewCount    Int      @default(0)
-    isEdited     Boolean  @default(false)
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-
-    // Relations
-    restaurant Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-    user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-    photos     ReviewPhoto[]
-
-    @@index([restaurantId])
-    @@index([userId])
-    @@index([rating])
-    @@index([createdAt])
-    @@index([likeCount])
-    @@map("reviews")
-} */
-
 export interface ReviewPrismaInterface {
     id: number;
     restaurantId: number;
@@ -208,27 +165,6 @@ export interface ReviewPhotoPrismaInterface {
     order: number;
     uploadedAt: Date;
 }
-
-// export interface ReviewPrismaInterface {
-//     id: number;
-//     restaurantId: number;
-//     userId: string;
-//     title?: string;
-//     content?: string;
-//     rating: Rating;
-//     likeCount: number;
-//     viewCount: number;
-//     isEdited: boolean;
-//     createdAt: Date;
-//     updatedAt: Date;
-
-//     //user type from getRestaurantById
-//     user: {
-//         id: string;
-//         userName: string;
-//         avatarUrl: string | null;
-//     };
-// }
 
 //==================================================
 // FEATURE SCHEMA - Polls and Other Features

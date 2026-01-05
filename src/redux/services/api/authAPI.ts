@@ -46,13 +46,7 @@ export const authAPI = createApi({
                 url: '/auth/logout',
                 method: 'POST',
             }),
-        }),
-        getProfile: builder.query<void, void>({
-            query: () => ({
-                url: '/user/profile',
-                method: 'GET',
-            }),
-        }),
+        })
     }),
 })
 
