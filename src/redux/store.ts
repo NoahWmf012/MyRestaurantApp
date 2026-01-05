@@ -7,6 +7,7 @@ import { authAPI } from "./services/api/authAPI";
 import { restaurantAPI } from "./services/api/restaurantAPI";
 import { voteAPI } from "./services/api/voteAPI";
 import { authSlice } from "./reducers/authSlice";
+import { userAPI } from "./services/api/userAPI";
 
 const reducer = combineReducers({
     //frontend states
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     [authAPI.reducerPath]: authAPI.reducer,
     [restaurantAPI.reducerPath]: restaurantAPI.reducer,
     [voteAPI.reducerPath]: voteAPI.reducer,
+    [userAPI.reducerPath]: userAPI.reducer,
 })
 
 export const store = configureStore({
@@ -30,6 +32,7 @@ export const store = configureStore({
         authAPI.middleware,
         restaurantAPI.middleware,
         voteAPI.middleware,
+        userAPI.middleware
     ),
     devTools: import.meta.PROD === false,
     // devTools: true,

@@ -1,55 +1,24 @@
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGetProfileQuery } from "../../redux/services/api/userAPI";
+import type { UserPrismaInterface } from "../../interfaces/schemaPrismaInterface";
 import './Profile.scss';
-import { useAppSelector } from "../../redux/store";
-
-interface UserProfile {
-    id: string;
-    userName: string;
-    email: string;
-    role: string;
-    isAnonymous: boolean;
-    favoriteRestaurants?: number;
-    totalReviews?: number;
-    pollsCreated?: number;
-}
 
 function ProfilePage() {
     const navigate = useNavigate();
-    const [profile, setProfile] = useState<UserProfile | null>(null);
+    const [profile, setProfile] = useState<UserPrismaInterface | null>(null);
     const [activeTab, setActiveTab] = useState<'favorites' | 'reviews' | 'polls'>('favorites');
     const [isLoading, setIsLoading] = useState(true);
 
-    //get userInfo from userInfoSlice
-    const userInfo = useAppSelector((state) => state.userInfoState);
+    const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery();
 
     useEffect(() => {
-        // Load user profile data
-        const loadProfile = () => {
-            try {
-                if (userInfo) {
-                    // Mock profile data - replace with actual API call
-                    setProfile({
-                        id: userInfo.userId || '1',
-                        userName: userInfo.userName || 'User',
-                        email: userInfo.userEmail || 'user@example.com',
-                        role: 'user',
-                        isAnonymous: false,
-                        favoriteRestaurants: 12,
-                        totalReviews: 28,
-                        pollsCreated: 15
-                    });
-                }
-            } catch (error) {
-                console.error('Error loading profile:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        loadProfile();
-    }, []);
+        if (profileData) {
+            setProfile(profileData);
+        }
+        setIsLoading(isProfileLoading);
+    }, [profileData, isProfileLoading]);
 
     const handleEditProfile = () => {
         navigate('/settings');
@@ -85,7 +54,11 @@ function ProfilePage() {
                     <div className="profile-hero-content">
                         <div className="profile-avatar">
                             <div className="avatar-circle">
-                                {profile.userName.charAt(0).toUpperCase()}
+                                {profile.avatarUrl ? (
+                                    <img src={profile.avatarUrl} alt={profile.userName} />
+                                ) : (
+                                    profile.userName.charAt(0).toUpperCase()
+                                )}
                             </div>
                             <button className="avatar-edit-btn" title="Change avatar">
                                 📷
@@ -95,14 +68,14 @@ function ProfilePage() {
                             <h1 className="profile-name">{profile.userName}</h1>
                             <p className="profile-email">{profile.email}</p>
                             <div className="profile-badges">
-                                {!profile.isAnonymous && (
+                                {profile.email && (
                                     <span className="badge badge-verified">✓ Verified Member</span>
                                 )}
                                 <span className="badge badge-role">{profile.role}</span>
                             </div>
                         </div>
                         <button className="btn-edit-profile" onClick={handleEditProfile}>
-                            ⚙️ Edit Profile
+                            Edit Profile
                         </button>
                     </div>
                 </section>
@@ -112,17 +85,17 @@ function ProfilePage() {
                     <div className="stats-container">
                         <div className="stat-card">
                             <div className="stat-icon">❤️</div>
-                            <div className="stat-value">{profile.favoriteRestaurants || 0}</div>
+                            <div className="stat-value">{profile.bookmarkedRestaurants.length || 0}</div>
                             <div className="stat-label">Favorite Restaurants</div>
                         </div>
                         <div className="stat-card">
                             <div className="stat-icon">⭐</div>
-                            <div className="stat-value">{profile.totalReviews || 0}</div>
+                            <div className="stat-value">{profile.reviews.length || 0}</div>
                             <div className="stat-label">Reviews Written</div>
                         </div>
                         <div className="stat-card">
                             <div className="stat-icon">🗳️</div>
-                            <div className="stat-value">{profile.pollsCreated || 0}</div>
+                            <div className="stat-value">{profile.polls.length || 0}</div>
                             <div className="stat-label">Polls Created</div>
                         </div>
                     </div>
