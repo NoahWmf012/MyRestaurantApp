@@ -6,6 +6,8 @@ import { PollList } from "../../components/vote/PollList";
 import { useGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
 import './VotePage.scss';
+import { useAppSelector } from '../../redux/store';
+import CreatePollModal from '../../components/vote/CreatePollModal';
 
 interface LocationState {
     poll?: PollResponse;
@@ -16,6 +18,8 @@ function VotePage() {
     const location = useLocation();
     const navigate = useNavigate();
     const [selectedPoll, setSelectedPoll] = useState<PollResponse | null>(null);
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
 
     const locationState = location.state as LocationState;
     const pollFromState = locationState?.poll;
@@ -107,6 +111,11 @@ function VotePage() {
         }
     };
 
+    const handleCreateSuccess = async () => {
+        await refetchPolls();
+        setShowCreateModal(false);
+    };
+
     return (
         <ProtectedRoute>
             <div className="vote-page-container">
@@ -135,10 +144,24 @@ function VotePage() {
 
                 {!isLoading && !isError && !selectedPoll && polls && (
                     <div className="vote-page-list">
-                        <h1>Polls</h1>
+                        <div className="flex justify-between items-center mb-8">
+                            <h1>Polls</h1>
+                            <button
+                                className="btn btn-success"
+                                onClick={() => setShowCreateModal(true)}
+                                disabled={isGuest}
+                            >
+                                + Create New Poll
+                            </button>
+                        </div>
                         <PollList polls={polls} handlePollClick={handlePollClick} />
                     </div>
                 )}
+
+                {showCreateModal && <CreatePollModal
+                    onClose={() => setShowCreateModal(false)}
+                    onSuccess={handleCreateSuccess}
+                />}
             </div>
         </ProtectedRoute>
     );

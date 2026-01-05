@@ -35,7 +35,7 @@ export function PollList({ polls, handlePollClick }: { polls: PollResponse[]; ha
                 <div className="no-polls">
                     <div className="no-polls-icon">🗳️</div>
                     <h3>No Active Polls</h3>
-                    <p>There are no polls available at the moment. Check back later!</p>
+                    <p>There are no polls available at the moment. Check back later or create one!</p>
                 </div>
             ) : (
                 polls.map(poll => {
