@@ -37,4 +37,4 @@ export const voteAPI = createApi({
     }),
 })
 
-export const { useCreatePollMutation, useGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } = voteAPI
+export const { useCreatePollMutation, useGetPollsQuery, useLazyGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } = voteAPI

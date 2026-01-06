@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useLazyGuestLoginQuery } from "../../redux/services/api/userAPI"
+import { useLazyGuestLoginQuery } from "../../redux/services/api/authAPI"
 import { useAppDispatch } from "../../redux/store"
 import { QueryStatus } from "@reduxjs/toolkit/query"
 import { setAuthInfo } from "../../redux/reducers/authSlice"

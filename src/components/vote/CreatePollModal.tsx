@@ -87,9 +87,9 @@ function CreatePollModal({ onClose, onSuccess }: CreatePollModalProps) {
     return (
         <BaseModal title="Create Vote Poll" onClose={onClose}>
             <div className="poll-modal-container">
-                <div className="auth-container">
-                    <div className="auth-card">
-                        <form className="auth-form" onSubmit={handleSubmit(handleCreatePoll)}>
+                <div className="poll-container">
+                    <div className="poll-card">
+                        <form className="poll-form" onSubmit={handleSubmit(handleCreatePoll)}>
                             {/* Title */}
                             <div className="form-group">
                                 <label htmlFor="title" className="form-label">

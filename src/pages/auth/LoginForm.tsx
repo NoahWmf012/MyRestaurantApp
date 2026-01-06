@@ -3,8 +3,8 @@ import './auth.scss'
 import { useNavigate, useLocation } from 'react-router-dom';
 import ShowIcon from '../../assets/icons/show.png'
 import HideIcon from '../../assets/icons/hide.png'
-import { useLazyLoginQuery, useLazyForgetPasswordQuery } from '../../redux/services/api/userAPI';
-import type { LoginRequest } from '../../interfaces/queryInterface/userAPIInterface';
+import { useLazyLoginQuery, useLazyForgetPasswordQuery } from '../../redux/services/api/authAPI';
+import type { LoginRequest } from '../../interfaces/queryInterface/authAPIInterface';
 import { QueryStatus } from '@reduxjs/toolkit/query';
 import { setAuthInfo } from '../../redux/reducers/authSlice';
 import { setUserInfo } from '../../redux/reducers/userInfoSlice';
