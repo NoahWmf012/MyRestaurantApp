@@ -5,53 +5,20 @@ import { useGetProfileQuery } from "../../redux/services/api/userAPI";
 import type { UserPrismaInterface } from "../../interfaces/schemaPrismaInterface";
 import './Profile.scss';
 
-interface UserProfile {
-    id: string;
-    userName: string;
-    email: string;
-    role: string;
-    isAnonymous: boolean;
-    joinedDate?: string;
-    favoriteRestaurants?: number;
-    totalReviews?: number;
-    pollsCreated?: number;
-}
-
 function ProfilePage() {
     const navigate = useNavigate();
     const [profile, setProfile] = useState<UserPrismaInterface | null>(null);
     const [activeTab, setActiveTab] = useState<'favorites' | 'reviews' | 'polls'>('favorites');
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // Load user profile data
-        const loadProfile = () => {
-            try {
-                const authInfo = localStorage.getItem('authInfo');
-                if (authInfo) {
-                    const parsed = JSON.parse(authInfo);
-                    // Mock profile data - replace with actual API call
-                    setProfile({
-                        id: parsed.userId || '1',
-                        userName: parsed.userName || 'User',
-                        email: parsed.email || 'user@example.com',
-                        role: 'user',
-                        isAnonymous: false,
-                        joinedDate: '2024-01-15',
-                        favoriteRestaurants: 12,
-                        totalReviews: 28,
-                        pollsCreated: 15
-                    });
-                }
-            } catch (error) {
-                console.error('Error loading profile:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery();
 
-        loadProfile();
-    }, []);
+    useEffect(() => {
+        if (profileData) {
+            setProfile(profileData);
+        }
+        setIsLoading(isProfileLoading);
+    }, [profileData, isProfileLoading]);
 
     const handleEditProfile = () => {
         navigate('/settings');
