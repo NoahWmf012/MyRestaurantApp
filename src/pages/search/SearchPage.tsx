@@ -2,10 +2,10 @@ import { useSearchParams } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
 import SearchDetail from "./SearchDetail";
 import { useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
-import "./SearchPage.scss";
 import { useState, useEffect } from "react";
 import type { SearchCriteria } from "../../interfaces/queryInterface/searchCriteriaInterface";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, type SortFilterInterface } from "../../interfaces/queryInterface/base.types";
+import "./SearchPage.scss";
 
 function SearchPage() {
     const [searchParams] = useSearchParams();

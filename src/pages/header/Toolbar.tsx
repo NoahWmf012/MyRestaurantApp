@@ -4,6 +4,7 @@ import MainIcon from "../../assets/icons/main.png"
 import LoginIcon from "../../assets/icons/user-interface.png"
 import SettingIcon from "../../assets/icons/setting-lines.png"
 import MoreIcon from "../../assets/icons/more.png"
+import MapIcon from "../../assets/icons/map.png"
 import SearchBar from "../../components/searchBar/SearchBar"
 import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { showRouletteModal, showVoteModal } from "../../redux/reducers/modalVisibleSlice"
@@ -72,6 +73,10 @@ function Toolbar() {
         setIsDropdownOpen(false)
     }, [navigate])
 
+    const handleMapSearchClick = useCallback(() => {
+        navigate("/map-search")
+    }, [navigate])
+
     return (
         <div className="toolbar-container flex justify-between items-center">
             {/* Home button */}
@@ -96,6 +101,17 @@ function Toolbar() {
             </div>
 
             <div className="toolbar-section flex">
+                {/* Button directing to map search page */}
+                <button
+                    className="title-btn settings-button mx-2"
+                    onClick={handleMapSearchClick}
+                >
+                    <img
+                        src={MapIcon}
+                        alt="map-search"
+                        className="title-icon"
+                    />
+                </button>
                 {isAuthenticated ? (
                     <>
                         {/* Settings button (only shown when logged in) */}
