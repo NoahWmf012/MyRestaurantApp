@@ -20,6 +20,7 @@ const ContactPage = lazy(() => import('./pages/footer/ContactPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/footer/PrivacyPolicyPage'))
 const TermsOfServicePage = lazy(() => import('./pages/footer/TermsOfServicePage'))
 const PromotedRestaurantSearchPage = lazy(() => import('./pages/restaurant/PromotedRestaurantSearchPage'))
+const MapSearchPage = lazy(() => import('./pages/search/MapSearchPage'))
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +34,7 @@ export const router = createBrowserRouter(
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="terms-of-service" element={<TermsOfServicePage />} />
             <Route path="promoted-restaurant-search" element={<PromotedRestaurantSearchPage />} />
+            <Route path="map-search" element={<MapSearchPage />} />
 
             {/* Unauth Routes */}
             <Route path="login" element={<LoginPage />} />
