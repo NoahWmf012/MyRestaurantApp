@@ -55,7 +55,7 @@ export const SEARCH_HISTTORY_KEY = 'searchHistory';
 export const ZOOM_LEVELS = 12;
 
 export enum RESTUARANT_SEARCH_FILEDS {
-    TAG = 'tag',
+    TAGS = 'tags',
     RANGED = 'ranged',
     CITY = 'city',
     CUISINE = 'cuisine',

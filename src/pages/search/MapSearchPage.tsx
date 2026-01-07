@@ -2,8 +2,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Map, { Marker, NavigationControl, GeolocateControl, Popup } from 'react-map-gl/mapbox';
 import type { MapRef, ViewStateChangeEvent, MarkerEvent } from 'react-map-gl/mapbox';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import './MapSearchPage.scss';
 import MapFilter from './MapFilter';
 import { useGetRestaurantsQuery } from '../../redux/services/api/restaurantAPI';
 import type { SearchCriteria } from '../../interfaces/queryInterface/searchCriteriaInterface';
@@ -11,6 +9,8 @@ import type { SortFilterInterface } from '../../interfaces/queryInterface/base.t
 import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { ZOOM_LEVELS } from '../../constants/searchFilterConstant';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './MapSearchPage.scss';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 

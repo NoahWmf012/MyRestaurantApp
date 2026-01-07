@@ -82,7 +82,7 @@ function MapFilter({ onChange }: MapFilterProps) {
         const filters: SearchCriteria[] = [];
 
         if (recommended) {
-            filters.push({ key: RESTUARANT_SEARCH_FILEDS.TAG, value: 'recommended' });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.TAGS, value: ['recommended'], searchType: SearchOperation.IN });
         }
 
         if (locationMode === 'current' && coordinates && distance) {
