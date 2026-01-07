@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import debounce from 'debounce';
 import {
+    RESTUARANT_SEARCH_FILEDS,
     SEARCH_FILTER_CUISINES,
     SEARCH_FILTER_DISTANCE,
     SEARCH_FILTER_LOCATIONS,
-    SEARCH_FILTER_SORT_LIST
 } from '../../constants/searchFilterConstant';
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
@@ -39,13 +39,13 @@ function CollapsibleSection({ title, children, defaultOpen = true }: Collapsible
 }
 
 type MapFilterProps = {
-    onChange: (filters: SearchCriteria[], sortFilter: SortFilterInterface) => void
+    onChange: (filters: SearchCriteria[], sortFilter?: SortFilterInterface) => void
 };
 
 function MapFilter({ onChange }: MapFilterProps) {
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
-    const [sortBy, setSortBy] = useState('googleReviews');
+    const [recommended, setRecommended] = useState(true);
     const [locationMode, setLocationMode] = useState<'none' | 'current'>('none');
     const [distance, setDistance] = useState<number | undefined>(undefined);
     const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 200]);
@@ -80,53 +80,56 @@ function MapFilter({ onChange }: MapFilterProps) {
 
     useEffect(() => {
         const filters: SearchCriteria[] = [];
-        let sortFilter: SortFilterInterface = {
-            sortBy: 'googleReviews',
-            sortOrder: 'desc'
+
+        if (recommended) {
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.TAG, value: 'recommended' });
         }
 
         if (locationMode === 'current' && coordinates && distance) {
-            filters.push({ key: 'ranged', value: [coordinates.latitude, coordinates.longitude, distance] })
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.RANGED, value: [coordinates.latitude, coordinates.longitude, distance] })
         }
 
         if (locations.length > 0) {
             const updatedLocations = locations.map(loc => loc === 'Downtown' ? 'Toronto' : loc);
-            filters.push({ key: 'city', value: updatedLocations, searchType: SearchOperation.IN });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.CITY, value: updatedLocations, searchType: SearchOperation.IN });
         }
 
         if (cuisines.length > 0) {
-            filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
-        }
-
-        if (sortBy) {
-            if (sortBy === 'low_high') {
-                sortFilter = { sortBy: 'minPrice', sortOrder: 'asc' };
-            } else if (sortBy === 'high_low') {
-                sortFilter = { sortBy: 'maxPrice', sortOrder: 'desc' };
-            } else {
-                sortFilter = { sortBy, sortOrder: 'desc' };
-            }
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.CUISINE, value: cuisines, searchType: SearchOperation.IN });
         }
 
         if (spendingRange) {
-            filters.push({ key: 'minPrice', value: spendingRange[0], searchType: SearchOperation.GREATER_THAN_EQUAL });
-            filters.push({ key: 'maxPrice', value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.MIN_PRICE, value: spendingRange[0], searchType: SearchOperation.GREATER_THAN_EQUAL });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.MAX_PRICE, value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
         }
 
-        onChange(filters, sortFilter);
+        onChange(filters);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
+        recommended,
         locationMode,
         coordinates,
         distance,
         locations,
         cuisines,
-        sortBy,
         spendingRange
     ]);
 
     return (
         <div className="map-filter-container">
+            {/* Recommended */}
+            <CollapsibleSection title="Recommended" defaultOpen={true}>
+                <div className="filter-options-list">
+                    <label className="checkbox-label">
+                        <input
+                            type="checkbox"
+                            checked={recommended}
+                            onChange={() => setRecommended(!recommended)}
+                        />
+                        <span>Recommended</span>
+                    </label>
+                </div>
+            </CollapsibleSection>
             {/* Distance */}
             <CollapsibleSection title="Distance" defaultOpen={false}>
                 <div className="filter-options-list">

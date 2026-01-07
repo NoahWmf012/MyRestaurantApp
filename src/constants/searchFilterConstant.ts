@@ -53,3 +53,12 @@ export const SEARCH_FILTER_DISTANCE = [
 export const SEARCH_HISTTORY_KEY = 'searchHistory';
 
 export const ZOOM_LEVELS = 12;
+
+export enum RESTUARANT_SEARCH_FILEDS {
+    TAG = 'tag',
+    RANGED = 'ranged',
+    CITY = 'city',
+    CUISINE = 'cuisine',
+    MIN_PRICE = 'minPrice',
+    MAX_PRICE = 'maxPrice',
+}

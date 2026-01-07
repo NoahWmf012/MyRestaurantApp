@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import debounce from 'debounce';
-import { SEARCH_FILTER_CUISINES, SEARCH_FILTER_DISTANCE, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
+import { RESTUARANT_SEARCH_FILEDS, SEARCH_FILTER_CUISINES, SEARCH_FILTER_DISTANCE, SEARCH_FILTER_LOCATIONS, SEARCH_FILTER_SORT_LIST } from '../../constants/searchFilterConstant';
 import { type SearchCriteria, SearchOperation } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 import { useGeolocation } from '../../hooks/useGeolocation';
@@ -97,7 +97,7 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         // }
 
         if (locationMode === 'current' && coordinates && distance) {
-            filters.push({ key: 'ranged', value: [coordinates.latitude, coordinates.longitude, distance] })
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.RANGED, value: [coordinates.latitude, coordinates.longitude, distance] })
         }
         // else if (locationMode === 'specific' && specificLocation.trim() && distance) {
         //     console.log('Specific location:', specificLocation);
@@ -108,19 +108,19 @@ function SearchFilter({ onChange }: SearchFilterProps) {
             //change the city into 'Toronto' if it is 'Downtown'
             if (locations.includes('Downtown')) {
                 const updatedLocations = locations.map(loc => loc === 'Downtown' ? 'Toronto' : loc);
-                filters.push({ key: 'city', value: updatedLocations, searchType: SearchOperation.IN });
+                filters.push({ key: RESTUARANT_SEARCH_FILEDS.CITY, value: updatedLocations, searchType: SearchOperation.IN });
             } else {
-                filters.push({ key: 'city', value: locations, searchType: SearchOperation.IN });
+                filters.push({ key: RESTUARANT_SEARCH_FILEDS.CITY, value: locations, searchType: SearchOperation.IN });
             }
         }
         if (cuisines.length > 0) {
-            filters.push({ key: 'cuisine', value: cuisines, searchType: SearchOperation.IN });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.CUISINE, value: cuisines, searchType: SearchOperation.IN });
         }
         if (sortBy) {
             if (sortBy === 'low_high') {
-                sortFilter = { sortBy: 'minPrice', sortOrder: 'asc' };
+                sortFilter = { sortBy: RESTUARANT_SEARCH_FILEDS.MIN_PRICE, sortOrder: 'asc' };
             } else if (sortBy === 'high_low') {
-                sortFilter = { sortBy: 'maxPrice', sortOrder: 'desc' };
+                sortFilter = { sortBy: RESTUARANT_SEARCH_FILEDS.MAX_PRICE, sortOrder: 'desc' };
             } else {
                 sortFilter = { sortBy, sortOrder: 'desc' };
             }
@@ -138,8 +138,8 @@ function SearchFilter({ onChange }: SearchFilterProps) {
         //     filters.push({ key: 'takeOutOnly', value: true });
         // }
         if (spendingRange) {
-            filters.push({ key: 'minPrice', value: spendingRange[0], searchType: SearchOperation.GREATER_THAN_EQUAL });
-            filters.push({ key: 'maxPrice', value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.MIN_PRICE, value: spendingRange[0], searchType: SearchOperation.GREATER_THAN_EQUAL });
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.MAX_PRICE, value: spendingRange[1], searchType: SearchOperation.LESS_THAN_EQUAL });
         }
 
         onChange(filters, sortFilter);

@@ -138,9 +138,11 @@ function MapSearchPage() {
     }, []);
 
     // Handle filter changes
-    const handleFilterChange = useCallback((newFilters: SearchCriteria[], newSortFilter: SortFilterInterface) => {
+    const handleFilterChange = useCallback((newFilters: SearchCriteria[], newSortFilter?: SortFilterInterface) => {
         setFilters(newFilters);
-        setSortFilter(newSortFilter);
+        if (newSortFilter) {
+            setSortFilter(newSortFilter);
+        }
     }, []);
 
     // Handle restaurant marker click
