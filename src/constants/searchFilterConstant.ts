@@ -51,3 +51,5 @@ export const SEARCH_FILTER_DISTANCE = [
 ];
 
 export const SEARCH_HISTTORY_KEY = 'searchHistory';
+
+export const ZOOM_LEVELS = 12;

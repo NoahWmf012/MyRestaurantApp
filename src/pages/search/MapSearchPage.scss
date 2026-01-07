@@ -79,7 +79,6 @@
                 top: 50%;
                 transform: translateY(-50%);
                 color: #6b7280;
-                font-size: 20px;
                 pointer-events: none;
             }
         }
@@ -328,6 +327,7 @@
                     border-radius: 6px;
                     font-size: 0.9rem;
                     outline: none;
+                    width: 45%;
 
                     &:focus {
                         border-color: #7c3aed;

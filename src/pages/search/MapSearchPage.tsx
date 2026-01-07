@@ -9,15 +9,16 @@ import { useGetRestaurantsQuery } from '../../redux/services/api/restaurantAPI';
 import type { SearchCriteria } from '../../interfaces/queryInterface/searchCriteriaInterface';
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
+import { useGeolocation } from '../../hooks/useGeolocation';
+import { ZOOM_LEVELS } from '../../constants/searchFilterConstant';
 
-// You'll need to get your own Mapbox token from https://account.mapbox.com/
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 
-// Default center: Toronto
+// Default center: Toronto (fallback if geolocation fails)
 const DEFAULT_VIEWPORT = {
     latitude: 43.6532,
     longitude: -79.3832,
-    zoom: 11
+    zoom: ZOOM_LEVELS
 };
 
 interface GeocodingResult {
@@ -35,6 +36,9 @@ function MapSearchPage() {
     const [isSearching, setIsSearching] = useState(false);
     const searchTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
 
+    // Get user's current location
+    const { coordinates, error: locationError, getCurrentLocation } = useGeolocation();
+
     // Filter states
     const [filters, setFilters] = useState<SearchCriteria[]>([]);
     const [sortFilter, setSortFilter] = useState<SortFilterInterface>({
@@ -44,6 +48,22 @@ function MapSearchPage() {
 
     // Popup state
     const [selectedRestaurant, setSelectedRestaurant] = useState<RestaurantPrismaInterface | null>(null);
+
+    // Try to get user's current location on mount
+    useEffect(() => {
+        getCurrentLocation();
+    }, [getCurrentLocation]);
+
+    // Update viewport when coordinates are available
+    useEffect(() => {
+        if (coordinates && !locationError) {
+            setViewState({
+                latitude: coordinates.latitude,
+                longitude: coordinates.longitude,
+                zoom: ZOOM_LEVELS
+            });
+        }
+    }, [coordinates, locationError]);
 
     // Fetch restaurants with filters
     const { data: restaurantData, isLoading: restaurantsLoading } = useGetRestaurantsQuery({
@@ -252,7 +272,7 @@ function MapSearchPage() {
                                             <span className="star">⭐</span>
                                             <span>{selectedRestaurant.googleRating.toFixed(1)}</span>
                                             {selectedRestaurant.googleReviews && (
-                                                <span> ({selectedRestaurant.googleReviews} reviews)</span>
+                                                <span> ({selectedRestaurant.googleReviews})</span>
                                             )}
                                         </div>
                                     )}

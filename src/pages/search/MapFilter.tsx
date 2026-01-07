@@ -200,24 +200,6 @@ function MapFilter({ onChange }: MapFilterProps) {
                 </div>
             </CollapsibleSection>
 
-            {/* Sort */}
-            <CollapsibleSection title="Sort">
-                <div className="filter-options-list">
-                    {SEARCH_FILTER_SORT_LIST.map((option) => (
-                        <label key={option.value} className="radio-label">
-                            <input
-                                type="radio"
-                                name="sortBy"
-                                value={option.value}
-                                checked={sortBy === option.value}
-                                onChange={(e) => setSortBy(e.target.value)}
-                            />
-                            <span>{option.label}</span>
-                        </label>
-                    ))}
-                </div>
-            </CollapsibleSection>
-
             {/* Spending */}
             <CollapsibleSection title="Spending">
                 <div className="filter-option">
