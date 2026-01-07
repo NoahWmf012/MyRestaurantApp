@@ -35,6 +35,7 @@ function MapSearchPage() {
     const [searchResults, setSearchResults] = useState<GeocodingResult[]>([]);
     const [isSearching, setIsSearching] = useState(false);
     const searchTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
+    const [selectedLocation, setSelectedLocation] = useState<{ name: string; latitude: number; longitude: number } | null>(null);
 
     // Get user's current location
     const { coordinates, error: locationError, getCurrentLocation } = useGeolocation();
@@ -125,6 +126,13 @@ function MapSearchPage() {
     const handleSelectLocation = useCallback((result: GeocodingResult) => {
         const [longitude, latitude] = result.center;
 
+        // Save selected location
+        setSelectedLocation({
+            name: result.place_name,
+            latitude,
+            longitude
+        });
+
         // Fly to the selected location
         mapRef.current?.flyTo({
             center: [longitude, latitude],
@@ -168,7 +176,10 @@ function MapSearchPage() {
                     <p>{restaurants.length} restaurants found</p>
                 </div>
                 <div className="sidebar-content">
-                    <MapFilter onChange={handleFilterChange} />
+                    <MapFilter
+                        onChange={handleFilterChange}
+                        selectedLocation={selectedLocation}
+                    />
                 </div>
             </div>
 

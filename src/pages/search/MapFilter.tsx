@@ -39,14 +39,15 @@ function CollapsibleSection({ title, children, defaultOpen = true }: Collapsible
 }
 
 type MapFilterProps = {
-    onChange: (filters: SearchCriteria[], sortFilter?: SortFilterInterface) => void
+    onChange: (filters: SearchCriteria[], sortFilter?: SortFilterInterface) => void;
+    selectedLocation?: { name: string; latitude: number; longitude: number } | null;
 };
 
-function MapFilter({ onChange }: MapFilterProps) {
+function MapFilter({ onChange, selectedLocation }: MapFilterProps) {
     const [locations, setLocations] = useState<string[]>([]);
     const [cuisines, setCuisines] = useState<string[]>([]);
     const [recommended, setRecommended] = useState(true);
-    const [locationMode, setLocationMode] = useState<'none' | 'current'>('none');
+    const [locationMode, setLocationMode] = useState<'none' | 'current' | 'selected'>('none');
     const [distance, setDistance] = useState<number | undefined>(undefined);
     const [spendingRange, setSpendingRange] = useState<[number, number]>([0, 200]);
     const [tempSpendingRange, setTempSpendingRange] = useState<[number, number]>([0, 200]);
@@ -89,6 +90,10 @@ function MapFilter({ onChange }: MapFilterProps) {
             filters.push({ key: RESTUARANT_SEARCH_FILEDS.RANGED, value: [coordinates.latitude, coordinates.longitude, distance] })
         }
 
+        if (locationMode === 'selected' && selectedLocation && distance) {
+            filters.push({ key: RESTUARANT_SEARCH_FILEDS.RANGED, value: [selectedLocation.latitude, selectedLocation.longitude, distance] })
+        }
+
         if (locations.length > 0) {
             const updatedLocations = locations.map(loc => loc === 'Downtown' ? 'Toronto' : loc);
             filters.push({ key: RESTUARANT_SEARCH_FILEDS.CITY, value: updatedLocations, searchType: SearchOperation.IN });
@@ -112,7 +117,8 @@ function MapFilter({ onChange }: MapFilterProps) {
         distance,
         locations,
         cuisines,
-        spendingRange
+        spendingRange,
+        selectedLocation
     ]);
 
     return (
@@ -130,6 +136,7 @@ function MapFilter({ onChange }: MapFilterProps) {
                     </label>
                 </div>
             </CollapsibleSection>
+
             {/* Distance */}
             <CollapsibleSection title="Distance" defaultOpen={false}>
                 <div className="filter-options-list">
@@ -153,7 +160,27 @@ function MapFilter({ onChange }: MapFilterProps) {
                         </span>
                     </label>
 
-                    {(locationMode === 'current' && coordinates) && (
+                    <label className="radio-label">
+                        <input
+                            type="radio"
+                            name="locationMode"
+                            value="selected"
+                            checked={locationMode === 'selected'}
+                            onChange={(e) => {
+                                if (e.target.checked) {
+                                    setLocationMode('selected');
+                                }
+                            }}
+                            disabled={!selectedLocation}
+                        />
+                        <span>
+                            From Selected Location
+                            {selectedLocation && <span className="ml-2 text-sm text-gray-600">({selectedLocation.name})</span>}
+                            {!selectedLocation && <span className="ml-2 text-sm text-gray-400">(Search for a location first)</span>}
+                        </span>
+                    </label>
+
+                    {((locationMode === 'current' && coordinates) || (locationMode === 'selected' && selectedLocation)) && (
                         <div>
                             <select
                                 value={distance ?? ''}
@@ -188,7 +215,7 @@ function MapFilter({ onChange }: MapFilterProps) {
             </CollapsibleSection>
 
             {/* Cuisine */}
-            <CollapsibleSection title="Cuisine">
+            <CollapsibleSection title="Cuisine" defaultOpen={false}>
                 <div className="filter-options-list">
                     {SEARCH_FILTER_CUISINES.map((cuisine) => (
                         <label key={cuisine} className="checkbox-label">
@@ -204,7 +231,7 @@ function MapFilter({ onChange }: MapFilterProps) {
             </CollapsibleSection>
 
             {/* Spending */}
-            <CollapsibleSection title="Spending">
+            <CollapsibleSection title="Spending" defaultOpen={false}>
                 <div className="filter-option">
                     <div className="spending-range">
                         <div className="spending-values">
