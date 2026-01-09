@@ -11,6 +11,7 @@ import { useGeolocation } from '../../hooks/useGeolocation';
 import { ZOOM_LEVELS } from '../../constants/searchFilterConstant';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapSearchPage.scss';
+import { useNavigate } from 'react-router-dom';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 
@@ -36,6 +37,7 @@ function MapSearchPage() {
     const [isSearching, setIsSearching] = useState(false);
     const searchTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
     const [selectedLocation, setSelectedLocation] = useState<{ name: string; latitude: number; longitude: number } | null>(null);
+    const navigate = useNavigate();
 
     // Get user's current location
     const { coordinates, error: locationError, getCurrentLocation } = useGeolocation();
@@ -167,6 +169,13 @@ function MapSearchPage() {
         }
     }, []);
 
+    const handlePopupClick = useCallback(() => {
+        if (selectedRestaurant) {
+            const encryptedId = btoa(selectedRestaurant.id.toString());
+            navigate(`/restaurant-search/${encryptedId}`);
+        }
+    }, [selectedRestaurant, navigate]);
+
     return (
         <div className="map-search-page">
             {/* Filter Sidebar */}
@@ -270,7 +279,7 @@ function MapSearchPage() {
                             closeButton={true}
                             closeOnClick={false}
                         >
-                            <div className="marker-popup">
+                            <div className="marker-popup" onClick={handlePopupClick}>
                                 <div className="popup-content">
                                     <h3>{selectedRestaurant.name}</h3>
 

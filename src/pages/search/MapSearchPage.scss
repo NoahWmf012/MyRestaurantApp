@@ -339,8 +339,10 @@
     }
 
     .marker-popup {
+        cursor: pointer;
+
         .popup-content {
-            padding: 12px;
+            padding: 5px;
             min-width: 200px;
 
             h3 {
