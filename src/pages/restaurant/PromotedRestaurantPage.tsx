@@ -1,4 +1,5 @@
 // This page is for dynamic restaurant page which shows promoted restaurant details
+// navigate(`/restaurant/${encodeURIComponent()}`);
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { RESTAURANT_LIST } from '../../constants/restaurantData';
@@ -164,21 +165,6 @@ const PromotedRestaurantPage = () => {
                     </div>
                 </div>
 
-                {/* Atmosphere Section */}
-                <div className="mb-16 bg-gray-50 rounded-lg p-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">The Experience</h2>
-                    <p className="text-gray-700 leading-relaxed text-lg mb-4">
-                        Step into {restaurant.name} and discover an atmosphere that perfectly complements
-                        the exceptional cuisine. The thoughtfully designed interior creates an inviting ambiance
-                        where tradition meets contemporary elegance.
-                    </p>
-                    <p className="text-gray-700 leading-relaxed text-lg">
-                        Whether you're celebrating a special occasion or enjoying a casual meal with friends
-                        and family, our warm and welcoming environment sets the stage for memorable moments.
-                        Attentive service and genuine hospitality ensure that every visit exceeds expectations.
-                    </p>
-                </div>
-
                 {/* Location & Contact */}
                 <div className="mb-16">
                     <h2 className="text-3xl font-bold text-gray-900 mb-6">Visit Us</h2>
@@ -200,33 +186,6 @@ const PromotedRestaurantPage = () => {
                             >
                                 {restaurant.phoneNum}
                             </a>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Restaurant Info Box */}
-                <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-8 border border-yellow-200">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Restaurant Information</h3>
-                    <div className="space-y-3">
-                        <div className="flex items-start">
-                            <span className="font-semibold text-gray-900 w-32">Name:</span>
-                            <span className="text-gray-800">{restaurant.name}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-semibold text-gray-900 w-32">Cuisine:</span>
-                            <span className="text-gray-800">{restaurant.cuisine}</span>
-                        </div>
-                        {/* <div className="flex items-start">
-                            <span className="font-semibold text-gray-900 w-32">Rating:</span>
-                            <span className="text-gray-800">{restaurant.rating} / 5.0 ⭐</span>
-                        </div> */}
-                        <div className="flex items-start">
-                            <span className="font-semibold text-gray-900 w-32">Address:</span>
-                            <span className="text-gray-800">{restaurant.location}</span>
-                        </div>
-                        <div className="flex items-start">
-                            <span className="font-semibold text-gray-900 w-32">Phone:</span>
-                            <span className="text-gray-800">{restaurant.phoneNum}</span>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@
         "@tailwindcss/vite": "^4.1.13",
         "@types/node": "^24.5.2",
         "debounce": "^3.0.0",
+        "dompurify": "^3.3.1",
         "gh-pages": "^6.3.0",
         "mapbox-gl": "^3.17.0",
         "react": "^19.1.1",
@@ -33,6 +34,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.33.0",
+        "@types/dompurify": "^3.2.0",
         "@types/mapbox-gl": "^3.4.1",
         "@types/react": "^19.1.10",
         "@types/react-dom": "^19.1.7",

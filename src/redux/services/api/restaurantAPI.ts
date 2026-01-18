@@ -27,7 +27,13 @@ export const restaurantAPI = createApi({
                 body
             }),
         }),
+        getRecommendedRestaurant: builder.query<RestaurantReviewResponse[], number>({
+            query: (restaurantId) => ({
+                url: `recommended-restaurant/${restaurantId}`,
+                method: 'GET',
+            }),
+        }),
     }),
 })
 
-export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation } = restaurantAPI
+export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation, useGetRecommendedRestaurantQuery } = restaurantAPI

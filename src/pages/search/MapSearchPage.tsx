@@ -171,8 +171,12 @@ function MapSearchPage() {
 
     const handlePopupClick = useCallback(() => {
         if (selectedRestaurant) {
-            const encryptedId = btoa(selectedRestaurant.id.toString());
-            navigate(`/restaurant-search/${encryptedId}`);
+            if (selectedRestaurant.tags.includes('recommended')) {
+                navigate(`/restaurant/${encodeURIComponent(selectedRestaurant.name)}`);
+            } else {
+                const encryptedId = btoa(selectedRestaurant.id.toString());
+                navigate(`/restaurant-search/${encryptedId}`);
+            }
         }
     }, [selectedRestaurant, navigate]);
 
