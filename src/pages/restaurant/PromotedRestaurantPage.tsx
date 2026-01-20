@@ -4,6 +4,7 @@
 
 import { useParams, useNavigate } from 'react-router-dom';
 // import { RESTAURANT_LIST } from '../../constants/restaurantData';
+import { useGetRecommendedRestaurantQuery } from '../../redux/services/api/restaurantAPI';
 import './RestaurantPage.scss';
 
 const PromotedRestaurantPage = () => {
