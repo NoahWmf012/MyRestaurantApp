@@ -34,6 +34,7 @@ function PromotedRestaurantSearchPage() {
                         imageSrc={getRestaurantImage1(restaurant.id)}
                         title={restaurant.name}
                         text={restaurant.name}
+                        restaurantId={restaurant.id}
                         restaurantName={restaurant.name}
                     />
                 ))}

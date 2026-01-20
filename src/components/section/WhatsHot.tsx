@@ -10,6 +10,7 @@ export type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
+    restaurantId: number;
     restaurantName: string;
 }
 
@@ -47,7 +48,7 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
+        navigate(`/restaurant/${encodeURIComponent(props.restaurantId)}`);
     };
     return (
         <div className="card-hover-animated bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
@@ -104,6 +105,7 @@ function WhatsHot() {
                         imageSrc={getRestaurantImage1(restaurant.id)}
                         title={restaurant.name}
                         text={restaurant.name}
+                        restaurantId={restaurant.id}
                         restaurantName={restaurant.name}
                     />
                 ))}
