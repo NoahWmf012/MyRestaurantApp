@@ -6,11 +6,11 @@ import Recommendations from "../../components/section/Recommendations"
 // import Reviews from "../../components/section/Reviews"
 import WhatsHot from "../../components/section/WhatsHot"
 import { checkAndRefreshToken } from "../../hooks/authHooks"
+import { useGetHomePageRecommendedRestaurantsQuery } from "../../redux/services/api/restaurantAPI"
 
 function HomePage() {
     //get auth info from local storage
     //call useLazyFreshTokenQuery if AuthInterface.expiredIn - current time < threshold (e.g., 2 days)
-
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
@@ -22,6 +22,7 @@ function HomePage() {
         return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
     }, []);
 
+    const { data: homePageRecommendedRestaurants, error, isLoading } = useGetHomePageRecommendedRestaurantsQuery();
 
     return (
         <div className="home-page-container">

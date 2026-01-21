@@ -1,6 +1,6 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { RestaurantRequest, RestaurantResponse, RestaurantReviewRequest, RestaurantReviewResponse } from '../../../interfaces/queryInterface/restaurantInterface'
+import type { HomePageRecommendedRestaurantsResponse, RestaurantRequest, RestaurantResponse, RestaurantReviewRequest, RestaurantReviewResponse } from '../../../interfaces/queryInterface/restaurantInterface'
 import type { RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
 
 export const restaurantAPI = createApi({
@@ -33,7 +33,13 @@ export const restaurantAPI = createApi({
                 method: 'GET',
             }),
         }),
+        getHomePageRecommendedRestaurants: builder.query<HomePageRecommendedRestaurantsResponse[], void>({
+            query: () => ({
+                url: '/home-recommended',
+                method: 'GET',
+            }),
+        }),
     }),
 })
 
-export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation, useGetRecommendedRestaurantQuery } = restaurantAPI
+export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation, useGetRecommendedRestaurantQuery, useGetHomePageRecommendedRestaurantsQuery } = restaurantAPI

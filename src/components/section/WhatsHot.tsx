@@ -1,8 +1,6 @@
 import { RESTAURANT_LIST } from "../../constants/restaurantData"
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
-// import Carousel from "react-multi-carousel";
 import FireIcon from "../../assets/icons/whatshot.png"
-// import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { useNavigate } from "react-router-dom";
 
 //#region card items
@@ -13,36 +11,6 @@ export type WhatsHotItemProps = {
     restaurantId: number;
     restaurantName: string;
 }
-
-// function WhatsHotItem(props: WhatsHotItemProps) {
-//     const navigate = useNavigate();
-
-//     const handleClick = () => {
-//         navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
-//     };
-
-//     return (
-//         <div
-//             className="card whats-hot-item border-0 mb-2 mx-1 bg-white rounded"
-//             role="button"
-//             onClick={handleClick}
-//             tabIndex={0}
-//             onKeyDown={(e) => {
-//                 if (e.key === 'Enter' || e.key === ' ') {
-//                     handleClick();
-//                 }
-//             }}
-//         >
-//             <div className="card-img-container">
-//                 <img className="card-img-top" src={props.imageSrc} alt={`${props.title} at ${props.restaurantName}`} />
-//             </div>
-//             <div className="card-body">
-//                 <h5 className="card-title">{props.title}</h5>
-//                 <p className="card-text">{props.text}</p>
-//             </div>
-//         </div>
-//     )
-// }
 
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
@@ -80,8 +48,6 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
 }
 
 //#endregion
-
-
 
 function WhatsHot() {
     const navigate = useNavigate();
