@@ -1,7 +1,6 @@
-import { RESTAURANT_LIST } from "../../constants/restaurantData"
-import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import FireIcon from "../../assets/icons/whatshot.png"
 import { useNavigate } from "react-router-dom";
+import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
 
 //#region card items
 export type WhatsHotItemProps = {
@@ -12,6 +11,7 @@ export type WhatsHotItemProps = {
     restaurantName: string;
 }
 
+//todo : add tags like 'spicy', 'new', etc.
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
 
@@ -46,8 +46,11 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
 }
 
 //#endregion
+type WhatsHotProps = {
+    list: HomePageRecommendedRestaurantsResponse[];
+}
 
-function WhatsHot() {
+function WhatsHot({ list }: WhatsHotProps) {
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -63,14 +66,14 @@ function WhatsHot() {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                {RESTAURANT_LIST.map((restaurant) => (
+                {list.map((restaurant) => (
                     <HotRestaurantItems
-                        key={restaurant.id}
-                        imageSrc={getRestaurantImage1(restaurant.id)}
-                        title={restaurant.name}
-                        text={restaurant.name}
+                        key={restaurant.restaurantId}
+                        imageSrc={restaurant.photoUrls?.[0] ?? ""}
+                        title={restaurant.restaurantName ?? ""}
+                        text={restaurant.description?.[0] ?? ""}
                         restaurantId={restaurant.id}
-                        restaurantName={restaurant.name}
+                        restaurantName={restaurant.restaurantName ?? ""}
                     />
                 ))}
             </div>

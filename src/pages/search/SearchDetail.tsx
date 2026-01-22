@@ -44,7 +44,6 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                             >
                                 <div className="restaurant-image-wrapper">
                                     <img
-                                        // src={getRestaurantImage1(restaurant.id)}
                                         src={restaurant.photos?.[0] || getRestaurantImage1(restaurant.id)}
                                         alt={restaurant.name || 'Restaurant Image'}
                                         className="restaurant-image"

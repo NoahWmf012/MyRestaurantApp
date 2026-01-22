@@ -22,7 +22,9 @@ function HomePage() {
         return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
     }, []);
 
-    const { data: homePageRecommendedRestaurants, error, isLoading } = useGetHomePageRecommendedRestaurantsQuery();
+    const { data: homePageRecommendedRestaurants } = useGetHomePageRecommendedRestaurantsQuery();
+
+    const whatsHotRestaurants = homePageRecommendedRestaurants?.filter(restaurant => restaurant.photoUrls !== undefined).splice(0, 4) || [];
 
     return (
         <div className="home-page-container">
@@ -37,12 +39,12 @@ function HomePage() {
 
                     {/* 'What's Hot' section */}
                     <section className="mb-8">
-                        <WhatsHot />
+                        <WhatsHot list={whatsHotRestaurants} />
                     </section>
 
                     {/* 'Recommended' section */}
                     <section className="mb-8">
-                        <Recommendations />
+                        <Recommendations list={whatsHotRestaurants} />
                     </section>
 
                     {/* Ranks of restaurants */}

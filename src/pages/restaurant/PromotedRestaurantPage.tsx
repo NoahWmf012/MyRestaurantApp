@@ -3,23 +3,20 @@
 // navigate(`/restaurant/${encodeURIComponent()}`);
 
 import { useParams, useNavigate } from 'react-router-dom';
-// import { RESTAURANT_LIST } from '../../constants/restaurantData';
 import { useGetRecommendedRestaurantQuery } from '../../redux/services/api/restaurantAPI';
 import './RestaurantPage.scss';
 
 const PromotedRestaurantPage = () => {
     const { restaurantId } = useParams<{ restaurantId: string }>();
-    console.log("restaurantId>>", restaurantId);
     const navigate = useNavigate();
     const decodedRestaurantId = decodeURIComponent(restaurantId || '');
 
-    // const restaurant = RESTAURANT_LIST.find(r => r.name === restaurantName);
     const { data: recommendedRestaurants, isLoading, isError } = useGetRecommendedRestaurantQuery(Number(decodedRestaurantId)); // Using 1 as a placeholder ID
 
-    const handleAddressClick = (address: string) => {
-        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-        window.open(googleMapsUrl, '_blank');
-    };
+    // const handleAddressClick = (address: string) => {
+    //     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    //     window.open(googleMapsUrl, '_blank');
+    // };
 
     if (!recommendedRestaurants || recommendedRestaurants.length === 0) {
         return (
@@ -39,7 +36,6 @@ const PromotedRestaurantPage = () => {
     }
 
     // todo: fetch real images and descriptions from backend
-    // const mainImage = getRestaurantImage1(restaurant.id);
 
     return (
         <div className="bg-white">

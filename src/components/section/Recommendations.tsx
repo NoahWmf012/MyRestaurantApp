@@ -4,6 +4,7 @@ import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useNavigate } from "react-router-dom";
+import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
 
 //#region horizontal card item
 type OrderAgainItemProps = {
@@ -32,7 +33,10 @@ function RecommendItem(props: OrderAgainItemProps) {
 }
 //#endregion
 
-function Recommendations() {
+type RecommendationsProps = {
+    list: HomePageRecommendedRestaurantsResponse[];
+}
+function Recommendations({ list }: RecommendationsProps) {
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -54,13 +58,13 @@ function Recommendations() {
                         responsive={RESPONSIVE_SETTINGS}
                         draggable={false}
                     >
-                        {RESTAURANT_LIST.map((restaurant) => (
+                        {list.map((restaurant) => (
                             <RecommendItem
-                                key={restaurant.id}
-                                imageSrc={getRestaurantImage2(restaurant.id)}
-                                title={restaurant.name}
-                                desc={restaurant.desc}
-                                restaurantId={restaurant.id}
+                                key={restaurant.restaurantId}
+                                imageSrc={restaurant.photoUrls?.[0] ?? ""}
+                                title={restaurant.restaurantName ?? ""}
+                                desc={restaurant.description?.[0] ?? ""}
+                                restaurantId={restaurant.restaurantId}
                             />
                         ))}
                     </Carousel>
