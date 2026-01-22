@@ -212,6 +212,7 @@ function StaticRestaurantPage() {
                 {/* Info Card */}
                 <div className="info-sidebar">
                     <div className="info-card">
+                        {/* todo */}
                         <h3>Restaurant Info</h3>
 
                         {address && (

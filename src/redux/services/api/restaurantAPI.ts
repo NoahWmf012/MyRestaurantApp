@@ -16,13 +16,13 @@ export const restaurantAPI = createApi({
         }),
         getRestaurantById: builder.query<RestaurantPrismaInterface, number>({
             query: (id) => ({
-                url: `/${id}`,
+                url: `list/${id}`,
                 method: 'GET',
             }),
         }),
         postRestaurantReview: builder.mutation<RestaurantReviewResponse, RestaurantReviewRequest>({
             query: (body) => ({
-                url: '/review',
+                url: 'review',
                 method: 'POST',
                 body
             }),
@@ -35,7 +35,7 @@ export const restaurantAPI = createApi({
         }),
         getHomePageRecommendedRestaurants: builder.query<HomePageRecommendedRestaurantsResponse[], void>({
             query: () => ({
-                url: '/home-recommended',
+                url: 'home-recommended',
                 method: 'GET',
             }),
         }),

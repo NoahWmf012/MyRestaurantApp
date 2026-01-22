@@ -29,8 +29,6 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                     className="w-full h-48 object-cover cursor-pointer"
                     onClick={handleClick}
                 />
-                {/* <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
-                    Promotion</div> */}
                 <div className="absolute top-2 right-2">
                     <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
                 </div>

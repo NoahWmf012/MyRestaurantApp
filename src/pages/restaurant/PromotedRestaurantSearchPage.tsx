@@ -1,3 +1,5 @@
+// '/promoted-restaurant-search'
+
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import FireIcon from "../../assets/icons/whatshot.png";
