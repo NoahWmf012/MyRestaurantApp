@@ -9,6 +9,7 @@ export type WhatsHotItemProps = {
     text: string;
     restaurantId: number;
     restaurantName: string;
+    tags?: string[];
 }
 
 //todo : add tags like 'spicy', 'new', etc.
@@ -39,7 +40,15 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                 <h5 className="font-bold text-lg">
                     {props.title}
                 </h5>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{props.text}</p>
+                {props.tags && props.tags.length > 0 && (
+                    <div className="mt-2 flex flex-wrap">
+                        {props.tags.map((tag, index) => (
+                            <span key={index} className="hot-restaurant-tag">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -74,6 +83,7 @@ function WhatsHot({ list }: WhatsHotProps) {
                         text={restaurant.description?.[0] ?? ""}
                         restaurantId={restaurant.id}
                         restaurantName={restaurant.restaurantName ?? ""}
+                        tags={restaurant.restaurantCuisine}
                     />
                 ))}
             </div>
