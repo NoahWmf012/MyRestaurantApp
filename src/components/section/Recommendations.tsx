@@ -1,8 +1,6 @@
 import Carousel from "react-multi-carousel";
 import OrderIcon from "../../assets/icons/order.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
-import { RESTAURANT_LIST } from "../../constants/restaurantData";
-import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useNavigate } from "react-router-dom";
 import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
 
@@ -63,7 +61,7 @@ function Recommendations({ list }: RecommendationsProps) {
                                 key={restaurant.restaurantId}
                                 imageSrc={restaurant.photoUrls?.[0] ?? ""}
                                 title={restaurant.restaurantName ?? ""}
-                                desc={restaurant.description?.[0] ?? ""}
+                                desc={restaurant.description?.[0] ?? restaurant.restaurantName ?? ""}
                                 restaurantId={restaurant.restaurantId}
                             />
                         ))}

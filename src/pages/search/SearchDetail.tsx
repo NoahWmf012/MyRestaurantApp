@@ -49,15 +49,15 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                                         className="restaurant-image"
                                     />
                                 </div>
-                                <div className="restaurant-info grid grid-cols-4 gap-8 w-full">
-                                    <h3 className="restaurant-name">{restaurant.name}</h3>
-                                    <div className="restaurant-meta">
-                                        <span className="cuisine-badge">{restaurant.cuisine?.map(c => c).join(', ')}</span>
+                                <div className="restaurant-info grid grid-cols-12 gap-3 w-full">
+                                    <h3 className="restaurant-name col-span-3">{restaurant.name}</h3>
+                                    <div className="restaurant-meta col-span-4">
                                         <span className="rating">
                                             {'★'.repeat(Math.floor(restaurant.googleRating ?? 0))} {restaurant.googleRating} {restaurant.googleReviews ? `(${restaurant.googleReviews})` : ''}
                                         </span>
+                                        <span>{restaurant.cuisine.map(e => <span className="cuisine-badge">{e}</span>)}</span>
                                     </div>
-                                    <div className="col-span-2">
+                                    <div className="col-span-5">
                                         <p className="restaurant-description">{restaurant.description}</p>
                                         {/* <p className="restaurant-location">{restaurant.location}</p> */}
                                     </div>

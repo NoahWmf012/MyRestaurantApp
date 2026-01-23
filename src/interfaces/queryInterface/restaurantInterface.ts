@@ -43,4 +43,5 @@ export interface HomePageRecommendedRestaurantsResponse {
     description?: string[];
     restaurantName?: string;
     restaurantDescription?: string;
+    restaurantCuisine?: string[];
 }

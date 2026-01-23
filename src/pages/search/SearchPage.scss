@@ -87,12 +87,14 @@
                 gap: 1rem;
 
                 .cuisine-badge {
+                    display: inline-block;
                     background: $primary-color;
                     color: $text-color;
                     padding: 0.25rem 0.75rem;
                     border-radius: 20px;
                     font-size: 0.85rem;
                     font-weight: 500;
+                    margin: 0.25rem;
                 }
 
                 .rating {
