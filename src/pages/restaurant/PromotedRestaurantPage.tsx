@@ -114,10 +114,10 @@ const PromotedRestaurantPage = () => {
                             <span className="font-semibold text-gray-900 w-32">Cuisine:</span>
                             <span className="text-gray-800">{restaurant?.cuisine}</span>
                         </div>
-                        <div className="flex items-start"
+                        <div className="flex items-start cursor-pointer"
                             onClick={() => handleAddressClick(restaurant?.address || '')}>
                             <span className="font-semibold text-gray-900 w-32">Address:</span>
-                            <span className="text-gray-800">{restaurant?.address}</span>
+                            <span className="text-yellow-400 underline hover:text-yellow-600">{restaurant?.address}</span>
                         </div>
                         <div className="flex items-start">
                             <span className="font-semibold text-gray-900 w-32">Phone:</span>
