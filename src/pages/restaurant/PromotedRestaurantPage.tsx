@@ -102,27 +102,26 @@ const PromotedRestaurantPage = () => {
 
                 </div>
 
-                {/* Location & Contact */}
-                <div className="mb-16">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Visit Us</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="border-l-4 border-yellow-400 pl-6">
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">📍 Location</h3>
-                            <p
-                                onClick={() => handleAddressClick(restaurant?.address || '')}
-                                className="text-gray-700 hover:text-yellow-600 cursor-pointer underline text-lg"
-                            >
-                                {restaurant?.address || 'Address not available'}
-                            </p>
+                {/* Restaurant Info Box */}
+                <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-8 border border-yellow-200">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Restaurant Information</h3>
+                    <div className="space-y-3">
+                        <div className="flex items-start">
+                            <span className="font-semibold text-gray-900 w-32">Name:</span>
+                            <span className="text-gray-800">{restaurant?.name}</span>
                         </div>
-                        <div className="border-l-4 border-yellow-400 pl-6">
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">📞 Reservations</h3>
-                            <a
-                                href={`tel:${restaurant?.phone}`}
-                                className="text-gray-700 hover:text-yellow-600 text-lg"
-                            >
-                                {restaurant?.phone || 'Contact us'}
-                            </a>
+                        <div className="flex items-start">
+                            <span className="font-semibold text-gray-900 w-32">Cuisine:</span>
+                            <span className="text-gray-800">{restaurant?.cuisine}</span>
+                        </div>
+                        <div className="flex items-start"
+                            onClick={() => handleAddressClick(restaurant?.address || '')}>
+                            <span className="font-semibold text-gray-900 w-32">Address:</span>
+                            <span className="text-gray-800">{restaurant?.address}</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="font-semibold text-gray-900 w-32">Phone:</span>
+                            <span className="text-gray-800">{restaurant?.phone}</span>
                         </div>
                     </div>
                 </div>
