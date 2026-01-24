@@ -1,7 +1,7 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
 import type { HomePageRecommendedRestaurantsResponse, RestaurantRequest, RestaurantResponse, RestaurantReviewRequest, RestaurantReviewResponse } from '../../../interfaces/queryInterface/restaurantInterface'
-import type { PromoteRestaurantI18nPrismaInterface, PromoteRestaurantPrismaInterface, RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
+import type { PromoteRestaurantPrismaInterface, RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
 
 export const restaurantAPI = createApi({
     reducerPath: 'restaurantAPI',
