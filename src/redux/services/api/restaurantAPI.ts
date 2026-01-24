@@ -1,7 +1,7 @@
 import { createApi, } from '@reduxjs/toolkit/query/react'
 import { fetchBaseQueryAuth } from '../keycloak'
-import type { RestaurantRequest, RestaurantResponse, RestaurantReviewRequest, RestaurantReviewResponse } from '../../../interfaces/queryInterface/restaurantInterface'
-import type { RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
+import type { HomePageRecommendedRestaurantsResponse, RestaurantRequest, RestaurantResponse, RestaurantReviewRequest, RestaurantReviewResponse } from '../../../interfaces/queryInterface/restaurantInterface'
+import type { PromoteRestaurantI18nPrismaInterface, PromoteRestaurantPrismaInterface, RestaurantPrismaInterface } from '../../../interfaces/schemaPrismaInterface'
 
 export const restaurantAPI = createApi({
     reducerPath: 'restaurantAPI',
@@ -16,18 +16,30 @@ export const restaurantAPI = createApi({
         }),
         getRestaurantById: builder.query<RestaurantPrismaInterface, number>({
             query: (id) => ({
-                url: `/${id}`,
+                url: `list/${id}`,
                 method: 'GET',
             }),
         }),
         postRestaurantReview: builder.mutation<RestaurantReviewResponse, RestaurantReviewRequest>({
             query: (body) => ({
-                url: '/review',
+                url: 'review',
                 method: 'POST',
                 body
+            }),
+        }),
+        getRecommendedRestaurant: builder.query<PromoteRestaurantPrismaInterface, number>({
+            query: (restaurantId) => ({
+                url: `recommended-restaurant/${restaurantId}`,
+                method: 'GET',
+            }),
+        }),
+        getHomePageRecommendedRestaurants: builder.query<HomePageRecommendedRestaurantsResponse[], void>({
+            query: () => ({
+                url: 'home-recommended',
+                method: 'GET',
             }),
         }),
     }),
 })
 
-export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation } = restaurantAPI
+export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery, usePostRestaurantReviewMutation, useGetRecommendedRestaurantQuery, useGetHomePageRecommendedRestaurantsQuery } = restaurantAPI

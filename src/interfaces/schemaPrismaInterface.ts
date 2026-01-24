@@ -82,12 +82,14 @@ export interface RestaurantI18nPrismaInterface {
 export interface PromoteRestaurantPrismaInterface {
     id: number;
     restaurantId: number;
-    promoteText?: string; // html content
+    photoUrls: string[];
+    description: string[];
     isActive: boolean;
-    startDate: Date;
+    startDate?: Date | null;
     endDate?: Date | null;
     createdAt: Date;
 
+    restaurant: RestaurantPrismaInterface;
     promoteRestaurantI18n?: PromoteRestaurantI18nPrismaInterface | null;
 }
 

@@ -6,11 +6,11 @@ import Recommendations from "../../components/section/Recommendations"
 // import Reviews from "../../components/section/Reviews"
 import WhatsHot from "../../components/section/WhatsHot"
 import { checkAndRefreshToken } from "../../hooks/authHooks"
+import { useGetHomePageRecommendedRestaurantsQuery } from "../../redux/services/api/restaurantAPI"
 
 function HomePage() {
     //get auth info from local storage
     //call useLazyFreshTokenQuery if AuthInterface.expiredIn - current time < threshold (e.g., 2 days)
-
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
@@ -22,7 +22,9 @@ function HomePage() {
         return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
     }, []);
 
+    const { data: homePageRecommendedRestaurants } = useGetHomePageRecommendedRestaurantsQuery();
 
+    const whatsHotRestaurants = homePageRecommendedRestaurants?.filter(restaurant => restaurant.photoUrls !== undefined).splice(0, 4) || [];
     return (
         <div className="home-page-container">
             <div className="home-page-food-category">
@@ -36,12 +38,12 @@ function HomePage() {
 
                     {/* 'What's Hot' section */}
                     <section className="mb-8">
-                        <WhatsHot />
+                        <WhatsHot list={whatsHotRestaurants} />
                     </section>
 
                     {/* 'Recommended' section */}
                     <section className="mb-8">
-                        <Recommendations />
+                        <Recommendations list={whatsHotRestaurants} />
                     </section>
 
                     {/* Ranks of restaurants */}

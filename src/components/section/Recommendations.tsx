@@ -1,23 +1,23 @@
 import Carousel from "react-multi-carousel";
 import OrderIcon from "../../assets/icons/order.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
-import { RESTAURANT_LIST } from "../../constants/restaurantData";
-import { getRestaurantImage2 } from "../../hooks/getImageSrcHook";
 import { useNavigate } from "react-router-dom";
+import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
 
 //#region horizontal card item
 type OrderAgainItemProps = {
     imageSrc: string;
     title: string;
     desc: string;
-    restaurantName: string;
+    restaurantId: number;
 }
 
 function RecommendItem(props: OrderAgainItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
+        const encodedNumber = btoa(String(props.restaurantId));
+        navigate(`/restaurant/${encodedNumber}`);
     };
     return (
         <div
@@ -32,7 +32,10 @@ function RecommendItem(props: OrderAgainItemProps) {
 }
 //#endregion
 
-function Recommendations() {
+type RecommendationsProps = {
+    list: HomePageRecommendedRestaurantsResponse[];
+}
+function Recommendations({ list }: RecommendationsProps) {
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -54,13 +57,13 @@ function Recommendations() {
                         responsive={RESPONSIVE_SETTINGS}
                         draggable={false}
                     >
-                        {RESTAURANT_LIST.map((restaurant) => (
+                        {list.map((restaurant) => (
                             <RecommendItem
-                                key={restaurant.id}
-                                imageSrc={getRestaurantImage2(restaurant.id)}
-                                title={restaurant.name}
-                                desc={restaurant.desc}
-                                restaurantName={restaurant.name}
+                                key={restaurant.restaurantId}
+                                imageSrc={restaurant.photoUrls?.[0] ?? ""}
+                                title={restaurant.restaurantName ?? ""}
+                                desc={restaurant.description?.[0] ?? restaurant.restaurantName ?? ""}
+                                restaurantId={restaurant.restaurantId}
                             />
                         ))}
                     </Carousel>

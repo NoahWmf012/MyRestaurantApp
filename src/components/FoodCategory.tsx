@@ -14,7 +14,7 @@ function FoodCategory() {
             {FOOD_CATEGORIES.map((category) => (
                 <div
                     key={category.name}
-                    className="food-category-item card-hover-animated"
+                    className="food-category-item card-hover-animated shadow-md hover:shadow-xl transition"
                     onClick={() => handleCategoryClick(category.name)}
                 >
                     <img

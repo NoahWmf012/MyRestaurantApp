@@ -212,6 +212,7 @@ function StaticRestaurantPage() {
                 {/* Info Card */}
                 <div className="info-sidebar">
                     <div className="info-card">
+                        {/* todo */}
                         <h3>Restaurant Info</h3>
 
                         {address && (
@@ -234,9 +235,7 @@ function StaticRestaurantPage() {
                                 <div className="info-icon">📞</div>
                                 <div className="info-details">
                                     <div className="info-label">Phone</div>
-                                    <div className="info-value">
-                                        <a href={`tel:${phoneNum}`}>{phoneNum}</a>
-                                    </div>
+                                    <div className="info-value">{phoneNum}</div>
                                 </div>
                             </div>
                         )}

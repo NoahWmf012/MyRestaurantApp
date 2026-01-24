@@ -1,3 +1,5 @@
+// '/promoted-restaurant-search'
+
 import { RESTAURANT_LIST } from "../../constants/restaurantData";
 import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
 import FireIcon from "../../assets/icons/whatshot.png";
@@ -34,6 +36,7 @@ function PromotedRestaurantSearchPage() {
                         imageSrc={getRestaurantImage1(restaurant.id)}
                         title={restaurant.name}
                         text={restaurant.name}
+                        restaurantId={restaurant.id}
                         restaurantName={restaurant.name}
                     />
                 ))}

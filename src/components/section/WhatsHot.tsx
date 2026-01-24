@@ -1,53 +1,22 @@
-import { RESTAURANT_LIST } from "../../constants/restaurantData"
-import { getRestaurantImage1 } from "../../hooks/getImageSrcHook";
-// import Carousel from "react-multi-carousel";
 import FireIcon from "../../assets/icons/whatshot.png"
-// import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { useNavigate } from "react-router-dom";
+import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
 
 //#region card items
 export type WhatsHotItemProps = {
     imageSrc: string;
     title: string;
     text: string;
+    restaurantId: number;
     restaurantName: string;
+    tags?: string[];
 }
-
-// function WhatsHotItem(props: WhatsHotItemProps) {
-//     const navigate = useNavigate();
-
-//     const handleClick = () => {
-//         navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
-//     };
-
-//     return (
-//         <div
-//             className="card whats-hot-item border-0 mb-2 mx-1 bg-white rounded"
-//             role="button"
-//             onClick={handleClick}
-//             tabIndex={0}
-//             onKeyDown={(e) => {
-//                 if (e.key === 'Enter' || e.key === ' ') {
-//                     handleClick();
-//                 }
-//             }}
-//         >
-//             <div className="card-img-container">
-//                 <img className="card-img-top" src={props.imageSrc} alt={`${props.title} at ${props.restaurantName}`} />
-//             </div>
-//             <div className="card-body">
-//                 <h5 className="card-title">{props.title}</h5>
-//                 <p className="card-text">{props.text}</p>
-//             </div>
-//         </div>
-//     )
-// }
 
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
-
+    const encodedNumber = btoa(String(props.restaurantId));
     const handleClick = () => {
-        navigate(`/restaurant/${encodeURIComponent(props.restaurantName)}`);
+        navigate(`/restaurant/${encodedNumber}`);
     };
     return (
         <div className="card-hover-animated bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
@@ -60,8 +29,6 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                     className="w-full h-48 object-cover cursor-pointer"
                     onClick={handleClick}
                 />
-                {/* <div className="absolute top-2 right-2 bg-primary text-white px-2 py-1 text-xs font-bold rounded">
-                    Promotion</div> */}
                 <div className="absolute top-2 right-2">
                     <img src={FireIcon} alt="Hot Icon" className="title-icon mx-1" />
                 </div>
@@ -72,17 +39,26 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                 <h5 className="font-bold text-lg">
                     {props.title}
                 </h5>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{props.text}</p>
+                {props.tags && props.tags.length > 0 && (
+                    <div className="mt-2 flex flex-wrap">
+                        {props.tags.map((tag, index) => (
+                            <span key={index} className="hot-restaurant-tag">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
 }
 
 //#endregion
+type WhatsHotProps = {
+    list: HomePageRecommendedRestaurantsResponse[];
+}
 
-
-
-function WhatsHot() {
+function WhatsHot({ list }: WhatsHotProps) {
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -98,13 +74,15 @@ function WhatsHot() {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                {RESTAURANT_LIST.map((restaurant) => (
+                {list.map((restaurant) => (
                     <HotRestaurantItems
-                        key={restaurant.id}
-                        imageSrc={getRestaurantImage1(restaurant.id)}
-                        title={restaurant.name}
-                        text={restaurant.name}
-                        restaurantName={restaurant.name}
+                        key={restaurant.restaurantId}
+                        imageSrc={restaurant.photoUrls?.[0] ?? ""}
+                        title={restaurant.restaurantName ?? ""}
+                        text={restaurant.description?.[0] ?? ""}
+                        restaurantId={restaurant.restaurantId}
+                        restaurantName={restaurant.restaurantName ?? ""}
+                        tags={restaurant.restaurantCuisine}
                     />
                 ))}
             </div>

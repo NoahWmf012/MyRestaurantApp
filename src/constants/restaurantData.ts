@@ -7,6 +7,7 @@ import PHO_ICON from '../assets/icons/food_category/pho.png';
 import TACO_ICON from '../assets/icons/food_category/taco.png';
 
 // Promote Restaurant Data (todo: fetch from backend later)
+// todo: remove
 export const RESTAURANT_LIST: RestaurantInfoInterface[] = [
     {
         id: 1,
