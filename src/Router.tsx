@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Layout />} errorElement={<ErrorBoundary />}>
             <Route path="" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="restaurant/:name" element={<PromotedRestaurantPage />} />{/* Promote Restaurant */}
+            <Route path="restaurant/:restaurantId" element={<PromotedRestaurantPage />} />{/* Promote Restaurant */}
             <Route path="restaurant-search/:restaurantId" element={<StaticRestaurantPage />} />{/* Normal restaurant search */}
             <Route path="about-us" element={<AboutUsPage />} />
             <Route path="contact" element={<ContactPage />} />

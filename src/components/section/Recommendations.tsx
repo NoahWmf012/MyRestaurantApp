@@ -16,7 +16,8 @@ function RecommendItem(props: OrderAgainItemProps) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/restaurant/${encodeURIComponent(props.restaurantId)}`);
+        const encodedNumber = btoa(String(props.restaurantId));
+        navigate(`/restaurant/${encodedNumber}`);
     };
     return (
         <div

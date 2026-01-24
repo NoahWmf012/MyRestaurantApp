@@ -12,12 +12,11 @@ export type WhatsHotItemProps = {
     tags?: string[];
 }
 
-//todo : add tags like 'spicy', 'new', etc.
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
-
+    const encodedNumber = btoa(String(props.restaurantId));
     const handleClick = () => {
-        navigate(`/restaurant/${encodeURIComponent(props.restaurantId)}`);
+        navigate(`/restaurant/${encodedNumber}`);
     };
     return (
         <div className="card-hover-animated bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
@@ -81,7 +80,7 @@ function WhatsHot({ list }: WhatsHotProps) {
                         imageSrc={restaurant.photoUrls?.[0] ?? ""}
                         title={restaurant.restaurantName ?? ""}
                         text={restaurant.description?.[0] ?? ""}
-                        restaurantId={restaurant.id}
+                        restaurantId={restaurant.restaurantId}
                         restaurantName={restaurant.restaurantName ?? ""}
                         tags={restaurant.restaurantCuisine}
                     />

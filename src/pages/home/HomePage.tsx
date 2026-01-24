@@ -25,7 +25,6 @@ function HomePage() {
     const { data: homePageRecommendedRestaurants } = useGetHomePageRecommendedRestaurantsQuery();
 
     const whatsHotRestaurants = homePageRecommendedRestaurants?.filter(restaurant => restaurant.photoUrls !== undefined).splice(0, 4) || [];
-
     return (
         <div className="home-page-container">
             <div className="home-page-food-category">

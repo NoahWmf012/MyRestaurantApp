@@ -172,7 +172,8 @@ function MapSearchPage() {
     const handlePopupClick = useCallback(() => {
         if (selectedRestaurant) {
             if (selectedRestaurant.tags.includes('recommended')) {
-                navigate(`/restaurant/${encodeURIComponent(selectedRestaurant.id)}`);
+                const encodedId = btoa(String(selectedRestaurant.id));
+                navigate(`/restaurant/${encodedId}`);
             } else {
                 const encryptedId = btoa(selectedRestaurant.id.toString());
                 navigate(`/restaurant-search/${encryptedId}`);
