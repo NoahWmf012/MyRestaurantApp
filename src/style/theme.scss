@@ -98,14 +98,6 @@
     padding: 8px;
     border-radius: $radius-lg;
     transition: all $transition-fast;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.05);
-        box-shadow: $shadow-md;
-    }
 }
 
 /* Toolbar Sections */

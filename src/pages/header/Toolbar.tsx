@@ -91,7 +91,7 @@ function Toolbar() {
                         className="title-icon"
                         id="home-button"
                     /> */}
-                    <h3 className="app-title text-5xl font-bold mb-3 text-outline" id="home-button">GetherEat</h3>
+                    <h3 className="app-title text-5xl font-bold text-outline" id="home-button">GetherEat</h3>
                 </button>
             </div>
 
