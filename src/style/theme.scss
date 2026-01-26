@@ -98,6 +98,10 @@
     padding: 8px;
     border-radius: $radius-lg;
     transition: all $transition-fast;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
 /* Toolbar Sections */
