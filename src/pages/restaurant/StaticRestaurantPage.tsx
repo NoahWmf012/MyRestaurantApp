@@ -42,12 +42,9 @@ function StaticRestaurantPage() {
             address: restaurant.address || restaurant.location || '',
             phoneNum: restaurant.phone || '',
             description: restaurant.description || 'No description available.',
-            cuisine: Array.isArray(restaurant.cuisines)
-                ? restaurant.cuisines.map(c => c.cuisine).join(', ')
-                : (restaurant.cuisines || 'Restaurant'),
+            cuisines: restaurant.cuisines || [],
             photos: restaurant.photos || [],
-            reviews: restaurant.reviews || [],
-            reviewCount: restaurant.googleReviews || 0
+            reviews: restaurant.reviews || []
         };
     }, [restaurant]);
 
@@ -113,7 +110,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    const { address, phoneNum, description, cuisine, photos, reviews, reviewCount } = restaurantData;
+    const { address, phoneNum, description, cuisines, photos, reviews } = restaurantData;
 
     return (
         <div className="restaurant-page-modern">
@@ -131,7 +128,9 @@ function StaticRestaurantPage() {
                     <h1 className="restaurant-title">{restaurant.name}</h1>
 
                     <div className="restaurant-meta-badges">
-                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{cuisine}</span>
+                        {cuisines.map((e, index) => (
+                            <span key={index} className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{e.cuisine}</span>
+                        ))}
                         {restaurant.minPrice && restaurant.maxPrice && (
                             <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>
                         )}
@@ -245,7 +244,14 @@ function StaticRestaurantPage() {
                                 <div className="info-icon">🕐</div>
                                 <div className="info-details">
                                     <div className="info-label">Opening Hours</div>
-                                    <div className="info-value">{restaurant.openingHours}</div>
+                                    <div className="info-value">
+                                        {restaurant.openingHours.includes(';')
+                                            ? restaurant.openingHours.split(';').map((part, index) => (
+                                                <div key={index}>{part.trim()}</div>
+                                            ))
+                                            : restaurant.openingHours
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -354,7 +360,7 @@ function StaticRestaurantPage() {
                                             {'★'.repeat(Math.floor(restaurant.googleRating || 0))}
                                         </div>
                                         <p className="rating-text">
-                                            Based on {reviewCount} customer review{reviewCount !== 1 ? 's' : ''}
+                                            Based on {restaurant.ratingStats?.reviewCount} customer review{restaurant.ratingStats?.reviewCount !== 1 ? 's' : ''}
                                         </p>
                                     </div>
                                     <button className="btn-write-review" onClick={handleWriteReview}>
@@ -363,7 +369,7 @@ function StaticRestaurantPage() {
                                     </button>
                                 </div>
 
-                                {reviewCount > 0 ? (
+                                {restaurant.ratingStats && restaurant.ratingStats.reviewCount > 0 ? (
                                     <div className="reviews-list">
                                         {reviews.map((review) => (
                                             <ReviewItem key={review.id} review={review} />

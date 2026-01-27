@@ -27,13 +27,9 @@ const getRatingLabel = (rating: Rating): string => {
     return labelMap[rating];
 };
 
-const getUserInitial = (userId: string): string => { //todo: add user.iconUrl
-    return userId.charAt(0).toUpperCase();
+const getUserInitial = (userName: string): string => { //todo: add user.iconUrl
+    return userName.charAt(0).toUpperCase();
 };
-
-const maskUserId = (userId: string): string => {
-    return `User ${userId.slice(0, 8)}`;
-}
 
 // Review Item Component
 interface ReviewItemProps {
@@ -46,10 +42,10 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
             <div className="review-header">
                 <div className="review-author">
                     <div className="author-avatar">
-                        {getUserInitial(review.userId)}
+                        {getUserInitial(review.user.userName)}
                     </div>
                     <div className="author-info">
-                        <div className="author-name">{maskUserId(review.user.userName)}</div>
+                        <div className="author-name">{review.user.userName}</div>
                         <div className="review-date">{formatDate(review.createdAt)}</div>
                     </div>
                 </div>

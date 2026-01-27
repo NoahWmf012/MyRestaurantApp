@@ -68,9 +68,14 @@ const PromotedRestaurantPage = () => {
                     </div>
                     <h1 className="text-5xl font-bold mb-3 text-outline">{restaurant?.name || 'Featured Restaurant'}</h1>
                     <div className="flex items-center gap-4">
-                        <span className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold">
-                            {restaurant?.cuisine?.[0] || 'International'}
-                        </span>
+                        {restaurant?.cuisines?.map((cuisine, index) => (
+                            <span
+                                key={index}
+                                className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold"
+                            >
+                                {cuisine.cuisine}
+                            </span>
+                        ))}
                         <span className="flex items-center gap-1">
                             <span className="text-yellow-400 text-xl">
                                 {'★'.repeat(Math.floor(restaurant?.googleRating || 0))}
@@ -92,7 +97,7 @@ const PromotedRestaurantPage = () => {
                             <img
                                 src={photoUrl}
                                 alt={`Signature dish ${index + 1}`}
-                                className="w-full h-96 object-cover rounded-lg shadow-lg mb-6"
+                                className="object-cover rounded-lg shadow-lg mb-6"
                             />
                             <p className="text-gray-700 leading-relaxed text-lg mb-4">
                                 {promotedRestaurant.description?.[index + 1]}
@@ -112,7 +117,7 @@ const PromotedRestaurantPage = () => {
                         </div>
                         <div className="flex items-start">
                             <span className="font-semibold text-gray-900 w-32">Cuisine:</span>
-                            <span className="text-gray-800">{restaurant?.cuisine}</span>
+                            <span className="text-gray-800">{restaurant?.cuisines?.join(', ')}</span>
                         </div>
                         <div className="flex items-start cursor-pointer"
                             onClick={() => handleAddressClick(restaurant?.address || '')}>
