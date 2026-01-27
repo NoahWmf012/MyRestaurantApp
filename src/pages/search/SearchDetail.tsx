@@ -44,7 +44,7 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                             >
                                 <div className="restaurant-image-wrapper">
                                     <img
-                                        src={restaurant.photos?.[0] || getRestaurantImage1(restaurant.id)}
+                                        src={restaurant.photos?.[0].url || getRestaurantImage1(restaurant.id)}
                                         alt={restaurant.name || 'Restaurant Image'}
                                         className="restaurant-image"
                                     />
@@ -55,7 +55,7 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                                         <span className="rating">
                                             {'★'.repeat(Math.floor(restaurant.googleRating ?? 0))} {restaurant.googleRating} {restaurant.googleReviews ? `(${restaurant.googleReviews})` : ''}
                                         </span>
-                                        <span>{restaurant.cuisine.map(e => <span className="cuisine-badge">{e}</span>)}</span>
+                                        <span>{restaurant.cuisines?.map(e => <span className="cuisine-badge" key={e.id}>{e.cuisine}</span>)}</span>
                                     </div>
                                     <div className="col-span-5">
                                         <p className="restaurant-description">{restaurant.description}</p>

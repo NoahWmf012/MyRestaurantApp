@@ -172,7 +172,7 @@ function MapSearchPage() {
 
     const handlePopupClick = useCallback(() => {
         if (selectedRestaurant) {
-            if (selectedRestaurant.tags.includes('recommended')) {
+            if (selectedRestaurant.tags?.some(e => e.tag === 'recommended')) {
                 const encodedId = btoa(String(selectedRestaurant.id));
                 navigate(`/restaurant/${encodedId}`);
             } else {
@@ -290,9 +290,9 @@ function MapSearchPage() {
                                 <div className="popup-content">
                                     <h3>{selectedRestaurant.name}</h3>
 
-                                    {selectedRestaurant.cuisine && selectedRestaurant.cuisine.length > 0 && (
+                                    {selectedRestaurant.cuisines && selectedRestaurant.cuisines.length > 0 && (
                                         <div className="popup-info cuisine">
-                                            {selectedRestaurant.cuisine.join(', ')}
+                                            {selectedRestaurant.cuisines.map(e => e.cuisine).join(', ')}
                                         </div>
                                     )}
 
