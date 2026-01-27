@@ -42,9 +42,9 @@ function StaticRestaurantPage() {
             address: restaurant.address || restaurant.location || '',
             phoneNum: restaurant.phone || '',
             description: restaurant.description || 'No description available.',
-            cuisine: Array.isArray(restaurant.cuisine)
-                ? restaurant.cuisine.join(', ')
-                : (restaurant.cuisine || 'Restaurant'),
+            cuisine: Array.isArray(restaurant.cuisines)
+                ? restaurant.cuisines.map(c => c.cuisine).join(', ')
+                : (restaurant.cuisines || 'Restaurant'),
             photos: restaurant.photos || [],
             reviews: restaurant.reviews || [],
             reviewCount: restaurant.googleReviews || 0
@@ -142,24 +142,24 @@ function StaticRestaurantPage() {
                             </span>
                         )}
                         {/* Rating counts */}
-                        {((restaurant?.ratingGood ?? 0) > 0 || (restaurant?.ratingNormal ?? 0) > 0 || (restaurant?.ratingBad ?? 0) > 0) && (
+                        {((restaurant?.ratingStats?.ratingGood ?? 0) > 0 || (restaurant?.ratingStats?.ratingNormal ?? 0) > 0 || (restaurant?.ratingStats?.ratingBad ?? 0) > 0) && (
                             <div className="rating-counts">
-                                {(restaurant.ratingGood ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingGood ?? 0) > 0 && (
                                     <span className="count-badge count-good">
                                         <span className="count-icon">👍</span>
-                                        <span className="count-number">{restaurant.ratingGood}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingGood}</span>
                                     </span>
                                 )}
-                                {(restaurant.ratingNormal ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingNormal ?? 0) > 0 && (
                                     <span className="count-badge count-normal">
                                         <span className="count-icon">👌</span>
-                                        <span className="count-number">{restaurant.ratingNormal}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingNormal}</span>
                                     </span>
                                 )}
-                                {(restaurant.ratingBad ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingBad ?? 0) > 0 && (
                                     <span className="count-badge count-bad">
                                         <span className="count-icon">👎</span>
-                                        <span className="count-number">{restaurant.ratingBad}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingBad}</span>
                                     </span>
                                 )}
                             </div>
@@ -187,13 +187,13 @@ function StaticRestaurantPage() {
             {photos.length > 0 && (
                 <div className="photo-gallery">
                     <div className="gallery-grid">
-                        {displayPhotos.map((photo: string, index: number) => (
+                        {displayPhotos.map((e: { url: string }, index: number) => (
                             <div
                                 key={index}
                                 className={`gallery-item ${index === 0 ? 'main-photo' : ''}`}
                             >
                                 <img
-                                    src={photo}
+                                    src={e.url}
                                     alt={`${restaurant.name} ${index + 1}`}
                                 />
                                 {index === 4 && photos.length > 5 && !showAllPhotos && (
@@ -282,9 +282,9 @@ function StaticRestaurantPage() {
                         <div className="tags-card">
                             <h4>Popular Tags</h4>
                             <div className="tags-list">
-                                {restaurant.tags.map((tag: string, index: number) => (
+                                {restaurant.tags.map((e: { tag: string }, index: number) => (
                                     <span key={index} className="tag">
-                                        {tag}
+                                        {e.tag}
                                     </span>
                                 ))}
                             </div>
@@ -331,9 +331,9 @@ function StaticRestaurantPage() {
                         {activeTab === 'photos' && (
                             <div className="photos-content">
                                 <div className="photos-grid">
-                                    {photos.map((photo: string, index: number) => (
+                                    {photos.map((e: { url: string }, index: number) => (
                                         <div key={index} className="photo-item">
-                                            <img src={photo} alt={`${restaurant.name} ${index + 1}`} />
+                                            <img src={e.url} alt={`${restaurant.name} ${index + 1}`} />
                                         </div>
                                     ))}
                                 </div>
