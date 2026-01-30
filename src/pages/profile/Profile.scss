@@ -387,11 +387,303 @@
 }
 
 /* ========================================
+   BOOKMARKS/FAVORITES TAB
+   ======================================== */
+
+.bookmarks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.bookmark-card {
+    background: white;
+    border-radius: $radius-lg;
+    padding: 20px;
+    box-shadow: $shadow-md;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border: 1px solid $border-color;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-xl;
+        border-color: $primary-color;
+    }
+
+    .bookmark-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .bookmark-date {
+            font-size: 0.875rem;
+            color: $text-color-muted;
+        }
+    }
+
+    .bookmark-info {
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: $text-color;
+            margin: 0 0 8px 0;
+        }
+
+        .bookmark-group-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: $radius-full;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+    }
+}
+
+/* ========================================
+   REVIEWS TAB
+   ======================================== */
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-card {
+    background: white;
+    border-radius: $radius-lg;
+    padding: 24px;
+    box-shadow: $shadow-md;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border: 1px solid $border-color;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+        border-color: $primary-color;
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .review-restaurant {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: $text-color;
+            margin: 0;
+        }
+
+        .review-rating {
+            padding: 6px 16px;
+            border-radius: $radius-full;
+            font-weight: 600;
+            font-size: 0.875rem;
+
+            &.rating-good {
+                background: rgba($success-color, 0.1);
+                color: $success-color;
+            }
+
+            &.rating-normal {
+                background: rgba($warning-color, 0.1);
+                color: $warning-color;
+            }
+
+            &.rating-bad {
+                background: rgba($error-color, 0.1);
+                color: $error-color;
+            }
+        }
+    }
+
+    .review-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $text-color;
+        margin: 0 0 8px 0;
+    }
+
+    .review-content {
+        color: $text-color-secondary;
+        line-height: 1.6;
+        margin: 0 0 16px 0;
+    }
+
+    .review-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid $border-color-light;
+
+        .review-date {
+            font-size: 0.875rem;
+            color: $text-color-muted;
+        }
+
+        .review-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.875rem;
+            color: $text-color-muted;
+
+            .edited-badge {
+                background: $neutral-100;
+                padding: 2px 8px;
+                border-radius: $radius-sm;
+                font-size: 0.75rem;
+            }
+        }
+    }
+
+    .review-photos {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+
+        .review-photo-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: $radius-md;
+            border: 2px solid $border-color-light;
+        }
+
+        .more-photos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: $neutral-100;
+            border-radius: $radius-md;
+            font-weight: 600;
+            color: $text-color-muted;
+        }
+    }
+}
+
+/* ========================================
+   POLLS TAB
+   ======================================== */
+
+.polls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.poll-card {
+    background: white;
+    border-radius: $radius-lg;
+    padding: 24px;
+    box-shadow: $shadow-md;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border: 1px solid $border-color;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-xl;
+        border-color: $primary-color;
+    }
+
+    .poll-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        gap: 12px;
+
+        .poll-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: $text-color;
+            margin: 0;
+            flex: 1;
+        }
+
+        .poll-status {
+            padding: 4px 12px;
+            border-radius: $radius-full;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+
+            &.active {
+                background: rgba($success-color, 0.1);
+                color: $success-color;
+            }
+
+            &.inactive {
+                background: $neutral-100;
+                color: $text-color-muted;
+            }
+        }
+    }
+
+    .poll-description {
+        color: $text-color-secondary;
+        line-height: 1.6;
+        margin: 0 0 16px 0;
+        font-size: 0.9375rem;
+    }
+
+    .poll-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid $border-color-light;
+        font-size: 0.875rem;
+        color: $text-color-muted;
+
+        .poll-expires {
+            font-weight: 500;
+        }
+    }
+
+    .poll-share {
+        margin-top: 12px;
+        padding: 12px;
+        background: $primary-lighter;
+        border-radius: $radius-md;
+
+        .share-token {
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: $text-color;
+            word-break: break-all;
+        }
+    }
+}
+
+/* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 
 @media (max-width: 768px) {
     .stats-container {
         grid-template-columns: 1fr;
+    }
+
+    .bookmarks-grid,
+    .polls-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-card {
+        .review-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
     }
 }
