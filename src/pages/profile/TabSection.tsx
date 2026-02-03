@@ -55,7 +55,7 @@ function TabSection(props: Props) {
                                             </span>
                                         </div>
                                         <div className="bookmark-info">
-                                            <h4>Restaurant #{bookmark.restaurantId}</h4>
+                                            <h4>{bookmark.restaurant.name}</h4>
                                             {bookmark.bookmarkGroup && (
                                                 <span
                                                     className="bookmark-group-badge"

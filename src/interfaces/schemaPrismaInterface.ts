@@ -156,6 +156,7 @@ export interface BookmarkPrismaInterface {
     restaurantId: number;
     createdAt: Date;
     bookmarkGroup?: BookmarkGroupPrismaInterface;
+    restaurant: RestaurantPrismaInterface;
 }
 
 export interface BookmarkGroupPrismaInterface {

@@ -3,17 +3,25 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery, useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
-// import { useMsgModal } from "../../hooks/useMsgModal";
-import "./RestaurantPage.scss"
+import { useAddBookmarkMutation, useDeleteBookmarkMutation, useLazyGetBookmarksQuery } from "../../redux/services/api/userAPI";
+import { useMsgModal } from "../../hooks/useMsgModal";
+import { useAppSelector } from "../../redux/store";
 import ReviewItem from "./ReviewItem";
 import WriteReviewModal from "./WriteReviewModal";
+import "./RestaurantPage.scss"
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
-    // const { showInfo, showSuccess } = useMsgModal();
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const { showSuccess, showError } = useMsgModal();
+    const { accessToken } = useAppSelector(state => state.authState);
+
+    const [addBookmark, { isLoading: isAddingBookmark }] = useAddBookmarkMutation();
+    const [deleteBookmark, { isLoading: isDeletingBookmark }] = useDeleteBookmarkMutation();
+    const [getBookmarks] = useLazyGetBookmarksQuery();
 
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -53,6 +61,21 @@ function StaticRestaurantPage() {
         return showAllPhotos ? restaurantData.photos : restaurantData.photos.slice(0, 5);
     }, [restaurantData, showAllPhotos]);
 
+    // Check if restaurant is bookmarked
+    useMemo(() => {
+        const checkBookmarkStatus = async () => {
+            if (restaurant && accessToken) {
+                try {
+                    const bookmarks = await getBookmarks().unwrap();
+                    setIsBookmarked(bookmarks.some(b => b.restaurantId === restaurant.id));
+                } catch (error) {
+                    console.error('Failed to fetch bookmarks:', error);
+                }
+            }
+        };
+        checkBookmarkStatus();
+    }, [restaurant, accessToken, getBookmarks]);
+
     const handleAddressClick = (address: string) => {
         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
         window.open(googleMapsUrl, '_blank');
@@ -83,6 +106,31 @@ function StaticRestaurantPage() {
 
     const handleWriteReview = () => {
         setIsWriteReviewOpen(true);
+    };
+
+    const handleBookmark = async () => {
+        if (!accessToken) {
+            showError('Please log in to bookmark restaurants');
+            navigate('/login');
+            return;
+        }
+
+        if (!restaurant) return;
+
+        try {
+            if (isBookmarked) {
+                await deleteBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(false);
+                showSuccess('Removed from favorites!');
+            } else {
+                await addBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(true);
+                showSuccess('Added to favorites!');
+            }
+        } catch (error) {
+            console.error('Failed to update bookmark:', error);
+            showError('Failed to update bookmark. Please try again.');
+        }
     };
 
     if (isLoading) {
@@ -125,7 +173,21 @@ function StaticRestaurantPage() {
                         <span className="current">{restaurant.name}</span>
                     </div>
 
-                    <h1 className="restaurant-title">{restaurant.name}</h1>
+                    <div className="restaurant-title-section">
+                        <h1 className="restaurant-title">{restaurant.name}</h1>
+                        <button
+                            className={`btn-bookmark-star ${isBookmarked ? 'bookmarked' : ''}`}
+                            onClick={handleBookmark}
+                            disabled={isAddingBookmark || isDeletingBookmark}
+                            title={isBookmarked ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            {isAddingBookmark || isDeletingBookmark ? (
+                                <span className="bookmark-spinner">⏳</span>
+                            ) : (
+                                <span className="heart-icon">{isBookmarked ? '⭐' : '☆'}</span>
+                            )}
+                        </button>
+                    </div>
 
                     <div className="restaurant-meta-badges">
                         {cuisines.map((e, index) => (
