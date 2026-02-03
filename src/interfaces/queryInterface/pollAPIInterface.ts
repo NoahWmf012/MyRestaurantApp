@@ -8,6 +8,9 @@ export interface PollResponse {
     options: PollOption[];
     isActive: boolean;
     shareToken: string;
+    creator: {
+        userName: string;
+    };
 }
 
 export interface PollOption {

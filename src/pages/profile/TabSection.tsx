@@ -183,9 +183,6 @@ function TabSection(props: Props) {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="poll-share">
-                                                <span className="share-token">🔗 {poll.shareToken}</span>
-                                            </div>
                                         </div>
                                     )
                                 })}
