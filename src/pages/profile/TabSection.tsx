@@ -155,36 +155,40 @@ function TabSection(props: Props) {
                     <div className="polls-content">
                         {profile.polls.length > 0 ? (
                             <div className="polls-grid">
-                                {profile.polls.map((poll) => (
-                                    <div
-                                        key={poll.id}
-                                        className="poll-card"
-                                        onClick={() => navigate(`/vote/${poll.shareToken}`)}
-                                    >
-                                        <div className="poll-header">
-                                            <h4 className="poll-title">{poll.title}</h4>
-                                            <span className={`poll-status ${poll.isActive ? 'active' : 'inactive'}`}>
-                                                {poll.isActive ? '🟢 Active' : '⚫ Inactive'}
-                                            </span>
-                                        </div>
-                                        {poll.description && (
-                                            <p className="poll-description">{poll.description}</p>
-                                        )}
-                                        <div className="poll-footer">
-                                            <span className="poll-date">
-                                                Created {new Date(poll.createdAt).toLocaleDateString()}
-                                            </span>
-                                            {poll.expiresAt && (
-                                                <span className="poll-expires">
-                                                    Expires {new Date(poll.expiresAt).toLocaleDateString()}
+                                {profile.polls.map((poll) => {
+                                    const isExpired = !poll.isActive || (poll.expiresAt ? new Date(poll.expiresAt) < new Date() : false);
+                                    return (
+                                        <div
+                                            key={poll.id}
+                                            className="poll-card"
+                                            onClick={() => navigate(`/poll/share/${poll.shareToken}`)}
+                                        >
+                                            <div className="poll-header">
+                                                <h4 className="poll-title">{poll.title}</h4>
+                                                <span className={`poll-status poll-status--${isExpired ? 'expired' : 'active'}`}>
+                                                    <span className="poll-status__dot"></span>
+                                                    {isExpired ? 'Expired' : 'Active'}
                                                 </span>
+                                            </div>
+                                            {poll.description && (
+                                                <p className="poll-description">{poll.description}</p>
                                             )}
+                                            <div className="poll-footer">
+                                                <span className="poll-date">
+                                                    Created {new Date(poll.createdAt).toLocaleDateString()}
+                                                </span>
+                                                {poll.expiresAt && (
+                                                    <span className="poll-expires">
+                                                        Expires {new Date(poll.expiresAt).toLocaleDateString()}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="poll-share">
+                                                <span className="share-token">🔗 {poll.shareToken}</span>
+                                            </div>
                                         </div>
-                                        <div className="poll-share">
-                                            <span className="share-token">🔗 {poll.shareToken}</span>
-                                        </div>
-                                    </div>
-                                ))}
+                                    )
+                                })}
                             </div>
                         ) : (
                             <div className="empty-state">

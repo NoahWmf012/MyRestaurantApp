@@ -64,6 +64,7 @@ function VotePage() {
 
     const handleBackToList = () => {
         setSelectedPoll(null);
+        navigate('/vote');
     };
 
     const handleVote = async (pollId: number, _restaurantId: number | null, optionId: number) => {
