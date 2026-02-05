@@ -1,0 +1,42 @@
+{
+    "appTitle": "GetherEat",
+    "about": "About",
+    "header": {
+        "home": "Home",
+        "settings": "Settings",
+        "login": "Log In",
+        "logout": "Logout",
+        "welcome": "Hi, {{name}}!",
+        "more": "More",
+        "mapSearch": "Map Search"
+    },
+    "dropdown": {
+        "spinWheel": {
+            "title": "Spin Wheel",
+            "description": "Let chance decide your restaurant"
+        },
+        "vote": {
+            "title": "Vote",
+            "description": "Vote for your favorite restaurant"
+        },
+        "logout": {
+            "title": "Logout",
+            "description": "Sign out of your account"
+        }
+    },
+    "language": {
+        "en": "English",
+        "zh-CN": "简体中文",
+        "zh-HK": "繁體中文",
+        "fr": "Français"
+    },
+    "buttons": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "submit": "Submit",
+        "delete": "Delete",
+        "edit": "Edit",
+        "search": "Search",
+        "close": "Close"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "title": "Vote",
+    "createPoll": {
+        "title": "Créer un sondage",
+        "name": "Nom du sondage",
+        "submit": "Créer le sondage"
+    },
+    "poll": {
+        "vote": "Voter",
+        "results": "Résultats"
+    }
+}

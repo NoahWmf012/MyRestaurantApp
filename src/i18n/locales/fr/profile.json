@@ -1,0 +1,9 @@
+{
+    "title": "Profil",
+    "tabs": {
+        "overview": "Aperçu",
+        "favorites": "Favoris",
+        "reviews": "Avis",
+        "settings": "Paramètres"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "title": "投票",
+    "createPoll": {
+        "title": "创建投票",
+        "name": "投票名称",
+        "submit": "创建投票"
+    },
+    "poll": {
+        "vote": "投票",
+        "results": "结果"
+    }
+}

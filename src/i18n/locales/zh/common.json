@@ -1,0 +1,42 @@
+{
+    "appTitle": "聚餐易",
+    "about": "关于我们",
+    "header": {
+        "home": "首页",
+        "settings": "设置",
+        "login": "登录",
+        "logout": "登出",
+        "welcome": "您好，{{name}}！",
+        "more": "更多",
+        "mapSearch": "地图搜索"
+    },
+    "dropdown": {
+        "spinWheel": {
+            "title": "转盘抽选",
+            "description": "让运气决定你的餐厅"
+        },
+        "vote": {
+            "title": "投票",
+            "description": "为你喜欢的餐厅投票"
+        },
+        "logout": {
+            "title": "登出",
+            "description": "退出您的账户"
+        }
+    },
+    "language": {
+        "en": "English",
+        "zh-CN": "简体中文",
+        "zh-HK": "繁體中文",
+        "fr": "Français"
+    },
+    "buttons": {
+        "save": "保存",
+        "cancel": "取消",
+        "submit": "提交",
+        "delete": "删除",
+        "edit": "编辑",
+        "search": "搜索",
+        "close": "关闭"
+    }
+}

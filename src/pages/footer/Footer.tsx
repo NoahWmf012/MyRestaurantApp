@@ -3,11 +3,13 @@ import './Footer.scss';
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../redux/store';
 import { showRouletteModal } from '../../redux/reducers/modalVisibleSlice';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
     const navigate = useNavigate();
     const currentYear = new Date().getFullYear();
     const dispatch = useAppDispatch()
+    const { t } = useTranslation();
 
     const onVoteClick = () => {
         navigate('/vote');
@@ -39,7 +41,7 @@ function Footer() {
                 <div className="footer-grid">
                     {/* About Section */}
                     <div className="footer-section">
-                        <h3 className="footer-section-title">About GetherEat</h3>
+                        <h3 className="footer-section-title">{t('about')}</h3>
                         <p className="footer-description">
                             Discover the best restaurants in your area. Browse menus, read reviews,
                             and find your next favorite dining spot.

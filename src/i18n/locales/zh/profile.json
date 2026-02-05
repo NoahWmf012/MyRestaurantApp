@@ -1,0 +1,9 @@
+{
+    "title": "个人资料",
+    "tabs": {
+        "overview": "概览",
+        "favorites": "收藏",
+        "reviews": "评论",
+        "settings": "设置"
+    }
+}

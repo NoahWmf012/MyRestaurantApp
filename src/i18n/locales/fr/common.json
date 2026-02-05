@@ -1,0 +1,42 @@
+{
+    "appTitle": "GetherEat",
+    "about": "À propos",
+    "header": {
+        "home": "Accueil",
+        "settings": "Paramètres",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "welcome": "Bonjour, {{name}} !",
+        "more": "Plus",
+        "mapSearch": "Recherche sur la carte"
+    },
+    "dropdown": {
+        "spinWheel": {
+            "title": "Roue de la fortune",
+            "description": "Laissez le hasard choisir votre restaurant"
+        },
+        "vote": {
+            "title": "Voter",
+            "description": "Votez pour votre restaurant préféré"
+        },
+        "logout": {
+            "title": "Déconnexion",
+            "description": "Se déconnecter de votre compte"
+        }
+    },
+    "language": {
+        "en": "English",
+        "zh-CN": "简体中文",
+        "zh-HK": "繁體中文",
+        "fr": "Français"
+    },
+    "buttons": {
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "submit": "Soumettre",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "search": "Rechercher",
+        "close": "Fermer"
+    }
+}
