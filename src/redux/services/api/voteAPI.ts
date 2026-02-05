@@ -34,7 +34,17 @@ export const voteAPI = createApi({
                 method: 'GET',
             }),
         }),
+
+        //todo: add delete poll btn
+        //@Put('deactivate-vote')
+        deactivateVote: builder.mutation<void, { pollId: string }>({
+            query: ({ pollId }) => ({
+                url: `/deactivate-vote`,
+                method: 'PUT',
+                body: { pollId },
+            }),
+        }),
     }),
 })
 
-export const { useCreatePollMutation, useGetPollsQuery, useLazyGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery } = voteAPI
+export const { useCreatePollMutation, useGetPollsQuery, useLazyGetPollsQuery, useUpdateVoteMutation, useGetPollByShareTokenQuery, useDeactivateVoteMutation } = voteAPI

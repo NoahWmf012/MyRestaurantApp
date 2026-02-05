@@ -1,6 +1,5 @@
 import { useCallback, useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import MainIcon from "../../assets/icons/main.png"
 import LoginIcon from "../../assets/icons/user-interface.png"
 import SettingIcon from "../../assets/icons/setting-lines.png"
 import MoreIcon from "../../assets/icons/more.png"
@@ -86,12 +85,13 @@ function Toolbar() {
                     onClick={handleHomeClick}
                     aria-label="Go to home page"
                 >
-                    <img
+                    {/* <img
                         src={MainIcon}
                         alt=""
                         className="title-icon"
                         id="home-button"
-                    />
+                    /> */}
+                    <h3 className="app-title text-5xl font-bold text-outline" id="home-button">GetherEat</h3>
                 </button>
             </div>
 

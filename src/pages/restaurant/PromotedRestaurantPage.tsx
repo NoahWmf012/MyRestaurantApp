@@ -1,17 +1,74 @@
 // This page is for dynamic restaurant page which shows promoted restaurant details
-// *** promoted & recommended are interchangeable ***
+// *** 'promoted' & 'recommended' are interchangeable ***
 // navigate(`/restaurant/${encodeURIComponent()}`);
 
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useGetRecommendedRestaurantQuery } from '../../redux/services/api/restaurantAPI';
+import { useAddBookmarkMutation, useDeleteBookmarkMutation, useLazyGetBookmarksQuery } from '../../redux/services/api/userAPI';
+import { useMsgModal } from '../../hooks/useMsgModal';
+import { useAppSelector } from '../../redux/store';
 import './RestaurantPage.scss';
 
 const PromotedRestaurantPage = () => {
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const navigate = useNavigate();
     const decodedRestaurantId = atob(restaurantId || '');
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const { showSuccess, showError } = useMsgModal();
+    const { accessToken } = useAppSelector(state => state.authState);
 
     const { data: promotedRestaurant, isLoading, isError } = useGetRecommendedRestaurantQuery(Number(decodedRestaurantId));
+    const [addBookmark, { isLoading: isAddingBookmark }] = useAddBookmarkMutation();
+    const [deleteBookmark, { isLoading: isDeletingBookmark }] = useDeleteBookmarkMutation();
+    const [getBookmarks] = useLazyGetBookmarksQuery();
+
+    const restaurant = promotedRestaurant?.restaurant;
+
+    // Check if restaurant is bookmarked
+    useEffect(() => {
+        const checkBookmarkStatus = async () => {
+            if (restaurant && accessToken) {
+                try {
+                    const bookmarks = await getBookmarks().unwrap();
+                    setIsBookmarked(bookmarks.some(b => b.restaurantId === restaurant.id));
+                } catch (error) {
+                    console.error('Failed to fetch bookmarks:', error);
+                }
+            }
+        };
+        checkBookmarkStatus();
+    }, [restaurant, accessToken, getBookmarks]);
+
+    const handleAddressClick = (address: string) => {
+        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+        window.open(googleMapsUrl, '_blank');
+    };
+
+    const handleBookmark = async () => {
+        if (!accessToken) {
+            showError('Please log in to bookmark restaurants');
+            navigate('/login');
+            return;
+        }
+
+        if (!restaurant) return;
+
+        try {
+            if (isBookmarked) {
+                await deleteBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(false);
+                showSuccess('Removed from favorites!');
+            } else {
+                await addBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(true);
+                showSuccess('Added to favorites!');
+            }
+        } catch (error) {
+            console.error('Failed to update bookmark:', error);
+            showError('Failed to update bookmark. Please try again.');
+        }
+    };
 
     if (isLoading) {
         return (
@@ -40,13 +97,7 @@ const PromotedRestaurantPage = () => {
         );
     }
 
-    const restaurant = promotedRestaurant.restaurant;
     const mainImage = promotedRestaurant.photoUrls?.[0] || '/placeholder-restaurant.jpg';
-
-    const handleAddressClick = (address: string) => {
-        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-        window.open(googleMapsUrl, '_blank');
-    };
 
     return (
         <div className="bg-white">
@@ -66,11 +117,30 @@ const PromotedRestaurantPage = () => {
                             Featured
                         </span>
                     </div>
-                    <h1 className="text-5xl font-bold mb-3 text-outline">{restaurant?.name || 'Featured Restaurant'}</h1>
+                    <div className="flex items-center gap-4 mb-3">
+                        <h1 className="text-5xl font-bold text-outline">{restaurant?.name || 'Featured Restaurant'}</h1>
+                        <button
+                            className={`promoted-bookmark-btn cursor-pointer ${isBookmarked ? 'bookmarked' : ''}`}
+                            onClick={handleBookmark}
+                            disabled={isAddingBookmark || isDeletingBookmark}
+                            title={isBookmarked ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            {isAddingBookmark || isDeletingBookmark ? (
+                                <span className="bookmark-spinner">⏳</span>
+                            ) : (
+                                <span>{isBookmarked ? '⭐' : '☆'}</span>
+                            )}
+                        </button>
+                    </div>
                     <div className="flex items-center gap-4">
-                        <span className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold">
-                            {restaurant?.cuisine?.[0] || 'International'}
-                        </span>
+                        {restaurant?.cuisines?.map((cuisine, index) => (
+                            <span
+                                key={index}
+                                className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold"
+                            >
+                                {cuisine.cuisine}
+                            </span>
+                        ))}
                         <span className="flex items-center gap-1">
                             <span className="text-yellow-400 text-xl">
                                 {'★'.repeat(Math.floor(restaurant?.googleRating || 0))}
@@ -92,7 +162,7 @@ const PromotedRestaurantPage = () => {
                             <img
                                 src={photoUrl}
                                 alt={`Signature dish ${index + 1}`}
-                                className="w-full h-96 object-cover rounded-lg shadow-lg mb-6"
+                                className="object-cover rounded-lg shadow-lg mb-6"
                             />
                             <p className="text-gray-700 leading-relaxed text-lg mb-4">
                                 {promotedRestaurant.description?.[index + 1]}
@@ -112,7 +182,7 @@ const PromotedRestaurantPage = () => {
                         </div>
                         <div className="flex items-start">
                             <span className="font-semibold text-gray-900 w-32">Cuisine:</span>
-                            <span className="text-gray-800">{restaurant?.cuisine}</span>
+                            <span className="text-gray-800">{restaurant?.cuisines?.join(', ')}</span>
                         </div>
                         <div className="flex items-start cursor-pointer"
                             onClick={() => handleAddressClick(restaurant?.address || '')}>

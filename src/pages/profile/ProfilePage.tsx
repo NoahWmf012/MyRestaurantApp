@@ -1,14 +1,17 @@
+import type { UserPrismaInterface } from "../../interfaces/schemaPrismaInterface";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetProfileQuery } from "../../redux/services/api/userAPI";
-import type { UserPrismaInterface } from "../../interfaces/schemaPrismaInterface";
+import TabSection from "./TabSection";
 import './Profile.scss';
+
+type TabType = 'favorites' | 'reviews' | 'polls';
 
 function ProfilePage() {
     const navigate = useNavigate();
     const [profile, setProfile] = useState<UserPrismaInterface | null>(null);
-    const [activeTab, setActiveTab] = useState<'favorites' | 'reviews' | 'polls'>('favorites');
+    const [activeTab, setActiveTab] = useState<TabType>('favorites');
     const [isLoading, setIsLoading] = useState(true);
 
     const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery();
@@ -24,6 +27,7 @@ function ProfilePage() {
         navigate('/settings');
     };
 
+    //todo: add loading spinner
     if (isLoading) {
         return (
             <ProtectedRoute>
@@ -102,69 +106,7 @@ function ProfilePage() {
                 </section>
 
                 {/* Tabs Section */}
-                <section className="profile-content">
-                    <div className="profile-tabs">
-                        <button
-                            className={`tab-btn ${activeTab === 'favorites' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('favorites')}
-                        >
-                            ❤️ Favorites
-                        </button>
-                        <button
-                            className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('reviews')}
-                        >
-                            ⭐ My Reviews
-                        </button>
-                        <button
-                            className={`tab-btn ${activeTab === 'polls' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('polls')}
-                        >
-                            🗳️ My Polls
-                        </button>
-                    </div>
-
-                    <div className="tab-content">
-                        {activeTab === 'reviews' && (
-                            <div className="reviews-content">
-                                <div className="empty-state">
-                                    <div className="empty-icon">⭐</div>
-                                    <h3>No Reviews Yet</h3>
-                                    <p>Start sharing your dining experiences!</p>
-                                    <button className="btn-primary" onClick={() => navigate('/')}>
-                                        Explore Restaurants
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'favorites' && (
-                            <div className="favorites-content">
-                                <div className="empty-state">
-                                    <div className="empty-icon">❤️</div>
-                                    <h3>No Favorites Yet</h3>
-                                    <p>Save your favorite restaurants for quick access!</p>
-                                    <button className="btn-primary" onClick={() => navigate('/')}>
-                                        Discover Restaurants
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'polls' && (
-                            <div className="polls-content">
-                                <div className="empty-state">
-                                    <div className="empty-icon">🗳️</div>
-                                    <h3>No Polls Created</h3>
-                                    <p>Create a poll to help your group decide where to eat!</p>
-                                    <button className="btn-primary" onClick={() => navigate('/vote')}>
-                                        Create a Poll
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </section>
+                <TabSection profile={profile} activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
         </ProtectedRoute>
     );

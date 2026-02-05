@@ -3,17 +3,25 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { useGetRestaurantByIdQuery, useGetRestaurantsQuery } from "../../redux/services/api/restaurantAPI";
-// import { useMsgModal } from "../../hooks/useMsgModal";
-import "./RestaurantPage.scss"
+import { useAddBookmarkMutation, useDeleteBookmarkMutation, useLazyGetBookmarksQuery } from "../../redux/services/api/userAPI";
+import { useMsgModal } from "../../hooks/useMsgModal";
+import { useAppSelector } from "../../redux/store";
 import ReviewItem from "./ReviewItem";
 import WriteReviewModal from "./WriteReviewModal";
+import "./RestaurantPage.scss"
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
-    // const { showInfo, showSuccess } = useMsgModal();
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const { showSuccess, showError } = useMsgModal();
+    const { accessToken } = useAppSelector(state => state.authState);
+
+    const [addBookmark, { isLoading: isAddingBookmark }] = useAddBookmarkMutation();
+    const [deleteBookmark, { isLoading: isDeletingBookmark }] = useDeleteBookmarkMutation();
+    const [getBookmarks] = useLazyGetBookmarksQuery();
 
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const decryptedValue = restaurantId ? atob(restaurantId) : null;
@@ -42,12 +50,9 @@ function StaticRestaurantPage() {
             address: restaurant.address || restaurant.location || '',
             phoneNum: restaurant.phone || '',
             description: restaurant.description || 'No description available.',
-            cuisine: Array.isArray(restaurant.cuisine)
-                ? restaurant.cuisine.join(', ')
-                : (restaurant.cuisine || 'Restaurant'),
+            cuisines: restaurant.cuisines || [],
             photos: restaurant.photos || [],
-            reviews: restaurant.reviews || [],
-            reviewCount: restaurant.googleReviews || 0
+            reviews: restaurant.reviews || []
         };
     }, [restaurant]);
 
@@ -55,6 +60,21 @@ function StaticRestaurantPage() {
         if (!restaurantData) return [];
         return showAllPhotos ? restaurantData.photos : restaurantData.photos.slice(0, 5);
     }, [restaurantData, showAllPhotos]);
+
+    // Check if restaurant is bookmarked
+    useMemo(() => {
+        const checkBookmarkStatus = async () => {
+            if (restaurant && accessToken) {
+                try {
+                    const bookmarks = await getBookmarks().unwrap();
+                    setIsBookmarked(bookmarks.some(b => b.restaurantId === restaurant.id));
+                } catch (error) {
+                    console.error('Failed to fetch bookmarks:', error);
+                }
+            }
+        };
+        checkBookmarkStatus();
+    }, [restaurant, accessToken, getBookmarks]);
 
     const handleAddressClick = (address: string) => {
         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
@@ -88,6 +108,31 @@ function StaticRestaurantPage() {
         setIsWriteReviewOpen(true);
     };
 
+    const handleBookmark = async () => {
+        if (!accessToken) {
+            showError('Please log in to bookmark restaurants');
+            navigate('/login');
+            return;
+        }
+
+        if (!restaurant) return;
+
+        try {
+            if (isBookmarked) {
+                await deleteBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(false);
+                showSuccess('Removed from favorites!');
+            } else {
+                await addBookmark({ restaurantId: restaurant.id }).unwrap();
+                setIsBookmarked(true);
+                showSuccess('Added to favorites!');
+            }
+        } catch (error) {
+            console.error('Failed to update bookmark:', error);
+            showError('Failed to update bookmark. Please try again.');
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="restaurant-page-modern">
@@ -113,7 +158,7 @@ function StaticRestaurantPage() {
         );
     }
 
-    const { address, phoneNum, description, cuisine, photos, reviews, reviewCount } = restaurantData;
+    const { address, phoneNum, description, cuisines, photos, reviews } = restaurantData;
 
     return (
         <div className="restaurant-page-modern">
@@ -128,10 +173,26 @@ function StaticRestaurantPage() {
                         <span className="current">{restaurant.name}</span>
                     </div>
 
-                    <h1 className="restaurant-title">{restaurant.name}</h1>
+                    <div className="restaurant-title-section">
+                        <h1 className="restaurant-title">{restaurant.name}</h1>
+                        <button
+                            className={`btn-bookmark-star ${isBookmarked ? 'bookmarked' : ''}`}
+                            onClick={handleBookmark}
+                            disabled={isAddingBookmark || isDeletingBookmark}
+                            title={isBookmarked ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            {isAddingBookmark || isDeletingBookmark ? (
+                                <span className="bookmark-spinner">⏳</span>
+                            ) : (
+                                <span className="heart-icon">{isBookmarked ? '⭐' : '☆'}</span>
+                            )}
+                        </button>
+                    </div>
 
                     <div className="restaurant-meta-badges">
-                        <span className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{cuisine}</span>
+                        {cuisines.map((e, index) => (
+                            <span key={index} className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{e.cuisine}</span>
+                        ))}
                         {restaurant.minPrice && restaurant.maxPrice && (
                             <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>
                         )}
@@ -142,24 +203,24 @@ function StaticRestaurantPage() {
                             </span>
                         )}
                         {/* Rating counts */}
-                        {((restaurant?.ratingGood ?? 0) > 0 || (restaurant?.ratingNormal ?? 0) > 0 || (restaurant?.ratingBad ?? 0) > 0) && (
+                        {((restaurant?.ratingStats?.ratingGood ?? 0) > 0 || (restaurant?.ratingStats?.ratingNormal ?? 0) > 0 || (restaurant?.ratingStats?.ratingBad ?? 0) > 0) && (
                             <div className="rating-counts">
-                                {(restaurant.ratingGood ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingGood ?? 0) > 0 && (
                                     <span className="count-badge count-good">
                                         <span className="count-icon">👍</span>
-                                        <span className="count-number">{restaurant.ratingGood}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingGood}</span>
                                     </span>
                                 )}
-                                {(restaurant.ratingNormal ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingNormal ?? 0) > 0 && (
                                     <span className="count-badge count-normal">
                                         <span className="count-icon">👌</span>
-                                        <span className="count-number">{restaurant.ratingNormal}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingNormal}</span>
                                     </span>
                                 )}
-                                {(restaurant.ratingBad ?? 0) > 0 && (
+                                {(restaurant.ratingStats?.ratingBad ?? 0) > 0 && (
                                     <span className="count-badge count-bad">
                                         <span className="count-icon">👎</span>
-                                        <span className="count-number">{restaurant.ratingBad}</span>
+                                        <span className="count-number">{restaurant.ratingStats?.ratingBad}</span>
                                     </span>
                                 )}
                             </div>
@@ -187,13 +248,13 @@ function StaticRestaurantPage() {
             {photos.length > 0 && (
                 <div className="photo-gallery">
                     <div className="gallery-grid">
-                        {displayPhotos.map((photo: string, index: number) => (
+                        {displayPhotos.map((e: { url: string }, index: number) => (
                             <div
                                 key={index}
                                 className={`gallery-item ${index === 0 ? 'main-photo' : ''}`}
                             >
                                 <img
-                                    src={photo}
+                                    src={e.url}
                                     alt={`${restaurant.name} ${index + 1}`}
                                 />
                                 {index === 4 && photos.length > 5 && !showAllPhotos && (
@@ -245,7 +306,14 @@ function StaticRestaurantPage() {
                                 <div className="info-icon">🕐</div>
                                 <div className="info-details">
                                     <div className="info-label">Opening Hours</div>
-                                    <div className="info-value">{restaurant.openingHours}</div>
+                                    <div className="info-value">
+                                        {restaurant.openingHours.includes(';')
+                                            ? restaurant.openingHours.split(';').map((part, index) => (
+                                                <div key={index}>{part.trim()}</div>
+                                            ))
+                                            : restaurant.openingHours
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -282,9 +350,9 @@ function StaticRestaurantPage() {
                         <div className="tags-card">
                             <h4>Popular Tags</h4>
                             <div className="tags-list">
-                                {restaurant.tags.map((tag: string, index: number) => (
+                                {restaurant.tags.map((e: { tag: string }, index: number) => (
                                     <span key={index} className="tag">
-                                        {tag}
+                                        {e.tag}
                                     </span>
                                 ))}
                             </div>
@@ -331,9 +399,9 @@ function StaticRestaurantPage() {
                         {activeTab === 'photos' && (
                             <div className="photos-content">
                                 <div className="photos-grid">
-                                    {photos.map((photo: string, index: number) => (
+                                    {photos.map((e: { url: string }, index: number) => (
                                         <div key={index} className="photo-item">
-                                            <img src={photo} alt={`${restaurant.name} ${index + 1}`} />
+                                            <img src={e.url} alt={`${restaurant.name} ${index + 1}`} />
                                         </div>
                                     ))}
                                 </div>
@@ -354,7 +422,7 @@ function StaticRestaurantPage() {
                                             {'★'.repeat(Math.floor(restaurant.googleRating || 0))}
                                         </div>
                                         <p className="rating-text">
-                                            Based on {reviewCount} customer review{reviewCount !== 1 ? 's' : ''}
+                                            Based on {restaurant.ratingStats?.reviewCount} customer review{restaurant.ratingStats?.reviewCount !== 1 ? 's' : ''}
                                         </p>
                                     </div>
                                     <button className="btn-write-review" onClick={handleWriteReview}>
@@ -363,7 +431,7 @@ function StaticRestaurantPage() {
                                     </button>
                                 </div>
 
-                                {reviewCount > 0 ? (
+                                {restaurant.ratingStats && restaurant.ratingStats.reviewCount > 0 ? (
                                     <div className="reviews-list">
                                         {reviews.map((review) => (
                                             <ReviewItem key={review.id} review={review} />

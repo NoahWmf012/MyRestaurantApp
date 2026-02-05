@@ -3,10 +3,10 @@ import { router } from './Router';
 
 //styles
 import './App.css'
-// import './App.style.scss';
-import './style/theme.scss';
-import 'react-multi-carousel/lib/styles.css'
+import './style/theme.scss'
+import './style/utils.scss'
 import './style/base/baseComponent.scss'
+import 'react-multi-carousel/lib/styles.css'
 
 function App() {
     return (

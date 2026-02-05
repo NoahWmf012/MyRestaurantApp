@@ -38,34 +38,34 @@ export interface RestaurantPrismaInterface {
     name: string;
     streetAddress: string;
     city: string;
-    province?: string;
-    postalCode?: string;
+    province?: string | null;
+    postalCode?: string | null;
     address: string;
     latitude: number;
     longitude: number;
     location: string;
-    phone?: string;
-    email?: string;
-    website?: string;
-    description?: string;
+    phone?: string | null;
+    email?: string | null;
+    website?: string | null;
+    description?: string | null;
     minPrice: number;
     maxPrice: number;
-    googleRating?: number;
-    googleReviews?: number;
-    ratingGood: number;
-    ratingNormal: number;
-    ratingBad: number;
-    reviewCount: number;
-    openingHours?: string;
-    cuisine: string[];
-    photos: string[];
-    tags: string[];
+    googleRating?: number | null;
+    googleReviews?: number | null;
+    openingHours?: string | null;
     createdAt: Date;
     updatedAt: Date;
 
-    restaurantI18ns: RestaurantI18nPrismaInterface[]
-    reviews: ReviewPrismaInterface[]
-    bookmarkedBy: BookmarkPrismaInterface[]
+    // Relations
+    restaurantI18ns?: RestaurantI18nPrismaInterface[] | null;
+    reviews?: ReviewPrismaInterface[] | null;
+    bookmarkedBy?: BookmarkPrismaInterface[] | null;
+    promoteRestaurant?: PromoteRestaurantPrismaInterface | null;
+    keySearchRestaurants?: KeySearchRestaurantPrismaInterface[] | null;
+    photos?: RestaurantPhotoPrismaInterface[] | null; // Define if needed
+    cuisines?: RestaurantCuisinePrismaInterface[] | null; // Define if needed
+    tags?: RestaurantTagPrismaInterface[] | null; // Define if needed
+    ratingStats?: RestaurantRatingStatsPrismaInterface | null; // Define if needed
 }
 
 export interface RestaurantI18nPrismaInterface {
@@ -77,6 +77,36 @@ export interface RestaurantI18nPrismaInterface {
     zhCnDescription?: string;
     frName?: string;
     frDescription?: string;
+}
+
+export interface RestaurantPhotoPrismaInterface {
+    id: number;
+    restaurantId: number;
+    url: string;
+    order: number;
+    createdAt: Date;
+}
+
+export interface RestaurantCuisinePrismaInterface {
+    id: number;
+    restaurantId: number;
+    cuisine: string;
+}
+
+export interface RestaurantTagPrismaInterface {
+    id: number;
+    restaurantId: number;
+    tag: string;
+}
+
+export interface RestaurantRatingStatsPrismaInterface {
+    id: number;
+    restaurantId: number;
+    ratingGood: number;
+    ratingNormal: number;
+    ratingBad: number;
+    reviewCount: number;
+    updatedAt: Date;
 }
 
 export interface PromoteRestaurantPrismaInterface {
@@ -126,6 +156,7 @@ export interface BookmarkPrismaInterface {
     restaurantId: number;
     createdAt: Date;
     bookmarkGroup?: BookmarkGroupPrismaInterface;
+    restaurant: RestaurantPrismaInterface;
 }
 
 export interface BookmarkGroupPrismaInterface {

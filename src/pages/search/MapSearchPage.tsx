@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Map, { Marker, NavigationControl, GeolocateControl, Popup } from 'react-map-gl/mapbox';
 import type { MapRef, ViewStateChangeEvent, MarkerEvent } from 'react-map-gl/mapbox';
+import SpinnerIcon from '../../assets/utils/spinner.svg'
 import MapFilter from './MapFilter';
 import { useGetRestaurantsQuery } from '../../redux/services/api/restaurantAPI';
 import type { SearchCriteria } from '../../interfaces/queryInterface/searchCriteriaInterface';
@@ -9,9 +10,9 @@ import type { SortFilterInterface } from '../../interfaces/queryInterface/base.t
 import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { ZOOM_LEVELS } from '../../constants/searchFilterConstant';
+import { useNavigate } from 'react-router-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapSearchPage.scss';
-import { useNavigate } from 'react-router-dom';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 
@@ -171,7 +172,7 @@ function MapSearchPage() {
 
     const handlePopupClick = useCallback(() => {
         if (selectedRestaurant) {
-            if (selectedRestaurant.tags.includes('recommended')) {
+            if (selectedRestaurant.tags?.some(e => e.tag === 'recommended')) {
                 const encodedId = btoa(String(selectedRestaurant.id));
                 navigate(`/restaurant/${encodedId}`);
             } else {
@@ -267,6 +268,7 @@ function MapSearchPage() {
                                     handleMarkerClick(restaurant);
                                 }}
                             >
+                                {/* todo: changer icon */}
                                 <div className="map-marker">
                                     📍
                                 </div>
@@ -288,9 +290,9 @@ function MapSearchPage() {
                                 <div className="popup-content">
                                     <h3>{selectedRestaurant.name}</h3>
 
-                                    {selectedRestaurant.cuisine && selectedRestaurant.cuisine.length > 0 && (
+                                    {selectedRestaurant.cuisines && selectedRestaurant.cuisines.length > 0 && (
                                         <div className="popup-info cuisine">
-                                            {selectedRestaurant.cuisine.join(', ')}
+                                            {selectedRestaurant.cuisines.map(e => e.cuisine).join(', ')}
                                         </div>
                                     )}
 
@@ -324,7 +326,7 @@ function MapSearchPage() {
                 {/* Loading Overlay */}
                 {restaurantsLoading && (
                     <div className="map-loading">
-                        <div className="loading-spinner">Loading restaurants...</div>
+                        <img src={SpinnerIcon} alt="Loading..." className="loading-spinner" />
                     </div>
                 )}
             </div>
