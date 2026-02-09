@@ -8,7 +8,22 @@
         "logout": "Logout",
         "welcome": "Hi, {{name}}!",
         "more": "More",
-        "mapSearch": "Map Search"
+        "mapSearch": "Map Search",
+        "whatsHot": "What's Hot",
+        "recommendation": "Recommendation"
+    },
+    "footer": {
+        "title-about": "About",
+        "title-links": "Quick Links",
+        "title-resources": "Resources",
+        "title-legal": "Legal",
+        "about-desc": "GetherEat is a restaurant recommendation platform that helps you find the best dining options based on your preferences and location.",
+        "about-us": "About Us",
+        "contact": "Contact Us",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "spin-wheel": "Spin Wheel",
+        "vote": "Vote"
     },
     "dropdown": {
         "spinWheel": {

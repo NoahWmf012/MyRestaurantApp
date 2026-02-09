@@ -8,7 +8,22 @@
         "logout": "登出",
         "welcome": "您好，{{name}}！",
         "more": "更多",
-        "mapSearch": "地图搜索"
+        "mapSearch": "地图搜索",
+        "whatsHot": "热门餐厅",
+        "recommendation": "推荐餐厅"
+    },
+    "footer": {
+        "title-about": "关于",
+        "title-links": "快速链接",
+        "title-resources": "资源",
+        "title-legal": "法律",
+        "about-desc": "GetherEat是一个餐厅推荐平台，帮助您根据您的偏好和位置找到最佳的用餐选择。",
+        "about-us": "关于我们",
+        "contact": "联系我们",
+        "privacy": "隐私政策",
+        "terms": "服务条款",
+        "spin-wheel": "转盘抽选",
+        "vote": "投票"
     },
     "dropdown": {
         "spinWheel": {

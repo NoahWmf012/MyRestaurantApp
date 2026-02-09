@@ -8,7 +8,22 @@
         "logout": "Déconnexion",
         "welcome": "Bonjour, {{name}} !",
         "more": "Plus",
-        "mapSearch": "Recherche sur la carte"
+        "mapSearch": "Recherche sur la carte",
+        "whatsHot": "Ce qui est populaire",
+        "recommendation": "Recommandation"
+    },
+    "footer": {
+        "title-about": "À propos",
+        "title-links": "Liens rapides",
+        "title-resources": "Ressources",
+        "title-legal": "Légal",
+        "about-desc": "GetherEat est une plateforme de recommandation de restaurants qui vous aide à trouver les meilleures options de restauration en fonction de vos préférences et de votre emplacement.",
+        "about-us": "À propos de nous",
+        "contact": "Contactez-nous",
+        "privacy": "Politique de confidentialité",
+        "terms": "Conditions d'utilisation",
+        "spin-wheel": "Roue de la fortune",
+        "vote": "Voter"
     },
     "dropdown": {
         "spinWheel": {

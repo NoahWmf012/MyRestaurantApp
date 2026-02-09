@@ -43,8 +43,7 @@ function Footer() {
                     <div className="footer-section">
                         <h3 className="footer-section-title">{t('about')}</h3>
                         <p className="footer-description">
-                            Discover the best restaurants in your area. Browse menus, read reviews,
-                            and find your next favorite dining spot.
+                            {t('footer.about-desc')}
                         </p>
                         <div className="footer-social">
                             {/* todo: add navigation */}
@@ -73,28 +72,28 @@ function Footer() {
 
                     {/* Quick Links */}
                     <div className="footer-section">
-                        <h3 className="footer-section-title">Quick Links</h3>
+                        <h3 className="footer-section-title">{t("footer.title-links")}</h3>
                         <ul className="footer-links">
-                            <li className="li-link" onClick={onVoteClick}><span>Vote</span></li>
-                            <li className="li-link" onClick={onSpinWheelClick}><span>Spin Wheel</span></li>
+                            <li className="li-link" onClick={onVoteClick}><span>{t("footer.vote")}</span></li>
+                            <li className="li-link" onClick={onSpinWheelClick}><span>{t("footer.spin-wheel")}</span></li>
                         </ul>
                     </div>
 
                     {/* Resources */}
                     <div className="footer-section">
-                        <h3 className="footer-section-title">Resources</h3>
+                        <h3 className="footer-section-title">{t("footer.title-resources")}</h3>
                         <ul className="footer-links">
-                            <li className="li-link" onClick={onAboutUsClick}><span>About Us</span></li>
-                            <li className="li-link" onClick={onContactClick}><span>Contact</span></li>
+                            <li className="li-link" onClick={onAboutUsClick}><span>{t("footer.about-us")}</span></li>
+                            <li className="li-link" onClick={onContactClick}><span>{t("footer.contact")}</span></li>
                         </ul>
                     </div>
 
                     {/* Legal */}
                     <div className="footer-section">
-                        <h3 className="footer-section-title">Legal</h3>
+                        <h3 className="footer-section-title">{t("footer.title-legal")}</h3>
                         <ul className="footer-links">
-                            <li className="li-link" onClick={onPolicyClick}><span>Privacy Policy</span></li>
-                            <li className="li-link" onClick={onTermsClick}><span>Terms of Service</span></li>
+                            <li className="li-link" onClick={onPolicyClick}><span>{t("footer.privacy")}</span></li>
+                            <li className="li-link" onClick={onTermsClick}><span>{t("footer.terms")}</span></li>
                         </ul>
                     </div>
                 </div>
