@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
+import TranslateSVG from "../assets/icons/translate.svg"
 import "./LanguageSwitcher.scss"
 
 interface Language {
@@ -57,16 +58,7 @@ function LanguageSwitcher() {
                 aria-haspopup="true"
                 aria-label="Change language"
             >
-                <span className="language-flag">{currentLanguage.flag}</span>
-                <span className="language-name">{currentLanguage.name}</span>
-                <svg
-                    className={`language-chevron ${isOpen ? 'rotated' : ''}`}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <img src={TranslateSVG} className="language-chevron" alt="Translate" />
             </button>
 
             {isOpen && (

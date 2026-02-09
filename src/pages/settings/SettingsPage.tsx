@@ -2,7 +2,7 @@ import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../../redux/services/api/authAPI';
-import TranslateIcon from '../../assets/icons/translate.png'
+import TranslateIcon from '../../assets/icons/translate.svg'
 import './Settings.scss';
 import { LANGEUAGE_SETTING_LIST } from "../../constants/settingConstant";
 
