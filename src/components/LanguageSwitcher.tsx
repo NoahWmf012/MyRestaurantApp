@@ -69,7 +69,6 @@ function LanguageSwitcher() {
                             className={`language-option ${i18n.language === language.code ? 'selected' : ''}`}
                             onClick={() => handleLanguageChange(language.code)}
                         >
-                            <span className="language-flag">{language.flag}</span>
                             <span className="language-name">{language.name}</span>
                             {i18n.language === language.code && (
                                 <svg className="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor">
