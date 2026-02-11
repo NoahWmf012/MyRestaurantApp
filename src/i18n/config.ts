@@ -8,24 +8,28 @@ import enAuth from './locales/en/auth.json'
 import enRestaurant from './locales/en/restaurant.json'
 import enProfile from './locales/en/profile.json'
 import enVote from './locales/en/vote.json'
+import enTags from './locales/en/tags.json'
 
 import zhCNCommon from './locales/zh-CN/common.json'
 import zhCNAuth from './locales/zh-CN/auth.json'
 import zhCNRestaurant from './locales/zh-CN/restaurant.json'
 import zhCNProfile from './locales/zh-CN/profile.json'
 import zhCNVote from './locales/zh-CN/vote.json'
+import zhCNTags from './locales/zh-CN/tags.json'
 
 import zhHKCommon from './locales/zh-HK/common.json'
 import zhHKAuth from './locales/zh-HK/auth.json'
 import zhHKRestaurant from './locales/zh-HK/restaurant.json'
 import zhHKProfile from './locales/zh-HK/profile.json'
 import zhHKVote from './locales/zh-HK/vote.json'
+import zhHKTags from './locales/zh-HK/tags.json'
 
 import frCommon from './locales/fr/common.json'
 import frAuth from './locales/fr/auth.json'
 import frRestaurant from './locales/fr/restaurant.json'
 import frProfile from './locales/fr/profile.json'
 import frVote from './locales/fr/vote.json'
+import frTags from './locales/fr/tags.json'
 
 // Translation resources
 const resources = {
@@ -35,6 +39,7 @@ const resources = {
         restaurant: enRestaurant,
         profile: enProfile,
         vote: enVote,
+        tags: enTags,
     },
     'zh-CN': {
         common: zhCNCommon,
@@ -42,6 +47,7 @@ const resources = {
         restaurant: zhCNRestaurant,
         profile: zhCNProfile,
         vote: zhCNVote,
+        tags: zhCNTags,
     },
     'zh-HK': {
         common: zhHKCommon,
@@ -49,6 +55,7 @@ const resources = {
         restaurant: zhHKRestaurant,
         profile: zhHKProfile,
         vote: zhHKVote,
+        tags: zhHKTags,
     },
     fr: {
         common: frCommon,
@@ -56,6 +63,7 @@ const resources = {
         restaurant: frRestaurant,
         profile: frProfile,
         vote: frVote,
+        tags: frTags,
     },
 }
 
