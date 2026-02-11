@@ -15,6 +15,7 @@ export type WhatsHotItemProps = {
 
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation('tags');
     const encodedNumber = btoa(String(props.restaurantId));
     const handleClick = () => {
         navigate(`/restaurant/${encodedNumber}`);
@@ -44,7 +45,7 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                     <div className="mt-2 flex flex-wrap">
                         {props.tags.map((tag, index) => (
                             <span key={index} className="hot-restaurant-tag">
-                                {tag}
+                                {t(tag)}
                             </span>
                         ))}
                     </div>

@@ -21,7 +21,7 @@ function LanguageSwitcher() {
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
-    const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0]
+    // const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0]
 
     // Close dropdown when clicking outside
     useEffect(() => {

@@ -1,4 +1,5 @@
 {
+    "Asian Fusion": "亚洲风味",
     "Hong Kong": "港式",
     "Chinese": "中餐",
     "Japanese": "日餐",
@@ -29,7 +30,7 @@
     "Tacos": "墨西哥卷",
     "Curry": "咖喱",
     "Dessert": "甜点",
-    "Cafe": "咖啡馆",
+    "Cafe": "咖啡",
     "Buffet": "自助餐",
     "Fast Food": "快餐",
     "Fine Dining": "高档餐厅",
@@ -44,5 +45,6 @@
     "Comfort Food": "舒适餐",
     "Sichuan": "川菜",
     "Michillin Star": "米其林星级",
+    "Izakaya": "居酒屋",
     "Recommended": "推荐"
 }

@@ -74,7 +74,7 @@ i18n
         resources,
         fallbackLng: 'en',
         defaultNS: 'common',
-        ns: ['common', 'auth', 'restaurant', 'profile', 'vote'],
+        ns: ['common', 'auth', 'restaurant', 'profile', 'vote', 'tags'],
 
         interpolation: {
             escapeValue: false, // React already escapes values
