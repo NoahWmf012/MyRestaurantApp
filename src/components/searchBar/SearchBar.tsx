@@ -4,9 +4,11 @@ import './SearchBar.style.scss';
 import SearchPopup from './SearchPopup';
 import { SUGGESTED_RESTAURANT_NAMES } from '../../constants/restaurantData';
 import { SEARCH_HISTTORY_KEY } from '../../constants/searchFilterConstant';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const { t } = useTranslation();
     const query = searchParams.get('query') || '';
 
     // Initialize history from localStorage
@@ -89,7 +91,7 @@ const SearchBar = () => {
                     ref={inputRef}
                     type="text"
                     className="modern-searchbar-input"
-                    placeholder="Search restaurants, cuisines, or dishes..."
+                    placeholder={t('header.searchPlaceholder')}
                     defaultValue={query}
                     key={query} // Force re-render when query changes to sync value
                     onClick={() => setShowPopup(true)}

@@ -10,7 +10,8 @@
         "more": "Plus",
         "mapSearch": "Recherche sur la carte",
         "whatsHot": "Ce qui est populaire",
-        "recommendation": "Recommandation"
+        "recommendation": "Recommandation",
+        "searchPlaceholder": "Recherchez des restaurants, des cuisines ou des plats..."
     },
     "footer": {
         "title-about": "À propos",

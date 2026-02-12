@@ -10,7 +10,8 @@
         "more": "更多",
         "mapSearch": "地圖搜尋",
         "whatsHot": "熱門餐廳",
-        "recommendation": "推薦餐廳"
+        "recommendation": "推薦餐廳",
+        "searchPlaceholder": "搜尋餐廳、菜系或菜品..."
     },
     "footer": {
         "title-about": "關於",

@@ -10,7 +10,8 @@
         "more": "More",
         "mapSearch": "Map Search",
         "whatsHot": "What's Hot",
-        "recommendation": "Recommendation"
+        "recommendation": "Recommendation",
+        "searchPlaceholder": "Search restaurants, cuisines, or dishes..."
     },
     "footer": {
         "title-about": "About",
