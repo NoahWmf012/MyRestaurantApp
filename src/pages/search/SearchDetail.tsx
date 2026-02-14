@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { getRestaurantImage1 } from '../../hooks/getImageSrcHook';
 import Pagination from '../../components/common/Pagination';
 import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
+import { useTranslation } from 'react-i18next';
 
 type SearchDetailProps = {
     list: RestaurantPrismaInterface[];
@@ -13,6 +14,7 @@ type SearchDetailProps = {
 
 function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }: SearchDetailProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation('tags');
     const totalPages = Math.ceil(totalCount / pageSize);
 
     const handleRestaurantClick = (restaurantId: number) => {
@@ -55,7 +57,7 @@ function SearchDetail({ list, currentPage, totalCount, pageSize, onPageChange }:
                                         <span className="rating">
                                             {'★'.repeat(Math.floor(restaurant.googleRating ?? 0))} {restaurant.googleRating} {restaurant.googleReviews ? `(${restaurant.googleReviews})` : ''}
                                         </span>
-                                        <span>{restaurant.cuisines?.map(e => <span className="cuisine-badge" key={e.id}>{e.cuisine}</span>)}</span>
+                                        <span>{restaurant.cuisines?.map(e => <span className="cuisine-badge" key={e.id}>{t(e.cuisine)}</span>)}</span>
                                     </div>
                                     <div className="col-span-5">
                                         <p className="restaurant-description">{restaurant.description}</p>

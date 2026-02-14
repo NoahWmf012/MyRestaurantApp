@@ -1,15 +1,18 @@
 import { useCallback, useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import LoginIcon from "../../assets/icons/user-interface.png"
 import SettingIcon from "../../assets/icons/setting-lines.png"
 import MoreIcon from "../../assets/icons/more.png"
 import MapIcon from "../../assets/icons/map.png"
 import SearchBar from "../../components/searchBar/SearchBar"
+import LanguageSwitcher from "../../components/LanguageSwitcher"
 import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { showRouletteModal, showVoteModal } from "../../redux/reducers/modalVisibleSlice"
 import { useLogout } from "../../hooks/useLogout"
 
 function Toolbar() {
+    const { t } = useTranslation('common')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -101,6 +104,9 @@ function Toolbar() {
             </div>
 
             <div className="toolbar-section flex">
+                {/* Language Switcher */}
+                <LanguageSwitcher />
+
                 {/* Button directing to map search page */}
                 <button
                     className="title-btn settings-button mx-2"
@@ -121,7 +127,7 @@ function Toolbar() {
                             onClick={handleSettingsClick}
                         >
                             <img src={SettingIcon} alt="" className="title-icon" />
-                            <span>Settings</span>
+                            <span>{t('header.settings')}</span>
                         </button>
 
                         {/* User welcome message */}
@@ -130,7 +136,7 @@ function Toolbar() {
                             onClick={handleProfileClick}
                         >
                             <img src={LoginIcon} alt="" className="title-icon" />
-                            <span>Hi, {userName || 'User'}!</span>
+                            <span>{t('header.welcome', { name: userName || 'User' })}</span>
                         </button>
                     </>
                 ) : (
@@ -141,7 +147,7 @@ function Toolbar() {
                         onClick={() => navigate("/login")}
                     >
                         <img src={LoginIcon} alt="" className="title-icon" />
-                        <span>Log In</span>
+                        <span>{t('header.login')}</span>
                     </button>
                 )}
 
@@ -156,7 +162,7 @@ function Toolbar() {
                         aria-label="More options"
                     >
                         <img src={MoreIcon} alt="" className="title-icon" />
-                        <span>More</span>
+                        <span>{t('header.more')}</span>
                         <svg
                             className={`dropdown-chevron ${isDropdownOpen ? 'dropdown-chevron--rotated' : ''}`}
                             viewBox="0 0 24 24"
@@ -178,8 +184,8 @@ function Toolbar() {
                                     <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" />
                                 </svg>
                                 <div>
-                                    <div className="dropdown-item-title">Spin Wheel</div>
-                                    <div className="dropdown-item-desc">Let chance decide your restaurant</div>
+                                    <div className="dropdown-item-title">{t('dropdown.spinWheel.title')}</div>
+                                    <div className="dropdown-item-desc">{t('dropdown.spinWheel.description')}</div>
                                 </div>
                             </button>
 
@@ -191,8 +197,8 @@ function Toolbar() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                                 </svg>
                                 <div>
-                                    <div className="dropdown-item-title">Vote</div>
-                                    <div className="dropdown-item-desc">Vote for your favorite restaurant</div>
+                                    <div className="dropdown-item-title">{t('dropdown.vote.title')}</div>
+                                    <div className="dropdown-item-desc">{t('dropdown.vote.description')}</div>
                                 </div>
                             </button>
 
@@ -208,8 +214,8 @@ function Toolbar() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
                                         <div>
-                                            <div className="dropdown-item-title">Logout</div>
-                                            <div className="dropdown-item-desc">Sign out of your account</div>
+                                            <div className="dropdown-item-title">{t('dropdown.logout.title')}</div>
+                                            <div className="dropdown-item-desc">{t('dropdown.logout.description')}</div>
                                         </div>
                                     </button>
                                 </>

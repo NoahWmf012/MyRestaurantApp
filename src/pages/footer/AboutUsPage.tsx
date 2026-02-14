@@ -1,12 +1,15 @@
+import { useTranslation } from "react-i18next";
 import './AboutUs.scss';
 
 function AboutUsPage() {
+    const { t } = useTranslation();
+
     return (
         <div className="about-us-page">
             {/* Hero Section */}
             <section className="about-hero">
                 <div className="about-hero-content">
-                    <h1 className="about-hero-title">About GetherEat</h1>
+                    <h1 className="about-hero-title">{t('about')}</h1>
                     <p className="about-hero-subtitle">
                         Bringing people together through great food experiences
                     </p>

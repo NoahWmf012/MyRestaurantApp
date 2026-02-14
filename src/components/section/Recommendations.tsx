@@ -3,6 +3,7 @@ import OrderIcon from "../../assets/icons/order.png"
 import { RESPONSIVE_SETTINGS } from "../../constants/responsiveSetting";
 import { useNavigate } from "react-router-dom";
 import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
+import { useTranslation } from "react-i18next";
 
 //#region horizontal card item
 type OrderAgainItemProps = {
@@ -36,6 +37,7 @@ type RecommendationsProps = {
     list: HomePageRecommendedRestaurantsResponse[];
 }
 function Recommendations({ list }: RecommendationsProps) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -46,7 +48,7 @@ function Recommendations({ list }: RecommendationsProps) {
             <div className="flex w-full mb-4">
                 <div className="section-title flex items-center cursor-pointer hover:scale-105 transition-transform duration-200" onClick={handleMoreClick}>
                     <img src={OrderIcon} alt="Order Icon" className="title-icon mx-2" />
-                    Recommendation
+                    {t('header.recommendation')}
                 </div>
             </div>
 

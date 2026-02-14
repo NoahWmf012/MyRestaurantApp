@@ -1,0 +1,9 @@
+{
+    "title": "個人資料",
+    "tabs": {
+        "overview": "概覽",
+        "favorites": "收藏",
+        "reviews": "評論",
+        "settings": "設定"
+    }
+}

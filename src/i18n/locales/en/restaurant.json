@@ -1,0 +1,14 @@
+{
+    "search": {
+        "placeholder": "Search restaurants...",
+        "filters": "Filters",
+        "sortBy": "Sort by",
+        "noResults": "No restaurants found"
+    },
+    "details": {
+        "rating": "Rating",
+        "reviews": "Reviews",
+        "cuisine": "Cuisine",
+        "address": "Address"
+    }
+}

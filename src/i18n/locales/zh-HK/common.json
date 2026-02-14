@@ -1,0 +1,58 @@
+{
+    "appTitle": "聚餐易",
+    "about": "關於我們",
+    "header": {
+        "home": "首頁",
+        "settings": "設定",
+        "login": "登入",
+        "logout": "登出",
+        "welcome": "您好，{{name}}！",
+        "more": "更多",
+        "mapSearch": "地圖搜尋",
+        "whatsHot": "熱門餐廳",
+        "recommendation": "推薦餐廳",
+        "searchPlaceholder": "搜尋餐廳、菜系或菜品..."
+    },
+    "footer": {
+        "title-about": "關於",
+        "title-links": "快速連結",
+        "title-resources": "資源",
+        "title-legal": "法律",
+        "about-desc": "GetherEat是一個餐廳推薦平台，幫助您根據您的偏好和位置找到最佳的用餐選擇。",
+        "about-us": "關於我們",
+        "contact": "聯繫我們",
+        "privacy": "隱私政策",
+        "terms": "服務條款",
+        "spin-wheel": "轉盤抽選",
+        "vote": "投票"
+    },
+    "dropdown": {
+        "spinWheel": {
+            "title": "轉盤抽選",
+            "description": "讓運氣決定你的餐廳"
+        },
+        "vote": {
+            "title": "投票",
+            "description": "為你喜歡的餐廳投票"
+        },
+        "logout": {
+            "title": "登出",
+            "description": "退出您的賬戶"
+        }
+    },
+    "language": {
+        "en": "English",
+        "zh-CN": "简体中文",
+        "zh-HK": "繁體中文",
+        "fr": "Français"
+    },
+    "buttons": {
+        "save": "儲存",
+        "cancel": "取消",
+        "submit": "提交",
+        "delete": "刪除",
+        "edit": "編輯",
+        "search": "搜尋",
+        "close": "關閉"
+    }
+}

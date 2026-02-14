@@ -9,9 +9,11 @@ import { useAppSelector } from "../../redux/store";
 import ReviewItem from "./ReviewItem";
 import WriteReviewModal from "./WriteReviewModal";
 import "./RestaurantPage.scss"
+import { useTranslation } from "react-i18next";
 
 function StaticRestaurantPage() {
     const navigate = useNavigate();
+    const { t } = useTranslation('tags');
     const [activeTab, setActiveTab] = useState<'overview' | 'photos' | 'reviews'>('overview');
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [isWriteReviewOpen, setIsWriteReviewOpen] = useState(false);
@@ -191,7 +193,7 @@ function StaticRestaurantPage() {
 
                     <div className="restaurant-meta-badges">
                         {cuisines.map((e, index) => (
-                            <span key={index} className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{e.cuisine}</span>
+                            <span key={index} className="inline-block bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-medium cuisine-badge">{t(e.cuisine)}</span>
                         ))}
                         {restaurant.minPrice && restaurant.maxPrice && (
                             <span className="price-badge">${restaurant.minPrice}-${restaurant.maxPrice}</span>

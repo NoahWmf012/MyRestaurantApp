@@ -1,0 +1,14 @@
+{
+    "search": {
+        "placeholder": "搜索餐厅...",
+        "filters": "筛选",
+        "sortBy": "排序",
+        "noResults": "未找到餐厅"
+    },
+    "details": {
+        "rating": "评分",
+        "reviews": "评论",
+        "cuisine": "菜系",
+        "address": "地址"
+    }
+}

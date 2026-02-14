@@ -1,6 +1,7 @@
 import FireIcon from "../../assets/icons/whatshot.png"
 import { useNavigate } from "react-router-dom";
 import type { HomePageRecommendedRestaurantsResponse } from "../../interfaces/queryInterface/restaurantInterface";
+import { useTranslation } from "react-i18next";
 
 //#region card items
 export type WhatsHotItemProps = {
@@ -14,6 +15,7 @@ export type WhatsHotItemProps = {
 
 export function HotRestaurantItems(props: WhatsHotItemProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation('tags');
     const encodedNumber = btoa(String(props.restaurantId));
     const handleClick = () => {
         navigate(`/restaurant/${encodedNumber}`);
@@ -43,7 +45,7 @@ export function HotRestaurantItems(props: WhatsHotItemProps) {
                     <div className="mt-2 flex flex-wrap">
                         {props.tags.map((tag, index) => (
                             <span key={index} className="hot-restaurant-tag">
-                                {tag}
+                                {t(tag)}
                             </span>
                         ))}
                     </div>
@@ -59,6 +61,8 @@ type WhatsHotProps = {
 }
 
 function WhatsHot({ list }: WhatsHotProps) {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
 
     const handleMoreClick = () => {
@@ -70,7 +74,7 @@ function WhatsHot({ list }: WhatsHotProps) {
             <div className="flex w-full mb-4">
                 <div className="section-title flex items-center cursor-pointer hover:scale-105 transition-transform duration-200" onClick={handleMoreClick}>
                     <img src={FireIcon} alt="Hot Icon" className="title-icon mr-2" />
-                    What's Hot
+                    {t('header.whatsHot')}
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">

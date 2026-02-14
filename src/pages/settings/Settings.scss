@@ -386,29 +386,29 @@
 
 .language-setting {
     margin-top: 24px;
-}
 
-.language-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px;
-    background: $primary-lighter;
-    border: 2px solid rgba($primary-color, 0.2);
-    border-radius: 16px;
-    gap: 24px;
-    transition: all 0.3s ease;
+    .language-option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 32px;
+        background: $primary-lighter;
+        border: 2px solid rgba($primary-color, 0.2);
+        border-radius: 16px;
+        gap: 24px;
+        transition: all 0.3s ease;
 
-    &:hover {
-        border-color: rgba($primary-color, 0.4);
-        box-shadow: $shadow-sm;
-    }
+        &:hover {
+            border-color: rgba($primary-color, 0.4);
+            box-shadow: $shadow-sm;
+        }
 
-    @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 24px;
-        gap: 20px;
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 24px;
+            gap: 20px;
+        }
     }
 }
 
@@ -419,8 +419,8 @@
     flex: 1;
 
     .language-icon {
-        width: 56px;
-        height: 56px;
+        width: 40px;
+        height: 40px;
         object-fit: contain;
         filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
         flex-shrink: 0;

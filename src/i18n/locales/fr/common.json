@@ -1,0 +1,58 @@
+{
+    "appTitle": "GetherEat",
+    "about": "À propos",
+    "header": {
+        "home": "Accueil",
+        "settings": "Paramètres",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "welcome": "Bonjour, {{name}} !",
+        "more": "Plus",
+        "mapSearch": "Recherche sur la carte",
+        "whatsHot": "Ce qui est populaire",
+        "recommendation": "Recommandation",
+        "searchPlaceholder": "Recherchez des restaurants, des cuisines ou des plats..."
+    },
+    "footer": {
+        "title-about": "À propos",
+        "title-links": "Liens rapides",
+        "title-resources": "Ressources",
+        "title-legal": "Légal",
+        "about-desc": "GetherEat est une plateforme de recommandation de restaurants qui vous aide à trouver les meilleures options de restauration en fonction de vos préférences et de votre emplacement.",
+        "about-us": "À propos de nous",
+        "contact": "Contactez-nous",
+        "privacy": "Politique de confidentialité",
+        "terms": "Conditions d'utilisation",
+        "spin-wheel": "Roue de la fortune",
+        "vote": "Voter"
+    },
+    "dropdown": {
+        "spinWheel": {
+            "title": "Roue de la fortune",
+            "description": "Laissez le hasard choisir votre restaurant"
+        },
+        "vote": {
+            "title": "Voter",
+            "description": "Votez pour votre restaurant préféré"
+        },
+        "logout": {
+            "title": "Déconnexion",
+            "description": "Se déconnecter de votre compte"
+        }
+    },
+    "language": {
+        "en": "English",
+        "zh-CN": "简体中文",
+        "zh-HK": "繁體中文",
+        "fr": "Français"
+    },
+    "buttons": {
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "submit": "Soumettre",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "search": "Rechercher",
+        "close": "Fermer"
+    }
+}

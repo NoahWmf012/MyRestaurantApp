@@ -1,0 +1,12 @@
+{
+    "title": "Vote",
+    "createPoll": {
+        "title": "Create a Poll",
+        "name": "Poll Name",
+        "submit": "Create Poll"
+    },
+    "poll": {
+        "vote": "Vote",
+        "results": "Results"
+    }
+}
