@@ -122,10 +122,11 @@ function MapSearchPage() {
             zoom: 14,
             duration: 1500
         });
+        setSearchQuery(result.place_name);
 
         // Clear search
-        setSearchQuery('');
         setSearchResults([]);
+        setIsSearching(false);
     }, []);
 
     // Handle filter changes
@@ -177,6 +178,27 @@ function MapSearchPage() {
         debounce(() => searchLocation(value), 300)();
     }, [searchLocation]);
 
+    const renderSearchResults = () => {
+        if (isSearching) {
+            return <div className="no-results">Searching...</div>;
+        }
+
+        if (searchResults.length === 0) {
+            return null;
+        }
+
+        return searchResults.map((result) => (
+            <div
+                key={result.id}
+                className="search-result-item"
+                onClick={() => handleSelectLocation(result)}
+            >
+                <div className="result-name">{result.text}</div>
+                <div className="result-address">{result.place_name}</div>
+            </div>
+        ));
+    };
+
     return (
         <div className="map-search-page">
             {/* Filter Sidebar */}
@@ -208,22 +230,7 @@ function MapSearchPage() {
                 {/* Search Results */}
                 {searchQuery && (
                     <div className="search-results">
-                        {isSearching ? (
-                            <div className="no-results">Searching...</div>
-                        ) : searchResults.length > 0 ? (
-                            searchResults.map((result) => (
-                                <div
-                                    key={result.id}
-                                    className="search-result-item"
-                                    onClick={() => handleSelectLocation(result)}
-                                >
-                                    <div className="result-name">{result.text}</div>
-                                    <div className="result-address">{result.place_name}</div>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="no-results">No results found</div>
-                        )}
+                        {renderSearchResults()}
                     </div>
                 )}
             </div>
