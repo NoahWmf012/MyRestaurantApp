@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { hideVoteModal } from '../../redux/reducers/modalVisibleSlice';
 import PollDetail from './PollDetail';
-import './VoteModal.scss';
 import { PollList } from './PollList';
 import BaseModal from '../common/BaseModal';
 import CreatePollModal from './CreatePollModal';
 import { useGetPollsQuery, useUpdateVoteMutation } from '../../redux/services/api/voteAPI';
 import type { PollResponse } from '../../interfaces/queryInterface/pollAPIInterface';
+import './VoteModal.scss';
 
 function VoteModal() {
     const show = useAppSelector((state) => state.showVoteModalState.visible);
@@ -17,7 +17,7 @@ function VoteModal() {
     const [polls, setPolls] = useState([] as PollResponse[]);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
-    const { data: votesData, error, refetch: refetchPolls } = useGetPollsQuery()
+    const { data: votesData, refetch: refetchPolls } = useGetPollsQuery()
     const [updateVote] = useUpdateVoteMutation();
 
     const isGuest = useAppSelector((state) => state.userInfoState.isGuest);
@@ -28,11 +28,11 @@ function VoteModal() {
         }
     }, [votesData]);
 
-    useEffect(() => {
-        if (error) {
-            console.error('Error fetching polls:', error); // handled in keycloak.ts
-        }
-    }, [error]);
+    // useEffect(() => {
+    //     if (error) {
+    //         console.error('Error fetching polls:', error); // handled in keycloak.ts
+    //     }
+    // }, [error]);
 
     const onClose = () => {
         dispatch(hideVoteModal());

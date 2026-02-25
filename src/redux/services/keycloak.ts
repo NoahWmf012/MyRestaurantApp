@@ -3,8 +3,9 @@ import type { AuthInterface } from "../reducers/authSlice";
 import { setAuthInfo } from "../reducers/authSlice";
 import type { RefreshTokenResponse } from "../../interfaces/queryInterface/authAPIInterface";
 import { AUTH_INFO_KEY } from "../../constants/authConstant";
-import { showErrModal } from "../reducers/modalVisibleSlice";
+import { hideVoteModal, showErrModal } from "../reducers/modalVisibleSlice";
 import { store } from "../store";
+import { modalCallbackManager } from "../../utils/modalCallbackManager";
 
 // get JWT from localStorage
 const getAccessToken = (): string => {
@@ -40,16 +41,6 @@ const getRefreshToken = (): string => {
 const refreshAccessToken = async (): Promise<string | null> => {
     const baseServerUrl = import.meta.env.VITE_SERVER_URL
     const refreshToken = getRefreshToken()
-
-    if (!refreshToken) {
-        console.log('No refresh token available')
-        store.dispatch(showErrModal({
-            message: 'Your session has expired. Please log in again to continue.',
-            title: 'Session Expired',
-            type: 'warning'
-        }));
-        return null
-    }
 
     try {
         const response = await fetch(`${baseServerUrl}/auth/refresh-token`, {
@@ -134,7 +125,9 @@ export const fetchBaseQueryAuth = (endpoints?: string) => {
                 // modalCallbackManager.set(() => {
                 //     api.dispatch(clearAuthInfo());
                 // });
-
+                modalCallbackManager.set(() => {
+                    store.dispatch(hideVoteModal());
+                });
                 store.dispatch(showErrModal({
                     message: 'Your session has expired. Please log in again to continue.',
                     title: 'Session Expired',
