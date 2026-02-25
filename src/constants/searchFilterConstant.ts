@@ -62,3 +62,9 @@ export enum RESTUARANT_SEARCH_FILEDS {
     MIN_PRICE = 'minPrice',
     MAX_PRICE = 'maxPrice',
 }
+
+export const DEFAULT_VIEWPORT = {
+    latitude: 43.6532,
+    longitude: -79.3832,
+    zoom: ZOOM_LEVELS
+};

@@ -10,19 +10,13 @@ import type { SearchCriteria } from '../../interfaces/queryInterface/searchCrite
 import type { SortFilterInterface } from '../../interfaces/queryInterface/base.types';
 import type { RestaurantPrismaInterface } from '../../interfaces/schemaPrismaInterface';
 import { useGeolocation } from '../../hooks/useGeolocation';
-import { ZOOM_LEVELS } from '../../constants/searchFilterConstant';
+import { ZOOM_LEVELS, DEFAULT_VIEWPORT } from '../../constants/searchFilterConstant';
 import { useNavigate } from 'react-router-dom';
+import debounce from 'debounce';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapSearchPage.scss';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
-
-// Default center: Toronto (fallback if geolocation fails)
-const DEFAULT_VIEWPORT = {
-    latitude: 43.6532,
-    longitude: -79.3832,
-    zoom: ZOOM_LEVELS
-};
 
 interface GeocodingResult {
     id: string;
@@ -39,7 +33,7 @@ function MapSearchPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GeocodingResult[]>([]);
     const [isSearching, setIsSearching] = useState(false);
-    const searchTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
+    // const searchTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
     const [selectedLocation, setSelectedLocation] = useState<{ name: string; latitude: number; longitude: number } | null>(null);
     const navigate = useNavigate();
 
@@ -111,23 +105,6 @@ function MapSearchPage() {
         }
     }, []);
 
-    // Debounced search
-    useEffect(() => {
-        if (searchTimeout.current) {
-            clearTimeout(searchTimeout.current);
-        }
-
-        searchTimeout.current = setTimeout(() => {
-            searchLocation(searchQuery);
-        }, 300);
-
-        return () => {
-            if (searchTimeout.current) {
-                clearTimeout(searchTimeout.current);
-            }
-        };
-    }, [searchQuery, searchLocation]);
-
     // Handle selecting a search result
     const handleSelectLocation = useCallback((result: GeocodingResult) => {
         const [longitude, latitude] = result.center;
@@ -194,6 +171,12 @@ function MapSearchPage() {
         }
     }, []);
 
+    const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+        debounce(() => searchLocation(value), 300)();
+    }, [searchLocation]);
+
     return (
         <div className="map-search-page">
             {/* Filter Sidebar */}
@@ -217,7 +200,7 @@ function MapSearchPage() {
                         type="text"
                         placeholder="Search for a location..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={handleSearchInputChange}
                     />
                     <span className="search-icon">🔍</span>
                 </div>
