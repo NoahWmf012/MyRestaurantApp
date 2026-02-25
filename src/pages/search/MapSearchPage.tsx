@@ -29,6 +29,7 @@ function MapSearchPage() {
     const mapRef = useRef<MapRef>(null);
     const geolocateControlRef = useRef<MapboxGeolocateControl | null>(null);
     const hasAutoGeolocated = useRef(false);
+    const isMapDraggingRef = useRef(false);
     const [viewState, setViewState] = useState(DEFAULT_VIEWPORT);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GeocodingResult[]>([]);
@@ -172,6 +173,24 @@ function MapSearchPage() {
         }
     }, []);
 
+    const handleMapClick = useCallback(() => {
+        if (isMapDraggingRef.current) {
+            return;
+        }
+
+        setSelectedRestaurant(null);
+    }, []);
+
+    const handleMapDragStart = useCallback(() => {
+        isMapDraggingRef.current = true;
+    }, []);
+
+    const handleMapDragEnd = useCallback(() => {
+        setTimeout(() => {
+            isMapDraggingRef.current = false;
+        }, 0);
+    }, []);
+
     const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchQuery(value);
@@ -241,6 +260,9 @@ function MapSearchPage() {
                     {...viewState}
                     onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
                     onLoad={handleMapLoad}
+                    onClick={handleMapClick}
+                    onDragStart={handleMapDragStart}
+                    onDragEnd={handleMapDragEnd}
                     mapboxAccessToken={MAPBOX_TOKEN}
                     mapStyle="mapbox://styles/mapbox/streets-v12"
                     style={{ width: '100%', height: '100%' }}
