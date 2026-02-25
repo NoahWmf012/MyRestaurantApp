@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "start": "yarn dev",
         "predeploy": "yarn build",
         "deploy": "gh-pages -d dist",
         "dev": "vite --host 127.0.0.1",

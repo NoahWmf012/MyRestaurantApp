@@ -92,7 +92,7 @@ function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
                         </svg>
                         <div>
                             <span className="poll-meta-label">Created by</span>
-                            <span className="poll-meta-value"><strong>{poll.creator.userName}</strong></span>
+                            <span className="poll-meta-value"><strong>{poll.createdBy}</strong></span>
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@ function PollDetail({ poll, onVote, onBack }: PollDetailProps) {
                 </div>
                 <p className="poll-description">{poll.description}</p>
                 <div className="poll-meta">
-                    <span className="poll-creator">Created by <strong>{poll.creator.userName}.</strong> </span>
+                    <span className="poll-creator">Created by <strong>{poll.createdBy}.</strong> </span>
                     <span className="poll-created">Created: <strong>{formatDate(poll.createdAt)}.</strong> </span>
                     <span className="poll-expires">Expires: <strong>{formatDate(poll.expiresAt)}.</strong> </span>
                     <span className="poll-total-votes"><strong>{totalVotes}</strong> total votes.</span>
