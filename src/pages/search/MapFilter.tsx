@@ -181,7 +181,7 @@ function MapFilter({ onChange, selectedLocation }: MapFilterProps) {
                     </label>
 
                     {((locationMode === 'current' && coordinates) || (locationMode === 'selected' && selectedLocation)) && (
-                        <div>
+                        <div className='grid place-content-center'>
                             <select
                                 value={distance ?? ''}
                                 onChange={(e) => setDistance(e.target.value ? Number(e.target.value) : undefined)}

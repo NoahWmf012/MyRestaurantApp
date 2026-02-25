@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Map, { Marker, NavigationControl, GeolocateControl, Popup } from 'react-map-gl/mapbox';
 import type { MapRef, ViewStateChangeEvent, MarkerEvent } from 'react-map-gl/mapbox';
+import type { GeolocateControl as MapboxGeolocateControl } from 'mapbox-gl';
 import SpinnerIcon from '../../assets/utils/spinner.svg'
 import MapFilter from './MapFilter';
 import { useGetRestaurantsQuery } from '../../redux/services/api/restaurantAPI';
@@ -32,6 +33,8 @@ interface GeocodingResult {
 
 function MapSearchPage() {
     const mapRef = useRef<MapRef>(null);
+    const geolocateControlRef = useRef<MapboxGeolocateControl | null>(null);
+    const hasAutoGeolocated = useRef(false);
     const [viewState, setViewState] = useState(DEFAULT_VIEWPORT);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GeocodingResult[]>([]);
@@ -182,6 +185,15 @@ function MapSearchPage() {
         }
     }, [selectedRestaurant, navigate]);
 
+    const handleMapLoad = useCallback(() => {
+        if (hasAutoGeolocated.current) return;
+
+        const triggered = geolocateControlRef.current?.trigger();
+        if (triggered) {
+            hasAutoGeolocated.current = true;
+        }
+    }, []);
+
     return (
         <div className="map-search-page">
             {/* Filter Sidebar */}
@@ -238,6 +250,7 @@ function MapSearchPage() {
                     ref={mapRef}
                     {...viewState}
                     onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
+                    onLoad={handleMapLoad}
                     mapboxAccessToken={MAPBOX_TOKEN}
                     mapStyle="mapbox://styles/mapbox/streets-v12"
                     style={{ width: '100%', height: '100%' }}
@@ -247,6 +260,7 @@ function MapSearchPage() {
 
                     {/* Geolocation Control */}
                     <GeolocateControl
+                        ref={geolocateControlRef}
                         position="top-right"
                         trackUserLocation
                         showUserHeading
